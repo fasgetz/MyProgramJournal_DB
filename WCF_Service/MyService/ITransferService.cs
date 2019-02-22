@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel;
+using WCF_Service.DataBase;
 
 namespace WCF_Service.MyService
 {
@@ -6,13 +7,17 @@ namespace WCF_Service.MyService
     [ServiceContract]
     public interface ITransferService
     {
-        [OperationContract]
-        void DoWork();
 
-        [OperationContract]
-        string login();
         
         [OperationContract]
         MyModelLibrary.accounts GetAccounts(string login, string password); // Метод, который возвращает юзера в случае удачного коннекта
+
+        // Метод, который дисконнектнет юзера со списка подключенных юзеров на сервисе
+        // IsOneWay = true значит, что метод не должен ждать ответа от сервера. Его задача просто послать этот метод
+        [OperationContract(IsOneWay = true)]
+        void DisconnectUser(int IdAccount);
+
+
+
     }
 }

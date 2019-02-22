@@ -12,35 +12,32 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MyModelLibrary" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ITransferService_DoWork_InputMessage">
-    <wsdl:part name="parameters" element="tns:DoWork" />
+  <wsdl:message name="ITransferService_GetAccounts_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccounts" />
   </wsdl:message>
-  <wsdl:message name="ITransferService_DoWork_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
+  <wsdl:message name="ITransferService_GetAccounts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountsResponse" />
   </wsdl:message>
-  <wsdl:message name="ITransferService_login_InputMessage">
-    <wsdl:part name="parameters" element="tns:login" />
-  </wsdl:message>
-  <wsdl:message name="ITransferService_login_OutputMessage">
-    <wsdl:part name="parameters" element="tns:loginResponse" />
+  <wsdl:message name="ITransferService_DisconnectUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:DisconnectUser" />
   </wsdl:message>
   <wsdl:portType name="ITransferService">
-    <wsdl:operation name="DoWork">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/DoWork" message="tns:ITransferService_DoWork_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/DoWorkResponse" message="tns:ITransferService_DoWork_OutputMessage" />
+    <wsdl:operation name="GetAccounts">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetAccounts" message="tns:ITransferService_GetAccounts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetAccountsResponse" message="tns:ITransferService_GetAccounts_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="login">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/login" message="tns:ITransferService_login_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/loginResponse" message="tns:ITransferService_login_OutputMessage" />
+    <wsdl:operation name="DisconnectUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/DisconnectUser" message="tns:ITransferService_DisconnectUser_InputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_ITransferService" type="tns:ITransferService">
     <wsp:PolicyReference URI="#NetTcpBinding_ITransferService_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="DoWork">
-      <soap12:operation soapAction="http://tempuri.org/ITransferService/DoWork" style="document" />
+    <wsdl:operation name="GetAccounts">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/GetAccounts" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -48,14 +45,11 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="login">
-      <soap12:operation soapAction="http://tempuri.org/ITransferService/login" style="document" />
+    <wsdl:operation name="DisconnectUser">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/DisconnectUser" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="TransferService">

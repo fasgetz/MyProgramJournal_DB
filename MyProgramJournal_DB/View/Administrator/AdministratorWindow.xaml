@@ -1,0 +1,30 @@
+﻿<Window x:Class="MyProgramJournal_DB.View.Administrator.AdministratorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyProgramJournal_DB.View.Administrator"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        mc:Ignorable="d"
+        Title="Панель администратора" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction 
+                Command="{Binding Disconnect}"
+                />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Menu HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="794">
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Пользователи" Width="154" Height="43">
+                <MenuItem Header="Показать список" Command="{Binding OpenUsersListPage}" />
+                <MenuItem Header="Добавить"/>
+                <MenuItem Header="Редактировать"/>
+                <MenuItem Header="Удалить"/>
+            </MenuItem>
+
+        </Menu>
+        <Frame Content="{Binding Path=DisplayPage}" HorizontalAlignment="Left" Height="347" Margin="22,64,0,0" VerticalAlignment="Top" Width="748"/>
+
+    </Grid>
+</Window>

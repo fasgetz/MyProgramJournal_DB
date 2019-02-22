@@ -131,8 +131,8 @@ namespace WCF_Service.DataBase.DTO
             return NewStatus; // Возвращаем 
         }
 
-        // Метод для получения DTO - списка сессий аккаунта + Готов
-        private List<MyModelLibrary.SessionsAccounts> GetSessionsAcc(List<SessionsAccounts> sessions)
+        // Метод для получения DTO - списка сессий аккаунта
+        public List<MyModelLibrary.SessionsAccounts> GetSessionsAcc(List<SessionsAccounts> sessions)
         {
             // Объявляем новый список
             List<MyModelLibrary.SessionsAccounts> SessionsDTO = new List<MyModelLibrary.SessionsAccounts>();
@@ -144,7 +144,7 @@ namespace WCF_Service.DataBase.DTO
                 SessionsDTO.Add(new MyModelLibrary.SessionsAccounts(item.idSession, item.idAccount, Convert.ToDateTime(item.StartLogin), Convert.ToDateTime(item.EndLogin)));
             }
 
-            return SessionsDTO; // Возвращаем список сессий
+            return SessionsDTO.ToList(); // Возвращаем список сессий
         }
 
         // Метод для получения DTO - Юзера + готов
@@ -221,7 +221,6 @@ namespace WCF_Service.DataBase.DTO
 
                 Account.StatusAccounts = GetStatusAcc(AccountNotDTO.StatusAccounts); // Присваиваем данные о статусе аккаунта юзера
 
-
                 // Если статус аккаунта != 0 (Аккаунт не заблокирован)
                 if (Account.StatusAccounts.idStatus != 0)
                 {
@@ -253,12 +252,12 @@ namespace WCF_Service.DataBase.DTO
                     }
                     else// Иначе, если аккаунту не присвоили еще учетных данных, то верни пользователя
                     {
-                        Console.WriteLine($"Акку еще не создали учетных данных епта {Account.StatusAccounts.StatusAccount}");
+                        
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Аккаунт еще неактивирован!!");
+                    
                 }
 
                 return Account; // Возвращаем аккаунт

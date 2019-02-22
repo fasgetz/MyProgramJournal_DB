@@ -15,17 +15,17 @@ namespace MyProgramJournal_DB.MyService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MyService.ITransferService")]
     public interface ITransferService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/DoWork", ReplyAction="http://tempuri.org/ITransferService/DoWorkResponse")]
-        void DoWork();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAccounts", ReplyAction="http://tempuri.org/ITransferService/GetAccountsResponse")]
+        MyModelLibrary.accounts GetAccounts(string login, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/DoWork", ReplyAction="http://tempuri.org/ITransferService/DoWorkResponse")]
-        System.Threading.Tasks.Task DoWorkAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAccounts", ReplyAction="http://tempuri.org/ITransferService/GetAccountsResponse")]
+        System.Threading.Tasks.Task<MyModelLibrary.accounts> GetAccountsAsync(string login, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/login", ReplyAction="http://tempuri.org/ITransferService/loginResponse")]
-        string login();
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransferService/DisconnectUser")]
+        void DisconnectUser(int IdAccount);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/login", ReplyAction="http://tempuri.org/ITransferService/loginResponse")]
-        System.Threading.Tasks.Task<string> loginAsync();
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransferService/DisconnectUser")]
+        System.Threading.Tasks.Task DisconnectUserAsync(int IdAccount);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,20 +55,20 @@ namespace MyProgramJournal_DB.MyService {
                 base(binding, remoteAddress) {
         }
         
-        public void DoWork() {
-            base.Channel.DoWork();
+        public MyModelLibrary.accounts GetAccounts(string login, string password) {
+            return base.Channel.GetAccounts(login, password);
         }
         
-        public System.Threading.Tasks.Task DoWorkAsync() {
-            return base.Channel.DoWorkAsync();
+        public System.Threading.Tasks.Task<MyModelLibrary.accounts> GetAccountsAsync(string login, string password) {
+            return base.Channel.GetAccountsAsync(login, password);
         }
         
-        public string login() {
-            return base.Channel.login();
+        public void DisconnectUser(int IdAccount) {
+            base.Channel.DisconnectUser(IdAccount);
         }
         
-        public System.Threading.Tasks.Task<string> loginAsync() {
-            return base.Channel.loginAsync();
+        public System.Threading.Tasks.Task DisconnectUserAsync(int IdAccount) {
+            return base.Channel.DisconnectUserAsync(IdAccount);
         }
     }
 }

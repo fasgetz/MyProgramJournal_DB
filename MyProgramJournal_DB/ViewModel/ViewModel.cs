@@ -1,4 +1,5 @@
 ﻿using MyProgramJournal_DB.MVVM;
+using MyProgramJournal_DB.Program_logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,13 @@ namespace MyProgramJournal_DB.ViewModel
 
     class ViewModel : ObservableObject
     {
+        
 
         #region Свойства
 
         #region Общие свойства
+
+        MyModelLibrary.accounts MyAcc; // Ссылка на мой аккаунт
 
         private DialogService dialog; // Для работы с диалоговым сервисом  
 
@@ -36,7 +40,6 @@ namespace MyProgramJournal_DB.ViewModel
 
 
         private Page _displayPage;
-
         public Page DisplayPage // Страница, которую будем открывать присваиваем page_tittle
         {
             get
@@ -96,16 +99,69 @@ namespace MyProgramJournal_DB.ViewModel
 
 
 
+        #region Методы для работы с командами
 
-        private void gona()
+        // Метод, который должен получать аккаунт в случае успешной авторизации
+        private void Authorization_method()
         {
-            MyService.TransferServiceClient client = new MyService.TransferServiceClient();
-            client.login();
+            // Получаем аккаунт в случае, если данные верны
+            MyAcc = AccountLogic.AuthorizationUser(login, password);
+        }
 
+        // Метод дисконнекта юзера
+        private void DisconnectUser()
+        {
+
+            // Если аккаунт не пустой, то можно вызвать метод дисконнекта
+            if (MyAcc != null)
+            {                
+                MyAcc = AccountLogic.DisconnectUser(MyAcc); // Дисконнектим юзера                
+            }
         }
 
 
+        #region Методы для открытия страниц
+
+        // Метод открывает передает в page_tittle страницу 
+        private void UsersListPage()
+        {
+            page_tittle = "Administrator.UsersListPage";
+        }
+
+        #endregion
+
+        #endregion
+
+
         #region Команды 
+
+        #region Команды для перехода по страницам
+
+        // Команда передает страницу в Page
+        public ICommand OpenUsersListPage
+        {
+            get
+            {
+                return new DelegateCommand(UsersListPage);
+            }
+        }
+
+
+        #endregion
+
+
+        #region Общие команды
+
+        public ICommand Disconnect
+        {
+            get
+            {
+                return new DelegateCommand(DisconnectUser);
+            }
+        }
+
+        #endregion
+
 
         #region Команды окна авторизации
 
@@ -114,7 +170,7 @@ namespace MyProgramJournal_DB.ViewModel
         {
             get
             {
-                return new DelegateCommand(gona);
+                return new DelegateCommand(Authorization_method);
             }
         }
 
