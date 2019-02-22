@@ -65,6 +65,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Program logic\AccountLogic.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\MainLoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -129,7 +130,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Program logic\" />
+    <ProjectReference Include="..\MyModelLibrary\MyModelLibrary.csproj">
+      <Project>{b51fc2c5-29b6-4a66-bd87-48ba49f149c2}</Project>
+      <Name>MyModelLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\MainLoginWindow\LoginWindow.xaml">

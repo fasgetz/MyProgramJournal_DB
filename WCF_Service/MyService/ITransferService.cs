@@ -11,5 +11,8 @@ namespace WCF_Service.MyService
 
         [OperationContract]
         string login();
+        
+        [OperationContract]
+        MyModelLibrary.accounts GetAccounts(string login, string password); // Метод, который возвращает юзера в случае удачного коннекта
     }
 }

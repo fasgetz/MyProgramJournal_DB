@@ -4,10 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800">
+        Title="Окно авторизации" Height="270" Width="510" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="{Binding text}" HorizontalAlignment="Left" Margin="74,124,0,0" VerticalAlignment="Top" Height="52" Width="368"/>
-        <Button Content="Button" Command="{Binding kek}" HorizontalAlignment="Left" Margin="166,222,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Войти" FontSize="20" Command="{Binding Authorization}" HorizontalAlignment="Left" Margin="9,175,0,0" VerticalAlignment="Top" Width="470" Height="37"/>
+        <Label Content="Логин" FontSize="20" HorizontalContentAlignment="Center" Margin="10,85,385,0" VerticalAlignment="Top" Width="130"/>
+        <Label Content="Пароль" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="130"/>
+        <TextBox HorizontalAlignment="Left" Height="37" FontSize="20" MaxLength="20" Margin="140,85,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="339"/>
+        <PasswordBox HorizontalAlignment="Left" FontSize="20" MaxLength="20" Margin="140,122,0,0" VerticalAlignment="Top" Width="339" Height="37"/>
+        <Label Content="Электронный журнал" FontSize="20" HorizontalContentAlignment="Center" Margin="11,20,10,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
