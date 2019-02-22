@@ -64,6 +64,7 @@
     <Compile Include="DataBase\Discipline.cs">
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataBase\DTO\MyGeneratorDTO.cs" />
     <Compile Include="DataBase\Groups.cs">
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
@@ -132,6 +133,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyModelLibrary\MyModelLibrary.csproj">
+      <Project>{b51fc2c5-29b6-4a66-bd87-48ba49f149c2}</Project>
+      <Name>MyModelLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
