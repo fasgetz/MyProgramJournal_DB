@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="36875c4c98404f7ca35e2112e1236d17" Name="Diagram1">
+        <EntityTypeShape EntityType="db_journalModel.accounts" Width="1.5" PointX="1.5" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.Attendance" Width="1.5" PointX="10.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.Discipline" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.Groups" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.LessonsDate" Width="1.5" PointX="8.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.SessionsAccounts" Width="1.5" PointX="3.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.StatusAccounts" Width="1.5" PointX="1.5" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.StudentsGroup" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.TeacherDisciplines" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.Users" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.UserStatus" Width="1.5" PointX="1.5" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="db_journalModel.FK_accounts_StatusAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_SessionsAccounts_accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_Users_accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_Attendance_LessonsDate" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_Attendance_StudentsGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_Attendance_TeacherDisciplines" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_TeacherDisciplines_Discipline" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_StudentsGroup_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_TeacherDisciplines_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_LessonsDate_TeacherDisciplines" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_StudentsGroup_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_TeacherDisciplines_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_Users_Statuses" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
