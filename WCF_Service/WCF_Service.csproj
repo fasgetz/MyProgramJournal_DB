@@ -106,6 +106,7 @@
     <Compile Include="DataBase\UserStatus.cs">
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\AccountConnectedException.cs" />
     <Compile Include="MyService\ITransferService.cs" />
     <Compile Include="MyService\TransferService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -99,7 +100,11 @@ namespace MyProgramJournal_DB.Program_logic
             {
                 MyDialog.ShowMessage("Сервер не запущен!");
             }
-            catch(Exception ex)
+            catch (FaultException<MyService.AccountConnectedException>)
+            {
+                MyDialog.ShowMessage($"Аккаунт уже подключен!");
+            }
+            catch (Exception ex)
             {
                 MyDialog.ShowMessage(ex.Message);
             }

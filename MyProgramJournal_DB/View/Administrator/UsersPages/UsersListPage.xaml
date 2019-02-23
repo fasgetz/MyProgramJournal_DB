@@ -1,0 +1,29 @@
+﻿<Page x:Class="MyProgramJournal_DB.View.Administrator.UsersPages.UsersListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MyProgramJournal_DB.View.Administrator.UsersPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="380" d:DesignWidth="790"
+      Title="UsersListPage">
+
+    <Grid>
+
+        <DataGrid x:Name="MyDataGrid" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="0, 0, 0 ,0" HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="790" HorizontalContentAlignment="Center" ItemsSource="{Binding UsersList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Айди" Width="50" Binding="{Binding Path=idUser}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Статус" Width="100" Binding="{Binding Path=idUserStatus}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Имя" Width="110" Binding="{Binding Path=Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Фамилия" Width="110" Binding="{Binding Path=Family}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Отчество" Width="120" Binding="{Binding Path=Surname}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Пол" Width="70" Binding="{Binding Path=GetGender}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Телефон" Width="90" Binding="{Binding Path=NumberPhone}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата рождения" Width="130" Binding="{Binding Path=GetDataTimeFormat}"></DataGridTextColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+</Page>

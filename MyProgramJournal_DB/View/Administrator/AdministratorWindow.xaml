@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MyProgramJournal_DB.View.Administrator"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="Панель администратора" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Панель Администратора" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
             <i:InvokeCommandAction 
@@ -16,15 +16,26 @@
     </i:Interaction.Triggers>
     <Grid>
         <Menu HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="794">
-            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Пользователи" Width="154" Height="43">
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Аккаунты" Width="100" Height="40">
+                <MenuItem Header="Показать список" />
+                <MenuItem Header="Добавить"/>
+                <MenuItem Header="Редактировать"/>
+                <MenuItem Header="Удалить"/>
+            </MenuItem>
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Пользователи" Width="150" Height="40">
                 <MenuItem Header="Показать список" Command="{Binding OpenUsersListPage}" />
                 <MenuItem Header="Добавить"/>
                 <MenuItem Header="Редактировать"/>
                 <MenuItem Header="Удалить"/>
             </MenuItem>
+            <MenuItem Margin="430,0,0,0"  FontSize="20" Header="Профиль" Width="110" Height="40">
+                <MenuItem Header="Показать профиль"  Command="{Binding OpenProfilePage}" />
+                <MenuItem Header="Сменить аккаунт"/>
+                <MenuItem Header="Выход"/>
+            </MenuItem>
 
         </Menu>
-        <Frame Content="{Binding Path=DisplayPage}" HorizontalAlignment="Left" Height="347" Margin="22,64,0,0" VerticalAlignment="Top" Width="748"/>
+        <Frame Content="{Binding Path=DisplayPage}" HorizontalAlignment="Left" NavigationUIVisibility="Hidden" Height="380" Margin="0,40,0,0" VerticalAlignment="Top" Width="790"/>
 
     </Grid>
 </Window>

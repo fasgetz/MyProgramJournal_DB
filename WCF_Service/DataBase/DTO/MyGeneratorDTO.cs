@@ -148,7 +148,7 @@ namespace WCF_Service.DataBase.DTO
         }
 
         // Метод для получения DTO - Юзера + готов
-        private MyModelLibrary.Users GetUser(Users user)
+        public MyModelLibrary.Users GetUser(Users user)
         {
             if (user != null)
             {
@@ -162,11 +162,18 @@ namespace WCF_Service.DataBase.DTO
                     user.Surname,
                     user.Gender,
                     user.NumberPhone,
-                    Convert.ToDateTime(user.DateOfBirthDay)
+                    user.DateOfBirthDay
                     //GetUserStatus(user.UserStatus),
                     //GetStudentsGroup(user.StudentsGroup),
                     //GetTeacherDisciplines(user.TeacherDisciplines.ToList())
                     );
+
+                // Присваиваем статус юзера
+                UserDTO.UserStatus = GetUserStatus(user.UserStatus);
+
+                // Конвертируем nullable дату
+                if (user.DateOfBirthDay != null)
+                    UserDTO.DateOfBirthDay = Convert.ToDateTime(user.DateOfBirthDay);
 
                 return UserDTO; // Возвращаем DTO - юзера
             }

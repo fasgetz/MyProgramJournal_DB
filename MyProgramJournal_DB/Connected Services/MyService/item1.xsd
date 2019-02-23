@@ -145,4 +145,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserStatus" nillable="true" type="tns:UserStatus" />
+  <xs:complexType name="ArrayOfUsers">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Users" nillable="true" type="tns:Users" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUsers" nillable="true" type="tns:ArrayOfUsers" />
 </xs:schema>

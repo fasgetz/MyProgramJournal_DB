@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WCF_Service.Exceptions
+{
+    // Пользователькое исключение, которое возвращается, в случае, если аккаунт уже подключен к серверу
+
+    [DataContract]
+    class AccountConnectedException
+    {
+        public string ExceptionName;
+
+        public AccountConnectedException()
+        {
+
+        }
+
+        public AccountConnectedException(string error)
+        {
+            ExceptionName = error;
+        }
+
+    }
+}

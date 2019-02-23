@@ -98,6 +98,40 @@ namespace WCF_Service.MyService
 
         #region Методы контракта служб
 
+        // Метод, который вернет весь список пользователей если он является администратором
+        public List<MyModelLibrary.Users> GetAllUsersList(MyModelLibrary.accounts MyAcc)
+        {
+            // Создаем репозиторий для работы с контекстом базы данных
+            EFGenericRepository<Users> MyRepository = new EFGenericRepository<Users>(new MyDB());
+
+            // Делаем проверку: Является ли полученный юзер администратором ( s == 3 )
+            if (Convert.ToInt32(MyRepository.FindQueryEntity(i => i.idUser == MyAcc.Users.idUser).idUserStatus) == 3)
+            {
+                // Тогда создаем DTO список юзеров и возвращаем его администратору
+                List<MyModelLibrary.Users> UsersList = new List<MyModelLibrary.Users>();
+
+                // Заносим список not dto юзеров 
+                var a = MyRepository.GetAllList();
+
+                DataBase.DTO.MyGeneratorDTO generator = new MyGeneratorDTO();
+
+                // Перебираем список и генерируем DTO, который внесем в DTO список
+                foreach (var item in a)
+                {
+                    // Вносим в список сгенерированный dto item
+                    UsersList.Add(generator.GetUser(item));
+                }
+
+                Console.WriteLine($"{System.DateTime.Now}) Возвращаем клиенту {MyAcc.login} список с {a.Count()} клиентами!");
+
+                // Возвращаем dto список
+                return UsersList;
+            }
+
+
+            return null;
+        }
+
         // Метод, который вернет юзера в случае успешной авторизации
         public MyModelLibrary.accounts GetAccounts(string login, string password)
         {
@@ -109,30 +143,39 @@ namespace WCF_Service.MyService
             // Если аккаунт не пустой, то верни клиенту в DTO
             if (Account != null)
             {
-                bool Connected = AddListUser(Account); // Заносим пользователя в список подключенных пользователей
 
-                // Если юзера добавили в список подключенных, то сгенерируй DTO объект и верни его клиенту
-                // Тем самым у нас идет проверка, чтобы не было двойных и более подключений за раз
-                if (Connected == true)
+                // Если статус аккаунта != неактивный, то добавь его к серверу в список подключенных
+                if (Account.idStatus != 0)
                 {
-                    #region Генерация DTO объекта и возвращение его клиенту
+                    bool Connected = AddListUser(Account); // Подключаем аккаунт к сервису
 
-                    // Создаем генератор DTO объектов
-                    MyGeneratorDTO generator = new MyGeneratorDTO();
+                    // Если подключение к серверу успешное, то верни полный аккаунт
+                    if (Connected == true)
+                    {
+                        #region Генерация DTO объекта и возвращение его клиенту
 
-                    // Преобразуем аккаунт в DTO - объект
-                    MyModelLibrary.accounts MyAccount = generator.GetAccountDTO(Account);
+                        // Создаем генератор DTO объектов
+                        MyGeneratorDTO generator = new MyGeneratorDTO();
 
-                    return MyAccount; // Возвращаем DTO - клиенту
+                        // Преобразуем аккаунт в DTO - объект
+                        MyModelLibrary.accounts MyAccount = generator.GetAccountDTO(Account);
 
-                    #endregion
+                        return MyAccount; // Возвращаем DTO - клиенту
+
+                        #endregion
+
+                    }
+                    // Иначе, если аккаунт уже подключен, то выдай ошибку
+                    else
+                    {
+                        Console.WriteLine("Выбрасываем исключение");
+                        throw new FaultException<Exceptions.AccountConnectedException>(new Exceptions.AccountConnectedException($"Пользователь  <<{Account.login}>> уже подключен!"));
+                    }
                 }
-                else
-                {
-                    // Необходимо возвратить ошибку, которая покажет клиенту, что такой клиент уже подключен
-                }
+           
             }
 
+            // Иначе, если аккаунт пустой, то выдай пустой аккаунт
             return null;
         }
 
@@ -141,6 +184,8 @@ namespace WCF_Service.MyService
         {
             UserDisconnect(IdAccount);
         }
+
+
 
         #endregion
     }

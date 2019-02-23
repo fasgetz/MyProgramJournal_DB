@@ -27,7 +27,7 @@ namespace WCF_Service.DataBase
         public string Surname { get; set; }
         public string Gender { get; set; }
         public string NumberPhone { get; set; }
-        public Nullable<System.DateTime> DateOfBirthDay { get; set; }
+        public DateTime? DateOfBirthDay { get; set; }
     
         public virtual accounts accounts { get; set; }
         public virtual StudentsGroup StudentsGroup { get; set; }

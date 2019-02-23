@@ -72,12 +72,16 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Program logic\AccountLogic.cs" />
+    <Compile Include="Program logic\UsersLogic.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\Administrator\AdministratorWindow.xaml.cs">
       <DependentUpon>AdministratorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Administrator\UsersListPage.xaml.cs">
+    <Compile Include="View\Administrator\UsersPages\UsersListPage.xaml.cs">
       <DependentUpon>UsersListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CommonPages\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainLoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -114,9 +118,13 @@
     <None Include="Connected Services\MyService\item2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\MyService\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\MyService\TransferService.wsdl" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\MyModelLibrary.accounts.datasource" />
+    <None Include="Properties\DataSources\MyModelLibrary.Users.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -139,7 +147,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Administrator\UsersListPage.xaml">
+    <Page Include="View\Administrator\UsersPages\UsersListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CommonPages\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,6 +159,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\Administrator\AccountsPages\" />
+    <Folder Include="View\Student\" />
+    <Folder Include="View\Teacher\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\MyService\" />
@@ -165,10 +182,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\Student\" />
-    <Folder Include="View\Teacher\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

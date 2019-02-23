@@ -11,6 +11,7 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WCF_Service.Exceptions" />
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MyModelLibrary" />
     </xsd:schema>
@@ -21,16 +22,30 @@
   <wsdl:message name="ITransferService_GetAccounts_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAccountsResponse" />
   </wsdl:message>
+  <wsdl:message name="ITransferService_GetAccounts_AccountConnectedExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/WCF_Service.Exceptions" name="detail" element="q1:AccountConnectedException" />
+  </wsdl:message>
   <wsdl:message name="ITransferService_DisconnectUser_InputMessage">
     <wsdl:part name="parameters" element="tns:DisconnectUser" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_GetAllUsersList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersList" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_GetAllUsersList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersListResponse" />
   </wsdl:message>
   <wsdl:portType name="ITransferService">
     <wsdl:operation name="GetAccounts">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetAccounts" message="tns:ITransferService_GetAccounts_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetAccountsResponse" message="tns:ITransferService_GetAccounts_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/ITransferService/GetAccountsAccountConnectedExceptionFault" name="AccountConnectedExceptionFault" message="tns:ITransferService_GetAccounts_AccountConnectedExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="DisconnectUser">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/DisconnectUser" message="tns:ITransferService_DisconnectUser_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsersList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetAllUsersList" message="tns:ITransferService_GetAllUsersList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetAllUsersListResponse" message="tns:ITransferService_GetAllUsersList_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_ITransferService" type="tns:ITransferService">
@@ -44,12 +59,24 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="AccountConnectedExceptionFault">
+        <soap12:fault use="literal" name="AccountConnectedExceptionFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="DisconnectUser">
       <soap12:operation soapAction="http://tempuri.org/ITransferService/DisconnectUser" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsersList">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/GetAllUsersList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="TransferService">

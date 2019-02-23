@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyProgramJournal_DB.View.Administrator
+namespace MyProgramJournal_DB.View.Administrator.UsersPages
 {
     /// <summary>
     /// Логика взаимодействия для UsersListPage.xaml
