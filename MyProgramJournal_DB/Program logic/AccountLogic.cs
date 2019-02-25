@@ -21,7 +21,7 @@ namespace MyProgramJournal_DB.Program_logic
 
         public AccountLogic(InstanceContext MyContext)
         {
-            AccountProxy = new MyServiceAccountClient(new System.ServiceModel.InstanceContext(this));
+            AccountProxy = new MyServiceAccountClient(new System.ServiceModel.InstanceContext(this)); // Передаем текущий контекст
             MyDialog = new DialogService(); // Инициализируем диалог для работы с диалогами
         }
 
