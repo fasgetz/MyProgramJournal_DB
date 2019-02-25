@@ -1,4 +1,5 @@
-﻿using MyProgramJournal_DB.MVVM;
+﻿using MyProgramJournal_DB.AccountService;
+using MyProgramJournal_DB.MVVM;
 using MyProgramJournal_DB.Program_logic;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,21 @@ namespace MyProgramJournal_DB.ViewModel
     {
 
 
+
         #region Свойства
 
         #region Общие свойства
 
-        MyModelLibrary.accounts MyAcc; // Ссылка на мой аккаунт
+        MyModelLibrary.accounts MyAcc; // Мой аккаунт
+
+
+        #region Логика
 
         UsersLogic MyUserLogic; // Для работы с пользователями
+        AccountLogic MyAccountLogic; // Для работы с аккаунтами
+
+        #endregion
+
         private DialogService dialog; // Для работы с диалоговым сервисом  
 
         private string _page_tittle;
@@ -213,6 +222,7 @@ namespace MyProgramJournal_DB.ViewModel
 
         #endregion
 
+
         #region Вспомогательные методы
 
         // Метод, который инициализирует персональные данные юзера
@@ -236,8 +246,11 @@ namespace MyProgramJournal_DB.ViewModel
         // Метод, который должен получать аккаунт в случае успешной авторизации
         private void Authorization_method()
         {
+
+            MyAccountLogic = new AccountLogic(new System.ServiceModel.InstanceContext(this));
+
             // Получаем аккаунт в случае, если данные верны
-            MyAcc = AccountLogic.AuthorizationUser(login, password);
+            MyAcc = MyAccountLogic.AuthorizationUser(login, password);
 
             // Если учетные данные есть у юзера, то создай сервис для работы с юзерами и проинициаилируй
             if (MyAcc != null && MyAcc.Users != null) 
@@ -254,7 +267,7 @@ namespace MyProgramJournal_DB.ViewModel
             // Если аккаунт не пустой, то можно вызвать метод дисконнекта
             if (MyAcc != null)
             {
-                MyAcc = AccountLogic.DisconnectUser(MyAcc); // Дисконнектим юзера                
+                MyAcc = MyAccountLogic.DisconnectUser(MyAcc); // Дисконнектим юзера                        
             }
         }
 
