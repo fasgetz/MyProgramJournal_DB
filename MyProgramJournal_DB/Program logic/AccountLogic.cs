@@ -1,5 +1,4 @@
-﻿using MyProgramJournal_DB.AccountService;
-using MyProgramJournal_DB.MVVM;
+﻿using MyProgramJournal_DB.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,34 +13,21 @@ namespace MyProgramJournal_DB.Program_logic
     /// Класс предназначен для организации логики работы с аккаунтом
     /// </summary>
     
-    public class AccountLogic : IMyServiceAccountCallback
+    public class AccountLogic
     {
 
 
+        private static MyService.TransferServiceClient client; // Ссылка на клиент
+        private static DialogService MyDialog;
 
-        public AccountLogic(InstanceContext MyContext)
-        {
-            AccountProxy = new MyServiceAccountClient(new System.ServiceModel.InstanceContext(this));
-            MyDialog = new DialogService(); // Инициализируем диалог для работы с диалогами
-        }
-
-
-        #region Свойства
-
-        private static AccountService.MyServiceAccountClient AccountProxy; // Ссылка на прокси для работы с аккаунтами
-        private static DialogService MyDialog; // Для работы с диалогом
-
-        #endregion
-
-
-        #region Методы
 
         // Метод для дисконнекта юзера
-        public MyModelLibrary.accounts DisconnectUser(MyModelLibrary.accounts MyAcc)
+        public static MyModelLibrary.accounts DisconnectUser(MyModelLibrary.accounts MyAcc)
         {
             try
             {
-                AccountProxy.DisconnectUser(MyAcc); // Отправляем на сервер аккаунт, который отключаем
+                client = new MyService.TransferServiceClient(); // Создаем канал связи
+                client.DisconnectUser(MyAcc.idAccount); // Отправляем на сервер айди аккаунта, которого отключаем
             }
             catch (Exception ex)
             {
@@ -53,7 +39,7 @@ namespace MyProgramJournal_DB.Program_logic
         }
 
         // Метод, который открывает окна и диалоги, в зависимости от типа аккаунта
-        private void OpenedWindow(MyModelLibrary.accounts MyAcc)
+        private static void OpenedWindow(MyModelLibrary.accounts MyAcc)
         {
             if (MyAcc != null && MyAcc.idStatus == 0) // Иначе, если аккаунт найден, но он неактивный, то выдай ему ошибку об этом
             {
@@ -62,6 +48,10 @@ namespace MyProgramJournal_DB.Program_logic
             // Если аккаунт не пустой и для него завели учетные данные и он активный, то перейди
             else if (MyAcc != null && MyAcc.idStatus != 0)
             {
+
+                
+
+
                 // Если учетных данных юзеру не завели, то выдай об этом
                 if (MyAcc.Users == null)
                 {
@@ -72,20 +62,17 @@ namespace MyProgramJournal_DB.Program_logic
                 {
                     MyDialog.ShowMessage("Вы успешно авторизировались!");
 
-                    // Выбираем какую страницу открывать по статусу юзера
-                    switch (MyAcc.Users.idUserStatus)
+                    if (MyAcc.Users.idUserStatus == 1) // Если статус юзера == студент, то открой соответствующее окно
                     {
-                        case (1): // Если студент
-                            MyDialog.newWindow("Student.StudentWindow");
-                            break;
-                        case (2): // Если преподаватель
-                            MyDialog.newWindow("Teacher.TeacherWindow");
-                            break;
-                        case (3): // Если администратор
-                            MyDialog.newWindow("Administrator.AdministratorWindow");
-                            break;
-                        default:
-                            break;
+                        MyDialog.ShowMessage("Авторизовался студент!");
+                    }
+                    else if (MyAcc.Users.idUserStatus == 2) // Если статус юзера == преподаватель, то открой соответствующее окно
+                    {
+                        MyDialog.ShowMessage("Авторизовался преподаватель!");
+                    }
+                    else if (MyAcc.Users.idUserStatus == 3) // Если статус юзера == администратор, то открой соответствующее окно
+                    {
+                        MyDialog.newWindow("Administrator.AdministratorWindow");
                     }
 
                 }
@@ -96,23 +83,26 @@ namespace MyProgramJournal_DB.Program_logic
             }
         }
 
-        public MyModelLibrary.accounts AuthorizationUser(string login, string password) // Метод для авторизации юзера
+        public static MyModelLibrary.accounts AuthorizationUser(string login, string password) // Метод для авторизации юзера
         {
+            // Делаем канал связи между клиентом и сервером
+            client = new MyService.TransferServiceClient();
+            MyDialog = new DialogService(); // Инициализируем диалог для работы с диалогами
 
             // Если хост запущен, то выведи об этом ошибку
             try
             {
-                MyModelLibrary.accounts MyAcc = AccountProxy.ConnectUser(login, password); // Получаем аккаунт
+                MyModelLibrary.accounts MyAcc = client.GetAccounts(login, password); // Получаем аккаунт
                 OpenedWindow(MyAcc); // Открываем окно
                 return MyAcc;
             }
-            catch (EndpointNotFoundException)
+            catch(System.ServiceModel.EndpointNotFoundException)
             {
                 MyDialog.ShowMessage("Сервер не запущен!");
             }
-            catch (FaultException<AccountService.AccountConnectedException> ex)
+            catch (FaultException<MyService.AccountConnectedException>)
             {
-                MyDialog.ShowMessage(ex.Message);
+                MyDialog.ShowMessage($"Аккаунт уже подключен!");
             }
             catch (Exception ex)
             {
@@ -122,20 +112,5 @@ namespace MyProgramJournal_DB.Program_logic
 
             return null;
         }
-
-        #endregion
-
-
-        #region call-back методы
-
-        // Метод DoWork отправляет true на сервер
-        // Это некая проверка на то, подключен ли пользователь к серверу
-        public bool DoWork()
-        {
-            return true;
-        }
-
-        #endregion
-
     }
 }

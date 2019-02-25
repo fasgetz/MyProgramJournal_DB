@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MyModelLibrary
 {
@@ -43,7 +46,6 @@ namespace MyModelLibrary
         public string login { get; set; } // Логин аккаунта
         public string password { get; set; } // Пароль аккаунта
         public Nullable<System.DateTime> DateRegistration { get; set; } // Дата регистрации аккаунта
-
 
         public virtual StatusAccounts StatusAccounts { get; set; } // Ссылка на сущность статус аккаунта
         public List<SessionsAccounts> SessionsAccounts { get; set; } // Ссылка на список сессий аккаунта

@@ -66,11 +66,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Connected Services\AccountService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Connected Services\MyService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,12 +85,6 @@
     </Compile>
     <Compile Include="View\MainLoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Student\StudentWindow.xaml.cs">
-      <DependentUpon>StudentWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Teacher\TeacherWindow.xaml.cs">
-      <DependentUpon>TeacherWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -120,19 +109,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\AccountService\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\AccountService\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\AccountService\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\AccountService\item3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\AccountService\MyServiceAccount.wsdl" />
     <None Include="Connected Services\MyService\item.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -140,6 +116,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\MyService\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MyService\item3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\MyService\TransferService.wsdl" />
@@ -180,20 +159,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Student\StudentWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Teacher\TeacherWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\Administrator\AccountsPages\" />
+    <Folder Include="View\Student\" />
+    <Folder Include="View\Teacher\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\AccountService\" />
     <WCFMetadataStorage Include="Connected Services\MyService\" />
   </ItemGroup>
   <ItemGroup>
@@ -207,21 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\MyService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AccountService\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AccountService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AccountService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AccountService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

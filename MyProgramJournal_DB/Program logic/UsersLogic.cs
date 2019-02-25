@@ -27,7 +27,7 @@ namespace MyProgramJournal_DB.Program_logic
             using (client = new MyService.TransferServiceClient())
             {
                 // Прогружаем список пользователей
-                List<MyModelLibrary.Users> UsersList = client.GetAllUsersList(MyAcc).ToList();              
+                List<MyModelLibrary.Users> UsersList = client.GetAllUsersList(MyAcc);
                 return UsersList; // Возвращаем список пользователей
             }
 

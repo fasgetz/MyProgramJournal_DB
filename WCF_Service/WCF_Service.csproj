@@ -107,10 +107,8 @@
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\AccountConnectedException.cs" />
-    <Compile Include="MyService\AccountsService\Service\IMyServiceAccount.cs" />
-    <Compile Include="MyService\AccountsService\Service\MyServiceAccount.cs" />
-    <Compile Include="MyService\ServiceWorkDB\ITransferService.cs" />
-    <Compile Include="MyService\ServiceWorkDB\TransferService.cs" />
+    <Compile Include="MyService\ITransferService.cs" />
+    <Compile Include="MyService\TransferService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

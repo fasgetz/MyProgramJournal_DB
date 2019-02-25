@@ -12,10 +12,10 @@ namespace ConsoleHost
         static void Main(string[] args)
         {
             // Запускаем сервис TransferService
-            using (var host = new ServiceHost(typeof(WCF_Service.MyService.ServiceWorkDB.TransferService)))
+            using (var host = new ServiceHost(typeof(WCF_Service.MyService.TransferService)))
             {
                 host.Open(); // Открываем хост
-                Console.WriteLine($"{DateTime.Now}) Хост TransferSerivce стартовал!");
+                Console.WriteLine("Хост стартовал!");
                 Console.ReadLine();
             }
         }

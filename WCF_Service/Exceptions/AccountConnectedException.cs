@@ -12,30 +12,16 @@ namespace WCF_Service.Exceptions
     [DataContract]
     class AccountConnectedException
     {
-
-        private string _ExceptionName;
-
-        [DataMember]
-        public string ExceptionName
-        {
-            get
-            {
-                return _ExceptionName;
-            }
-            set
-            {
-                _ExceptionName = value;
-            }
-        }
+        public string ExceptionName;
 
         public AccountConnectedException()
         {
 
         }
 
-        public AccountConnectedException(string ExceptionName)
+        public AccountConnectedException(string error)
         {
-            this.ExceptionName = ExceptionName;
+            ExceptionName = error;
         }
 
     }
