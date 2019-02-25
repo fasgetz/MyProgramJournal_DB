@@ -9,61 +9,17 @@
 //------------------------------------------------------------------------------
 
 namespace MyProgramJournal_DB.MyService {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AccountConnectedException", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service.Exceptions")]
-    [System.SerializableAttribute()]
-    public partial class AccountConnectedException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MyService.ITransferService")]
     public interface ITransferService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAccounts", ReplyAction="http://tempuri.org/ITransferService/GetAccountsResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(MyProgramJournal_DB.MyService.AccountConnectedException), Action="http://tempuri.org/ITransferService/GetAccountsAccountConnectedExceptionFault", Name="AccountConnectedException", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service.Exceptions")]
-        MyModelLibrary.accounts GetAccounts(string login, string password);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAccounts", ReplyAction="http://tempuri.org/ITransferService/GetAccountsResponse")]
-        System.Threading.Tasks.Task<MyModelLibrary.accounts> GetAccountsAsync(string login, string password);
-        
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransferService/DisconnectUser")]
-        void DisconnectUser(int IdAccount);
-        
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransferService/DisconnectUser")]
-        System.Threading.Tasks.Task DisconnectUserAsync(int IdAccount);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAllUsersList", ReplyAction="http://tempuri.org/ITransferService/GetAllUsersListResponse")]
+        MyModelLibrary.Users[] GetAllUsersList(MyModelLibrary.accounts MyAcc);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAllUsersList", ReplyAction="http://tempuri.org/ITransferService/GetAllUsersListResponse")]
-        System.Collections.Generic.List<MyModelLibrary.Users> GetAllUsersList(MyModelLibrary.accounts MyAcc);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAllUsersList", ReplyAction="http://tempuri.org/ITransferService/GetAllUsersListResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetAllUsersListAsync(MyModelLibrary.accounts MyAcc);
+        System.Threading.Tasks.Task<MyModelLibrary.Users[]> GetAllUsersListAsync(MyModelLibrary.accounts MyAcc);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -93,27 +49,11 @@ namespace MyProgramJournal_DB.MyService {
                 base(binding, remoteAddress) {
         }
         
-        public MyModelLibrary.accounts GetAccounts(string login, string password) {
-            return base.Channel.GetAccounts(login, password);
-        }
-        
-        public System.Threading.Tasks.Task<MyModelLibrary.accounts> GetAccountsAsync(string login, string password) {
-            return base.Channel.GetAccountsAsync(login, password);
-        }
-        
-        public void DisconnectUser(int IdAccount) {
-            base.Channel.DisconnectUser(IdAccount);
-        }
-        
-        public System.Threading.Tasks.Task DisconnectUserAsync(int IdAccount) {
-            return base.Channel.DisconnectUserAsync(IdAccount);
-        }
-        
-        public System.Collections.Generic.List<MyModelLibrary.Users> GetAllUsersList(MyModelLibrary.accounts MyAcc) {
+        public MyModelLibrary.Users[] GetAllUsersList(MyModelLibrary.accounts MyAcc) {
             return base.Channel.GetAllUsersList(MyAcc);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetAllUsersListAsync(MyModelLibrary.accounts MyAcc) {
+        public System.Threading.Tasks.Task<MyModelLibrary.Users[]> GetAllUsersListAsync(MyModelLibrary.accounts MyAcc) {
             return base.Channel.GetAllUsersListAsync(MyAcc);
         }
     }

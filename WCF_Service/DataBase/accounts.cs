@@ -11,7 +11,8 @@ namespace WCF_Service.DataBase
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ServiceModel;
+
     public partial class accounts
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,7 +26,10 @@ namespace WCF_Service.DataBase
         public string login { get; set; }
         public string password { get; set; }
         public Nullable<System.DateTime> DateRegistration { get; set; }
-    
+
+
+        public OperationContext operationContext { get; set; } // Для работы сервера с юзерами со стороны клиента
+
         public virtual StatusAccounts StatusAccounts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SessionsAccounts> SessionsAccounts { get; set; }
