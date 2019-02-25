@@ -16,6 +16,15 @@
     
     
     <Grid>
-        
+        <Menu HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="794">
+            
+            <MenuItem Margin="685,0,0,0"  FontSize="20" Header="Профиль" Width="110" Height="40">
+                <MenuItem Header="Показать профиль"  Command="{Binding OpenProfilePage}" />
+                <MenuItem Header="Сменить аккаунт" Command="{Binding ChangeUser}"/>
+                <MenuItem Header="Выход" Command="{Binding WinClose}"/>
+            </MenuItem>
+
+        </Menu>
+        <Frame Content="{Binding Path=DisplayPage}" HorizontalAlignment="Left" NavigationUIVisibility="Hidden" Height="380" Margin="0,40,0,0" VerticalAlignment="Top" Width="790"/>
     </Grid>
 </Window>

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -14,7 +15,6 @@ namespace MyProgramJournal_DB.ViewModel
 
     public class ViewModel : ObservableObject
     {
-
 
 
         #region Свойства
@@ -42,11 +42,20 @@ namespace MyProgramJournal_DB.ViewModel
             }
             set
             {
-                _page_tittle = value;
-                DisplayPage = dialog.newPage(page_tittle); // Передаем в page название страницы
-                RaisePropertyChangedEvent("page_tittle");
+                if (value != null)
+                {
+                    _page_tittle = value;
+                    DisplayPage = dialog.newPage(page_tittle); // Передаем в page название страницы
+                    RaisePropertyChangedEvent("page_tittle");
+                }
+                else
+                {
+                    _page_tittle = null;
+                }
+
             }
         }
+
 
         private Page _displayPage;
         public Page DisplayPage // Страница, которую будем открывать присваиваем page_tittle
@@ -57,9 +66,17 @@ namespace MyProgramJournal_DB.ViewModel
             }
             set
             {
-                this._displayPage = value;
-                _displayPage.DataContext = this; // Присваиваем текущий datacontext к page
-                RaisePropertyChangedEvent("DisplayPage");
+                if (value != null)
+                {
+                    this._displayPage = value;
+                    _displayPage.DataContext = this; // Присваиваем текущий datacontext к page
+                    RaisePropertyChangedEvent("DisplayPage");
+                }
+                else
+                {
+                    value = null;
+                }
+
             }
         }
 
@@ -236,12 +253,28 @@ namespace MyProgramJournal_DB.ViewModel
             GetDateOfBirthday = MyAcc.Users.GetDataTimeFormat;
         }
 
+        // Метод, который обнуляет данные в LoginView (Вызывается, если пользователь прошел авторизацию, и хочет сменить юзера)
+        private void ChangedUser()
+        {
+            dialog.newWindow("MainLoginWindow.LoginWindow"); // Переходим в окно LoginWindow
+            DisconnectUser(); // Дисконнектим юзера
+            
+
+        }
+
         #endregion
 
 
         #region Методы для работы с командами
 
         #region Методы для работы с учетными данными
+
+        // Метод для команды, который закрывает окно и отключает пользователя
+        private void _CloseWindow()
+        {
+            DisconnectUser(); // Отключаем юзера
+            dialog.CloseWindow(); // Закрываем окно
+        }
 
         // Метод, который должен получать аккаунт в случае успешной авторизации
         private void Authorization_method()
@@ -267,9 +300,26 @@ namespace MyProgramJournal_DB.ViewModel
             // Если аккаунт не пустой, то можно вызвать метод дисконнекта
             if (MyAcc != null)
             {
-                MyAcc = MyAccountLogic.DisconnectUser(MyAcc); // Дисконнектим юзера                        
+                MyAccountLogic.DisconnectUser(MyAcc); // Дисконнектим юзера   
+                MyAcc = null;
+                Name = null;
+                login = null;
+                password = null;
+                Family = null;
+                Surname = null;
+                Gender = null;
+                NumberPhone = null;
+                GetDateOfBirthday = null;
+                profile_name = null;
+                DisplayPage = null;
+                page_tittle = null;
+                UsersList = null;
+                MyUserLogic = null;
+                MyAccountLogic = null;
+                
             }
         }
+
 
         #endregion
 
@@ -288,6 +338,14 @@ namespace MyProgramJournal_DB.ViewModel
         {
             page_tittle = "CommonPages.ProfilePage";
             profile_name = $"id {MyAcc.idAccount}) Профиль: {MyAcc.Users.Name} {MyAcc.Users.Family} - {MyAcc.Users.UserStatus.StatusUser}";
+            if (MyAcc.Users.idUserStatus == 1 && MyAcc.Users.StudentsGroup != null) // Если пользователь == студент и состоит в группе, то добавь название группы к profile_name
+                profile_name += $" {MyAcc.Users.StudentsGroup.Groups.GroupName}";
+        }
+
+        // Метод передает в page_tittle страницу
+        private void ChangeProfilePageMethod()
+        {
+            page_tittle = "CommonPages.ChangeProfilePage";
         }
 
         #endregion
@@ -317,6 +375,14 @@ namespace MyProgramJournal_DB.ViewModel
             }
         }
 
+        // Команда передает страницу ChangeProfilePage в Page
+        public ICommand OpenChangeProfilePage
+        {
+            get
+            {
+                return new DelegateCommand(ChangeProfilePageMethod);
+            }
+        }
 
         #endregion
 
@@ -340,11 +406,28 @@ namespace MyProgramJournal_DB.ViewModel
         public ICommand Authorization 
         {
             get
-            {
+            {                
                 return new DelegateCommand(Authorization_method);
             }
         }
 
+        // Команда на кнопку закрыть окно
+        public ICommand WinClose
+        {
+            get
+            {
+                return new DelegateCommand(_CloseWindow);
+            }
+        }
+
+
+        public ICommand ChangeUser
+        {
+            get
+            {
+                return new DelegateCommand(ChangedUser);
+            }
+        }
         #endregion
 
 

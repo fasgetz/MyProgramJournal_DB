@@ -8,12 +8,14 @@ namespace MyProgramJournal_DB.MVVM
 {
     class DialogService : IDialogService
     {
+        private Window thisWindow; // Текущее открытое окно в сервисе
+
+        #region Методы
         // Вызываем новый MessageBox с сообщением string
         public void ShowMessage(string message)
         {
             MessageBox.Show(message);
         }
-
 
 
         // Ассемблирование для определения какую страницу/окно открывать из библиотеки классов
@@ -61,14 +63,14 @@ namespace MyProgramJournal_DB.MVVM
             {
                 string Window = "MyProgramJournal_DB.View." + WindowName; // Ссылка на окно, которое будем создавать
 
-                Window NewWindow = (Window)CreateWindow(Window); // Получаем ссылку на новое окно
+                thisWindow = (Window)CreateWindow(Window); // Получаем ссылку на новое окно
                 Window OldWindow = App.Current.MainWindow; // Ссылку на старое окно
-                NewWindow.DataContext = OldWindow.DataContext; // Дата контекст передаем в новое окно
+                thisWindow.DataContext = OldWindow.DataContext; // Дата контекст передаем в новое окно
 
                 OldWindow.Close(); // Закрываем старое окно
-                NewWindow.Show(); // Открываем новое окно
+                thisWindow.Show(); // Открываем новое окно
 
-                App.Current.MainWindow = NewWindow; // Новое окно делаем новым и основным окном
+                App.Current.MainWindow = thisWindow; // Новое окно делаем новым и основным окном
 
 
             }
@@ -76,9 +78,16 @@ namespace MyProgramJournal_DB.MVVM
             {
                 ShowMessage(ex.ToString());
             }
-
-
         }
+
+        // Метод для закрытия текущего окна
+        public void CloseWindow()
+        {
+            App.Current.MainWindow.Close(); // Закрываем главное окно
+        }
+
+
+        #endregion
 
     }
 }

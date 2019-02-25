@@ -10,7 +10,7 @@
 
     <Grid>
         <Label Content="{Binding profile_name}" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="770" Height="40"/>
-        <Button Content="Сменить данные" FontSize="20" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top" Width="770"/>
+        <Button Content="Сменить данные" Command="{Binding OpenChangeProfilePage}" FontSize="20" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top" Width="770"/>
         <Label Content="Логин" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Width="219" Height="34"/>
         <Label Content="Пароль" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="219" Height="33"/>
         <Label Content="Имя" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="219" Height="34"/>

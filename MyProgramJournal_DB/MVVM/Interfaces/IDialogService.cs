@@ -15,5 +15,7 @@ namespace MyProgramJournal_DB.MVVM.Interfaces
         void newWindow(string WindowName); // Создание нового окна
 
         Page newPage(string PageName); // Создание новой страницы
+
+        void CloseWindow(); // Закрытие окна
     }
 }

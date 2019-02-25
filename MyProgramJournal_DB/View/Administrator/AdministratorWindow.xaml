@@ -19,19 +19,15 @@
             <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Аккаунты" Width="100" Height="40">
                 <MenuItem Header="Показать список" />
                 <MenuItem Header="Добавить"/>
-                <MenuItem Header="Редактировать"/>
-                <MenuItem Header="Удалить"/>
             </MenuItem>
             <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Пользователи" Width="150" Height="40">
                 <MenuItem Header="Показать список" Command="{Binding OpenUsersListPage}" />
                 <MenuItem Header="Добавить"/>
-                <MenuItem Header="Редактировать"/>
-                <MenuItem Header="Удалить"/>
             </MenuItem>
             <MenuItem Margin="430,0,0,0"  FontSize="20" Header="Профиль" Width="110" Height="40">
                 <MenuItem Header="Показать профиль"  Command="{Binding OpenProfilePage}" />
-                <MenuItem Header="Сменить аккаунт"/>
-                <MenuItem Header="Выход"/>
+                <MenuItem Header="Сменить аккаунт" Command="{Binding ChangeUser}"/>
+                <MenuItem Header="Выход" Command="{Binding WinClose}"/>
             </MenuItem>
 
         </Menu>

@@ -12,6 +12,13 @@
 
         <DataGrid x:Name="MyDataGrid" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="0, 0, 0 ,0" HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="790" HorizontalContentAlignment="Center" ItemsSource="{Binding UsersList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
 
+            <DataGrid.ContextMenu>
+
+                <ContextMenu>
+                    <MenuItem Header="Удалить"></MenuItem>
+                    <MenuItem Header="Редактировать"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Айди" Width="50" Binding="{Binding Path=idUser}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Статус" Width="100" Binding="{Binding Path=idUserStatus}"></DataGridTextColumn>

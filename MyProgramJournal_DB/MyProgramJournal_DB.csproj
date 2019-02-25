@@ -85,6 +85,9 @@
     <Compile Include="View\Administrator\UsersPages\UsersListPage.xaml.cs">
       <DependentUpon>UsersListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CommonPages\ChangeProfilePage.xaml.cs">
+      <DependentUpon>ChangeProfilePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CommonPages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
@@ -169,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Administrator\UsersPages\UsersListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CommonPages\ChangeProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -37,7 +37,7 @@ namespace MyProgramJournal_DB.Program_logic
         #region Методы
 
         // Метод для дисконнекта юзера
-        public MyModelLibrary.accounts DisconnectUser(MyModelLibrary.accounts MyAcc)
+        public void DisconnectUser(MyModelLibrary.accounts MyAcc)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace MyProgramJournal_DB.Program_logic
                 MyDialog.ShowMessage(ex.Message);
             }
 
-            return null; // Возвращаем пустой аккаунт в случае дисконнекта юзера
+
 
         }
 
