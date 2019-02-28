@@ -30,6 +30,7 @@
                     <MenuItem Header="Удалить"></MenuItem>
                     <MenuItem Header="Редактировать"></MenuItem>
                     <MenuItem Header="Показать анкетные данные"></MenuItem>
+                    <MenuItem Header="Показать список сессий"></MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>

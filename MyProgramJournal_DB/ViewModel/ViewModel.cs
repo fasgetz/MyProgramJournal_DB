@@ -695,6 +695,19 @@ namespace MyProgramJournal_DB.ViewModel
 
         #region Страницы администратора
 
+        public ICommand OpenCreateNewsPage
+        {
+            get
+            {
+                return new DelegateCommand(obj =>
+                {
+                    page_tittle = "Administrator.News.AddNewsPage";                    
+                });
+            }
+        }
+
+
+       
         // Команда для открытия страницы CreateAccountPage
         public ICommand OpenCreateAccountPage
         {

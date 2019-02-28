@@ -1,5 +1,4 @@
-﻿using MyProgramJournal_DB.ViewModel.Administrator;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyProgramJournal_DB.View.Administrator.AccountsPages
+namespace MyProgramJournal_DB.View.Administrator.News
 {
     /// <summary>
-    /// Логика взаимодействия для CreateAccountPage.xaml
+    /// Логика взаимодействия для NewsListPage.xaml
     /// </summary>
-    public partial class CreateAccountPage : Page
+    public partial class NewsListPage : Page
     {
-        public CreateAccountPage()
+        public NewsListPage()
         {
             InitializeComponent();
-            //DataContext = new AddAcountViewModel();
-
         }
     }
 }

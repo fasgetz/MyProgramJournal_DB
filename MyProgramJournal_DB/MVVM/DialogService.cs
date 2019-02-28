@@ -1,4 +1,5 @@
 ﻿using MyProgramJournal_DB.MVVM.Interfaces;
+using MyProgramJournal_DB.ViewModel.Administrator;
 using System;
 using System.Reflection;
 using System.Windows;
@@ -8,7 +9,7 @@ namespace MyProgramJournal_DB.MVVM
 {
     class DialogService : IDialogService
     {
-        private Window thisWindow; // Текущее открытое окно в сервисе
+        private Window thisWindow; // Текущее открытое окно в сервисе        
 
         #region Методы
         // Вызываем новый MessageBox с сообщением string
@@ -43,8 +44,9 @@ namespace MyProgramJournal_DB.MVVM
             {
                 string Window = "MyProgramJournal_DB.View." + PageName; // Ссылка на окно, которое будем создавать
 
-                Page MyPage = (Page)CreateWindow(Window); // Ссылка на страницу
+                Page MyPage = (Page)CreateWindow(Window); // Ссылка на страниц
                 MyPage.DataContext = this;
+
                 if (MyPage != null)
                     return MyPage;
             }

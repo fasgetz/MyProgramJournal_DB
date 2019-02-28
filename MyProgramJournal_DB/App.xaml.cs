@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyProgramJournal_DB.View.MainLoginWindow;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,6 @@ namespace MyProgramJournal_DB
     /// </summary>
     public partial class App : Application
     {
+
     }
 }

@@ -80,6 +80,8 @@
     <Compile Include="Program logic\AdministratorLogic.cs" />
     <Compile Include="Program logic\FilterData\FilterDataGrid.cs" />
     <Compile Include="Program logic\UsersLogic.cs" />
+    <Compile Include="ViewModel\Administrator\AddAcountViewModel.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\Administrator\AccountsPages\AccountsListPage.xaml.cs">
       <DependentUpon>AccountsListPage.xaml</DependentUpon>
@@ -89,6 +91,12 @@
     </Compile>
     <Compile Include="View\Administrator\AdministratorWindow.xaml.cs">
       <DependentUpon>AdministratorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\News\AddNewsPage.xaml.cs">
+      <DependentUpon>AddNewsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\News\NewsListPage.xaml.cs">
+      <DependentUpon>NewsListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Administrator\UsersPages\UsersListPage.xaml.cs">
       <DependentUpon>UsersListPage.xaml</DependentUpon>
@@ -187,6 +195,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Administrator\News\AddNewsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Administrator\News\NewsListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Administrator\UsersPages\UsersListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -246,5 +262,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

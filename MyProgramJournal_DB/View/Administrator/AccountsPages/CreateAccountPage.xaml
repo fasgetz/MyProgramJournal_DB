@@ -6,8 +6,12 @@
       xmlns:local="clr-namespace:MyProgramJournal_DB.View.Administrator.AccountsPages"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1024"
+      xmlns:VM="clr-namespace:MyProgramJournal_DB.ViewModel.Administrator"
       Title="CreateAccountPage">
 
+    <!--<Page.DataContext>
+        <VM:AddAcountViewModel />
+    </Page.DataContext>-->
     <Grid>
         <Label Content="Создание аккаунта" FontSize="35" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1014" Height="59" Margin="0,10,0,0"/>
         <Label Content="Логин" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="280" Height="48"/>

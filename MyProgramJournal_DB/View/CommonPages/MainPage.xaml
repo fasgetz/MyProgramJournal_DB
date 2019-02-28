@@ -8,8 +8,36 @@
       d:DesignHeight="700" d:DesignWidth="1024"
       Title="MainPage">
 
+    <Page.Resources>
+        <Style x:Key="HorizontalStackPanel"  TargetType="{x:Type StackPanel}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="FrameworkElement.VerticalAlignment"  Value="Center" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+
     <Grid>
         <Label Content="Главная страница" FontSize="35" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1004"/>
+        <ListBox ItemsSource="{Binding AccountsList}"  Height="579" Margin="68,72,68,0" VerticalAlignment="Top" HorizontalContentAlignment="Center">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="1" BorderBrush="Black">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock FontSize="20" Text="{Binding Path=login}" />
+                            <TextBlock FontSize="15" HorizontalAlignment="Left" Text="{Binding Path=password}" />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+
+
 
     </Grid>
 </Page>
