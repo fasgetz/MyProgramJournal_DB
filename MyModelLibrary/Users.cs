@@ -14,9 +14,29 @@ namespace MyModelLibrary
             //this.TeacherDisciplines = new List<TeacherDisciplines>();
         }
 
-
         #region Для вывода в controls
 
+        // Свойство, которое выдает статус
+        public string GetStatus
+        {
+            get
+            {
+
+                switch (idUserStatus)
+                {
+                    case (1):
+                        return "Студент";                        
+                    case (2):
+                        return "Преподаватель";
+                    case (3):
+                        return "Администратор";
+                    default:
+                        return null;
+                }
+
+
+            }
+        }
 
         // Свойство которое выдает пол юзера в полной форме
         public string GetGender
@@ -41,8 +61,8 @@ namespace MyModelLibrary
                 // Конвертируем nullable дату
                 if (DateOfBirthDay != null)
                     return kek.ToString("D");
-
-                return null;
+                else
+                    return " "; // Сделано для поиска в DataGrid (Если ввели пробел)
             }
         }
 
@@ -50,7 +70,7 @@ namespace MyModelLibrary
 
 
         // Конструктор для инициализации свойств юзера
-        public Users(int idUser, int idUserStatus, string Name, string Family, string Surname, string Gender, string NumberPhone, DateTime? DateOfBirthday)
+        public Users(int idUser, int? idUserStatus, string Name, string Family, string Surname, string Gender, string NumberPhone, DateTime? DateOfBirthday)
         {
             this.idUser = idUser;
             this.idUserStatus = idUserStatus;
@@ -84,13 +104,53 @@ namespace MyModelLibrary
         #region Список свойств Юзера
 
         public int idUser { get; set; }
-        public Nullable<int> idUserStatus { get; set; }
+        public int? idUserStatus { get; set; }
         public string Name { get; set; }
         public string Family { get; set; }
-        public string Surname { get; set; }        
+
+        private string _Surname;
+        public string Surname
+        {
+            get
+            {
+                if (_Surname is null)
+                    return " "; // Сделано для поиска в DataGrid (Если ввели пробел)
+                return _Surname;
+            }
+            set
+            {
+                _Surname = value;
+            }
+        }       
         public string Gender { get; set; }
-        public string NumberPhone { get; set; }
-        public DateTime? DateOfBirthDay { get; set; }
+
+        private string _NumberPhone;
+        public string NumberPhone
+        {
+            get
+            {
+                if (_NumberPhone is null)
+                    return " "; // Сделано для поиска в DataGrid (Если ввели пробел)
+                return _NumberPhone;
+            }
+            set
+            {
+                _NumberPhone = value;
+            }
+        }
+
+        private DateTime? _DateOfBirthDay;
+        public DateTime? DateOfBirthDay
+        {
+            get
+            {
+                return _DateOfBirthDay;
+            }
+            set
+            {
+                _DateOfBirthDay = value;
+            }
+        }
 
 
         //public virtual accounts accounts { get; set; }

@@ -16,10 +16,22 @@ namespace MyProgramJournal_DB.MyService {
     public interface ITransferService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAllUsersList", ReplyAction="http://tempuri.org/ITransferService/GetAllUsersListResponse")]
-        MyModelLibrary.Users[] GetAllUsersList(MyModelLibrary.accounts MyAcc);
+        System.Collections.Generic.List<MyModelLibrary.Users> GetAllUsersList(MyModelLibrary.accounts MyAcc);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAllUsersList", ReplyAction="http://tempuri.org/ITransferService/GetAllUsersListResponse")]
-        System.Threading.Tasks.Task<MyModelLibrary.Users[]> GetAllUsersListAsync(MyModelLibrary.accounts MyAcc);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetAllUsersListAsync(MyModelLibrary.accounts MyAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAllAccountsList", ReplyAction="http://tempuri.org/ITransferService/GetAllAccountsListResponse")]
+        System.Collections.Generic.List<MyModelLibrary.accounts> GetAllAccountsList(MyModelLibrary.accounts MyAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAllAccountsList", ReplyAction="http://tempuri.org/ITransferService/GetAllAccountsListResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.accounts>> GetAllAccountsListAsync(MyModelLibrary.accounts MyAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddAccount", ReplyAction="http://tempuri.org/ITransferService/AddAccountResponse")]
+        bool AddAccount(MyModelLibrary.accounts AddAcc, MyModelLibrary.accounts CurrentAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddAccount", ReplyAction="http://tempuri.org/ITransferService/AddAccountResponse")]
+        System.Threading.Tasks.Task<bool> AddAccountAsync(MyModelLibrary.accounts AddAcc, MyModelLibrary.accounts CurrentAcc);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,12 +61,28 @@ namespace MyProgramJournal_DB.MyService {
                 base(binding, remoteAddress) {
         }
         
-        public MyModelLibrary.Users[] GetAllUsersList(MyModelLibrary.accounts MyAcc) {
+        public System.Collections.Generic.List<MyModelLibrary.Users> GetAllUsersList(MyModelLibrary.accounts MyAcc) {
             return base.Channel.GetAllUsersList(MyAcc);
         }
         
-        public System.Threading.Tasks.Task<MyModelLibrary.Users[]> GetAllUsersListAsync(MyModelLibrary.accounts MyAcc) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetAllUsersListAsync(MyModelLibrary.accounts MyAcc) {
             return base.Channel.GetAllUsersListAsync(MyAcc);
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.accounts> GetAllAccountsList(MyModelLibrary.accounts MyAcc) {
+            return base.Channel.GetAllAccountsList(MyAcc);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.accounts>> GetAllAccountsListAsync(MyModelLibrary.accounts MyAcc) {
+            return base.Channel.GetAllAccountsListAsync(MyAcc);
+        }
+        
+        public bool AddAccount(MyModelLibrary.accounts AddAcc, MyModelLibrary.accounts CurrentAcc) {
+            return base.Channel.AddAccount(AddAcc, CurrentAcc);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddAccountAsync(MyModelLibrary.accounts AddAcc, MyModelLibrary.accounts CurrentAcc) {
+            return base.Channel.AddAccountAsync(AddAcc, CurrentAcc);
         }
     }
 }

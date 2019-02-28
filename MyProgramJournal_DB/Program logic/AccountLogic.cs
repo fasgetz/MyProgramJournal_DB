@@ -14,7 +14,7 @@ namespace MyProgramJournal_DB.Program_logic
     /// Класс предназначен для организации логики работы с аккаунтом
     /// </summary>
     
-    public class AccountLogic : IMyServiceAccountCallback
+    public class AccountLogic : ObservableObject, IMyServiceAccountCallback
     {
 
 
@@ -30,6 +30,9 @@ namespace MyProgramJournal_DB.Program_logic
 
         private static AccountService.MyServiceAccountClient AccountProxy; // Ссылка на прокси для работы с аккаунтами
         private static DialogService MyDialog; // Для работы с диалогом
+
+
+
 
         #endregion
 
@@ -89,7 +92,7 @@ namespace MyProgramJournal_DB.Program_logic
                     }
 
                 }
-            }
+            }            
             else if (MyAcc == null) // Иначе, если аккаунт пустой, то выдай ошибку
             {
                 MyDialog.ShowMessage("Аккаунт не найден!");
@@ -114,6 +117,7 @@ namespace MyProgramJournal_DB.Program_logic
             {
                 MyDialog.ShowMessage(ex.Message);
             }
+
             catch (Exception ex)
             {
                 MyDialog.ShowMessage(ex.Message);

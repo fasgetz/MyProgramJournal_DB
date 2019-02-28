@@ -228,51 +228,43 @@ namespace WCF_Service.DataBase.DTO
 
                 Account.StatusAccounts = GetStatusAcc(AccountNotDTO.StatusAccounts); // Присваиваем данные о статусе аккаунта юзера
 
-                // Если статус аккаунта != 0 (Аккаунт не заблокирован)
-                if (Account.StatusAccounts.idStatus != 0)
+                // Далее делаем проверку: если аккаунту создали учетные данные, то присвой их к нему
+                if (AccountNotDTO.Users != null)
                 {
-                    // Далее делаем проверку: если аккаунту создали учетные данные, то присвой их к нему
-                    if (AccountNotDTO.Users != null)
-                    {
-                        Account.Users = GetUser(AccountNotDTO.Users); // Присваиваем юзеру его данные
+                    Account.Users = GetUser(AccountNotDTO.Users); // Присваиваем юзеру его данные
 
-                        // Если юзер == 1 (Если юзер == студент)
-                        if (Account.Users.idUserStatus == 1)
-                        {
-                            Account.Users.StudentsGroup = GetStudentsGroup(AccountNotDTO.Users.StudentsGroup); // Присвой группу студенту
-                            Account.Users.StudentsGroup.Attendance = GetAttendanceList(AccountNotDTO.Users.StudentsGroup.Attendance.ToList()); // Присвой список оценок студента
-                            Account.Users.StudentsGroup.Groups.TeacherDisciplines = GetGroupDisciplines(AccountNotDTO.Users.StudentsGroup.Groups); // Присваиваем список дисциплин группе студента                            
-                        }
-                        // Если юзер == 2 (Если юзер == преподаватель)
-                        if (Account.Users.idUserStatus == 2)
-                        {
-                            Account.Users.StudentsGroup = null; // StudentsGroup == null (Если юзер преподаватель, то он не состоит ни в какой группе)
-                            Account.Users.TeacherDisciplines = GetTeacherDisciplines(AccountNotDTO.Users.TeacherDisciplines.ToList()); // Получаем дисциплины учителя     
-
-                        }
-                        // Если юзер == 3 (Если юзер == администратор), то значит, что нет смысла инициализировать все данные, кроме юзера
-                        if (Account.Users.idUserStatus == 3)
-                        {
-                            Account.Users.StudentsGroup = null;
-                            Account.Users.TeacherDisciplines = null;
-                        }
-                    }
-                    else// Иначе, если аккаунту не присвоили еще учетных данных, то верни пользователя
+                    // Если юзер == 1 (Если юзер == студент, который имеет группу, то проинициализируй дальше
+                    if (Account.Users.idUserStatus == 1 && AccountNotDTO.Users.StudentsGroup != null)
                     {
-                        
+                        Account.Users.StudentsGroup = GetStudentsGroup(AccountNotDTO.Users.StudentsGroup); // Присвой группу студенту
+                        Account.Users.StudentsGroup.Attendance = GetAttendanceList(AccountNotDTO.Users.StudentsGroup.Attendance.ToList()); // Присвой список оценок студента
+                        Account.Users.StudentsGroup.Groups.TeacherDisciplines = GetGroupDisciplines(AccountNotDTO.Users.StudentsGroup.Groups); // Присваиваем список дисциплин группе студента                            
                     }
-                }
-                else
-                {
+                    // Если юзер == 2 (Если юзер == преподаватель, который имеет дисциплины, то проинициализируй дальше
+                    if (Account.Users.idUserStatus == 2 && AccountNotDTO.Users.TeacherDisciplines != null)
+                    {
+                        Account.Users.StudentsGroup = null; // StudentsGroup == null (Если юзер преподаватель, то он не состоит ни в какой группе)
+                        Account.Users.TeacherDisciplines = GetTeacherDisciplines(AccountNotDTO.Users.TeacherDisciplines.ToList()); // Получаем дисциплины учителя     
+
+                    }
+                    // Если юзер == 3 (Если юзер == администратор), то значит, что нет смысла инициализировать все данные, кроме юзера
+                    if (Account.Users.idUserStatus == 3)
+                    {
+                        Account.Users.StudentsGroup = null;
+                        Account.Users.TeacherDisciplines = null;
+                    }
+
                     
                 }
+
 
                 return Account; // Возвращаем аккаунт
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Аккаунт{AccountNotDTO.idAccount} : {ex.Message}");
             }
+
 
             return null;
         }

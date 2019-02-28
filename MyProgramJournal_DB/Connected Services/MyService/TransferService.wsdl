@@ -10,9 +10,9 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:9001/?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:9001/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:9001/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MyModelLibrary" />
+      <xsd:import schemaLocation="http://95.84.158.128:9001/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://95.84.158.128:9001/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://95.84.158.128:9001/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MyModelLibrary" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ITransferService_GetAllUsersList_InputMessage">
@@ -21,10 +21,30 @@
   <wsdl:message name="ITransferService_GetAllUsersList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllUsersListResponse" />
   </wsdl:message>
+  <wsdl:message name="ITransferService_GetAllAccountsList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAccountsList" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_GetAllAccountsList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAccountsListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_AddAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAccount" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_AddAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAccountResponse" />
+  </wsdl:message>
   <wsdl:portType name="ITransferService">
     <wsdl:operation name="GetAllUsersList">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetAllUsersList" message="tns:ITransferService_GetAllUsersList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetAllUsersListResponse" message="tns:ITransferService_GetAllUsersList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAccountsList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetAllAccountsList" message="tns:ITransferService_GetAllAccountsList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetAllAccountsListResponse" message="tns:ITransferService_GetAllAccountsList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/AddAccount" message="tns:ITransferService_AddAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/AddAccountResponse" message="tns:ITransferService_AddAccount_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_ITransferService" type="tns:ITransferService">
@@ -39,12 +59,30 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAllAccountsList">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/GetAllAccountsList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAccount">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/AddAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="TransferService">
     <wsdl:port name="NetTcpBinding_ITransferService" binding="tns:NetTcpBinding_ITransferService">
-      <soap12:address location="net.tcp://localhost:8301/" />
+      <soap12:address location="net.tcp://95.84.158.128:8301/" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8301/</wsa10:Address>
+        <wsa10:Address>net.tcp://95.84.158.128:8301/</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>

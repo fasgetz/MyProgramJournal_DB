@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MyProgramJournal_DB.View.Administrator"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="Панель Администратора" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Панель Администратора" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
             <i:InvokeCommandAction 
@@ -14,24 +14,29 @@
                 />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
     <Grid>
-        <Menu HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="794">
-            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Аккаунты" Width="100" Height="40">
-                <MenuItem Header="Показать список" />
-                <MenuItem Header="Добавить"/>
+        <Menu HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="1024">
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Аккаунты" Width="130" Height="40">
+                <MenuItem Header="Показать список" Command="{Binding OpenAccountsListPage}"/>
+                <MenuItem Header="Создать аккаунт" Command="{Binding OpenCreateAccountPage}"/>
             </MenuItem>
-            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Пользователи" Width="150" Height="40">
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Анкеты" Width="100" Height="40">
+                <MenuItem Header="Показать список" Command="{Binding OpenUsersListPage}" />
+            </MenuItem>
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Занятия" Width="110" Height="40">
                 <MenuItem Header="Показать список" Command="{Binding OpenUsersListPage}" />
                 <MenuItem Header="Добавить"/>
             </MenuItem>
-            <MenuItem Margin="430,0,0,0"  FontSize="20" Header="Профиль" Width="110" Height="40">
+            <MenuItem  FontSize="25" Header="Профиль" Width="120" Height="40">
+                <MenuItem Header="Главная страница" Command="{Binding OpenMainPage}"></MenuItem>
                 <MenuItem Header="Показать профиль"  Command="{Binding OpenProfilePage}" />
                 <MenuItem Header="Сменить аккаунт" Command="{Binding ChangeUser}"/>
                 <MenuItem Header="Выход" Command="{Binding WinClose}"/>
             </MenuItem>
 
         </Menu>
-        <Frame Content="{Binding Path=DisplayPage}" HorizontalAlignment="Left" NavigationUIVisibility="Hidden" Height="380" Margin="0,40,0,0" VerticalAlignment="Top" Width="790"/>
+        <Frame Content="{Binding Path=DisplayPage}" NavigationUIVisibility="Hidden" Height="700" Margin="0,40,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

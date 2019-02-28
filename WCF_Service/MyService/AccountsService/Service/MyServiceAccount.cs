@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using WCF_Service.DataBase;
 using WCF_Service.DataBase.DTO;
 using WCF_Service.DataBase.Repositories;
+using WCF_Service.Exceptions;
+using WCF_Service.ServiceLogic;
 
 namespace WCF_Service.MyService.AccountsService.Service
 {
@@ -16,60 +18,7 @@ namespace WCF_Service.MyService.AccountsService.Service
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class MyServiceAccount : IMyServiceAccount, ICallBack
     {
-
-        public bool DoWork()
-        {
-            return true;
-        }
-
-
-
-        #region Для call-back методов
-
-        // Метод, который дисконнектит юзеров, если они не отвечают на метод DoWork()
-        // Это значит, что они отключены от сети. Значит юзера надо убрать из списка подключенных
-        public void DisconnectedDisabledAccounts()
-        {
-            // Пока сервис работает делай проверку на отключенных юзеров
-            while (true)
-            {
-                Thread.Sleep(30000); // Отключение метода на 30 секунд
-                Console.WriteLine($"\n{DateTime.Now}) Проверка на неактивных юзеров");
-
-                // Если в списке подключенных аккаунтов есть кто-то, то проверь, подключен ли он к серверу
-                if (ConnectedAccounts.Count() != 0)
-                {
-
-                    // Далее перебираем всех подключенных юзеров и вызываем метод проверки
-                    foreach (var item in new List<accounts>(ConnectedAccounts))
-                    {
-                        try
-                        {
-                            bool ItemConnected = item.operationContext.GetCallbackChannel<ICallBack>().DoWork();
-
-                            // Если аккаунт отключен, то отключи его от сервиса
-                            if (ItemConnected == false)
-                            {
-                                DeleteAccount(item.idAccount); // Отключаем аккаунт от сервиса
-                                Console.WriteLine($"\n{DateTime.Now}) Аккаунт <<{item.login}>> отключен от сервера!\n");
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            DeleteAccount(item.idAccount);
-                        }
-                    }
-
-                }
-
-
-
-
-            }
-        }
-
-        #endregion
-
+        // Конструктор класса
         public MyServiceAccount()
         {
             ConnectedAccounts = new List<accounts>();
@@ -77,15 +26,14 @@ namespace WCF_Service.MyService.AccountsService.Service
             Task MyTask = new Task(DisconnectedDisabledAccounts);
             MyTask.Start(); // Запускаем поток
         }
+        
 
         #region Свойства
 
         // Список подключенных аккаунтов
         public List<accounts> ConnectedAccounts;
-        
 
         #endregion
-
 
         #region Вспомогательные методы для работы с контрактами
 
@@ -169,12 +117,50 @@ namespace WCF_Service.MyService.AccountsService.Service
             {
                 return false; // false - значит, что аккаунта нет в списке подключенных
             }
-
-
         }
 
         #endregion
 
+        #region Для call-back методов
+
+        // Метод, который дисконнектит юзеров, если они не отвечают на метод DoWork()
+        // Это значит, что они отключены от сети. Значит юзера надо убрать из списка подключенных
+        public void DisconnectedDisabledAccounts()
+        {
+            // Пока сервис работает делай проверку на отключенных юзеров
+            while (true)
+            {
+                Thread.Sleep(30000); // Отключение метода на 30 секунд
+                Console.WriteLine($"\n{DateTime.Now}) Проверка на неактивных юзеров");
+
+                // Если в списке подключенных аккаунтов есть кто-то, то проверь, подключен ли он к серверу
+                if (ConnectedAccounts.Count() != 0)
+                {
+
+                    // Далее перебираем всех подключенных юзеров и вызываем метод проверки
+                    foreach (var item in new List<accounts>(ConnectedAccounts))
+                    {
+                        try
+                        {
+                            bool ItemConnected = item.operationContext.GetCallbackChannel<ICallBack>().DoWork();
+
+                            // Если аккаунт отключен, то отключи его от сервиса
+                            if (ItemConnected == false)
+                            {
+                                DeleteAccount(item.idAccount); // Отключаем аккаунт от сервиса
+                                Console.WriteLine($"\n{DateTime.Now}) Аккаунт <<{item.login}>> отключен от сервера!\n");
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            DeleteAccount(item.idAccount);
+                        }
+                    }
+                }
+            }
+        }
+
+        #endregion
 
         #region Методы контракта службы MyServiceAccount
 
@@ -188,10 +174,8 @@ namespace WCF_Service.MyService.AccountsService.Service
             // Если аккаунт не пустой, то значит он есть в базе данных, то сделай проверку: активный он или нет
             if (Account != null)
             {
-                
-
                 // Если статус аккаунта != неактивный, то добавь его к серверу в список подключенных
-                if (Account.idStatus != 0)
+                if (Account.idStatus != 0 && Account.Users != null)
                 {
                     bool Connected = ConnectAccount(Account); // Подключаем аккаунт к сервису
 
@@ -218,17 +202,22 @@ namespace WCF_Service.MyService.AccountsService.Service
                         throw new FaultException<Exceptions.AccountConnectedException>(new Exceptions.AccountConnectedException($"Аккаунт <<{Account.login}>> уже подключен!"), new FaultReason($"Аккаунт <<{Account.login}>> уже подключен!"));
                     }
                 }
+                // Иначе, если статус аккаунта == неактивный, то верни пользователю это
+                else if (Account.idStatus == 0)
+                {
+                    throw new FaultException<Exceptions.AccountConnectedException>(new Exceptions.AccountConnectedException($"Ваш аккаунт <<{Account.login}>> неактивный!\nОбратитесь к администратору для активации"), new FaultReason($"Ваш аккаунт <<{Account.login}>> неактивный!\nОбратитесь к администратору для активации"));                    
+                }
+                // Иначе, если статус аккаунта != неактивный, но у него нет учетных данных, то выдай соответственную ошибку
+                else if (Account.idStatus != 0 && Account.Users == null)
+                {
+                    throw new FaultException<Exceptions.AccountConnectedException>(new Exceptions.AccountConnectedException($"Аккаунту <<{Account.login}>> еще не присвоили учетных данных!\nОбратитесь к администратору!"), new FaultReason($"Аккаунту <<{Account.login}>> еще не присвоили учетных данных!\nОбратитесь к администратору!"));                    
+                }
 
             }
 
             // Иначе, если аккаунт пустой, то выдай пустой аккаунт
             return null;
-
-
-
-
         }
-
 
 
         // Метод, который дисконнектнет юзера со списка подключенных юзеров на сервисе        
@@ -239,9 +228,17 @@ namespace WCF_Service.MyService.AccountsService.Service
 
         #endregion
 
+        #region CallBack методы
 
+        // CallBack метод DoWork отправляется клиентом на сервер каждые 30 секунд
+        // Если он отправляется клиентом на сервер, то он остается в списке подключенных клиентов
+        // Если клиентом не отправляется этот метод, то сервер отключает клиента, т.к. он отключен от сети
+        public bool DoWork()
+        {
+            return true;
+        }
 
-
+        #endregion
 
     }
 }

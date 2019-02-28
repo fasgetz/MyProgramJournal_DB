@@ -13,6 +13,8 @@ namespace MyModelLibrary
         }
 
 
+
+
         public accounts(int idAccount, int idStatus, string login, string password, System.DateTime DateRegistration)
         {
             this.idAccount = idAccount;
@@ -34,6 +36,43 @@ namespace MyModelLibrary
             this.SessionsAccounts = MySessions;
             this.Users = user;
         }
+
+
+        #region Свойства для контролов
+
+        // Свойство, которое конвертирует nullable data в DateTime и выдает на выходе string
+        public string GetDataTimeFormat
+        {
+            get
+            {
+                DateTime kek = Convert.ToDateTime(DateRegistration);
+
+                // Конвертируем nullable дату
+                if (DateRegistration != null)
+                    return kek.ToString("D");
+
+                return null;
+            }
+        }
+
+        public string GetStatus
+        {
+            get
+            {
+                switch (idStatus)
+                {
+                    case (0):
+                        return "Неактивный";
+                    case (1):
+                        return "Активный";
+                    default:
+                        return null;
+                }
+            }
+        }
+
+
+        #endregion
 
 
         #region Свойства аккаунта

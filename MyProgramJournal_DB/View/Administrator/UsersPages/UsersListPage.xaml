@@ -4,33 +4,61 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MyProgramJournal_DB.View.Administrator.UsersPages"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
-      d:DesignHeight="380" d:DesignWidth="790"
+      d:DesignHeight="700" d:DesignWidth="1024"
       Title="UsersListPage">
+
+    <Page.Resources>
+
+        <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="DGC_NumericColumnStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
 
     <Grid>
 
-        <DataGrid x:Name="MyDataGrid" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="0, 0, 0 ,0" HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="790" HorizontalContentAlignment="Center" ItemsSource="{Binding UsersList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
-
+        <DataGrid x:Name="MyDataGrid" SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="0, 0, 0 ,0" HorizontalAlignment="Left" Height="626" VerticalAlignment="Top" Width="1024" ItemsSource="{Binding TempUsersList, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
             <DataGrid.ContextMenu>
 
                 <ContextMenu>
                     <MenuItem Header="Удалить"></MenuItem>
                     <MenuItem Header="Редактировать"></MenuItem>
+                    <MenuItem Header="Показать учетные данные"></MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Айди" Width="50" Binding="{Binding Path=idUser}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Статус" Width="100" Binding="{Binding Path=idUserStatus}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Имя" Width="110" Binding="{Binding Path=Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Фамилия" Width="110" Binding="{Binding Path=Family}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Отчество" Width="120" Binding="{Binding Path=Surname}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Пол" Width="70" Binding="{Binding Path=GetGender}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Телефон" Width="90" Binding="{Binding Path=NumberPhone}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Дата рождения" Width="130" Binding="{Binding Path=GetDataTimeFormat}"></DataGridTextColumn>
-            </DataGrid.Columns>
 
+                <DataGridTextColumn Header="Айди" Width="70" Binding="{Binding Path=idUser}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Имя" Width="130" Binding="{Binding Path=Name}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Фамилия" Width="130" Binding="{Binding Path=Family}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Отчество" Width="130" Binding="{Binding Path=Surname}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Пол" Width="100" Binding="{Binding Path=GetGender}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Статус" Width="120" Binding="{Binding Path=GetStatus}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Телефон" Width="140" Binding="{Binding Path=NumberPhone}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Дата рождения" Width="190" Binding="{Binding Path=GetDataTimeFormat}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+            </DataGrid.Columns>
         </DataGrid>
 
+
+
+        <!--<Label Content="{Binding text}" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,626,0,0" VerticalAlignment="Top" Width="161" Height="45"/>-->
+        <TextBox HorizontalAlignment="Left" FontSize="25" MaxLength="20" Height="45" Margin="188,626,0,0" TextWrapping="Wrap" Text="{Binding text, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="836">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding SearchUsersCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+
+
+
+        <ComboBox  ItemsSource="{Binding UsersCBData}" FontSize="20" SelectedItem="{Binding SelectedSearchItem}" HorizontalAlignment="Left" Margin="0,626,0,0" VerticalAlignment="Top" Width="188" Height="45"></ComboBox>
+
     </Grid>
+
 </Page>

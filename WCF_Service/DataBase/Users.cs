@@ -19,7 +19,28 @@ namespace WCF_Service.DataBase
         {
             this.TeacherDisciplines = new HashSet<TeacherDisciplines>();
         }
-    
+
+
+        // Конструктор для инициализации данных
+        public Users (int idUser, int idUserStatus, string Name, string Family, string Surname, string Gender, string NumberPhone, DateTime? DateOfBirthdays)
+        {
+            this.idUser = idUser;
+            this.idUserStatus = idUserStatus;
+            this.Name = Name;
+            this.Family = Family;
+            this.Surname = Surname;
+            this.Gender = Gender;
+            this.NumberPhone = NumberPhone;
+
+            if (DateOfBirthdays.HasValue)
+                this.DateOfBirthDay = new DateTime(DateOfBirthdays.Value.Year, DateOfBirthdays.Value.Month, DateOfBirthdays.Value.Day);
+
+
+            //this.DateOfBirthDay = DateOfBirthDay;
+        }
+
+        #region Свойства юзера
+
         public int idUser { get; set; }
         public Nullable<int> idUserStatus { get; set; }
         public string Name { get; set; }
@@ -34,5 +55,7 @@ namespace WCF_Service.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TeacherDisciplines> TeacherDisciplines { get; set; }
         public virtual UserStatus UserStatus { get; set; }
+
+        #endregion
     }
 }

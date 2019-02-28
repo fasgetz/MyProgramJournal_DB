@@ -11,8 +11,15 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         // Метод, который получит весь список пользователей, если пользователь пройдет проверку (Он должен быть администратором)
         [OperationContract]
-        List<MyModelLibrary.Users> GetAllUsersList(MyModelLibrary.accounts MyAcc); 
+        List<MyModelLibrary.Users> GetAllUsersList(MyModelLibrary.accounts MyAcc);
 
+        // Метод, который получает весь список аккаунтов, если пользователь пройдет проверку (Если он администратор)
+        [OperationContract]
+        List<MyModelLibrary.accounts> GetAllAccountsList(MyModelLibrary.accounts MyAcc);
+
+        // Метод, который принимает со стороны клиента аккаунт и добавляет его в базу данных, соответственно, если аккаунт == администратор и возвращает true, если аккаунт создан
+        [OperationContract]
+        bool AddAccount(MyModelLibrary.accounts AddAcc, MyModelLibrary.accounts CurrentAcc);
 
     }
 }

@@ -5,28 +5,28 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MyProgramJournal_DB.View.CommonPages"
       mc:Ignorable="d" 
-      d:DesignHeight="380" d:DesignWidth="790"
+      d:DesignHeight="700" d:DesignWidth="1024"
       Title="ProfilePage">
 
     <Grid>
-        <Label Content="{Binding profile_name}" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="770" Height="40"/>
-        <Button Content="Сменить данные" Command="{Binding OpenChangeProfilePage}" FontSize="20" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top" Width="770"/>
-        <Label Content="Логин" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Width="219" Height="34"/>
-        <Label Content="Пароль" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="219" Height="33"/>
-        <Label Content="Имя" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="219" Height="34"/>
-        <Label Content="Фамилия" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,157,0,0" VerticalAlignment="Top" Width="219" Height="33"/>
-        <Label Content="Отчество" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Width="219" Height="34"/>
-        <Label Content="Пол" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top" Width="219" Height="33"/>
-        <Label Content="Номер телефона" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,257,0,0" VerticalAlignment="Top" Width="219" Height="34"/>
-        <Label Content="Дата рождения" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,291,0,0" VerticalAlignment="Top" Width="219" Height="34"/>
-        <Label Content="{Binding login}" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="229,56,0,0" VerticalAlignment="Top" Width="551" Height="34"/>
-        <Label Content="{Binding password}" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="229,90,0,0" VerticalAlignment="Top" Width="551" Height="34"/>
-        <Label Content="{Binding Name}" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="229,124,0,0" VerticalAlignment="Top" Width="551" Height="34"/>
-        <Label Content="{Binding Family}" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="229,157,0,0" VerticalAlignment="Top" Width="551" Height="33"/>
-        <Label Content="{Binding Surname}" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="229,190,0,0" VerticalAlignment="Top" Width="551" Height="34"/>
-        <Label Content="{Binding Gender}" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="229,224,0,0" VerticalAlignment="Top" Width="551" Height="34"/>
-        <Label Content="{Binding NumberPhone}" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="229,257,0,0" VerticalAlignment="Top" Width="551" Height="34"/>
-        <Label Content="{Binding GetDateOfBirthday}" FontSize="18" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="229,291,0,0" VerticalAlignment="Top" Width="551" Height="34"/>
+        <Label Content="{Binding profile_name}" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="983" Height="86"/>
+        <Button Content="Сохранить" Command="{Binding Create}" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="26,607,16,0" VerticalAlignment="Top" Width="983" Height="57"/>
+        <Label Content="Логин" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="280" Height="63"/>
+        <Label Content="Пароль" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Width="280" Height="61"/>
+        <Label Content="Имя" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,225,0,0" VerticalAlignment="Top" Width="280" Height="62"/>
+        <Label Content="Фамилия" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,287,0,0" VerticalAlignment="Top" Width="280" Height="61"/>
+        <Label Content="Отчество" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,348,0,0" VerticalAlignment="Top" Width="280" Height="63"/>
+        <Label Content="Пол" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,411,0,0" VerticalAlignment="Top" Width="280" Height="61"/>
+        <Label Content="Номер телефона" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,472,0,0" VerticalAlignment="Top" Width="280" Height="62"/>
+        <Label Content="Дата рождения" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,534,0,0" VerticalAlignment="Top" Width="280" Height="63"/>
+        <Label Content="{Binding Name}" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="290,227,0,0" VerticalAlignment="Top" Width="703" Height="62"/>
+        <Label Content="{Binding Family}" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="290,287,0,0" VerticalAlignment="Top" Width="703" Height="61"/>
+        <Label Content="{Binding Surname}" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="290,348,0,0" VerticalAlignment="Top" Width="703" Height="63"/>
+        <Label Content="{Binding Gender}" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="290,411,0,0" VerticalAlignment="Top" Width="703" Height="63"/>
+        <Label Content="{Binding NumberPhone}" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="290,472,0,0" VerticalAlignment="Top" Width="703" Height="62"/>
+        <Label Content="{Binding GetDateOfBirthday}" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="290,534,0,0" VerticalAlignment="Top" Width="703" Height="63"/>
+        <TextBox HorizontalAlignment="Left" FontSize="35" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="64" Margin="290,101,0,0" TextWrapping="Wrap" Text="{Binding login}" VerticalAlignment="Top" Width="704"/>
+        <TextBox HorizontalAlignment="Left" FontSize="35" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="62" Margin="290,165,0,0" TextWrapping="Wrap" Text="{Binding password}" VerticalAlignment="Top" Width="704"/>
 
     </Grid>
 </Page>

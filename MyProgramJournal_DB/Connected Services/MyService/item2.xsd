@@ -1,18 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:9001/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MyModelLibrary" />
-  <xs:element name="GetAllUsersList">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q1:accounts" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAllUsersListResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetAllUsersListResult" nillable="true" type="q2:ArrayOfUsers" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MyModelLibrary" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MyModelLibrary" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="accounts">
+    <xs:sequence>
+      <xs:element name="_x003C_DateRegistration_x003E_k__BackingField" nillable="true" type="xs:dateTime" />
+      <xs:element name="_x003C_SessionsAccounts_x003E_k__BackingField" nillable="true" type="tns:ArrayOfSessionsAccounts" />
+      <xs:element name="_x003C_StatusAccounts_x003E_k__BackingField" nillable="true" type="tns:StatusAccounts" />
+      <xs:element name="_x003C_Users_x003E_k__BackingField" nillable="true" type="tns:Users" />
+      <xs:element name="_x003C_idAccount_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idStatus_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_login_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_password_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="accounts" nillable="true" type="tns:accounts" />
+  <xs:complexType name="ArrayOfSessionsAccounts">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SessionsAccounts" nillable="true" type="tns:SessionsAccounts" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSessionsAccounts" nillable="true" type="tns:ArrayOfSessionsAccounts" />
+  <xs:complexType name="SessionsAccounts">
+    <xs:sequence>
+      <xs:element name="_x003C_EndLogin_x003E_k__BackingField" nillable="true" type="xs:dateTime" />
+      <xs:element name="_x003C_StartLogin_x003E_k__BackingField" nillable="true" type="xs:dateTime" />
+      <xs:element name="_x003C_idAccount_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idSession_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SessionsAccounts" nillable="true" type="tns:SessionsAccounts" />
+  <xs:complexType name="StatusAccounts">
+    <xs:sequence>
+      <xs:element name="_x003C_StatusAccount_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_idStatus_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StatusAccounts" nillable="true" type="tns:StatusAccounts" />
+  <xs:complexType name="Users">
+    <xs:sequence>
+      <xs:element name="_x003C_DateOfBirthDay_x003E_k__BackingField" nillable="true" type="xs:dateTime" />
+      <xs:element name="_x003C_Family_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Gender_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_NumberPhone_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_StudentsGroup_x003E_k__BackingField" nillable="true" type="tns:StudentsGroup" />
+      <xs:element name="_x003C_Surname_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_TeacherDisciplines_x003E_k__BackingField" nillable="true" type="tns:ArrayOfTeacherDisciplines" />
+      <xs:element name="_x003C_UserStatus_x003E_k__BackingField" nillable="true" type="tns:UserStatus" />
+      <xs:element name="_x003C_idUserStatus_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element name="_x003C_idUser_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Users" nillable="true" type="tns:Users" />
+  <xs:complexType name="StudentsGroup">
+    <xs:sequence>
+      <xs:element name="_x003C_Attendance_x003E_k__BackingField" nillable="true" type="tns:ArrayOfAttendance" />
+      <xs:element name="_x003C_Groups_x003E_k__BackingField" nillable="true" type="tns:Groups" />
+      <xs:element name="_x003C_IdStudent_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idGroup_x003E_k__BackingField" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StudentsGroup" nillable="true" type="tns:StudentsGroup" />
+  <xs:complexType name="ArrayOfAttendance">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Attendance" nillable="true" type="tns:Attendance" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAttendance" nillable="true" type="tns:ArrayOfAttendance" />
+  <xs:complexType name="Attendance">
+    <xs:sequence>
+      <xs:element name="_x003C_DateLesson_x003E_k__BackingField" nillable="true" type="xs:dateTime" />
+      <xs:element name="_x003C_IdDiscipline_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdGroup_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdTeacher_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_LessonNumber_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element name="_x003C_Mark_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_NumberSemester_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element name="_x003C_StudentId_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idAttendance_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Attendance" nillable="true" type="tns:Attendance" />
+  <xs:complexType name="Groups">
+    <xs:sequence>
+      <xs:element name="_x003C_GroupName_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_StudentsGroup_x003E_k__BackingField" nillable="true" type="tns:ArrayOfStudentsGroup" />
+      <xs:element name="_x003C_TeacherDisciplines_x003E_k__BackingField" nillable="true" type="tns:ArrayOfTeacherDisciplines" />
+      <xs:element name="_x003C_idGroup_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Groups" nillable="true" type="tns:Groups" />
+  <xs:complexType name="ArrayOfStudentsGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StudentsGroup" nillable="true" type="tns:StudentsGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStudentsGroup" nillable="true" type="tns:ArrayOfStudentsGroup" />
+  <xs:complexType name="ArrayOfTeacherDisciplines">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TeacherDisciplines" nillable="true" type="tns:TeacherDisciplines" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTeacherDisciplines" nillable="true" type="tns:ArrayOfTeacherDisciplines" />
+  <xs:complexType name="TeacherDisciplines">
+    <xs:sequence>
+      <xs:element name="_x003C_Attendance_x003E_k__BackingField" nillable="true" type="tns:ArrayOfAttendance" />
+      <xs:element name="_x003C_Discipline_x003E_k__BackingField" nillable="true" type="tns:Discipline" />
+      <xs:element name="_x003C_Groups_x003E_k__BackingField" nillable="true" type="tns:Groups" />
+      <xs:element name="_x003C_IdDiscipline_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdGroup_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdTeacher_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_LessonsDate_x003E_k__BackingField" nillable="true" type="tns:ArrayOfLessonsDate" />
+      <xs:element name="_x003C_NumberSemester_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TeacherDisciplines" nillable="true" type="tns:TeacherDisciplines" />
+  <xs:complexType name="Discipline">
+    <xs:sequence>
+      <xs:element name="_x003C_NameDiscipline_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_idDiscipline_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Discipline" nillable="true" type="tns:Discipline" />
+  <xs:complexType name="ArrayOfLessonsDate">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LessonsDate" nillable="true" type="tns:LessonsDate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLessonsDate" nillable="true" type="tns:ArrayOfLessonsDate" />
+  <xs:complexType name="LessonsDate">
+    <xs:sequence>
+      <xs:element name="_x003C_DateLesson_x003E_k__BackingField" type="xs:dateTime" />
+      <xs:element name="_x003C_IdDiscipline_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdGroup_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdTeacher_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_LessonNumber_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_NumberSemester_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LessonsDate" nillable="true" type="tns:LessonsDate" />
+  <xs:complexType name="UserStatus">
+    <xs:sequence>
+      <xs:element name="_x003C_StatusUser_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_idUserStatus_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserStatus" nillable="true" type="tns:UserStatus" />
+  <xs:complexType name="ArrayOfUsers">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Users" nillable="true" type="tns:Users" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUsers" nillable="true" type="tns:ArrayOfUsers" />
+  <xs:complexType name="ArrayOfaccounts">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="accounts" nillable="true" type="tns:accounts" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfaccounts" nillable="true" type="tns:ArrayOfaccounts" />
 </xs:schema>

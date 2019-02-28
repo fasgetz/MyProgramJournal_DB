@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyProgramJournal_DB.View.CommonPages
+namespace MyProgramJournal_DB.View.Administrator.AccountsPages
 {
     /// <summary>
-    /// Логика взаимодействия для ChangeProfilePage.xaml
+    /// Логика взаимодействия для AccountsListPage.xaml
     /// </summary>
-    public partial class ChangeProfilePage : Page
+    public partial class AccountsListPage : Page
     {
-        public ChangeProfilePage()
+        public AccountsListPage()
         {
             InitializeComponent();
         }
