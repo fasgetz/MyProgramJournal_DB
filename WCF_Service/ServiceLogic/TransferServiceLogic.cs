@@ -65,37 +65,49 @@ namespace WCF_Service.ServiceLogic
             if (CheckUserStatus(CurrentIdAcc) == 3)
             {
                 if
-                                   (AddAcc.login != string.Empty
-                                   && AddAcc.password != string.Empty
+                                   (AddAcc.login != null
+                                   && AddAcc.password != null
                                    && AddAcc.idStatus == 1 || AddAcc.idStatus == 2
-                                   && AddAcc.Users.Name != string.Empty
-                                   && AddAcc.Users.Family != string.Empty
-                                   && AddAcc.Users.Gender != string.Empty
+                                   && AddAcc.Users.Name != null
+                                   && AddAcc.Users.Family != null
+                                   && AddAcc.Users.Gender != null
                                    && AddAcc.Users.idUserStatus == 1 || AddAcc.Users.idUserStatus == 2) // Если пользователь студент или администратор
                 {
                     try
                     {
-                        // Создаем аккаунт и инициализируем данные
-                        accounts NewAccount = new accounts
-                            (AddAcc.idStatus,
-                            AddAcc.login,
-                            AddAcc.password,
-                            DateTime.Now,
-                            AddAcc.Users.Name,
-                            AddAcc.Users.Family,
-                            AddAcc.Users.Surname,
-                            AddAcc.Users.Gender,
-                            Convert.ToInt16(AddAcc.Users.idUserStatus),
-                            AddAcc.Users.NumberPhone,
-                            AddAcc.Users.DateOfBirthDay
-                            );
 
+                        // Если логин или пароль пользователя < 6 символов длиной, то выдай соответствующую ошибку
+                        if (
+                            AddAcc.login.Length > 5
+                            && AddAcc.password.Length > 5)
+                        {
+                            // Создаем аккаунт и инициализируем данные
+                            accounts NewAccount = new accounts
+                                (AddAcc.idStatus,
+                                AddAcc.login,
+                                AddAcc.password,
+                                DateTime.Now,
+                                AddAcc.Users.Name,
+                                AddAcc.Users.Family,
+                                AddAcc.Users.Surname,
+                                AddAcc.Users.Gender,
+                                Convert.ToInt16(AddAcc.Users.idUserStatus),
+                                AddAcc.Users.NumberPhone,
+                                AddAcc.Users.DateOfBirthDay
+                                );
 
-                        // Создаем репозиторый для работы с контекстом базы данных
-                        EFGenericRepository<accounts> MyRepository = new EFGenericRepository<accounts>(new MyDB());
-                        MyRepository.Add(NewAccount);
-                        Console.WriteLine($"{DateTime.Now}) Аккаунт <<{AddAcc.login}>> успешно создан!");
-                        return true;
+                            // Создаем репозиторый для работы с контекстом базы данных
+                            EFGenericRepository<accounts> MyRepository = new EFGenericRepository<accounts>(new MyDB());
+                            MyRepository.Add(NewAccount);
+                            Console.WriteLine($"{DateTime.Now}) Аккаунт <<{AddAcc.login}>> успешно создан!");
+                            return true;
+                        }
+                        // Иначе, если учетные данные меньше 5 символов, то выдай ошибку
+                        else
+                        {
+                            ExceptionSender.SendException($"Логин и пароль должны иметь больше 5-ти символов!");
+                            return false;
+                        }                        
 
                     }
                     catch (System.Data.Entity.Infrastructure.DbUpdateException)

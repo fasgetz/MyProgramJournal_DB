@@ -41,7 +41,6 @@ namespace WCF_Service.MyService.ServiceWorkDB
         // Метод, который принимает со стороны клиента аккаунт и добавляет его в базу данных, соответственно, если аккаунт == администратор и возвращает true, если аккаунт создан
         public bool AddAccount(MyModelLibrary.accounts AddAcc, MyModelLibrary.accounts CurrentAcc)
         {
-
             return MyServiceLogic.AddUser(AddAcc, CurrentAcc.idAccount);
         }
 

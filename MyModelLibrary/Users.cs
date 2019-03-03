@@ -66,6 +66,15 @@ namespace MyModelLibrary
             }
         }
 
+        public string GetNumberPhone
+        {
+            get
+            {
+                if (NumberPhone is null)
+                    return " "; // Сделано для поиска в DataGrid (Если ввели пробел)
+                return NumberPhone;
+            }
+        }
         #endregion
 
 
@@ -81,25 +90,6 @@ namespace MyModelLibrary
             this.NumberPhone = NumberPhone;
             this.DateOfBirthDay = DateOfBirthDay;
         }
-
-
-        //// Конструктор для инициализации свойств юзера
-        //public Users(int idUser, int idUserStatus, string Name, string Family, string Surname, string Gender, string NumberPhone, System.DateTime DateOfBirthday, UserStatus UserStatus, StudentsGroup StudentGroups, List<TeacherDisciplines> teacherDisciplines)
-        //{
-        //    this.idUser = idUser;
-        //    this.idUserStatus = idUserStatus;
-        //    this.Name = Name;
-        //    this.Family = Family;
-        //    this.Surname = Surname;
-        //    this.Gender = Gender;
-        //    this.NumberPhone = NumberPhone;
-        //    this.DateOfBirthDay = DateOfBirthDay;
-        //    this.UserStatus = UserStatus;
-        //    this.StudentsGroup = StudentsGroup;
-        //    this.TeacherDisciplines = TeacherDisciplines;
-        //}
-
-
 
         #region Список свойств Юзера
 
@@ -129,8 +119,6 @@ namespace MyModelLibrary
         {
             get
             {
-                if (_NumberPhone is null)
-                    return " "; // Сделано для поиска в DataGrid (Если ввели пробел)
                 return _NumberPhone;
             }
             set
@@ -151,7 +139,6 @@ namespace MyModelLibrary
                 _DateOfBirthDay = value;
             }
         }
-
 
         //public virtual accounts accounts { get; set; }
         //public accounts myaccounts { get; set; }

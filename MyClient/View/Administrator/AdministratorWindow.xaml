@@ -1,0 +1,56 @@
+﻿<Window x:Class="MyClient.View.Administrator.AdministratorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+        mc:Ignorable="d"
+        DataContext="{Binding AdminVM, Source={StaticResource Locator}}"
+        Title="Панель Администратора" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding Disconnect}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OpenMainPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Menu HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="1024">
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Аккаунты" Width="120" Height="40">
+                <MenuItem Header="Показать список" Command="{Binding OpenAccountsList}"/>
+                <MenuItem Header="Создать аккаунт" Command="{Binding OpenCreateAccountPage}"/>
+            </MenuItem>
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Анкеты" Width="100" Height="40">
+                <MenuItem Header="Показать список" Command="{Binding OpenUsersList}" />
+            </MenuItem>
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Группы" Width="100" Height="40">
+                <MenuItem Header="Показать список" Command="{Binding OpenUsersListPage}" />
+                <MenuItem Header="Добавить дисциплину группе"/>
+            </MenuItem>
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Дисциплины test" Width="255" Height="40">
+                <MenuItem Header="Показать список" />
+                <MenuItem Header="Добавить"/>
+            </MenuItem>
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Расписание" Width="150" Height="40">
+                <MenuItem Header="Показать" Command="{Binding OpenUsersListPage}" />
+            </MenuItem>
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Новости" Width="110" Height="40">
+                <MenuItem Header="Показать"  />
+                <MenuItem Header="Добавить" Command="{Binding OpenCreateNewsPage}"/>
+            </MenuItem>
+            <MenuItem  FontSize="25" Header="Профиль" Width="120" Height="40">
+                <MenuItem Header="Главная страница" Command="{Binding OpenMainPage}"></MenuItem>
+                <MenuItem Header="Показать профиль"  Command="{Binding OpenProfilePage}" />
+                <MenuItem Header="Сменить аккаунт" Command="{Binding ChangeUser}"/>
+                <MenuItem Header="Выход" Command="{Binding WinClose}"/>
+            </MenuItem>
+
+        </Menu>
+        <Frame x:Name="frame" NavigationUIVisibility="Hidden" Height="700" Margin="0,40,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
