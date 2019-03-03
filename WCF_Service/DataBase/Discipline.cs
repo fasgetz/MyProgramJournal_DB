@@ -19,11 +19,24 @@ namespace WCF_Service.DataBase
         {
             this.TeacherDisciplines = new HashSet<TeacherDisciplines>();
         }
-    
+
+
+        // Конструктор
+        public Discipline(int idDiscipline, string NameDiscipline)
+        {
+            this.idDiscipline = idDiscipline;
+            this.NameDiscipline = NameDiscipline;
+        }
+
+
+        #region Свойства
+
         public int idDiscipline { get; set; }
         public string NameDiscipline { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TeacherDisciplines> TeacherDisciplines { get; set; }
+
+        #endregion
     }
 }

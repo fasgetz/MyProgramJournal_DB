@@ -84,8 +84,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="ProgramLogic\DialogServices\IDialogService.cs" />
     <Compile Include="ProgramLogic\ServiceLogic\AccountLogic.cs" />
     <Compile Include="ProgramLogic\ServiceLogic\AdministratorLogic.cs" />
+    <Compile Include="ProgramLogic\ServiceLogic\NewsLogic.cs" />
     <Compile Include="ProgramLogic\ServiceLogic\StudentLogic.cs" />
     <Compile Include="ViewModel\Administrator\AccountsListPageViewModel.cs" />
     <Compile Include="ViewModel\Administrator\AdministratorViewModel.cs" />
@@ -214,16 +216,16 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\AccountService\MyServiceAccount.wsdl" />
-    <None Include="Connected Services\MyService\item.xsd">
+    <None Include="Connected Services\MyService\MyModelLibrary.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MyService\item1.xsd">
+    <None Include="Connected Services\MyService\service.wsdl" />
+    <None Include="Connected Services\MyService\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MyService\item2.xsd">
+    <None Include="Connected Services\MyService\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MyService\TransferService.wsdl" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\MyModelLibrary.accounts.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.Users.datasource" />
@@ -235,11 +237,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Connected Services\MyService\configuration91.svcinfo" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyModelLibrary\MyModelLibrary.csproj">
       <Project>{b51fc2c5-29b6-4a66-bd87-48ba49f149c2}</Project>
       <Name>MyModelLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WCF_Service\WCF_Service.csproj">
+      <Project>{7FCDFB08-3EB9-4A5E-B156-848018F94EA9}</Project>
+      <Name>WCF_Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -263,12 +271,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\MyService\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\MyService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\MyService\configuration.svcinfo" />

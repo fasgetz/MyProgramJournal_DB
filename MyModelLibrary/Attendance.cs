@@ -15,35 +15,22 @@ namespace MyModelLibrary
 
         }
 
-        // Конструктор с параметрами, в котором инициализируем наши свойства
-        public Attendance(int idAttendance, int idTeacher, int idGroup, int IdDiscipline, int NumbSem, int StudentId, System.DateTime DateLesson, int LessonNumb, string mark)
+        // Конструктор
+        public Attendance(int idAttendance, int IdLesson, int StudentId, string Mark)
         {
             this.idAttendance = idAttendance;
-            this.IdTeacher = idTeacher;
-            this.IdGroup = idGroup;
-            this.IdDiscipline = IdDiscipline;
-            this.NumberSemester = NumbSem;
+            this.IdLesson = IdLesson;
             this.StudentId = StudentId;
-            this.DateLesson = DateLesson;
-            this.LessonNumber = LessonNumb;
-            this.Mark = mark;
+            this.Mark = Mark;
         }
 
-        #region Список свойств
+        #region Свойства
 
         public int idAttendance { get; set; }
-        public int IdTeacher { get; set; }
-        public int IdGroup { get; set; }
-        public int IdDiscipline { get; set; }
-        public Nullable<int> NumberSemester { get; set; }
+        public int IdLesson { get; set; }
         public int StudentId { get; set; }
-        public Nullable<System.DateTime> DateLesson { get; set; }
-        public Nullable<int> LessonNumber { get; set; }
         public string Mark { get; set; }
 
-        //public virtual LessonsDate LessonsDate { get; set; }
-        //public virtual StudentsGroup StudentsGroup { get; set; }
-        //public virtual TeacherDisciplines TeacherDisciplines { get; set; }
         #endregion
 
     }

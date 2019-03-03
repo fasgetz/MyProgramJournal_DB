@@ -19,16 +19,28 @@ namespace WCF_Service.DataBase
         {
             this.Attendance = new HashSet<Attendance>();
         }
-    
+
+
+        public LessonsDate(int idTeacherActivities, int idLesson, DateTime DateLesson, int LessonNumber)
+        {
+            this.IdTeacherActivities = idTeacherActivities;
+            this.IdLesson = idLesson;
+            this.DateLesson = DateLesson;
+            this.LessonNumber = LessonNumber;
+        }
+
+
+        #region Свойства
+
+        public int IdLesson { get; set; }
+        public int IdTeacherActivities { get; set; }
         public System.DateTime DateLesson { get; set; }
         public int LessonNumber { get; set; }
-        public int IdTeacher { get; set; }
-        public int IdGroup { get; set; }
-        public int IdDiscipline { get; set; }
-        public int NumberSemester { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendance> Attendance { get; set; }
         public virtual TeacherDisciplines TeacherDisciplines { get; set; }
+
+        #endregion
     }
 }

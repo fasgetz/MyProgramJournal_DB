@@ -17,17 +17,15 @@ namespace WCF_Service.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TeacherDisciplines()
         {
-            this.Attendance = new HashSet<Attendance>();
             this.LessonsDate = new HashSet<LessonsDate>();
         }
     
+        public int IdTeacherActivities { get; set; }
         public int IdTeacher { get; set; }
         public int IdDiscipline { get; set; }
         public int IdGroup { get; set; }
         public int NumberSemester { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Attendance> Attendance { get; set; }
         public virtual Discipline Discipline { get; set; }
         public virtual Groups Groups { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

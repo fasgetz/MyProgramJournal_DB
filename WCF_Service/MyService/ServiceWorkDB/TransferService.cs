@@ -17,7 +17,7 @@ namespace WCF_Service.MyService.ServiceWorkDB
     {
         #region Свойства
 
-        TransferServiceLogic MyServiceLogic = new TransferServiceLogic();
+        TransferServiceLogic MyServiceLogic = new TransferServiceLogic();        
 
         #endregion
 
@@ -45,8 +45,7 @@ namespace WCF_Service.MyService.ServiceWorkDB
         }
 
         #endregion
+
+
     }
-
-
-
 }

@@ -14,21 +14,24 @@ namespace MyModelLibrary
 
         public StudentsGroup()
         {
-            this.Attendance = new List<Attendance>();
+            //this.Attendance = new List<Attendance>();
         }
 
         // Конструктор, который инициализирует свойства
-        public StudentsGroup(int idStudent, int idGroup, List<Attendance> Attendance_list, Groups Groups)
+        public StudentsGroup(int idStudent, int idGroup, int NumberInJournal, List<Attendance> Attendance_list, Groups Groups)
         {
             this.IdStudent = IdStudent;
             this.idGroup = idGroup;
+            this.NumberInJournal = NumberInJournal;
             this.Attendance = Attendance_list;
             this.Groups = Groups;
         }
 
         #region Свойства сущности Студент
+
         public int IdStudent { get; set; }
         public Nullable<int> idGroup { get; set; }
+        public Nullable<int> NumberInJournal { get; set; }
 
         public virtual List<Attendance> Attendance { get; set; }
         public Groups Groups { get; set; }

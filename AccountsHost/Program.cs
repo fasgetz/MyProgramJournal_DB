@@ -13,8 +13,6 @@ namespace AccountsHost
     {
         static void Main(string[] args)
         {
-
-
             using (var host = new ServiceHost(typeof(WCF_Service.MyService.AccountsService.Service.MyServiceAccount)))
             {
                 host.Open(); // Открываем хост

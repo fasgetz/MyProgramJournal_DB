@@ -15,24 +15,22 @@ namespace MyModelLibrary
         }
 
 
-        // Конструктор, который инициализирует поля по параметрам
-        public LessonsDate(System.DateTime DateLesson, int LessonNumber, int IdTeacher, int IdGroup, int IdDiscipline, int NumberSemester)
+        // Конструктор
+        public LessonsDate(int idTeacherActivities, int idLesson, DateTime DateLesson, int LessonNumber)
         {
+            this.IdTeacherActivities = idTeacherActivities;
+            this.IdLesson = idLesson;
             this.DateLesson = DateLesson;
             this.LessonNumber = LessonNumber;
-            this.IdTeacher = IdTeacher;
-            this.IdGroup = IdGroup;
-            this.IdDiscipline = IdDiscipline;
-            this.NumberSemester = NumberSemester;
         }
+
+
         #region Свойства
 
+        public int IdLesson { get; set; }
+        public int IdTeacherActivities { get; set; }
         public System.DateTime DateLesson { get; set; }
         public int LessonNumber { get; set; }
-        public int IdTeacher { get; set; }
-        public int IdGroup { get; set; }
-        public int IdDiscipline { get; set; }
-        public int NumberSemester { get; set; }
 
         //public virtual List<Attendance> Attendance { get; set; }
         //public virtual TeacherDisciplines TeacherDisciplines { get; set; }

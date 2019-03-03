@@ -20,7 +20,16 @@ namespace WCF_Service.DataBase
             this.StudentsGroup = new HashSet<StudentsGroup>();
             this.TeacherDisciplines = new HashSet<TeacherDisciplines>();
         }
-    
+
+
+        public Groups(int idGroup, string GroupName)
+        {
+            this.idGroup = idGroup;
+            this.GroupName = GroupName;
+        }
+
+        #region Свойства
+
         public int idGroup { get; set; }
         public string GroupName { get; set; }
     
@@ -28,5 +37,7 @@ namespace WCF_Service.DataBase
         public virtual ICollection<StudentsGroup> StudentsGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TeacherDisciplines> TeacherDisciplines { get; set; }
+
+        #endregion
     }
 }

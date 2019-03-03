@@ -20,7 +20,7 @@
     <Grid>
         <Label Content="{Binding profile_name}" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="983" Height="86"/>
         <Button Content="Изменить пароль" Command="{Binding Initializataion}" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="26,607,16,0" VerticalAlignment="Top" Width="983" Height="57"/>
-        <Label Content="Логин" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="280" Height="63"/>
+        <Label Content="Пароль" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="280" Height="63"/>
         <Label Content="Пароль" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Width="280" Height="61"/>
         <Label Content="Имя" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,225,0,0" VerticalAlignment="Top" Width="280" Height="62"/>
         <Label Content="Фамилия" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,287,0,0" VerticalAlignment="Top" Width="280" Height="61"/>

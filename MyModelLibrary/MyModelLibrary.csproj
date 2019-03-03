@@ -42,9 +42,12 @@
   <ItemGroup>
     <Compile Include="accounts.cs" />
     <Compile Include="Attendance.cs" />
+    <Compile Include="DbNews\Images.cs" />
+    <Compile Include="DbNews\News.cs" />
     <Compile Include="Discipline.cs" />
     <Compile Include="Groups.cs" />
     <Compile Include="LessonsDate.cs" />
+    <Compile Include="Marks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionsAccounts.cs" />
     <Compile Include="StatusAccounts.cs" />

@@ -10,7 +10,7 @@ namespace WCF_Service.Exceptions
     // Пользователькое исключение, которое возвращается, в случае, если аккаунт уже подключен к серверу
 
     [DataContract]
-    class AccountConnectedException
+    public class AccountConnectedException
     {
 
         private string _ExceptionName;

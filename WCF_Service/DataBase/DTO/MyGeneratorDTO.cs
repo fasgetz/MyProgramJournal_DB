@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace WCF_Service.DataBase.DTO
 {
     // Вспомогательный класс, который преобразует прокси-объекты в DTO - объекты, для передачи данных.
-    class MyGeneratorDTO
+    public class MyGeneratorDTO
     {
         #region Методы для получения DTO объектов
 
@@ -23,7 +23,7 @@ namespace WCF_Service.DataBase.DTO
                 // Перебираем все lessonsDates и присваиваем в новый список
                 foreach (var item in lessonsDates)
                 {
-                    list.Add(new MyModelLibrary.LessonsDate(item.DateLesson, item.LessonNumber, item.IdTeacher, item.IdGroup, item.IdDiscipline, item.NumberSemester));
+                    list.Add(new MyModelLibrary.LessonsDate(item.IdTeacherActivities, item.IdLesson, item.DateLesson, item.LessonNumber));
                 }
             }
 
@@ -43,18 +43,13 @@ namespace WCF_Service.DataBase.DTO
                 foreach (var item in list)
                 {
                     //var a = GetAttendanceList(item.Attendance);
-
-
                     newlist.Add(new MyModelLibrary.TeacherDisciplines
                         (
+                        item.IdTeacherActivities,
                         item.IdTeacher,
                         item.IdDiscipline,
                         item.IdGroup,
-                        item.NumberSemester,
-                        GetAttendanceList(item.Attendance.ToList()),
-                        GetLessonsDates(item.LessonsDate.ToList()),
-                        GetDiscipline(item.Discipline),
-                        GetGroups(item.Groups)
+                        item.NumberSemester
                         ));
                 }
             }
@@ -91,7 +86,7 @@ namespace WCF_Service.DataBase.DTO
                 // Перебираем все оценки и присваиваем в новый список
                 foreach (var item in old_list)
                 {
-                    MyAttendance.Add(new MyModelLibrary.Attendance(item.idAttendance, item.IdTeacher, item.IdGroup, item.IdDiscipline, Convert.ToInt32(item.NumberSemester), item.StudentId, Convert.ToDateTime(item.DateLesson), Convert.ToInt32(item.LessonNumber), item.Mark));
+                    MyAttendance.Add(new MyModelLibrary.Attendance(item.idAttendance, item.IdLesson, item.StudentId, item.Mark));
                 }
             }
             return MyAttendance; // Возвращаем список
@@ -106,6 +101,7 @@ namespace WCF_Service.DataBase.DTO
                 (
                 studentsGroup.IdStudent,
                 Convert.ToInt16(studentsGroup.idGroup),
+                Convert.ToInt16(studentsGroup.NumberInJournal),
                 GetAttendanceList(studentsGroup.Attendance.ToList()),
                 GetGroups(studentsGroup.Groups)
                 );
@@ -196,10 +192,11 @@ namespace WCF_Service.DataBase.DTO
                 {
                     MyModelLibrary.TeacherDisciplines teacherDisciplines = new MyModelLibrary.TeacherDisciplines
                         (
-                        item.IdTeacher,
-                        item.IdDiscipline,
-                        item.IdGroup,
-                        item.NumberSemester
+                            item.IdTeacherActivities,
+                            item.IdTeacher,
+                            item.IdDiscipline,
+                            item.IdGroup,
+                            item.NumberSemester
                         );
 
                     MyList.Add(teacherDisciplines);
@@ -234,11 +231,12 @@ namespace WCF_Service.DataBase.DTO
                     Account.Users = GetUser(AccountNotDTO.Users); // Присваиваем юзеру его данные
 
                     // Если юзер == 1 (Если юзер == студент, который имеет группу, то проинициализируй дальше
-                    if (Account.Users.idUserStatus == 1 && AccountNotDTO.Users.StudentsGroup != null)
+                    if (AccountNotDTO.Users.idUserStatus == 1 && AccountNotDTO.Users.StudentsGroup != null)
                     {
                         Account.Users.StudentsGroup = GetStudentsGroup(AccountNotDTO.Users.StudentsGroup); // Присвой группу студенту
                         Account.Users.StudentsGroup.Attendance = GetAttendanceList(AccountNotDTO.Users.StudentsGroup.Attendance.ToList()); // Присвой список оценок студента
-                        Account.Users.StudentsGroup.Groups.TeacherDisciplines = GetGroupDisciplines(AccountNotDTO.Users.StudentsGroup.Groups); // Присваиваем список дисциплин группе студента                            
+                        Account.Users.StudentsGroup.Groups.TeacherDisciplines = GetGroupDisciplines(AccountNotDTO.Users.StudentsGroup.Groups); // Присваиваем список дисциплин группе студента       
+
                     }
                     // Если юзер == 2 (Если юзер == преподаватель, который имеет дисциплины, то проинициализируй дальше
                     if (Account.Users.idUserStatus == 2 && AccountNotDTO.Users.TeacherDisciplines != null)
@@ -254,7 +252,7 @@ namespace WCF_Service.DataBase.DTO
                         Account.Users.TeacherDisciplines = null;
                     }
 
-                    
+
                 }
 
 

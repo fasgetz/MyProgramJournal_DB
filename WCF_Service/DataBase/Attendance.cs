@@ -14,18 +14,33 @@ namespace WCF_Service.DataBase
     
     public partial class Attendance
     {
+
+
+        public Attendance()
+        {
+
+        }
+
+        // Конструктор
+        public Attendance(int idAttendance, int IdLesson, int StudentId, string Mark)
+        {
+            this.idAttendance = idAttendance;
+            this.IdLesson = IdLesson;
+            this.StudentId = StudentId;
+            this.Mark = Mark;
+        }
+
+        #region Свойства
+
         public int idAttendance { get; set; }
-        public int IdTeacher { get; set; }
-        public int IdGroup { get; set; }
-        public int IdDiscipline { get; set; }
-        public Nullable<int> NumberSemester { get; set; }
+        public int IdLesson { get; set; }
         public int StudentId { get; set; }
-        public Nullable<System.DateTime> DateLesson { get; set; }
-        public Nullable<int> LessonNumber { get; set; }
         public string Mark { get; set; }
     
         public virtual LessonsDate LessonsDate { get; set; }
+        public virtual Marks Marks { get; set; }
         public virtual StudentsGroup StudentsGroup { get; set; }
-        public virtual TeacherDisciplines TeacherDisciplines { get; set; }
+
+        #endregion
     }
 }

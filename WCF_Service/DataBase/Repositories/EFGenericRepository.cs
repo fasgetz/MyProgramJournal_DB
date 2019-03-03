@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WCF_Service.DataBase.Repositories
 {
     // Класс, который реализует интерфейс
-    class EFGenericRepository<TEntity> : IRepository<TEntity>
+    public class EFGenericRepository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
 

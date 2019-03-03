@@ -24,17 +24,17 @@ namespace WCF_Service.DataBase
         // Конструктор для инициализации данных аккаунта и пользователя
         public accounts
             (
-            int idStatus, 
-            string login, 
-            string password, 
-            Nullable<System.DateTime> DateRegistration, 
-            string Name, 
-            string Family, 
+            int idStatus,
+            string login,
+            string password,
+            Nullable<System.DateTime> DateRegistration,
+            string Name,
+            string Family,
             string Surname,
             string Gender,
             int StatusUser,
             string NumberPhone,
-            DateTime? DateOfBirthday)            
+            DateTime? DateOfBirthday)
         {
             this.idStatus = idStatus;
             this.login = login;
@@ -42,7 +42,6 @@ namespace WCF_Service.DataBase
             this.DateRegistration = DateRegistration;
             this.Users = new Users(idAccount, StatusUser, Name, Family, Surname, Gender, NumberPhone, DateOfBirthday);
         }
-
 
         #region Свойства аккаунта
 

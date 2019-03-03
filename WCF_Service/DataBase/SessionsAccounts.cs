@@ -14,11 +14,16 @@ namespace WCF_Service.DataBase
     
     public partial class SessionsAccounts
     {
+
+        #region Свойства
+
         public int idSession { get; set; }
         public int idAccount { get; set; }
         public Nullable<System.DateTime> StartLogin { get; set; }
         public Nullable<System.DateTime> EndLogin { get; set; }
     
         public virtual accounts accounts { get; set; }
+
+        #endregion
     }
 }

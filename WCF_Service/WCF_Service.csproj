@@ -61,6 +61,21 @@
     <Compile Include="DataBase\Attendance.cs">
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataBase\DbNews.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbNews.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\DbNews.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbNews.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\DbNews.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbNews.edmx</DependentUpon>
+    </Compile>
     <Compile Include="DataBase\Discipline.cs">
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
@@ -68,7 +83,13 @@
     <Compile Include="DataBase\Groups.cs">
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataBase\Images.cs">
+      <DependentUpon>DbNews.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataBase\LessonsDate.cs">
+      <DependentUpon>MyDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Marks.cs">
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\MyDB.Context.cs">
@@ -85,6 +106,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MyDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\News.cs">
+      <DependentUpon>DbNews.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Repositories\EFGenericRepository.cs" />
     <Compile Include="DataBase\Repositories\IRepository.cs" />
@@ -110,6 +134,7 @@
     <Compile Include="Exceptions\ExceptionSender.cs" />
     <Compile Include="MyService\AccountsService\Service\IMyServiceAccount.cs" />
     <Compile Include="MyService\AccountsService\Service\MyServiceAccount.cs" />
+    <Compile Include="ServiceLogic\ServiceNewsLogic.cs" />
     <Compile Include="ServiceLogic\TransferServiceLogic.cs" />
     <Compile Include="MyService\ServiceWorkDB\ITransferService.cs" />
     <Compile Include="MyService\ServiceWorkDB\TransferService.cs" />
@@ -121,22 +146,17 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MyDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="DataBase\DbNews.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DbNews.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataBase\DbNews.edmx.diagram">
+      <DependentUpon>DbNews.edmx</DependentUpon>
+    </None>
     <None Include="DataBase\MyDB.edmx.diagram">
       <DependentUpon>MyDB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DataBase\MyDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MyDB.Context.cs</LastGenOutput>
-      <DependentUpon>MyDB.edmx</DependentUpon>
-    </Content>
-    <Content Include="DataBase\MyDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MyDB.edmx</DependentUpon>
-      <LastGenOutput>MyDB.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -147,7 +167,28 @@
       <Name>MyModelLibrary</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DataBase\DbNews.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbNews.edmx</DependentUpon>
+      <LastGenOutput>DbNews.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataBase\DbNews.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbNews.edmx</DependentUpon>
+      <LastGenOutput>DbNews.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataBase\MyDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyDB.edmx</DependentUpon>
+      <LastGenOutput>MyDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataBase\MyDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyDB.edmx</DependentUpon>
+      <LastGenOutput>MyDB.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VSToolsPath Condition="'$(VSToolsPath)' == '' and '$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' != '11.0'">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

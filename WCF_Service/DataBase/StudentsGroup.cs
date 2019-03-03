@@ -22,6 +22,7 @@ namespace WCF_Service.DataBase
     
         public int IdStudent { get; set; }
         public Nullable<int> idGroup { get; set; }
+        public Nullable<int> NumberInJournal { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendance> Attendance { get; set; }

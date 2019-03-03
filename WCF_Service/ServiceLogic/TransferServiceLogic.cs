@@ -11,7 +11,7 @@ using WCF_Service.Exceptions;
 namespace WCF_Service.ServiceLogic
 {
     // Класс реализует логику работы TransferSerice
-    class TransferServiceLogic
+    public class TransferServiceLogic
     {
 
         #region Вспомогательные методы

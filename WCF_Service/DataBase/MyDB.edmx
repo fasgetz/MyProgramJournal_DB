@@ -11,22 +11,17 @@
           </Key>
           <Property Name="idAccount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idStatus" Type="int" Nullable="false" />
-          <Property Name="login" Type="nvarchar" MaxLength="20" />
-          <Property Name="password" Type="nvarchar" MaxLength="20" />
-          <Property Name="DateRegistration" Type="datetime" />
+          <Property Name="login" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DateRegistration" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Attendance">
           <Key>
             <PropertyRef Name="idAttendance" />
           </Key>
           <Property Name="idAttendance" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdTeacher" Type="int" Nullable="false" />
-          <Property Name="IdGroup" Type="int" Nullable="false" />
-          <Property Name="IdDiscipline" Type="int" Nullable="false" />
-          <Property Name="NumberSemester" Type="int" />
+          <Property Name="IdLesson" Type="int" Nullable="false" />
           <Property Name="StudentId" Type="int" Nullable="false" />
-          <Property Name="DateLesson" Type="date" />
-          <Property Name="LessonNumber" Type="int" />
           <Property Name="Mark" Type="nvarchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="Discipline">
@@ -45,15 +40,18 @@
         </EntityType>
         <EntityType Name="LessonsDate">
           <Key>
-            <PropertyRef Name="DateLesson" />
-            <PropertyRef Name="LessonNumber" />
+            <PropertyRef Name="IdLesson" />
           </Key>
+          <Property Name="IdLesson" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTeacherActivities" Type="int" Nullable="false" />
           <Property Name="DateLesson" Type="date" Nullable="false" />
           <Property Name="LessonNumber" Type="int" Nullable="false" />
-          <Property Name="IdTeacher" Type="int" Nullable="false" />
-          <Property Name="IdGroup" Type="int" Nullable="false" />
-          <Property Name="IdDiscipline" Type="int" Nullable="false" />
-          <Property Name="NumberSemester" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Marks">
+          <Key>
+            <PropertyRef Name="Mark" />
+          </Key>
+          <Property Name="Mark" Type="nvarchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="SessionsAccounts">
           <Key>
@@ -77,14 +75,13 @@
           </Key>
           <Property Name="IdStudent" Type="int" Nullable="false" />
           <Property Name="idGroup" Type="int" />
+          <Property Name="NumberInJournal" Type="int" />
         </EntityType>
         <EntityType Name="TeacherDisciplines">
           <Key>
-            <PropertyRef Name="IdTeacher" />
-            <PropertyRef Name="IdDiscipline" />
-            <PropertyRef Name="IdGroup" />
-            <PropertyRef Name="NumberSemester" />
+            <PropertyRef Name="IdTeacherActivities" />
           </Key>
+          <Property Name="IdTeacherActivities" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdTeacher" Type="int" Nullable="false" />
           <Property Name="IdDiscipline" Type="int" Nullable="false" />
           <Property Name="IdGroup" Type="int" Nullable="false" />
@@ -95,11 +92,11 @@
             <PropertyRef Name="idUser" />
           </Key>
           <Property Name="idUser" Type="int" Nullable="false" />
-          <Property Name="idUserStatus" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="20" />
-          <Property Name="Family" Type="nvarchar" MaxLength="20" />
+          <Property Name="idUserStatus" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Family" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Surname" Type="nvarchar" MaxLength="20" />
-          <Property Name="Gender" Type="nvarchar" MaxLength="1" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="1" Nullable="false" />
           <Property Name="NumberPhone" Type="nvarchar" MaxLength="12" />
           <Property Name="DateOfBirthDay" Type="date" />
         </EntityType>
@@ -125,21 +122,35 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Attendance_LessonsDate">
-          <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="0..1" />
+          <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="1" />
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LessonsDate">
-              <PropertyRef Name="DateLesson" />
-              <PropertyRef Name="LessonNumber" />
+              <PropertyRef Name="IdLesson" />
             </Principal>
             <Dependent Role="Attendance">
-              <PropertyRef Name="DateLesson" />
-              <PropertyRef Name="LessonNumber" />
+              <PropertyRef Name="IdLesson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attendance_Marks">
+          <End Role="Marks" Type="Self.Marks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marks">
+              <PropertyRef Name="Mark" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="Mark" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Attendance_StudentsGroup">
-          <End Role="StudentsGroup" Type="Self.StudentsGroup" Multiplicity="1" />
+          <End Role="StudentsGroup" Type="Self.StudentsGroup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="StudentsGroup">
@@ -150,26 +161,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Attendance_TeacherDisciplines">
-          <End Role="TeacherDisciplines" Type="Self.TeacherDisciplines" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TeacherDisciplines">
-              <PropertyRef Name="IdTeacher" />
-              <PropertyRef Name="IdDiscipline" />
-              <PropertyRef Name="IdGroup" />
-              <PropertyRef Name="NumberSemester" />
-            </Principal>
-            <Dependent Role="Attendance">
-              <PropertyRef Name="IdTeacher" />
-              <PropertyRef Name="IdDiscipline" />
-              <PropertyRef Name="IdGroup" />
-              <PropertyRef Name="NumberSemester" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_LessonsDate_TeacherDisciplines">
           <End Role="TeacherDisciplines" Type="Self.TeacherDisciplines" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -177,16 +168,10 @@
           <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TeacherDisciplines">
-              <PropertyRef Name="IdTeacher" />
-              <PropertyRef Name="IdDiscipline" />
-              <PropertyRef Name="IdGroup" />
-              <PropertyRef Name="NumberSemester" />
+              <PropertyRef Name="IdTeacherActivities" />
             </Principal>
             <Dependent Role="LessonsDate">
-              <PropertyRef Name="IdTeacher" />
-              <PropertyRef Name="IdDiscipline" />
-              <PropertyRef Name="IdGroup" />
-              <PropertyRef Name="NumberSemester" />
+              <PropertyRef Name="IdTeacherActivities" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -289,7 +274,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_Statuses">
-          <End Role="UserStatus" Type="Self.UserStatus" Multiplicity="0..1">
+          <End Role="UserStatus" Type="Self.UserStatus" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -308,6 +293,7 @@
           <EntitySet Name="Discipline" EntityType="Self.Discipline" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LessonsDate" EntityType="Self.LessonsDate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SessionsAccounts" EntityType="Self.SessionsAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusAccounts" EntityType="Self.StatusAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentsGroup" EntityType="Self.StudentsGroup" Schema="dbo" store:Type="Tables" />
@@ -322,12 +308,12 @@
             <End Role="LessonsDate" EntitySet="LessonsDate" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
-          <AssociationSet Name="FK_Attendance_StudentsGroup" Association="Self.FK_Attendance_StudentsGroup">
-            <End Role="StudentsGroup" EntitySet="StudentsGroup" />
+          <AssociationSet Name="FK_Attendance_Marks" Association="Self.FK_Attendance_Marks">
+            <End Role="Marks" EntitySet="Marks" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
-          <AssociationSet Name="FK_Attendance_TeacherDisciplines" Association="Self.FK_Attendance_TeacherDisciplines">
-            <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
+          <AssociationSet Name="FK_Attendance_StudentsGroup" Association="Self.FK_Attendance_StudentsGroup">
+            <End Role="StudentsGroup" EntitySet="StudentsGroup" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
           <AssociationSet Name="FK_LessonsDate_TeacherDisciplines" Association="Self.FK_LessonsDate_TeacherDisciplines">
@@ -378,9 +364,9 @@
           </Key>
           <Property Name="idAccount" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idStatus" Type="Int32" Nullable="false" />
-          <Property Name="login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DateRegistration" Type="DateTime" Precision="3" />
+          <Property Name="login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateRegistration" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="StatusAccounts" Relationship="Self.FK_accounts_StatusAccounts" FromRole="accounts" ToRole="StatusAccounts" />
           <NavigationProperty Name="SessionsAccounts" Relationship="Self.FK_SessionsAccounts_accounts" FromRole="accounts" ToRole="SessionsAccounts" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_accounts" FromRole="accounts" ToRole="Users" />
@@ -390,17 +376,12 @@
             <PropertyRef Name="idAttendance" />
           </Key>
           <Property Name="idAttendance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdTeacher" Type="Int32" Nullable="false" />
-          <Property Name="IdGroup" Type="Int32" Nullable="false" />
-          <Property Name="IdDiscipline" Type="Int32" Nullable="false" />
-          <Property Name="NumberSemester" Type="Int32" />
+          <Property Name="IdLesson" Type="Int32" Nullable="false" />
           <Property Name="StudentId" Type="Int32" Nullable="false" />
-          <Property Name="DateLesson" Type="DateTime" Precision="0" />
-          <Property Name="LessonNumber" Type="Int32" />
           <Property Name="Mark" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="LessonsDate" Relationship="Self.FK_Attendance_LessonsDate" FromRole="Attendance" ToRole="LessonsDate" />
+          <NavigationProperty Name="Marks" Relationship="Self.FK_Attendance_Marks" FromRole="Attendance" ToRole="Marks" />
           <NavigationProperty Name="StudentsGroup" Relationship="Self.FK_Attendance_StudentsGroup" FromRole="Attendance" ToRole="StudentsGroup" />
-          <NavigationProperty Name="TeacherDisciplines" Relationship="Self.FK_Attendance_TeacherDisciplines" FromRole="Attendance" ToRole="TeacherDisciplines" />
         </EntityType>
         <EntityType Name="Discipline">
           <Key>
@@ -421,17 +402,21 @@
         </EntityType>
         <EntityType Name="LessonsDate">
           <Key>
-            <PropertyRef Name="DateLesson" />
-            <PropertyRef Name="LessonNumber" />
+            <PropertyRef Name="IdLesson" />
           </Key>
+          <Property Name="IdLesson" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTeacherActivities" Type="Int32" Nullable="false" />
           <Property Name="DateLesson" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="LessonNumber" Type="Int32" Nullable="false" />
-          <Property Name="IdTeacher" Type="Int32" Nullable="false" />
-          <Property Name="IdGroup" Type="Int32" Nullable="false" />
-          <Property Name="IdDiscipline" Type="Int32" Nullable="false" />
-          <Property Name="NumberSemester" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_LessonsDate" FromRole="LessonsDate" ToRole="Attendance" />
           <NavigationProperty Name="TeacherDisciplines" Relationship="Self.FK_LessonsDate_TeacherDisciplines" FromRole="LessonsDate" ToRole="TeacherDisciplines" />
+        </EntityType>
+        <EntityType Name="Marks">
+          <Key>
+            <PropertyRef Name="Mark" />
+          </Key>
+          <Property Name="Mark" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_Marks" FromRole="Marks" ToRole="Attendance" />
         </EntityType>
         <EntityType Name="SessionsAccounts">
           <Key>
@@ -457,22 +442,20 @@
           </Key>
           <Property Name="IdStudent" Type="Int32" Nullable="false" />
           <Property Name="idGroup" Type="Int32" />
+          <Property Name="NumberInJournal" Type="Int32" />
           <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_StudentsGroup" FromRole="StudentsGroup" ToRole="Attendance" />
           <NavigationProperty Name="Groups" Relationship="Self.FK_StudentsGroup_Groups" FromRole="StudentsGroup" ToRole="Groups" />
           <NavigationProperty Name="Users" Relationship="Self.FK_StudentsGroup_Users" FromRole="StudentsGroup" ToRole="Users" />
         </EntityType>
         <EntityType Name="TeacherDisciplines">
           <Key>
-            <PropertyRef Name="IdTeacher" />
-            <PropertyRef Name="IdDiscipline" />
-            <PropertyRef Name="IdGroup" />
-            <PropertyRef Name="NumberSemester" />
+            <PropertyRef Name="IdTeacherActivities" />
           </Key>
+          <Property Name="IdTeacherActivities" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdTeacher" Type="Int32" Nullable="false" />
           <Property Name="IdDiscipline" Type="Int32" Nullable="false" />
           <Property Name="IdGroup" Type="Int32" Nullable="false" />
           <Property Name="NumberSemester" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_TeacherDisciplines" FromRole="TeacherDisciplines" ToRole="Attendance" />
           <NavigationProperty Name="Discipline" Relationship="Self.FK_TeacherDisciplines_Discipline" FromRole="TeacherDisciplines" ToRole="Discipline" />
           <NavigationProperty Name="Groups" Relationship="Self.FK_TeacherDisciplines_Groups" FromRole="TeacherDisciplines" ToRole="Groups" />
           <NavigationProperty Name="LessonsDate" Relationship="Self.FK_LessonsDate_TeacherDisciplines" FromRole="TeacherDisciplines" ToRole="LessonsDate" />
@@ -483,11 +466,11 @@
             <PropertyRef Name="idUser" />
           </Key>
           <Property Name="idUser" Type="Int32" Nullable="false" />
-          <Property Name="idUserStatus" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Family" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="idUserStatus" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Family" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Surname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NumberPhone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirthDay" Type="DateTime" Precision="0" />
           <NavigationProperty Name="accounts" Relationship="Self.FK_Users_accounts" FromRole="Users" ToRole="accounts" />
@@ -546,21 +529,35 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Attendance_LessonsDate">
-          <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="0..1" />
+          <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="1" />
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LessonsDate">
-              <PropertyRef Name="DateLesson" />
-              <PropertyRef Name="LessonNumber" />
+              <PropertyRef Name="IdLesson" />
             </Principal>
             <Dependent Role="Attendance">
-              <PropertyRef Name="DateLesson" />
-              <PropertyRef Name="LessonNumber" />
+              <PropertyRef Name="IdLesson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attendance_Marks">
+          <End Role="Marks" Type="Self.Marks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marks">
+              <PropertyRef Name="Mark" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="Mark" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Attendance_StudentsGroup">
-          <End Role="StudentsGroup" Type="Self.StudentsGroup" Multiplicity="1" />
+          <End Role="StudentsGroup" Type="Self.StudentsGroup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="StudentsGroup">
@@ -568,26 +565,6 @@
             </Principal>
             <Dependent Role="Attendance">
               <PropertyRef Name="StudentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Attendance_TeacherDisciplines">
-          <End Role="TeacherDisciplines" Type="Self.TeacherDisciplines" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TeacherDisciplines">
-              <PropertyRef Name="IdTeacher" />
-              <PropertyRef Name="IdDiscipline" />
-              <PropertyRef Name="IdGroup" />
-              <PropertyRef Name="NumberSemester" />
-            </Principal>
-            <Dependent Role="Attendance">
-              <PropertyRef Name="IdTeacher" />
-              <PropertyRef Name="IdDiscipline" />
-              <PropertyRef Name="IdGroup" />
-              <PropertyRef Name="NumberSemester" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -640,16 +617,10 @@
           <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TeacherDisciplines">
-              <PropertyRef Name="IdTeacher" />
-              <PropertyRef Name="IdDiscipline" />
-              <PropertyRef Name="IdGroup" />
-              <PropertyRef Name="NumberSemester" />
+              <PropertyRef Name="IdTeacherActivities" />
             </Principal>
             <Dependent Role="LessonsDate">
-              <PropertyRef Name="IdTeacher" />
-              <PropertyRef Name="IdDiscipline" />
-              <PropertyRef Name="IdGroup" />
-              <PropertyRef Name="NumberSemester" />
+              <PropertyRef Name="IdTeacherActivities" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -682,7 +653,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_Statuses">
-          <End Role="UserStatus" Type="Self.UserStatus" Multiplicity="0..1">
+          <End Role="UserStatus" Type="Self.UserStatus" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -695,12 +666,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="db_journalEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MyDB" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="accounts" EntityType="Self.accounts" />
           <EntitySet Name="Attendance" EntityType="Self.Attendance" />
           <EntitySet Name="Discipline" EntityType="Self.Discipline" />
           <EntitySet Name="Groups" EntityType="Self.Groups" />
           <EntitySet Name="LessonsDate" EntityType="Self.LessonsDate" />
+          <EntitySet Name="Marks" EntityType="Self.Marks" />
           <EntitySet Name="SessionsAccounts" EntityType="Self.SessionsAccounts" />
           <EntitySet Name="StatusAccounts" EntityType="Self.StatusAccounts" />
           <EntitySet Name="StudentsGroup" EntityType="Self.StudentsGroup" />
@@ -723,12 +695,12 @@
             <End Role="LessonsDate" EntitySet="LessonsDate" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
-          <AssociationSet Name="FK_Attendance_StudentsGroup" Association="Self.FK_Attendance_StudentsGroup">
-            <End Role="StudentsGroup" EntitySet="StudentsGroup" />
+          <AssociationSet Name="FK_Attendance_Marks" Association="Self.FK_Attendance_Marks">
+            <End Role="Marks" EntitySet="Marks" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
-          <AssociationSet Name="FK_Attendance_TeacherDisciplines" Association="Self.FK_Attendance_TeacherDisciplines">
-            <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
+          <AssociationSet Name="FK_Attendance_StudentsGroup" Association="Self.FK_Attendance_StudentsGroup">
+            <End Role="StudentsGroup" EntitySet="StudentsGroup" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
           <AssociationSet Name="FK_TeacherDisciplines_Discipline" Association="Self.FK_TeacherDisciplines_Discipline">
@@ -765,7 +737,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище db_journalModelContainer" CdmEntityContainer="db_journalEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище db_journalModelContainer" CdmEntityContainer="MyDB">
           <EntitySetMapping Name="accounts">
             <EntityTypeMapping TypeName="db_journalModel.accounts">
               <MappingFragment StoreEntitySet="accounts">
@@ -781,13 +753,8 @@
             <EntityTypeMapping TypeName="db_journalModel.Attendance">
               <MappingFragment StoreEntitySet="Attendance">
                 <ScalarProperty Name="idAttendance" ColumnName="idAttendance" />
-                <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
-                <ScalarProperty Name="IdGroup" ColumnName="IdGroup" />
-                <ScalarProperty Name="IdDiscipline" ColumnName="IdDiscipline" />
-                <ScalarProperty Name="NumberSemester" ColumnName="NumberSemester" />
+                <ScalarProperty Name="IdLesson" ColumnName="IdLesson" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
-                <ScalarProperty Name="DateLesson" ColumnName="DateLesson" />
-                <ScalarProperty Name="LessonNumber" ColumnName="LessonNumber" />
                 <ScalarProperty Name="Mark" ColumnName="Mark" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -811,12 +778,17 @@
           <EntitySetMapping Name="LessonsDate">
             <EntityTypeMapping TypeName="db_journalModel.LessonsDate">
               <MappingFragment StoreEntitySet="LessonsDate">
+                <ScalarProperty Name="IdLesson" ColumnName="IdLesson" />
+                <ScalarProperty Name="IdTeacherActivities" ColumnName="IdTeacherActivities" />
                 <ScalarProperty Name="DateLesson" ColumnName="DateLesson" />
                 <ScalarProperty Name="LessonNumber" ColumnName="LessonNumber" />
-                <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
-                <ScalarProperty Name="IdGroup" ColumnName="IdGroup" />
-                <ScalarProperty Name="IdDiscipline" ColumnName="IdDiscipline" />
-                <ScalarProperty Name="NumberSemester" ColumnName="NumberSemester" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marks">
+            <EntityTypeMapping TypeName="db_journalModel.Marks">
+              <MappingFragment StoreEntitySet="Marks">
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -843,12 +815,14 @@
               <MappingFragment StoreEntitySet="StudentsGroup">
                 <ScalarProperty Name="IdStudent" ColumnName="IdStudent" />
                 <ScalarProperty Name="idGroup" ColumnName="idGroup" />
+                <ScalarProperty Name="NumberInJournal" ColumnName="NumberInJournal" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TeacherDisciplines">
             <EntityTypeMapping TypeName="db_journalModel.TeacherDisciplines">
               <MappingFragment StoreEntitySet="TeacherDisciplines">
+                <ScalarProperty Name="IdTeacherActivities" ColumnName="IdTeacherActivities" />
                 <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
                 <ScalarProperty Name="IdDiscipline" ColumnName="IdDiscipline" />
                 <ScalarProperty Name="IdGroup" ColumnName="IdGroup" />

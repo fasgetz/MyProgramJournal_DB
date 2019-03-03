@@ -14,17 +14,17 @@
 
     <Grid>
         <Label Content="Добавление новости" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="30" Margin="0,10,0,0" VerticalAlignment="Top" Width="1014"/>
-        <TextBox HorizontalAlignment="Left" Height="50" FontSize="20" MaxLength="50" Margin="10,60,0,0"  Text="Новая новость" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="1004"/>
-        <TextBox TextWrapping="Wrap" HorizontalAlignment="Left" Height="449" FontSize="15" Margin="10,115,0,0" AcceptsReturn="True" Text="" MaxLength="500" VerticalAlignment="Top" Width="1004"/>
-        <Button Content="Создать новость" FontSize="30" HorizontalAlignment="Left" Margin="10,569,0,0" VerticalAlignment="Top" Width="1004" Height="42"/>
+        <TextBox HorizontalAlignment="Left" Height="50" FontSize="20" MaxLength="50" Margin="10,60,0,0"  Text="{Binding title}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="1004"/>
+        <TextBox TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding text}" Height="451" FontSize="15" Margin="10,115,0,0" AcceptsReturn="True"  MaxLength="500" VerticalAlignment="Top" Width="1004"/>
+        <Button Content="Создать новость" Command="{Binding CreateNews}" FontSize="30" HorizontalAlignment="Left" Margin="10,569,0,0" VerticalAlignment="Top" Width="1004" Height="42"/>
         <Button Content="Отменить" FontSize="30" Command="{Binding OpenMainPage}" HorizontalAlignment="Left" Margin="10,611,0,0" VerticalAlignment="Top" Width="1004" Height="43"/>
-        <Button Content="Добавить изображение" FontSize="20" HorizontalAlignment="Left" Margin="764,466,0,0" VerticalAlignment="Top" Width="250" Height="98"/>
+        <Button Content="Добавить изображение" Command="{Binding AddImage}" FontSize="20" HorizontalAlignment="Left" Margin="764,466,0,0" VerticalAlignment="Top" Width="250" Height="100"/>
 
 
-        <ListBox  ItemsSource="{Binding AccountsList}" HorizontalAlignment="Left" Height="100" Margin="10,466,0,0" VerticalAlignment="Top" Width="750" >
+        <ListBox SelectedItem="{Binding SelectedImage}" ItemsSource="{Binding ImagesList}" HorizontalAlignment="Left" Height="100" Margin="10,466,0,0" VerticalAlignment="Top" Width="750" >
             <ListBox.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Удалить"></MenuItem>
+                    <MenuItem Header="Удалить" Command="{Binding DeleteImage}"></MenuItem>
                 </ContextMenu>
             </ListBox.ContextMenu>
             <ListBox.ItemsPanel>
@@ -35,8 +35,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Height="70" Width="70" VerticalAlignment="Top" HorizontalAlignment="Left">
-                        <TextBlock FontSize="20" TextAlignment="Center" Text="{Binding login}" />
-                        <TextBlock FontSize="15" TextAlignment="Center" Text="{Binding password}" />
+                        <Image Source="{Binding Path=ImagePath}"></Image>
+                        <TextBlock FontSize="15" TextAlignment="Center" Text="{Binding Path=ImgName}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

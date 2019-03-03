@@ -22,7 +22,7 @@ namespace WCF_Service.DataBase
 
 
         // Конструктор для инициализации данных
-        public Users (int idUser, int idUserStatus, string Name, string Family, string Surname, string Gender, string NumberPhone, DateTime? DateOfBirthdays)
+        public Users(int idUser, int idUserStatus, string Name, string Family, string Surname, string Gender, string NumberPhone, DateTime? DateOfBirthdays)
         {
             this.idUser = idUser;
             this.idUserStatus = idUserStatus;
@@ -39,16 +39,17 @@ namespace WCF_Service.DataBase
             //this.DateOfBirthDay = DateOfBirthDay;
         }
 
+
         #region Свойства юзера
 
         public int idUser { get; set; }
-        public Nullable<int> idUserStatus { get; set; }
+        public int idUserStatus { get; set; }
         public string Name { get; set; }
         public string Family { get; set; }
         public string Surname { get; set; }
         public string Gender { get; set; }
         public string NumberPhone { get; set; }
-        public DateTime? DateOfBirthDay { get; set; }
+        public Nullable<System.DateTime> DateOfBirthDay { get; set; }
     
         public virtual accounts accounts { get; set; }
         public virtual StudentsGroup StudentsGroup { get; set; }
@@ -57,5 +58,6 @@ namespace WCF_Service.DataBase
         public virtual UserStatus UserStatus { get; set; }
 
         #endregion
+
     }
 }
