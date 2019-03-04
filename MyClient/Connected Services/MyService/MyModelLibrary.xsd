@@ -152,4 +152,31 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfaccounts" nillable="true" type="tns:ArrayOfaccounts" />
+  <xs:complexType name="News">
+    <xs:sequence>
+      <xs:element name="_x003C_Content_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_DatePost_x003E_k__BackingField" type="xs:dateTime" />
+      <xs:element name="_x003C_IdNews_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_Images_x003E_k__BackingField" nillable="true" type="tns:ArrayOfImages" />
+      <xs:element name="_x003C_Title_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="News" nillable="true" type="tns:News" />
+  <xs:complexType name="ArrayOfImages">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Images" nillable="true" type="tns:Images" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfImages" nillable="true" type="tns:ArrayOfImages" />
+  <xs:complexType name="Images">
+    <xs:sequence>
+      <xs:element name="_x003C_IdImage_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdNews_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_ImagePath_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Image_x003E_k__BackingField" nillable="true" type="xs:base64Binary" />
+      <xs:element name="_x003C_ImgName_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_format_img_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Images" nillable="true" type="tns:Images" />
 </xs:schema>

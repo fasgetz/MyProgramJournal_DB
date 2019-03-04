@@ -238,9 +238,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MyService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MyModelLibrary\MyModelLibrary.csproj">
       <Project>{b51fc2c5-29b6-4a66-bd87-48ba49f149c2}</Project>
       <Name>MyModelLibrary</Name>
@@ -271,6 +268,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\MyService\configuration.svcinfo" />

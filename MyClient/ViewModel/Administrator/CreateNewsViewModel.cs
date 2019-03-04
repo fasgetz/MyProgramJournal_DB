@@ -10,6 +10,7 @@ using System.Drawing; // в References подключить одноимённу
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Linq;
+using MyClient.ProgramLogic.ServiceLogic;
 
 namespace MyClient.ViewModel.Administrator
 {
@@ -17,6 +18,9 @@ namespace MyClient.ViewModel.Administrator
     {
 
         #region Свойства
+
+        // Логика работы с новостями
+        NewsLogic MyNewsLogic;
 
         // Заголовок новости
         private string _title;
@@ -48,11 +52,11 @@ namespace MyClient.ViewModel.Administrator
             }
         }
 
-        MyModelLibrary.DbNews.News MyNews; // Новость
+        MyModelLibrary.News MyNews; // Новость
 
         // Список картинок
-        private ObservableCollection<MyModelLibrary.DbNews.Images> _ImagesList;
-        public ObservableCollection<MyModelLibrary.DbNews.Images> ImagesList
+        private ObservableCollection<MyModelLibrary.Images> _ImagesList;
+        public ObservableCollection<MyModelLibrary.Images> ImagesList
         {
             get
             {
@@ -66,8 +70,8 @@ namespace MyClient.ViewModel.Administrator
         }
 
         // Выбранное изображение, которое передается в кнопку удалить
-        private MyModelLibrary.DbNews.Images _SelectedImage;
-        public MyModelLibrary.DbNews.Images SelectedImage
+        private MyModelLibrary.Images _SelectedImage;
+        public MyModelLibrary.Images SelectedImage
         {
             get
             {
@@ -112,7 +116,7 @@ namespace MyClient.ViewModel.Administrator
                         string name = (Path.GetFileName(dialog.FilePath));
 
                         // Добавляем изображение в список изображений
-                        ImagesList.Add(new MyModelLibrary.DbNews.Images(MyNews.IdNews,imageData, iImageExtension, dialog.FilePath, name));
+                        ImagesList.Add(new MyModelLibrary.Images(MyNews.IdNews,imageData, iImageExtension, dialog.FilePath, name));
 
                         dialog.FilePath = null; // Обнули путь изображения
                     }
@@ -139,11 +143,15 @@ namespace MyClient.ViewModel.Administrator
             {
                 return new RelayCommand(() =>
                 {
+                    // Инициализируем
                     MyNews.Content = text;
                     MyNews.Title = title;
                     MyNews.Images = ImagesList.ToList();
 
-                    dialog.ShowMessage(MyNews.Images.Count.ToString());
+                    // Отправляем новость на сервер
+                    MyNewsLogic = new NewsLogic();
+                    MyNewsLogic.AddNews(MyAcc, MyNews);
+
                 });
             }
         }
@@ -168,8 +176,8 @@ namespace MyClient.ViewModel.Administrator
         private void GetAccount(GenericMessage<MyModelLibrary.accounts> GetAcc)
         {
             MyAcc = GetAcc.Content;
-            MyNews = new MyModelLibrary.DbNews.News(); // Создаем новость
-            ImagesList = new ObservableCollection<MyModelLibrary.DbNews.Images>(); // Инициализируем коллекцию
+            MyNews = new MyModelLibrary.News(); // Создаем новость
+            ImagesList = new ObservableCollection<MyModelLibrary.Images>(); // Инициализируем коллекцию
             title = "Новая новость";
             text = string.Empty;
         }

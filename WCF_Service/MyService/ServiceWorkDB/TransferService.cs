@@ -17,12 +17,13 @@ namespace WCF_Service.MyService.ServiceWorkDB
     {
         #region Свойства
 
-        TransferServiceLogic MyServiceLogic = new TransferServiceLogic();        
+        TransferServiceLogic MyServiceLogic = new TransferServiceLogic();
+        ServiceNewsLogic MyNewsLogic = new ServiceNewsLogic();
 
         #endregion
 
 
-        #region Методы контракта служб
+        #region Методы контракта служб Администратора
 
 
         // Метод, который вернет весь список аккаунтов, если он является администратором
@@ -46,6 +47,15 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #endregion
 
+        #region Методы новостей
+
+        // Метод, который создает новость
+        public void AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews)
+        {
+            MyNewsLogic.AddNews(MyAcc, MyNews);
+        }
+
+        #endregion
 
     }
 }

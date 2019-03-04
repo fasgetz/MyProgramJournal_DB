@@ -25,7 +25,8 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы для контракта служб
 
-        public void AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.DbNews.News MyNews)
+        // Метод для добавления новости
+        public void AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews)
         {
             // Если статус юзера == администратор, то приступи к созданию новости
             if (CheckUserStatus(MyAcc.idAccount) == 3)

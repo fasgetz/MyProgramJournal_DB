@@ -9,6 +9,10 @@ namespace WCF_Service.MyService.ServiceWorkDB
     public interface ITransferService
     {
 
+
+
+        #region Методы администратора
+
         // Метод, который получит весь список пользователей, если пользователь пройдет проверку (Он должен быть администратором)
         [OperationContract]
         List<MyModelLibrary.Users> GetAllUsersList(MyModelLibrary.accounts MyAcc);
@@ -20,6 +24,20 @@ namespace WCF_Service.MyService.ServiceWorkDB
         // Метод, который принимает со стороны клиента аккаунт и добавляет его в базу данных, соответственно, если аккаунт == администратор и возвращает true, если аккаунт создан
         [OperationContract]
         bool AddAccount(MyModelLibrary.accounts AddAcc, MyModelLibrary.accounts CurrentAcc);
+
+
+
+        #endregion
+
+
+
+        #region Методы новостей
+
+        [OperationContract]
+        void AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews);
+
+
+        #endregion
 
     }
 }

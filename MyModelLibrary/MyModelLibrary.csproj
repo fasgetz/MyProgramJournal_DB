@@ -42,8 +42,8 @@
   <ItemGroup>
     <Compile Include="accounts.cs" />
     <Compile Include="Attendance.cs" />
-    <Compile Include="DbNews\Images.cs" />
-    <Compile Include="DbNews\News.cs" />
+    <Compile Include="Images.cs" />
+    <Compile Include="News.cs" />
     <Compile Include="Discipline.cs" />
     <Compile Include="Groups.cs" />
     <Compile Include="LessonsDate.cs" />

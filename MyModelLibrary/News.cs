@@ -4,15 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyModelLibrary.DbNews
+namespace MyModelLibrary
 {
 
     /// <summary>
     /// Класс предоставляет сущность новостей
     /// </summary>
 
+    [Serializable]
     public class News
     {
+
+        public News()
+        {
+
+        }
+
         public int IdNews { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }

@@ -32,6 +32,12 @@ namespace MyClient.MyService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddAccount", ReplyAction="http://tempuri.org/ITransferService/AddAccountResponse")]
         System.Threading.Tasks.Task<bool> AddAccountAsync(MyModelLibrary.accounts AddAcc, MyModelLibrary.accounts CurrentAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddNews", ReplyAction="http://tempuri.org/ITransferService/AddNewsResponse")]
+        void AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddNews", ReplyAction="http://tempuri.org/ITransferService/AddNewsResponse")]
+        System.Threading.Tasks.Task AddNewsAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -83,6 +89,14 @@ namespace MyClient.MyService {
         
         public System.Threading.Tasks.Task<bool> AddAccountAsync(MyModelLibrary.accounts AddAcc, MyModelLibrary.accounts CurrentAcc) {
             return base.Channel.AddAccountAsync(AddAcc, CurrentAcc);
+        }
+        
+        public void AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews) {
+            base.Channel.AddNews(MyAcc, MyNews);
+        }
+        
+        public System.Threading.Tasks.Task AddNewsAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews) {
+            return base.Channel.AddNewsAsync(MyAcc, MyNews);
         }
     }
 }

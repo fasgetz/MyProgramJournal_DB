@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyModelLibrary.DbNews
+namespace MyModelLibrary
 {
 
     /// <summary>
     /// Класс предоставляет сущность Image
     /// </summary>
 
+    [Serializable]
     public class Images
     {
 

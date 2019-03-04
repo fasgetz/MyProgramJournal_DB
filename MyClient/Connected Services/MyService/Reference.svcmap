@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="92948615-4419-4811-b683-90fa616436cc" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f1101a66-8238-4b07-b692-9acbdb81b21d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -24,10 +24,10 @@
     <MetadataSource Address="http://95.84.158.128:8733/Design_Time_Addresses/WCF_DB_Library/Service/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="7ccb2e25-008a-43b3-846b-2acf2d23ade7" SourceId="1" SourceUrl="http://95.84.158.128:8733/Design_Time_Addresses/WCF_DB_Library/Service/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="79bef210-82f7-43ef-8d57-e19065adf1cf" SourceId="1" SourceUrl="http://95.84.158.128:8733/Design_Time_Addresses/WCF_DB_Library/Service/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="fea97f78-0bc0-4ed4-953b-823c0feda8fd" SourceId="1" SourceUrl="http://95.84.158.128:8733/Design_Time_Addresses/WCF_DB_Library/Service/mex" />
-    <MetadataFile FileName="MyModelLibrary.xsd" MetadataType="Schema" ID="a8019cc4-1713-4a3b-8381-5fb54a0a47f9" SourceId="1" SourceUrl="http://95.84.158.128:8733/Design_Time_Addresses/WCF_DB_Library/Service/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="5beafb83-3487-4916-90fd-ee28380827b9" SourceId="1" SourceUrl="http://95.84.158.128:8733/Design_Time_Addresses/WCF_DB_Library/Service/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="a914ea4f-b981-4131-ab81-3447d3078551" SourceId="1" SourceUrl="http://95.84.158.128:8733/Design_Time_Addresses/WCF_DB_Library/Service/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="3e8c20b0-69d9-4b06-ad98-31190a624da7" SourceId="1" SourceUrl="http://95.84.158.128:8733/Design_Time_Addresses/WCF_DB_Library/Service/mex" />
+    <MetadataFile FileName="MyModelLibrary.xsd" MetadataType="Schema" ID="39d4e926-319c-45f4-999e-727096cdfa90" SourceId="1" SourceUrl="http://95.84.158.128:8733/Design_Time_Addresses/WCF_DB_Library/Service/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
