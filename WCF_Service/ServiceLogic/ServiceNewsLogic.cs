@@ -26,7 +26,7 @@ namespace WCF_Service.ServiceLogic
         #region Методы для контракта служб
 
         // Метод для добавления новости
-        public void AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews)
+        public bool AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews)
         {
             // Если статус юзера == администратор, то приступи к созданию новости
             if (CheckUserStatus(MyAcc.idAccount) == 3)
@@ -37,11 +37,9 @@ namespace WCF_Service.ServiceLogic
                     // Создаем новость, которую поместим в бд
                     News News = new News(MyNews.Title, MyNews.Content);
 
-
                     // Если список картинок не пустой, то
                     if (MyNews.Images != null)
                     {
-
                         try
                         {
                             // Количество изображений
@@ -58,7 +56,8 @@ namespace WCF_Service.ServiceLogic
                             {
                                 db.News.Add(News);
                                 db.SaveChanges();
-                                ExceptionSender.SendException("Новость добавлена успешно!");
+                                Console.WriteLine("Новость добавлена успешно!");
+                                return true;
                             }
                         }
                         catch (Exception ex)
@@ -74,6 +73,8 @@ namespace WCF_Service.ServiceLogic
             {
                 ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
             }
+
+            return false;
         }
 
         #endregion

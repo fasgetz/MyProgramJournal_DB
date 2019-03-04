@@ -18,7 +18,6 @@ namespace WCF_Service.MyService.ServiceWorkDB
         #region Свойства
 
         TransferServiceLogic MyServiceLogic = new TransferServiceLogic();
-        ServiceNewsLogic MyNewsLogic = new ServiceNewsLogic();
 
         #endregion
 
@@ -47,15 +46,7 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #endregion
 
-        #region Методы новостей
 
-        // Метод, который создает новость
-        public void AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews)
-        {
-            MyNewsLogic.AddNews(MyAcc, MyNews);
-        }
-
-        #endregion
 
     }
 }

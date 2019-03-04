@@ -134,6 +134,8 @@
     <Compile Include="Exceptions\ExceptionSender.cs" />
     <Compile Include="MyService\AccountsService\Service\IMyServiceAccount.cs" />
     <Compile Include="MyService\AccountsService\Service\MyServiceAccount.cs" />
+    <Compile Include="MyService\News\INewsService.cs" />
+    <Compile Include="MyService\News\NewsService.cs" />
     <Compile Include="ServiceLogic\ServiceNewsLogic.cs" />
     <Compile Include="ServiceLogic\TransferServiceLogic.cs" />
     <Compile Include="MyService\ServiceWorkDB\ITransferService.cs" />

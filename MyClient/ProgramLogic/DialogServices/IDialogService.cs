@@ -18,5 +18,9 @@ namespace MyClient.ProgramLogic.DialogServices
         string FilePath { get; set; }   // путь к выбранному файлу
         bool OpenFileDialog();  // открытие файла
         bool SaveFileDialog();  // сохранение файла
+
+
+        
+        MyModelLibrary.Images AddImage(MyModelLibrary.News MyNews); // Метод для загрузки изображения с компьютера
     }
 }

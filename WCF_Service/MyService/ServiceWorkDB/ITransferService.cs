@@ -30,14 +30,5 @@ namespace WCF_Service.MyService.ServiceWorkDB
         #endregion
 
 
-
-        #region Методы новостей
-
-        [OperationContract]
-        void AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews);
-
-
-        #endregion
-
     }
 }

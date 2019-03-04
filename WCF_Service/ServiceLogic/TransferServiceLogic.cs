@@ -113,8 +113,6 @@ namespace WCF_Service.ServiceLogic
                     catch (System.Data.Entity.Infrastructure.DbUpdateException)
                     {
                         ExceptionSender.SendException($"Пользатель с логином <<{AddAcc.login}>> уже существует!\nЛогин должен быть уникальным!");
-                        //throw new FaultException<Exceptions.AccountConnectedException>(new Exceptions.AccountConnectedException($"Пользатель с логином <<{AddAcc.login}>> уже существует!\nЛогин должен быть уникальным!"),
-                        //    new FaultReason($"Пользатель с логином <<{AddAcc.login}>> уже существует!\nЛогин должен быть уникальным!"));
                     }
                 }
                 // Иначе, если необходимые данные не заполнены, то выдай ошибку

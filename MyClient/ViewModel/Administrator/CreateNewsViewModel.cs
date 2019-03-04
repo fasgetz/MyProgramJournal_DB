@@ -52,22 +52,7 @@ namespace MyClient.ViewModel.Administrator
             }
         }
 
-        MyModelLibrary.News MyNews; // Новость
-
-        // Список картинок
-        private ObservableCollection<MyModelLibrary.Images> _ImagesList;
-        public ObservableCollection<MyModelLibrary.Images> ImagesList
-        {
-            get
-            {
-                return _ImagesList;
-            }
-            set
-            {
-                _ImagesList = value;
-                RaisePropertyChanged("ImagesList");
-            }
-        }
+        MyModelLibrary.News MyNews; // Ссылка на текущую новость
 
         // Выбранное изображение, которое передается в кнопку удалить
         private MyModelLibrary.Images _SelectedImage;
@@ -95,31 +80,8 @@ namespace MyClient.ViewModel.Administrator
             {
                 return new RelayCommand(() =>
                 {
-
-                    dialog.OpenFileDialog(); // Открываем диалог
-
-                    // Если изображение выбрано, то добавь его в список
-                    if (dialog.FilePath != null)
-                    {
-                        // конвертация изображения в байты
-                        byte[] imageData = null;
-                        FileInfo fInfo = new FileInfo(dialog.FilePath);
-                        long numBytes = fInfo.Length;
-                        FileStream fStream = new FileStream(dialog.FilePath, FileMode.Open, FileAccess.Read);
-                        BinaryReader br = new BinaryReader(fStream);
-                        imageData = br.ReadBytes((int)numBytes);
-
-                        // получение расширения файла изображения не забыв удалить точку перед расширением
-                        string iImageExtension = (Path.GetExtension(dialog.FilePath)).Replace(".", "").ToLower();
-
-                        // Получаем название изображения
-                        string name = (Path.GetFileName(dialog.FilePath));
-
-                        // Добавляем изображение в список изображений
-                        ImagesList.Add(new MyModelLibrary.Images(MyNews.IdNews,imageData, iImageExtension, dialog.FilePath, name));
-
-                        dialog.FilePath = null; // Обнули путь изображения
-                    }
+                    // Добавляем в список изображение
+                    ImagesList.Add(dialog.AddImage(MyNews));
                 });
             }
         }
@@ -150,13 +112,16 @@ namespace MyClient.ViewModel.Administrator
 
                     // Отправляем новость на сервер
                     MyNewsLogic = new NewsLogic();
-                    MyNewsLogic.AddNews(MyAcc, MyNews);
+
+                    bool Added_News = MyNewsLogic.AddNews(MyAcc, MyNews);
+
+                    // Перейди на главную страницу
+                    if (Added_News == true)
+                        navigation.Navigate("View/CommonPages/MainPage.xaml");
 
                 });
             }
         }
-
-
 
         #endregion
 

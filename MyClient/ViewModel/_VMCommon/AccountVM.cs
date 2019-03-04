@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace MyClient.ViewModel._VMCommon
 
     public class AccountVM : ViewModelBase
     {
-        #region Свойства
+        #region Свойства       
 
         #region Свойства навигации и диалогов
 
@@ -73,8 +74,41 @@ namespace MyClient.ViewModel._VMCommon
 
         #endregion
 
+        #region Новости
+
+        // Список новостей
+        private ObservableCollection<MyModelLibrary.Images> _NewsList;
+        public ObservableCollection<MyModelLibrary.Images> NewsList
+        {
+            get
+            {
+                return _NewsList;
+            }
+            set
+            {
+                _NewsList = value;
+                RaisePropertyChanged("NewsList");
+            }
+        }
+
+        // Список картинок
+        private ObservableCollection<MyModelLibrary.Images> _ImagesList;
+        public ObservableCollection<MyModelLibrary.Images> ImagesList
+        {
+            get
+            {
+                return _ImagesList;
+            }
+            set
+            {
+                _ImagesList = value;
+                RaisePropertyChanged("ImagesList");
+            }
+        }
+
         #endregion
 
+        #endregion
 
         #region Общие команды
 

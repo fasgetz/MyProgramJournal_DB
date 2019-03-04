@@ -15,29 +15,42 @@ namespace MyClient.ProgramLogic.ServiceLogic
 
     public class NewsLogic
     {
-
-        private MyService.TransferServiceClient client; // Ссылка на клиент
+        private NewsService.NewsServiceClient client; // Ссылка на клиент
         private DialogService MyDialog; // Для работы с диалогами
 
         #region Методы
 
         // Метод создания новости
-        public void AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews)
+        public bool AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews)
         {
-
-
             try
             {
                 // Инициализируем канал связи клиента с сервером
                 if (client == null)
-                    client = new MyService.TransferServiceClient();
+                    client = new NewsService.NewsServiceClient();
 
-                client.AddNews(MyAcc, MyNews);
+                bool added_news = client.AddNews(MyAcc, MyNews);
+
+                // Если новость добавлена успешно, то
+                if (added_news == true)
+                {
+                    MyDialog.ShowMessage("Новость добавлена!");
+                    return true;
+                }
+                // Иначе, если новость не добавлена
+                else
+                {
+                    MyDialog.ShowMessage("Не удалось добавить новость");
+                    return false;
+                }
+
             }
             catch(Exception ex)
             {
                 MyDialog.ShowMessage(ex.Message);
             }
+
+            return false;
 
         }
 
