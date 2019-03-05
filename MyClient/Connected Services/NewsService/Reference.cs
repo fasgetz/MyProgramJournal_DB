@@ -20,6 +20,18 @@ namespace MyClient.NewsService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INewsService/AddNews", ReplyAction="http://tempuri.org/INewsService/AddNewsResponse")]
         System.Threading.Tasks.Task<bool> AddNewsAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INewsService/GetNewsList", ReplyAction="http://tempuri.org/INewsService/GetNewsListResponse")]
+        System.Collections.Generic.List<MyModelLibrary.News> GetNewsList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INewsService/GetNewsList", ReplyAction="http://tempuri.org/INewsService/GetNewsListResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.News>> GetNewsListAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INewsService/RemoveNews", ReplyAction="http://tempuri.org/INewsService/RemoveNewsResponse")]
+        bool RemoveNews(int idNews, MyModelLibrary.accounts MyAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INewsService/RemoveNews", ReplyAction="http://tempuri.org/INewsService/RemoveNewsResponse")]
+        System.Threading.Tasks.Task<bool> RemoveNewsAsync(int idNews, MyModelLibrary.accounts MyAcc);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +67,22 @@ namespace MyClient.NewsService {
         
         public System.Threading.Tasks.Task<bool> AddNewsAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews) {
             return base.Channel.AddNewsAsync(MyAcc, MyNews);
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.News> GetNewsList() {
+            return base.Channel.GetNewsList();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.News>> GetNewsListAsync() {
+            return base.Channel.GetNewsListAsync();
+        }
+        
+        public bool RemoveNews(int idNews, MyModelLibrary.accounts MyAcc) {
+            return base.Channel.RemoveNews(idNews, MyAcc);
+        }
+        
+        public System.Threading.Tasks.Task<bool> RemoveNewsAsync(int idNews, MyModelLibrary.accounts MyAcc) {
+            return base.Channel.RemoveNewsAsync(idNews, MyAcc);
         }
     }
 }

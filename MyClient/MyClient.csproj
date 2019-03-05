@@ -243,6 +243,7 @@
     <None Include="Connected Services\NewsService\NewsService.wsdl" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\MyModelLibrary.accounts.datasource" />
+    <None Include="Properties\DataSources\MyModelLibrary.News.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.Users.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

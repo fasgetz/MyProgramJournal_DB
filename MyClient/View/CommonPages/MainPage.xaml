@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MyClient.View.CommonPages"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1024"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       DataContext="{Binding MyMainPageVM, Source={StaticResource Locator}}"
       Title="MainPage">
 
@@ -20,16 +21,43 @@
         </Style>
     </Page.Resources>
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding GetNewsCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
 
     <Grid>
         <Label Content="Главная страница" FontSize="35" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1004"/>
-        <ListBox ItemsSource="{Binding AccountsList}"  Height="579" Margin="68,72,68,0" VerticalAlignment="Top" HorizontalContentAlignment="Center">
+
+        <ListBox ItemsSource="{Binding NewsList}" VirtualizingPanel.ScrollUnit="Pixel" Height="590" Margin="34,72,34, 0" VerticalAlignment="Top" HorizontalContentAlignment="Center">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderThickness="1" BorderBrush="Black">
-                        <StackPanel VerticalAlignment="Center">
-                            <TextBlock FontSize="20" Text="{Binding Path=login}" />
-                            <TextBlock FontSize="15" HorizontalAlignment="Left" Text="{Binding Path=password}" />
+                    <Border Margin="0,0,0, 30" BorderThickness="1" BorderBrush="Black">
+                        <StackPanel Margin="5" Height="auto" Width="890" VerticalAlignment="Center">
+                            <Border Margin="0,5,0,5" BorderThickness="1" BorderBrush="Black">
+                                <TextBlock FontSize="20" HorizontalAlignment="Center" Text="{Binding Path=Title}" />
+                            </Border>
+                            <Border BorderThickness="1" BorderBrush="Black">
+                                <TextBlock Margin="5,10,5,5" FontSize="14" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=Content}" />
+                            </Border>
+
+                            <ListBox VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding Images}" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" >
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Height="auto" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                            <Image Height="200" Width="400" Source="{Binding Path=Image}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <TextBlock Text="{Binding Path=GetDate}" FontSize="20" Margin="0,10,0,0" HorizontalAlignment="Center"></TextBlock>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

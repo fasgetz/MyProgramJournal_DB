@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="53b2e4e0-e6e1-4cda-9646-599f326cbc1f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3755f454-749f-4719-bf6a-8e575a617a78" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -24,11 +24,11 @@
     <MetadataSource Address="http://95.84.158.128:9002" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="62355604-8b12-43cd-aaf6-14c03c5c6266" SourceId="1" SourceUrl="http://95.84.158.128:9002/?disco" />
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="dd2f90d5-282a-4e34-9003-94bfb1ffe21a" SourceId="1" SourceUrl="http://95.84.158.128:9002/?xsd=xsd2" />
-    <MetadataFile FileName="NewsService.wsdl" MetadataType="Wsdl" ID="000b0b31-27df-42b0-b93d-2c83a52d9670" SourceId="1" SourceUrl="http://95.84.158.128:9002/?wsdl" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="45a2a270-ae08-494a-b4af-5e0b957809ad" SourceId="1" SourceUrl="http://95.84.158.128:9002/?xsd=xsd0" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="39c7a436-3b29-4b27-bf13-0dfe3a7d2d38" SourceId="1" SourceUrl="http://95.84.158.128:9002/?xsd=xsd1" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="6f4163b3-1a80-4813-8b80-c9c9530a61ed" SourceId="1" SourceUrl="http://95.84.158.128:9002/?disco" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="5860dbc9-a6f1-4275-b625-4bbd5b951ea6" SourceId="1" SourceUrl="http://95.84.158.128:9002/?xsd=xsd2" />
+    <MetadataFile FileName="NewsService.wsdl" MetadataType="Wsdl" ID="4893b787-6a34-4d48-a42b-514152dc0389" SourceId="1" SourceUrl="http://95.84.158.128:9002/?wsdl" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="536bb9bb-adc4-49af-ae28-434bf4c18475" SourceId="1" SourceUrl="http://95.84.158.128:9002/?xsd=xsd0" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="e61e4615-ee0c-453e-969d-018cbb119669" SourceId="1" SourceUrl="http://95.84.158.128:9002/?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

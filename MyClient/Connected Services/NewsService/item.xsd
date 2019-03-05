@@ -167,4 +167,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Images" nillable="true" type="tns:Images" />
+  <xs:complexType name="ArrayOfNews">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="News" nillable="true" type="tns:News" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNews" nillable="true" type="tns:ArrayOfNews" />
 </xs:schema>

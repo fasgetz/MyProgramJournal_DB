@@ -77,8 +77,8 @@ namespace MyClient.ViewModel._VMCommon
         #region Новости
 
         // Список новостей
-        private ObservableCollection<MyModelLibrary.Images> _NewsList;
-        public ObservableCollection<MyModelLibrary.Images> NewsList
+        private ObservableCollection<MyModelLibrary.News> _NewsList;
+        public ObservableCollection<MyModelLibrary.News> NewsList
         {
             get
             {

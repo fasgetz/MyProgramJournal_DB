@@ -15,7 +15,7 @@
     <Grid>
         <Label Content="Добавление новости" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="30" Margin="0,10,0,0" VerticalAlignment="Top" Width="1014"/>
         <TextBox HorizontalAlignment="Left" Height="50" FontSize="20" MaxLength="50" Margin="10,60,0,0"  Text="{Binding title}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="1004"/>
-        <TextBox TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding text}" Height="451" FontSize="15" Margin="10,115,0,0" AcceptsReturn="True"  MaxLength="500" VerticalAlignment="Top" Width="1004"/>
+        <TextBox TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding text}" Height="451" FontSize="15" Margin="10,115,0,0" AcceptsReturn="True"  MaxLength="2000" VerticalAlignment="Top" Width="1004"/>
         <Button Content="Создать новость" Command="{Binding CreateNews}" FontSize="30" HorizontalAlignment="Left" Margin="10,569,0,0" VerticalAlignment="Top" Width="1004" Height="42"/>
         <Button Content="Отменить" FontSize="30" Command="{Binding OpenMainPage}" HorizontalAlignment="Left" Margin="10,611,0,0" VerticalAlignment="Top" Width="1004" Height="43"/>
         <Button Content="Добавить изображение" Command="{Binding AddImage}" FontSize="20" HorizontalAlignment="Left" Margin="764,466,0,0" VerticalAlignment="Top" Width="250" Height="100"/>

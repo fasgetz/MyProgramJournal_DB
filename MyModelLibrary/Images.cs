@@ -15,6 +15,15 @@ namespace MyModelLibrary
     public class Images
     {
 
+
+
+        public Images(int IdNews, byte[] Image, string format_img)
+        {
+            this.IdNews = IdNews;
+            this.Image = Image;
+            this.format_img = format_img;
+        }
+
         // Конструктор
         public Images(int IdNews, byte[] Image, string format_img, string ImagePath, string ImageName)
         {
