@@ -117,11 +117,29 @@
     <Compile Include="View\Administrator\AdministratorWindow.xaml.cs">
       <DependentUpon>AdministratorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Administrator\Disciplines\DisciplineListPage.xaml.cs">
+      <DependentUpon>DisciplineListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\Disciplines\TeachersDisciplinesPage.xaml.cs">
+      <DependentUpon>TeachersDisciplinesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\Groups\AddGroupDisciplinesPage.xaml.cs">
+      <DependentUpon>AddGroupDisciplinesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\Groups\GroupsListPage.xaml.cs">
+      <DependentUpon>GroupsListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\Groups\StudentsGroupPage.xaml.cs">
+      <DependentUpon>StudentsGroupPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Administrator\News\AddNewsPage.xaml.cs">
       <DependentUpon>AddNewsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Administrator\News\NewsListPage.xaml.cs">
       <DependentUpon>NewsListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\Schedule\SchedulePage.xaml.cs">
+      <DependentUpon>SchedulePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Administrator\UsersPages\UsersListPage.xaml.cs">
       <DependentUpon>UsersListPage.xaml</DependentUpon>
@@ -157,6 +175,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Administrator\Disciplines\DisciplineListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Administrator\Disciplines\TeachersDisciplinesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Administrator\Groups\AddGroupDisciplinesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Administrator\Groups\GroupsListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Administrator\Groups\StudentsGroupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Administrator\News\AddNewsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -164,6 +202,10 @@
     <Page Include="View\Administrator\News\NewsListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Administrator\Schedule\SchedulePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Administrator\UsersPages\UsersListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -318,5 +360,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

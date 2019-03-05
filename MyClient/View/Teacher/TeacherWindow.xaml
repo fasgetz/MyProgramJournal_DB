@@ -23,6 +23,7 @@
         <Menu HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="1024">
             
             <MenuItem Margin="685,0,0,0"  FontSize="20" Header="Профиль" Width="110" Height="40">
+                <MenuItem Header="Главная страница" Command="{Binding OpenMainPage}"></MenuItem>
                 <MenuItem Header="Показать профиль"  Command="{Binding OpenProfilePage}" />
                 <MenuItem Header="Сменить аккаунт" Command="{Binding ChangeUser}"/>
                 <MenuItem Header="Выход" Command="{Binding WinClose}"/>

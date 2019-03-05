@@ -31,12 +31,12 @@
                 <MenuItem Header="Показать список" Command="{Binding OpenUsersListPage}" />
                 <MenuItem Header="Добавить дисциплину группе"/>
             </MenuItem>
-            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Дисциплины test" Width="255" Height="40">
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Дисциплины" Width="170" Height="40">
                 <MenuItem Header="Показать список" />
-                <MenuItem Header="Добавить"/>
+                <MenuItem Header="Дисциплины преподавателей" />
             </MenuItem>
             <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Расписание" Width="150" Height="40">
-                <MenuItem Header="Показать" Command="{Binding OpenUsersListPage}" />
+                <MenuItem Header="Показать" />
             </MenuItem>
             <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Новости" Width="110" Height="40">
                 <MenuItem Header="Показать"  />
