@@ -33,6 +33,12 @@
   <wsdl:message name="ITransferService_AddAccount_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddAccountResponse" />
   </wsdl:message>
+  <wsdl:message name="ITransferService_EditAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditAccount" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_EditAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditAccountResponse" />
+  </wsdl:message>
   <wsdl:portType name="ITransferService">
     <wsdl:operation name="GetAllUsersList">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetAllUsersList" message="tns:ITransferService_GetAllUsersList_InputMessage" />
@@ -45,6 +51,10 @@
     <wsdl:operation name="AddAccount">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/AddAccount" message="tns:ITransferService_AddAccount_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/AddAccountResponse" message="tns:ITransferService_AddAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/EditAccount" message="tns:ITransferService_EditAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/EditAccountResponse" message="tns:ITransferService_EditAccount_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_ITransferService" type="tns:ITransferService">
@@ -70,6 +80,15 @@
     </wsdl:operation>
     <wsdl:operation name="AddAccount">
       <soap12:operation soapAction="http://tempuri.org/ITransferService/AddAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditAccount">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/EditAccount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -56,6 +56,71 @@ namespace WCF_Service.ServiceLogic
             return null;
         }
 
+        // Метод, который принимает со стороны клиента аккаунты (он должен быть администратором, чтобы можно было редактирвоать редактируемый аккаунт)
+        public bool EditAccount(MyModelLibrary.accounts MyAcc, MyModelLibrary.accounts EditAcc)
+        {
+            // Делаем проверку в базе данных: является ли юзер, который послал запрос администратором
+            // Если является, то отредактируй аккаун
+            // Если не является, то отмени запрос
+            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            {
+
+                try
+                {
+                    // Найдем редактируемый аккаунт в бд и отредактируем его
+                    EFGenericRepository<accounts> repository = new EFGenericRepository<accounts>(new MyDB()); // Репозиторий для работы с аккаунтами
+                    EFGenericRepository<Users> users_repository = new EFGenericRepository<Users>(new MyDB()); // Репозиторий для работы с юзерами
+
+                    repository.Edit(new accounts
+                        (EditAcc.idStatus,
+                        EditAcc.login,
+                        EditAcc.password,
+                        EditAcc.DateRegistration,
+                        EditAcc.Users.Name,
+                        EditAcc.Users.Family,
+                        EditAcc.Users.Surname,
+                        EditAcc.Users.Gender,
+                        Convert.ToInt32(EditAcc.Users.idUserStatus),
+                        EditAcc.Users.NumberPhone,
+                        EditAcc.Users.DateOfBirthDay,
+                        EditAcc.idAccount
+                        ));
+
+                    users_repository.Edit(new Users
+                        (
+                        EditAcc.idAccount,
+                        Convert.ToInt16(EditAcc.Users.idUserStatus),
+                        EditAcc.Users.Name,
+                        EditAcc.Users.Family,
+                        EditAcc.Users.Surname,
+                        EditAcc.Users.Gender,
+                        EditAcc.Users.NumberPhone,
+                        EditAcc.Users.DateOfBirthDay
+                        ));
+
+                    Console.WriteLine($"{DateTime.Now}) Аккаунт {EditAcc.idAccount} успешно отредактирован! администратором <<{MyAcc.login}>>");
+
+                    return true;
+                }
+                catch (System.Data.Entity.Infrastructure.DbUpdateException)
+                {
+                    ExceptionSender.SendException($"Пользатель с логином <<{EditAcc.login}>> уже существует!\nЛогин должен быть уникальным!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            // Иначе, если не администратор послал запрос, то выдай ему ошибку, что он не администратор
+            else
+            {
+                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+            }
+
+
+            return false; // Если редактирование не успешно
+        }
+
         // Метод, который принимает со стороны клиента аккаунт и добавляет его в базу данных, соответственно, если аккаунт == администратор и возвращает true, если аккаунт создан
         public bool AddUser(MyModelLibrary.accounts AddAcc, int CurrentIdAcc)
         {

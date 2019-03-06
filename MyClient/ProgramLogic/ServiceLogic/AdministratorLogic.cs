@@ -80,6 +80,39 @@ namespace MyClient.ProgramLogic.ServiceLogic
             }
         }
 
+
+        // Метод, который редактирует аккаунт
+        public bool EditAccount(MyModelLibrary.accounts EditableAccount, MyModelLibrary.accounts MyAccount)
+        {
+            // Создаем подключение к серверу
+            using (client = new MyService.TransferServiceClient())
+            {
+                try
+                {
+                    // Если edit = true, то редактирование успешно, иначе не успешно
+                    bool edit = client.EditAccount(MyAccount, EditableAccount);
+
+                    // Если редактирование прошло успешно, то верни true
+                    if (edit == true)
+                    {
+                        MyDialog.ShowMessage("Редактирование прошло успешно!");
+                        return true;
+                    }
+                }
+                catch (FaultException<AccountService.AccountConnectedException> ex)
+                {
+                    MyDialog.ShowMessage(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MyDialog.ShowMessage(ex.Message);
+                }
+
+            }
+
+            return false; // Верни false, если редактирование не удалось
+        }
+
         #endregion
 
         public AdministratorLogic()

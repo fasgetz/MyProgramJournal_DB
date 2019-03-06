@@ -25,7 +25,7 @@ namespace MyModelLibrary
                 switch (idUserStatus)
                 {
                     case (1):
-                        return "Студент";                        
+                        return "Студент";
                     case (2):
                         return "Преподаватель";
                     case (3):
@@ -44,9 +44,9 @@ namespace MyModelLibrary
             get
             {
                 if (Gender == "М")
-                    return "Мужской";
+                    return "Мужчина";
                 else if (Gender == "Ж")
-                    return "Женский";
+                    return "Женщина";
                 return null;
             }
         }
@@ -111,7 +111,8 @@ namespace MyModelLibrary
             {
                 _Surname = value;
             }
-        }       
+        }
+        
         public string Gender { get; set; }
 
         private string _NumberPhone;

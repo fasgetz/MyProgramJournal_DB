@@ -48,6 +48,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Register<AccountsListPageViewModel>(); // VM списка аккаунтов
             SimpleIoc.Default.Register<CreateAccountVM>(); // VM страницы создани€ аккаунта
             SimpleIoc.Default.Register<CreateNewsViewModel>(); // VM страница создани€ новости
+            SimpleIoc.Default.Register<EditAccountVM>(); // VM страницы редактировани€ аккаунта
 
             // ViewModel ѕреподавател€
             SimpleIoc.Default.Register<TeacherViewModel>(); // ViewModel окна учител€
@@ -140,6 +141,19 @@ namespace MyClient.ViewModel._Navigation
             set
             {
                 _AccountsListVM = value;
+            }
+        }
+
+        private EditAccountVM _MyEditAccountVM;
+        public EditAccountVM MyEditAccountVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<EditAccountVM>();
+            }
+            set
+            {
+                _MyEditAccountVM = value;
             }
         }
         #endregion

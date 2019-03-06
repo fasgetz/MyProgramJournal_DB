@@ -44,6 +44,11 @@ namespace WCF_Service.MyService.ServiceWorkDB
             return MyServiceLogic.AddUser(AddAcc, CurrentAcc.idAccount);
         }
 
+        // Метод, который принимает со стороны клиента аккаунты (он должен быть администратором, чтобы можно было редактирвоать редактируемый аккаунт)
+        public bool EditAccount(MyModelLibrary.accounts MyAcc, MyModelLibrary.accounts EditAcc)
+        {
+            return MyServiceLogic.EditAccount(MyAcc, EditAcc); // Возвращаем истину, если аккаунт отредактирован успешно, иначе false
+        }
         #endregion
 
 

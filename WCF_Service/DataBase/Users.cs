@@ -34,9 +34,6 @@ namespace WCF_Service.DataBase
 
             if (DateOfBirthdays.HasValue)
                 this.DateOfBirthDay = new DateTime(DateOfBirthdays.Value.Year, DateOfBirthdays.Value.Month, DateOfBirthdays.Value.Day);
-
-
-            //this.DateOfBirthDay = DateOfBirthDay;
         }
 
 

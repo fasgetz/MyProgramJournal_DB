@@ -24,12 +24,12 @@
 
 
     <Grid>
-        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="0, 0, 0 ,0" HorizontalAlignment="Left" Height="626" VerticalAlignment="Top" Width="1024" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid x:Name="MyDataGrid" SelectedValue="{Binding SelectedAccount}" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="0, 0, 0 ,0" HorizontalAlignment="Left" Height="626" VerticalAlignment="Top" Width="1024" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
 
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Удалить"></MenuItem>
-                    <MenuItem Header="Редактировать"></MenuItem>
+                    <MenuItem Header="Удалить (off)"></MenuItem>
+                    <MenuItem Header="Редактировать" Command="{Binding EditAccount}"></MenuItem>
                     <MenuItem Header="Показать анкетные данные"></MenuItem>
                     <MenuItem Header="Показать список сессий"></MenuItem>
                 </ContextMenu>

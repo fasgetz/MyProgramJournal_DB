@@ -25,7 +25,10 @@ namespace WCF_Service.MyService.ServiceWorkDB
         [OperationContract]
         bool AddAccount(MyModelLibrary.accounts AddAcc, MyModelLibrary.accounts CurrentAcc);
 
-
+        // Метод, который редактирует аккаунт. Он принимает его со стороны клиента и возвращает истину, если аккаунт отредактирован
+        // Также есть проверка на статус администратора (Отправитель)
+        [OperationContract]
+        bool EditAccount(MyModelLibrary.accounts MyAcc, MyModelLibrary.accounts EditAcc);
 
         #endregion
 

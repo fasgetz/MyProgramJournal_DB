@@ -21,6 +21,13 @@ namespace WCF_Service.DataBase
             this.SessionsAccounts = new HashSet<SessionsAccounts>();
         }
 
+
+        public accounts(int IdAccont)
+        {
+            this.idAccount = IdAccont;
+        }
+
+
         // Конструктор для инициализации данных аккаунта и пользователя
         public accounts
             (
@@ -40,8 +47,33 @@ namespace WCF_Service.DataBase
             this.login = login;
             this.password = password;
             this.DateRegistration = DateRegistration;
+            this.Users = new Users(idAccount, StatusUser, Name, Family, Surname, Gender, NumberPhone, DateOfBirthday);            
+        }
+
+        // Переопределяем конструктор, если требуется добавить айди аккаунта к инициализации объекта
+        public accounts
+            (
+            int idStatus,
+            string login,
+            string password,
+            Nullable<System.DateTime> DateRegistration,
+            string Name,
+            string Family,
+            string Surname,
+            string Gender,
+            int StatusUser,
+            string NumberPhone,
+            DateTime? DateOfBirthday,
+            int idAccount)
+            :this (idAccount)
+        {
+            this.idStatus = idStatus;
+            this.login = login;
+            this.password = password;
+            this.DateRegistration = DateRegistration;
             this.Users = new Users(idAccount, StatusUser, Name, Family, Surname, Gender, NumberPhone, DateOfBirthday);
         }
+
 
         #region Свойства аккаунта
 
