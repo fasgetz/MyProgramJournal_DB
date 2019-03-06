@@ -30,7 +30,7 @@
                 <ContextMenu>
                     <MenuItem Header="Удалить (off)"></MenuItem>
                     <MenuItem Header="Редактировать" Command="{Binding EditAccount}"></MenuItem>
-                    <MenuItem Header="Показать анкетные данные"></MenuItem>
+                    <MenuItem Header="Показать персональные данные" Command="{Binding PersonalData}"></MenuItem>
                     <MenuItem Header="Показать список сессий"></MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>

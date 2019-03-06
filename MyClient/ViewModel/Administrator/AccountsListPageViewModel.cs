@@ -22,7 +22,7 @@ namespace MyClient.ViewModel.Administrator
             // Инициализируем списки типа string для выбора итемов в ComboBox
 
             // Статус пользователя с преподавателя на студента и наоборот меняеть не будем (т.к. не логично)
-            StatusList = new List<string>() { "Студент", "Преподаватель" }; 
+            StatusList = new List<string>() { "Студент", "Преподаватель" };
             GenderList = new List<string>() { "Мужчина", "Женщина" };
             StatusAccountsList = new List<string>() { "Активный", "Неактивный" };
 
@@ -276,67 +276,6 @@ namespace MyClient.ViewModel.Administrator
 
         #endregion
 
-        // Список аккаунтов
-        private List<MyModelLibrary.accounts> _AccountList;
-        public List<MyModelLibrary.accounts> AccountsList
-        {
-            get
-            {
-                return _AccountList;
-            }
-            set
-            {
-                _AccountList = value;
-                RaisePropertyChanged("AccountsList");
-            }
-        }
-
-        // Для хранения ключа, по которому будем искать в поиске
-        private string _SelectedSearchItem;
-        public string SelectedSearchItem
-        {
-            get
-            {
-                return _SelectedSearchItem;
-            }
-            set
-            {
-                _SelectedSearchItem = value;
-                text = string.Empty; // Обнуляем текст в строке поиска
-                RaisePropertyChanged("SelectedSearchItem");
-            }
-        }
-
-        // Строка поиска
-        private string _text;
-        public string text
-        {
-            get
-            {
-                return _text;
-            }
-            set
-            {
-                _text = value;
-                RaisePropertyChanged("text");
-            }
-        }
-
-        // Для хранения элементов, которые выводятся в Accounts ComboBox
-        private List<string> _AccountsCBData;
-        public List<string> AccountCBData
-        {
-            get
-            {
-                return _AccountsCBData;
-            }
-            set
-            {
-                _AccountsCBData = value;
-                RaisePropertyChanged("AccountsCBData");
-            }
-        }
-
         // Выбранный аккаунт в списке
         private MyModelLibrary.accounts _SelectedAccount;
         public MyModelLibrary.accounts SelectedAccount
@@ -354,10 +293,9 @@ namespace MyClient.ViewModel.Administrator
 
         #endregion
 
-
         #region Команды
 
-        // Команда на кнопку в контекстном меню редактирование аккаунта
+        // Команда на кнопку в контекстном меню редактирование (В списке аккаунтов и персональных данных)
         public ICommand EditAccount
         {
             get
@@ -388,13 +326,44 @@ namespace MyClient.ViewModel.Administrator
                             // Мессенджер: передай в MyEditAccountVM наш список двух аккаунтов
                             Messenger.Default.Send(new GenericMessage<List<MyModelLibrary.accounts>>(list)); // Отправляем в следующий DataContext аккаунт
 
-                            // Перейди в Page профиля
+                            // Перейди в Page редактирования аккаунта
                             navigation.Navigate("View/Administrator/AccountsPages/EditAccountPage.xaml");
                         }
                     }
                 });
             }
         }
+
+        // Команда на кнопку в контекстном меню на просмотр персональных данных
+        public ICommand PersonalData
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если аккаунт в ListBox выбрали (кликнули на него), то можно перейти на страницу просмотра профиля
+                    if (SelectedAccount != null)
+                    {
+                        // Если VM не инициализирована, то проинициализируй
+                        if (locator.MyPersonalDataVM == null)
+                            locator.MyPersonalDataVM = new PersonalDataViewModel();
+
+
+                        // Создаем список, который передадим в следующий контекст (Необходимо передать 2 аккаунта:
+                        // Мой аккаунт - аккаунт, который вызвал редактирование (Для логики администратора на следующей странице)
+                        // И выбранный SelectedAccount в списке, котроый будем редактировать
+                        List<MyModelLibrary.accounts> list = new List<MyModelLibrary.accounts>() { MyAcc, SelectedAccount };
+
+
+                        // Мессенджер: передай в MyEditAccountVM наш список двух аккаунтов
+                        Messenger.Default.Send(new GenericMessage<List<MyModelLibrary.accounts>>(list)); // Отправляем в следующий DataContext аккаунт
+
+                        // Перейди в Page просмотря профиля
+                        navigation.Navigate("View/Administrator/AccountsPages/UsersDataPge.xaml");
+                    }
+                });
+            }
+        }        
 
         public ICommand SearchAccountCommand
         {
@@ -453,7 +422,6 @@ namespace MyClient.ViewModel.Administrator
         }
 
         #endregion
-
 
         #region Конструктор
 

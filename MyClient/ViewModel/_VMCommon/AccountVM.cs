@@ -114,6 +114,14 @@ namespace MyClient.ViewModel._VMCommon
 
         #region Команды для аккаунта
 
+        // Вспомогательный метод для ДеИнициализации свойств
+        private void DeInitialization()
+        {
+            MyAdminLogic = null;
+            MyUserLogic = null;
+            MyAdminLogic = null;
+        }
+
         // Команда авторизации пользователя
         public ICommand Authorization
         {
@@ -130,7 +138,6 @@ namespace MyClient.ViewModel._VMCommon
                     // Если учетные данные есть у юзера, то создай сервис для работы с юзерами и проинициаилируй
                     if (MyAcc != null && MyAcc.Users != null)
                     {
-
                         Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
 
                         // Инициализируем логику в зависимости от статуса пользователя (Администратор / преподаватель / студент)
@@ -180,6 +187,7 @@ namespace MyClient.ViewModel._VMCommon
                     {
                         MyAccountLogic.DisconnectUser(MyAcc); // Дисконнект аккаунта
                         navigation.NewWindow("MyClient.View.MainLoginWindow.LoginWindow"); // Переход в страницу авторизации
+                        DeInitialization();
                     }
 
                 });
@@ -235,8 +243,8 @@ namespace MyClient.ViewModel._VMCommon
 
         // Конструктор класса
         public AccountVM()
-        {
-            dialog = new DialogService(); // Инициализируем диалоги
+        {            
+            dialog = new DialogService(); // Инициализируем диалоги         
         }
 
     }

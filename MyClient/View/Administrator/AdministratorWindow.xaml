@@ -20,29 +20,29 @@
 
     <Grid>
         <Menu HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="1024">
-            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Аккаунты" Width="120" Height="40">
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Аккаунты" Width="100" Height="40">
                 <MenuItem Header="Показать список" Command="{Binding OpenAccountsList}"/>
                 <MenuItem Header="Создать аккаунт" Command="{Binding OpenCreateAccountPage}"/>
             </MenuItem>
-            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Анкеты" Width="100" Height="40">
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Персональные данные" Width="220" Height="40">
                 <MenuItem Header="Показать список" Command="{Binding OpenUsersList}" />
             </MenuItem>
-            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Группы" Width="100" Height="40">
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Группы" Width="80" Height="40">
                 <MenuItem Header="Показать список" Command="{Binding OpenUsersListPage}" />
                 <MenuItem Header="Добавить дисциплину группе"/>
             </MenuItem>
-            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Дисциплины" Width="170" Height="40">
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Дисциплины" Width="130" Height="40">
                 <MenuItem Header="Показать список" />
                 <MenuItem Header="Дисциплины преподавателей" />
             </MenuItem>
-            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Расписание" Width="150" Height="40">
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Расписание" Width="120" Height="40">
                 <MenuItem Header="Показать" />
             </MenuItem>
-            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Header="Новости" Width="110" Height="40">
+            <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Новости" Width="90" Height="40">
                 <MenuItem Header="Показать"  />
                 <MenuItem Header="Добавить" Command="{Binding OpenCreateNewsPage}"/>
             </MenuItem>
-            <MenuItem  FontSize="25" Header="Профиль" Width="120" Height="40">
+            <MenuItem  FontSize="20" Header="Профиль" Width="100" Height="40">
                 <MenuItem Header="Главная страница" Command="{Binding OpenMainPage}"></MenuItem>
                 <MenuItem Header="Показать профиль"  Command="{Binding OpenProfilePage}" />
                 <MenuItem Header="Сменить аккаунт" Command="{Binding ChangeUser}"/>

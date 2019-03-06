@@ -30,39 +30,7 @@ namespace MyClient.ViewModel.Administrator
                 RaisePropertyChanged("UsersList");
             }
         }
-
-        // Для хранения ключа, по которому будем искать в поиске
-        private string _SelectedSearchItem;
-        public string SelectedSearchItem
-        {
-            get
-            {
-                return _SelectedSearchItem;
-            }
-            set
-            {
-                _SelectedSearchItem = value;
-                text = string.Empty; // Обнуляем текст в строке поиска
-                RaisePropertyChanged("SelectedSearchItem");
-            }
-        }
-
-        // Строка поиска
-        private string _text;
-        public string text
-        {
-            get
-            {
-                return _text;
-            }
-            set
-            {
-                _text = value;
-                RaisePropertyChanged("text");
-            }
-        }
-
-
+    
         // Для хранения элементов, которые выводятся в Users ComboBox
         private List<string> _UsersCBData;
         public List<string> UsersCBData

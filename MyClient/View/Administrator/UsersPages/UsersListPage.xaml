@@ -23,12 +23,11 @@
 
     <Grid>
 
-        <DataGrid x:Name="MyDataGrid" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="0, 0, 0 ,0" HorizontalAlignment="Left" Height="626" VerticalAlignment="Top" Width="1024" ItemsSource="{Binding UsersList, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid x:Name="MyDataGrid" SelectedValue="{Binding SelectedAccount}" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="0, 0, 0 ,0" HorizontalAlignment="Left" Height="626" VerticalAlignment="Top" Width="1024" ItemsSource="{Binding UsersList, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
             <DataGrid.ContextMenu>
 
                 <ContextMenu>
-                    <MenuItem Header="Удалить"></MenuItem>
-                    <MenuItem Header="Редактировать"></MenuItem>
+                    <MenuItem Header="Удалить (off)"></MenuItem>
                     <MenuItem Header="Показать учетные данные"></MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>

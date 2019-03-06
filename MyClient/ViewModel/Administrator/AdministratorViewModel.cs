@@ -4,6 +4,8 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using MyClient.ViewModel._Navigation;
 using MyClient.ProgramLogic.DialogServices;
+using System;
+using System.Collections.Generic;
 
 namespace MyClient.ViewModel.Administrator
 {
@@ -15,6 +17,74 @@ namespace MyClient.ViewModel.Administrator
 
     public class AdministratorViewModel : AccountVM
     {
+
+
+        #region Свойства
+
+        // Список аккаунтов
+        private List<MyModelLibrary.accounts> _AccountList;
+        public List<MyModelLibrary.accounts> AccountsList
+        {
+            get
+            {
+                return _AccountList;
+            }
+            set
+            {
+                _AccountList = value;
+                RaisePropertyChanged("AccountsList");
+            }
+        }
+
+        // Для хранения ключа, по которому будем искать в поиске
+        private string _SelectedSearchItem;
+        public string SelectedSearchItem
+        {
+            get
+            {
+                return _SelectedSearchItem;
+            }
+            set
+            {
+                _SelectedSearchItem = value;
+                text = string.Empty; // Обнуляем текст в строке поиска
+                RaisePropertyChanged("SelectedSearchItem");
+            }
+        }
+
+        // Строка поиска
+        private string _text;
+        public string text
+        {
+            get
+            {
+                return _text;
+            }
+            set
+            {
+                _text = value;
+                RaisePropertyChanged("text");
+            }
+        }
+
+        // Для хранения элементов, которые выводятся в Accounts ComboBox
+        private List<string> _AccountsCBData;
+        public List<string> AccountCBData
+        {
+            get
+            {
+                return _AccountsCBData;
+            }
+            set
+            {
+                _AccountsCBData = value;
+                RaisePropertyChanged("AccountsCBData");
+            }
+        }
+
+        #endregion
+
+
 
         #region Команды перехода по страницам (Только страницы администратора)
 

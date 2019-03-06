@@ -99,6 +99,7 @@
     <Compile Include="ViewModel\Administrator\CreateAccountVM.cs" />
     <Compile Include="ViewModel\Administrator\CreateNewsViewModel.cs" />
     <Compile Include="ViewModel\Administrator\EditAccountVM.cs" />
+    <Compile Include="ViewModel\Administrator\PersonalDataViewModel.cs" />
     <Compile Include="ViewModel\Administrator\UsersListPageViewModel.cs" />
     <Compile Include="ViewModel\Student\StudentViewModel.cs" />
     <Compile Include="ViewModel\Teacher\TeacherViewModel.cs" />
@@ -117,6 +118,9 @@
     </Compile>
     <Compile Include="View\Administrator\AccountsPages\EditAccountPage.xaml.cs">
       <DependentUpon>EditAccountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\AccountsPages\UsersDataPge.xaml.cs">
+      <DependentUpon>UsersDataPge.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Administrator\AdministratorWindow.xaml.cs">
       <DependentUpon>AdministratorWindow.xaml</DependentUpon>
@@ -176,6 +180,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Administrator\AccountsPages\EditAccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Administrator\AccountsPages\UsersDataPge.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
