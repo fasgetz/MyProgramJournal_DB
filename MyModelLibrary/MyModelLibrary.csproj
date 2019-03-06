@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="accounts.cs" />
     <Compile Include="Attendance.cs" />
+    <Compile Include="FinalAttendances.cs" />
     <Compile Include="Images.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Discipline.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Marks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionsAccounts.cs" />
+    <Compile Include="Speciality_codes.cs" />
     <Compile Include="StatusAccounts.cs" />
     <Compile Include="StudentsGroup.cs" />
     <Compile Include="TeacherDisciplines.cs" />

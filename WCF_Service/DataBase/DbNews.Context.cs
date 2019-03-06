@@ -18,6 +18,7 @@ namespace WCF_Service.DataBase
         public DbNews()
             : base("name=DbNews")
         {
+            var ensureDllIsCopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

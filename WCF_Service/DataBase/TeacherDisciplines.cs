@@ -18,6 +18,7 @@ namespace WCF_Service.DataBase
         public TeacherDisciplines()
         {
             this.LessonsDate = new HashSet<LessonsDate>();
+            this.FinalAttendances = new HashSet<FinalAttendances>();
         }
     
         public int IdTeacherActivities { get; set; }
@@ -31,5 +32,7 @@ namespace WCF_Service.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LessonsDate> LessonsDate { get; set; }
         public virtual Users Users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FinalAttendances> FinalAttendances { get; set; }
     }
 }

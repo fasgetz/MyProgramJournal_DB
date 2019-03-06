@@ -34,7 +34,8 @@ namespace MyModelLibrary
         public Discipline Discipline { get; set; }
         public Groups Groups { get; set; }
         public Users User { get; set; }
-        //public virtual Users Users { get; set; }
+        public virtual List<FinalAttendances> FinalAttendances { get; set; } // Список итоговых оценок учителя
+
         #endregion
     }
 }

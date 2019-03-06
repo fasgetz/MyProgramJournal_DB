@@ -30,6 +30,7 @@ namespace MyModelLibrary
 
         public virtual List<StudentsGroup> StudentsGroup { get; set; }
         public virtual List<TeacherDisciplines> TeacherDisciplines { get; set; }
+        public virtual Speciality_codes Speciality_codes { get; set; } // Ссылка на код специальности
 
         #endregion
     }

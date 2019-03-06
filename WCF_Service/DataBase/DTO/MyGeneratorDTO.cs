@@ -57,11 +57,46 @@ namespace WCF_Service.DataBase.DTO
             return newlist.ToList();
         }
 
+
+        // Метод для получения списка итоговых оценок (Применяется у студента и у деятельности учителя)
+        private List<MyModelLibrary.FinalAttendances> GetFinalAttendances (List<FinalAttendances> NotDtoList)
+        {
+            // Делаем проверку - не пустой ли мы передали список
+            if (NotDtoList != null)
+            {
+                // Создаем список
+                List<MyModelLibrary.FinalAttendances> MyList = new List<MyModelLibrary.FinalAttendances>();
+
+                // Перебираем все элементы в списке
+                foreach (var item in NotDtoList)
+                {
+                    MyList.Add(new MyModelLibrary.FinalAttendances(item.idFinalAttendance, item.idTeacherActivities, item.idStudent)); // Добавляем элементы в список
+                }
+
+                return MyList; // Возвращаем DTO список
+            }
+
+            return null; // Возвращаем пустой список
+        }
+
+        // Метод для получения DTO - Специальности (Применяется в методе GetGroups)
+        private MyModelLibrary.Speciality_codes GetSpeciality(Speciality_codes speciality)
+        {
+            return new MyModelLibrary.Speciality_codes(speciality.idSpeciality, speciality.code_speciality, speciality.name_speciality);
+        }
+
         // Метод для получения DTO - группа + Готова
         private MyModelLibrary.Groups GetGroups(Groups Groups)
         {
             // Создаем новый объет Группы, которую будем возвращать
             MyModelLibrary.Groups MyGroup = new MyModelLibrary.Groups(Groups.idGroup, Groups.GroupName);
+
+            // Если группе присвоили специальность, то присвой ее к dto объекту
+            if (Groups.Speciality_codes != null)
+            {
+                MyGroup.Speciality_codes = GetSpeciality(Groups.Speciality_codes);
+            }
+
 
             return MyGroup; // Возвращаем группу
         }
@@ -106,6 +141,8 @@ namespace WCF_Service.DataBase.DTO
                 GetGroups(studentsGroup.Groups)
                 );
 
+
+
             return StudentGroup; // Возвращаем объект
         }
 
@@ -143,7 +180,7 @@ namespace WCF_Service.DataBase.DTO
             return SessionsDTO.ToList(); // Возвращаем список сессий
         }
 
-        // Метод для получения DTO - Юзера + готов
+        // Метод для получения DTO - Персональные данные юзера
         public MyModelLibrary.Users GetUser(Users user)
         {
             if (user != null)
@@ -179,7 +216,7 @@ namespace WCF_Service.DataBase.DTO
 
         }
 
-        // Метод для получения DTO - Дисциплины групп
+        // Метод для получения DTO - Список дисциплин учителя
         private List<MyModelLibrary.TeacherDisciplines> GetGroupDisciplines(Groups group)
         {
             List<MyModelLibrary.TeacherDisciplines> MyList = new List<MyModelLibrary.TeacherDisciplines>();
@@ -198,14 +235,36 @@ namespace WCF_Service.DataBase.DTO
                             item.IdGroup,
                             item.NumberSemester
                         );
+                    
+
+                    // Теперь добавляем итоговые отметки студентов по дисциплине (Если они есть)
+                    if (item.FinalAttendances != null)
+                    {
+                        // Создаем список итоговых оценок по дисциплине
+                        List<MyModelLibrary.FinalAttendances> AttendancesList = new List<MyModelLibrary.FinalAttendances>();
+
+                        // Перебираем все элементы
+                        foreach (var attendances in item.FinalAttendances)
+                        {
+                            AttendancesList.Add(new MyModelLibrary.FinalAttendances(attendances.idFinalAttendance, attendances.idTeacherActivities, attendances.idStudent));
+                        }
+
+                        // Присваиваем список итоговых оценок дисциплине учителя
+                        teacherDisciplines.FinalAttendances = AttendancesList;
+                    }
+                    
 
                     MyList.Add(teacherDisciplines);
                 }
+
+
             }
 
 
             return MyList.ToList();
         }
+
+        
 
         // Метод, который генерирует DTO - объект типа accounts и возвращает его + Готов
         public MyModelLibrary.accounts GetAccountDTO(accounts AccountNotDTO)
@@ -235,6 +294,8 @@ namespace WCF_Service.DataBase.DTO
                     {
                         Account.Users.StudentsGroup = GetStudentsGroup(AccountNotDTO.Users.StudentsGroup); // Присвой группу студенту
                         Account.Users.StudentsGroup.Attendance = GetAttendanceList(AccountNotDTO.Users.StudentsGroup.Attendance.ToList()); // Присвой список оценок студента
+                        Account.Users.StudentsGroup.FinalAttendances = GetFinalAttendances(AccountNotDTO.Users.StudentsGroup.FinalAttendances.ToList()); // Список итоговых оценок
+
                         Account.Users.StudentsGroup.Groups.TeacherDisciplines = GetGroupDisciplines(AccountNotDTO.Users.StudentsGroup.Groups); // Присваиваем список дисциплин группе студента       
 
                     }
@@ -242,7 +303,7 @@ namespace WCF_Service.DataBase.DTO
                     if (Account.Users.idUserStatus == 2 && AccountNotDTO.Users.TeacherDisciplines != null)
                     {
                         Account.Users.StudentsGroup = null; // StudentsGroup == null (Если юзер преподаватель, то он не состоит ни в какой группе)
-                        Account.Users.TeacherDisciplines = GetTeacherDisciplines(AccountNotDTO.Users.TeacherDisciplines.ToList()); // Получаем дисциплины учителя     
+                        Account.Users.TeacherDisciplines = GetTeacherDisciplines(AccountNotDTO.Users.TeacherDisciplines.ToList()); // Получаем дисциплины учителя
 
                     }
                     // Если юзер == 3 (Если юзер == администратор), то значит, что нет смысла инициализировать все данные, кроме юзера

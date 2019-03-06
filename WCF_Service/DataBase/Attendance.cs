@@ -14,24 +14,6 @@ namespace WCF_Service.DataBase
     
     public partial class Attendance
     {
-
-
-        public Attendance()
-        {
-
-        }
-
-        // Конструктор
-        public Attendance(int idAttendance, int IdLesson, int StudentId, string Mark)
-        {
-            this.idAttendance = idAttendance;
-            this.IdLesson = IdLesson;
-            this.StudentId = StudentId;
-            this.Mark = Mark;
-        }
-
-        #region Свойства
-
         public int idAttendance { get; set; }
         public int IdLesson { get; set; }
         public int StudentId { get; set; }
@@ -40,7 +22,5 @@ namespace WCF_Service.DataBase
         public virtual LessonsDate LessonsDate { get; set; }
         public virtual Marks Marks { get; set; }
         public virtual StudentsGroup StudentsGroup { get; set; }
-
-        #endregion
     }
 }

@@ -18,6 +18,7 @@ namespace WCF_Service.DataBase
         public StudentsGroup()
         {
             this.Attendance = new HashSet<Attendance>();
+            this.FinalAttendances = new HashSet<FinalAttendances>();
         }
     
         public int IdStudent { get; set; }
@@ -28,5 +29,7 @@ namespace WCF_Service.DataBase
         public virtual ICollection<Attendance> Attendance { get; set; }
         public virtual Groups Groups { get; set; }
         public virtual Users Users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FinalAttendances> FinalAttendances { get; set; }
     }
 }

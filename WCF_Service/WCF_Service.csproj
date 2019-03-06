@@ -80,6 +80,9 @@
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\DTO\MyGeneratorDTO.cs" />
+    <Compile Include="DataBase\FinalAttendances.cs">
+      <DependentUpon>MyDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataBase\Groups.cs">
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
@@ -113,6 +116,9 @@
     <Compile Include="DataBase\Repositories\EFGenericRepository.cs" />
     <Compile Include="DataBase\Repositories\IRepository.cs" />
     <Compile Include="DataBase\SessionsAccounts.cs">
+      <DependentUpon>MyDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Speciality_codes.cs">
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\StatusAccounts.cs">

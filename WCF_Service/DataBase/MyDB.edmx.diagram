@@ -16,7 +16,7 @@
         <EntityTypeShape EntityType="db_journalModel.StudentsGroup" Width="1.5" PointX="10.5" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="db_journalModel.TeacherDisciplines" Width="1.5" PointX="13.5" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="db_journalModel.Users" Width="1.5" PointX="8.25" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_journalModel.UserStatus" Width="1.5" PointX="6" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.UserStatus" Width="1.5" PointX="6.125" PointY="2.875" IsExpanded="true" />
         <AssociationConnector Association="db_journalModel.FK_accounts_StatusAccounts" ManuallyRouted="false" />
         <AssociationConnector Association="db_journalModel.FK_SessionsAccounts_accounts" ManuallyRouted="false" />
         <AssociationConnector Association="db_journalModel.FK_Users_accounts" ManuallyRouted="false" />
@@ -30,6 +30,11 @@
         <AssociationConnector Association="db_journalModel.FK_StudentsGroup_Users" ManuallyRouted="false" />
         <AssociationConnector Association="db_journalModel.FK_TeacherDisciplines_Users" ManuallyRouted="false" />
         <AssociationConnector Association="db_journalModel.FK_Users_Statuses" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="db_journalModel.Speciality_codes" Width="1.5" PointX="6" PointY="0.75" />
+        <AssociationConnector Association="db_journalModel.FK_Groups_Speciality_codes" />
+        <EntityTypeShape EntityType="db_journalModel.FinalAttendances" Width="1.5" PointX="15.75" PointY="7.75" />
+        <AssociationConnector Association="db_journalModel.FK_FinalAttendances_StudentsGroup" />
+        <AssociationConnector Association="db_journalModel.FK_FinalAttendances_TeacherDisciplines" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -38,5 +38,7 @@ namespace WCF_Service.DataBase
         public virtual DbSet<TeacherDisciplines> TeacherDisciplines { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<UserStatus> UserStatus { get; set; }
+        public virtual DbSet<Speciality_codes> Speciality_codes { get; set; }
+        public virtual DbSet<FinalAttendances> FinalAttendances { get; set; }
     }
 }

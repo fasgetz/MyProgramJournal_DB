@@ -12,18 +12,13 @@ namespace WCF_Service.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class Discipline
+    public partial class FinalAttendances
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Discipline()
-        {
-            this.TeacherDisciplines = new HashSet<TeacherDisciplines>();
-        }
+        public int idFinalAttendance { get; set; }
+        public int idTeacherActivities { get; set; }
+        public int idStudent { get; set; }
     
-        public int idDiscipline { get; set; }
-        public string NameDiscipline { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TeacherDisciplines> TeacherDisciplines { get; set; }
+        public virtual StudentsGroup StudentsGroup { get; set; }
+        public virtual TeacherDisciplines TeacherDisciplines { get; set; }
     }
 }

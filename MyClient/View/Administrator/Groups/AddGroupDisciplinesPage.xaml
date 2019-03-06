@@ -22,10 +22,10 @@
     <Grid>
         <Label Content="Добавление дисциплины группе" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1014"/>
         <Label Content="Выберите группу" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="196"/>
-        <Label Content="Выберите дисциплину" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="196"/>
-        <Label Content="Выберите преподавателя" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Width="196"/>
-        <Label Content="Выберите предмет" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,158,0,0" VerticalAlignment="Top" Width="196"/>
-        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,234,0,0" HorizontalAlignment="Left" Height="456" VerticalAlignment="Top" Width="1004" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <Label Content="Выберите дисциплину" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="196"/>
+        <Label Content="Выберите преподавателя" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top" Width="196"/>
+        <Label Content="Выберите предмет" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Width="196"/>
+        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,268,0,0" HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="1004" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
 
             <DataGrid.ContextMenu>
                 <ContextMenu>
@@ -42,11 +42,13 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <Button Content="Добавить дисциплину группе" FontSize="20" HorizontalAlignment="Left" Margin="10,189,0,0" VerticalAlignment="Top" Width="1004" Height="34"/>
+        <Button Content="Добавить дисциплину группе" FontSize="20" HorizontalAlignment="Left" Margin="10,225,0,0" VerticalAlignment="Top" Width="1004" Height="34"/>
         <ComboBox HorizontalAlignment="Left" Margin="226,65,0,0" VerticalAlignment="Top" Width="788" Height="31"/>
+        <ComboBox HorizontalAlignment="Left" Margin="226,123,0,0" VerticalAlignment="Top" Width="788" Height="31"/>
+        <ComboBox HorizontalAlignment="Left" Margin="226,154,0,0" VerticalAlignment="Top" Width="788" Height="31"/>
+        <ComboBox HorizontalAlignment="Left" Margin="226,185,0,0" VerticalAlignment="Top" Width="788" Height="31"/>
+        <Label Content="Выберите семестр" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="196"/>
         <ComboBox HorizontalAlignment="Left" Margin="226,96,0,0" VerticalAlignment="Top" Width="788" Height="31"/>
-        <ComboBox HorizontalAlignment="Left" Margin="226,127,0,0" VerticalAlignment="Top" Width="788" Height="31"/>
-        <ComboBox HorizontalAlignment="Left" Margin="226,153,0,0" VerticalAlignment="Top" Width="788" Height="31"/>
 
     </Grid>
 </Page>

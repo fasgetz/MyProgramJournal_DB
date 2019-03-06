@@ -50,7 +50,7 @@ namespace WCF_Service.DataBase
         public string Gender { get; set; }
         public string NumberPhone { get; set; }
         public Nullable<System.DateTime> DateOfBirthDay { get; set; }
-    
+
         public virtual accounts accounts { get; set; }
         public virtual StudentsGroup StudentsGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -58,6 +58,5 @@ namespace WCF_Service.DataBase
         public virtual UserStatus UserStatus { get; set; }
 
         #endregion
-
     }
 }

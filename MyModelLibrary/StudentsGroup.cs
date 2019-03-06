@@ -36,6 +36,7 @@ namespace MyModelLibrary
         public virtual List<Attendance> Attendance { get; set; }
         public Groups Groups { get; set; }
         //public virtual Users Users { get; set; }
+        public virtual List<FinalAttendances> FinalAttendances { get; set; } // Список итоговых оценок студента
 
         #endregion
     }
