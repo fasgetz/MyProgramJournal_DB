@@ -37,21 +37,6 @@ namespace MyClient.ViewModel.Administrator
             }
         }
 
-        // Текст новости
-        private string _text;
-        public string text
-        {
-            get
-            {
-                return _text;
-            }
-            set
-            {
-                _text = value;
-                RaisePropertyChanged("text");
-            }
-        }
-
         MyModelLibrary.News MyNews; // Ссылка на текущую новость
 
         // Выбранное изображение, которое передается в кнопку удалить

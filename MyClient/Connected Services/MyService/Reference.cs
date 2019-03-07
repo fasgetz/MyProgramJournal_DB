@@ -38,6 +38,12 @@ namespace MyClient.MyService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/EditAccount", ReplyAction="http://tempuri.org/ITransferService/EditAccountResponse")]
         System.Threading.Tasks.Task<bool> EditAccountAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.accounts EditAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAccount", ReplyAction="http://tempuri.org/ITransferService/GetAccountResponse")]
+        MyModelLibrary.accounts GetAccount(MyModelLibrary.accounts MyAcc, int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAccount", ReplyAction="http://tempuri.org/ITransferService/GetAccountResponse")]
+        System.Threading.Tasks.Task<MyModelLibrary.accounts> GetAccountAsync(MyModelLibrary.accounts MyAcc, int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -97,6 +103,14 @@ namespace MyClient.MyService {
         
         public System.Threading.Tasks.Task<bool> EditAccountAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.accounts EditAcc) {
             return base.Channel.EditAccountAsync(MyAcc, EditAcc);
+        }
+        
+        public MyModelLibrary.accounts GetAccount(MyModelLibrary.accounts MyAcc, int id) {
+            return base.Channel.GetAccount(MyAcc, id);
+        }
+        
+        public System.Threading.Tasks.Task<MyModelLibrary.accounts> GetAccountAsync(MyModelLibrary.accounts MyAcc, int id) {
+            return base.Channel.GetAccountAsync(MyAcc, id);
         }
     }
 }

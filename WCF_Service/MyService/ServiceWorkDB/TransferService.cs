@@ -49,6 +49,12 @@ namespace WCF_Service.MyService.ServiceWorkDB
         {
             return MyServiceLogic.EditAccount(MyAcc, EditAcc); // Возвращаем истину, если аккаунт отредактирован успешно, иначе false
         }
+
+        // Метод, который получает один аккаунт по айди (Если запрашиваемый аккаунт == администратор
+        public MyModelLibrary.accounts GetAccount(MyModelLibrary.accounts MyAcc, int id)
+        {
+            return MyServiceLogic.GetAccount(MyAcc, id);
+        }
         #endregion
 
 

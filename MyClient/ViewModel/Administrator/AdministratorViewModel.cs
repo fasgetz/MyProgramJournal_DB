@@ -6,6 +6,7 @@ using MyClient.ViewModel._Navigation;
 using MyClient.ProgramLogic.DialogServices;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MyClient.ViewModel.Administrator
 {
@@ -18,8 +19,316 @@ namespace MyClient.ViewModel.Administrator
     public class AdministratorViewModel : AccountVM
     {
 
-
         #region Свойства
+
+        // Вспомогательный метод для инициализации свойств
+        protected void Initialization()
+        {
+            // Инициализируем списки типа string для выбора итемов в ComboBox
+
+            // Статус пользователя с преподавателя на студента и наоборот меняеть не будем (т.к. не логично)
+            StatusList = new List<string>() { "Студент", "Преподаватель" };
+            GenderList = new List<string>() { "Мужчина", "Женщина" };
+            StatusAccountsList = new List<string>() { "Активный", "Неактивный" };
+
+            // Если аккаунт в списке выбрали, то проинициализируй все свойства
+            if (SelectedAccount != null)
+            {
+                AddLogin = SelectedAccount.login;
+                AddPassword = SelectedAccount.password;
+                AddName = SelectedAccount.Users.Name;
+                AddFamily = SelectedAccount.Users.Family;
+                AddGender = SelectedAccount.Users.GetGender;
+                AddStatus = SelectedAccount.Users.GetStatus;
+                AddAccountStatus = SelectedAccount.GetStatus;
+                AddDateOfBirthday = SelectedAccount.Users.DateOfBirthDay;
+                AddTelephone = SelectedAccount.Users.NumberPhone;
+                AddSurname = SelectedAccount.Users.Surname;
+            }
+        }
+
+        #region Свойства страниц добавления и редактирования аккаунта
+
+        private string _AddName;
+        public string AddName
+        {
+            get
+            {
+                return _AddName;
+            }
+            set
+            {
+                _AddName = value;
+                if (SelectedAccount != null)
+                    SelectedAccount.Users.Name = value;
+                RaisePropertyChanged("AddName");
+            }
+        }
+
+        private string _AddFamily;
+        public string AddFamily
+        {
+            get
+            {
+                return _AddFamily;
+            }
+            set
+            {
+                _AddFamily = value;
+                if (SelectedAccount != null)
+                    SelectedAccount.Users.Family = value;
+                RaisePropertyChanged("AddFamily");
+            }
+        }
+
+        private string _AddSurname;
+        public string AddSurname
+        {
+            get
+            {
+                return _AddSurname;
+            }
+            set
+            {
+                _AddSurname = value;
+                if (SelectedAccount != null)
+                    SelectedAccount.Users.Surname = value;
+                RaisePropertyChanged("AddSurname");
+            }
+        }
+
+        private string _AddGender;
+        public string AddGender
+        {
+            get
+            {
+                return _AddGender;
+            }
+            set
+            {
+                _AddGender = value;
+                if (SelectedAccount != null)
+                {
+                    if (value == "Мужчина")
+                        SelectedAccount.Users.Gender = "М";
+                    else
+                        SelectedAccount.Users.Gender = "Ж";
+                }
+
+
+                RaisePropertyChanged("AddGender");
+            }
+        }
+
+        private string _AddStatus;
+        public string AddStatus
+        {
+            get
+            {
+                return _AddStatus;
+            }
+            set
+            {
+                _AddStatus = value;
+                if (SelectedAccount != null)
+                {
+                    if (value == "Студент")
+                        SelectedAccount.Users.idUserStatus = 1;
+                    else if (value == "Преподаватель")
+                        SelectedAccount.Users.idUserStatus = 2;
+                    else if (value == "Администратор")
+                        SelectedAccount.Users.idUserStatus = 3;
+                }
+                RaisePropertyChanged("AddStatus");
+            }
+        }
+
+        private string _AddAccountStatus;
+        public string AddAccountStatus
+        {
+            get
+            {
+                return _AddAccountStatus;
+            }
+            set
+            {
+                _AddAccountStatus = value;
+                if (SelectedAccount != null)
+                {
+                    if (value == "Неактивный")
+                        SelectedAccount.idStatus = 0;
+                    else
+                        SelectedAccount.idStatus = 1;
+                }
+
+                RaisePropertyChanged("AddAccountStatus");
+            }
+        }
+
+        private string _AddTelephone;
+        public string AddTelephone
+        {
+            get
+            {
+                return _AddTelephone;
+            }
+            set
+            {
+                _AddTelephone = value;
+                if (SelectedAccount != null)
+                {
+                    SelectedAccount.Users.NumberPhone = value;
+                }
+                RaisePropertyChanged("AddTelephone");
+            }
+        }
+
+        private DateTime? _AddDateOfBirthday;
+        public DateTime? AddDateOfBirthday
+        {
+            get
+            {
+                return _AddDateOfBirthday;
+            }
+            set
+            {
+                _AddDateOfBirthday = value;
+                if (SelectedAccount != null)
+                {
+                    SelectedAccount.Users.DateOfBirthDay = value;
+                }
+                RaisePropertyChanged("AddDateOfBirthday");
+            }
+        }
+
+        // Для вывода всех гендеров в ComboBox
+        private List<string> _GenderList;
+        public List<string> GenderList
+        {
+            get
+            {
+                return _GenderList;
+            }
+            set
+            {
+                _GenderList = value;
+                RaisePropertyChanged("GenderList");
+            }
+        }
+
+        // Для вывода всех статусов пользователя в ComboBox
+        private List<string> _StatusList;
+        public List<string> StatusList
+        {
+            get
+            {
+                return _StatusList;
+            }
+            set
+            {
+                _StatusList = value;
+                RaisePropertyChanged("StatusList");
+            }
+        }
+
+        private string _AddLogin;
+        public string AddLogin
+        {
+            get
+            {
+                return _AddLogin;
+            }
+            set
+            {
+                _AddLogin = value;
+                if (SelectedAccount != null)
+                    SelectedAccount.login = value;                    
+                RaisePropertyChanged("AddLogin");
+            }
+        }
+
+        private string _AddPassword;
+        public string AddPassword
+        {
+            get
+            {
+                return _AddPassword;
+            }
+            set
+            {
+                _AddPassword = value;
+                if (SelectedAccount != null)
+                    SelectedAccount.password = value;
+                RaisePropertyChanged("AddPassword");
+            }
+        }
+
+        #endregion
+
+        // Выбранный аккаунт в списке
+        private MyModelLibrary.accounts _SelectedAccount;
+        public MyModelLibrary.accounts SelectedAccount
+        {
+            get
+            {
+                return _SelectedAccount;
+            }
+            set
+            {
+                _SelectedAccount = value;
+                RaisePropertyChanged("SelectedAccount");
+            }
+        }
+
+        // Выбранный пользователь в списке
+        private MyModelLibrary.Users _SelectedUser;
+        public MyModelLibrary.Users SelectedUser
+        {
+            get
+            {
+                return _SelectedUser;
+            }
+            set
+            {
+                _SelectedUser = value;
+                if (SelectedUser != null)
+                    SelectedAccount = MyAdminLogic.GetAccount(MyAcc, value.idUser);
+                RaisePropertyChanged("SelectedUser");
+            }
+        }
+
+        private DateTime? _DateRegistration;
+        public DateTime? DateRegistration
+        {
+            get
+            {
+                return _DateRegistration;
+            }
+            set
+            {
+                _DateRegistration = value;
+                if (SelectedAccount != null)
+                {
+                    SelectedAccount.DateRegistration = value;
+                }
+                RaisePropertyChanged("DateRegistration");
+            }
+        }
+
+        // Для вывода всех статусов аккаунта в ComboBox
+        private List<string> _StatusAccountsList;
+        public List<string> StatusAccountsList
+        {
+            get
+            {
+                return _StatusAccountsList;
+            }
+            set
+            {
+                _StatusAccountsList = value;
+                RaisePropertyChanged("StatusAccountsList");
+            }
+        }
 
         // Список аккаунтов
         private List<MyModelLibrary.accounts> _AccountList;
@@ -83,8 +392,6 @@ namespace MyClient.ViewModel.Administrator
         }
 
         #endregion
-
-
 
         #region Команды перехода по страницам (Только страницы администратора)
 
@@ -170,7 +477,6 @@ namespace MyClient.ViewModel.Administrator
         }
 
         #endregion
-
 
         #region Конструктор
 

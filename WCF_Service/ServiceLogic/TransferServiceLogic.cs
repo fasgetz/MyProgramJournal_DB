@@ -27,6 +27,29 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы, которые вызываются в службах
 
+        // Метод, который получает аккаунт по айди
+        public MyModelLibrary.accounts GetAccount(MyModelLibrary.accounts MyAcc, int idSearchAccount)
+        {
+            // Если аккаунт, который послал запрос администратор, то верни ему аккаунт по айди
+            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            {
+                try
+                {
+                    var SearchedAccount = new EFGenericRepository<accounts>(new MyDB()).FindById(idSearchAccount); // Находим аккаунт
+
+                    var MyAcountDTO = new MyGeneratorDTO().GetAccountDTO(SearchedAccount); // Получаем DTO объект аккаунта
+
+                    return MyAcountDTO; // Возвращаем аккаунт
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return null; // Вернет null, если запрос послал не администратор
+        }
+
         // Метод, который вернет весь список аккаунтов, если он является администратором
         public List<MyModelLibrary.accounts> GetAllAccountsList(int IdAcc)            
         {

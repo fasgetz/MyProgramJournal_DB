@@ -30,6 +30,9 @@ namespace WCF_Service.MyService.ServiceWorkDB
         [OperationContract]
         bool EditAccount(MyModelLibrary.accounts MyAcc, MyModelLibrary.accounts EditAcc);
 
+        // Метод, который получает один аккаунт по айди (Если запрашиваемый аккаунт == администратор
+        [OperationContract]
+        MyModelLibrary.accounts GetAccount(MyModelLibrary.accounts MyAcc, int id);
         #endregion
 
 

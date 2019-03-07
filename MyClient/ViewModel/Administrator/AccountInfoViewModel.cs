@@ -9,12 +9,13 @@ namespace MyClient.ViewModel.Administrator
 {
 
     /// <summary>
-    /// VM представляет страницу UsersDataPage
+    /// VM страницы информации об аккаунте
     /// </summary>
 
-    public class PersonalDataViewModel : AccountsListPageViewModel
+    public class AccountInfoViewModel : UsersListPageViewModel
     {
-        public PersonalDataViewModel()
+
+        public AccountInfoViewModel()
         {
             // Получаем аккаунты из предыдущей VM
             Messenger.Default.Register<GenericMessage<List<MyModelLibrary.accounts>>>(this, GetAccount);
@@ -25,7 +26,7 @@ namespace MyClient.ViewModel.Administrator
         {
             MyAcc = GetAcc.Content.ElementAt(0); // Мой аккаунт для манипулирования данными
             SelectedAccount = GetAcc.Content.ElementAt(1); // Выбранный аккаунт
-            
+
 
             Initialization(); // Инициализируем свойства
         }

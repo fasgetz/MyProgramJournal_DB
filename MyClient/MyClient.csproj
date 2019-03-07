@@ -94,6 +94,7 @@
     <Compile Include="ProgramLogic\ServiceLogic\AdministratorLogic.cs" />
     <Compile Include="ProgramLogic\ServiceLogic\NewsLogic.cs" />
     <Compile Include="ProgramLogic\ServiceLogic\StudentLogic.cs" />
+    <Compile Include="ViewModel\Administrator\AccountInfoViewModel.cs" />
     <Compile Include="ViewModel\Administrator\AccountsListPageViewModel.cs" />
     <Compile Include="ViewModel\Administrator\AdministratorViewModel.cs" />
     <Compile Include="ViewModel\Administrator\CreateAccountVM.cs" />
@@ -148,6 +149,9 @@
     </Compile>
     <Compile Include="View\Administrator\Schedule\SchedulePage.xaml.cs">
       <DependentUpon>SchedulePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\UsersPages\AccountInfoPage.xaml.cs">
+      <DependentUpon>AccountInfoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Administrator\UsersPages\UsersListPage.xaml.cs">
       <DependentUpon>UsersListPage.xaml</DependentUpon>
@@ -220,6 +224,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Administrator\Schedule\SchedulePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Administrator\UsersPages\AccountInfoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

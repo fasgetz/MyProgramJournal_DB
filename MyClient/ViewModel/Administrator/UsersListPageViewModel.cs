@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Data;
 using System;
+using System.Collections;
 
 namespace MyClient.ViewModel.Administrator
 {
@@ -128,9 +129,38 @@ namespace MyClient.ViewModel.Administrator
             }
         }
 
+        public ICommand AccountInfoCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если аккаунт в ListBox выбрали (кликнули на него), то можно перейти на страницу просмотра профиля
+                    if (SelectedUser != null)
+                    {
+                        navigation = new NavigateViewModel();
+
+                        // Если VM не инициализирована, то проинициализируй
+                        if (locator.MyAccountInfoVM == null)
+                            locator.MyAccountInfoVM = new AccountInfoViewModel();                        
+
+                        // Создаем список, который передадим в следующий контекст (Необходимо передать 2 аккаунта:
+                        // Мой аккаунт - аккаунт, который вызвал редактирование (Для логики администратора на следующей странице)
+                        // И выбранный SelectedAccount в списке, котроый будем редактировать
+                        List<MyModelLibrary.accounts> list = new List<MyModelLibrary.accounts> { MyAcc, SelectedAccount };
+
+
+                        // Мессенджер: передай в MyEditAccountVM наш список двух аккаунтов
+                        Messenger.Default.Send(new GenericMessage<List<MyModelLibrary.accounts>>(list)); // Отправляем в следующий DataContext аккаунт
+
+                        // Перейди в Page просмотря профиля
+                        navigation.Navigate("View/Administrator/UsersPages/AccountInfoPage.xaml");
+                    }
+                });
+            }
+        }
+
         #endregion
-
-
 
 
         #region Конструктор
@@ -142,7 +172,7 @@ namespace MyClient.ViewModel.Administrator
 
 
             MyAdminLogic = new ProgramLogic.ServiceLogic.AdministratorLogic(); // Инициализируем логику администратора
-            dialog = new ProgramLogic.DialogServices.DialogService(); // Инициализируем диалоговые окна            
+            dialog = new ProgramLogic.DialogServices.DialogService(); // Инициализируем диалоговые окна                        
         }
 
         // Вспомогательный метод для мессенджера, который проинициализирует аккаунт из прошлого vm при создании новой vm

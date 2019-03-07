@@ -80,6 +80,25 @@ namespace MyClient.ProgramLogic.ServiceLogic
             }
         }
 
+        // Метод для получения аккаунта по айди
+        public MyModelLibrary.accounts GetAccount(MyModelLibrary.accounts MyAcc, int GetIdAcc)
+        {
+            // Создаем канал связи между клиентом и сервером
+            using (client = new MyService.TransferServiceClient())
+            {
+                try
+                {
+                    // Возвращаем аккаунт
+                    return client.GetAccount(MyAcc, GetIdAcc);
+                }
+                catch(Exception ex)
+                {
+                    MyDialog.ShowMessage(ex.Message);
+                }
+            }
+
+            return null; // Если неудачно, то верни null
+        }
 
         // Метод, который редактирует аккаунт
         public bool EditAccount(MyModelLibrary.accounts EditableAccount, MyModelLibrary.accounts MyAccount)
