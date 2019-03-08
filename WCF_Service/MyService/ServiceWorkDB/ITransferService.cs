@@ -9,9 +9,25 @@ namespace WCF_Service.MyService.ServiceWorkDB
     public interface ITransferService
     {
 
+        #region Общие методы
 
+        // Метод на получение списка кодов специальностей
+        [OperationContract]
+        List<MyModelLibrary.Speciality_codes> GetSpecialityCodes();
+
+        // Метод на получения списка групп
+        [OperationContract]
+        List<MyModelLibrary.Groups> GetGroups();
+
+
+
+        #endregion
 
         #region Методы администратора
+
+        // Метод на создание группы (Только администратор может создать группу)
+        [OperationContract]
+        bool AddGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups NewGroup);
 
         // Метод, который получит весь список пользователей, если пользователь пройдет проверку (Он должен быть администратором)
         [OperationContract]
@@ -33,6 +49,7 @@ namespace WCF_Service.MyService.ServiceWorkDB
         // Метод, который получает один аккаунт по айди (Если запрашиваемый аккаунт == администратор
         [OperationContract]
         MyModelLibrary.accounts GetAccount(MyModelLibrary.accounts MyAcc, int id);
+
         #endregion
 
 

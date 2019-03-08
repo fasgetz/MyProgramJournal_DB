@@ -14,7 +14,7 @@ namespace MyClient.ProgramLogic.ServiceLogic
     /// Класс предназначен для работы с сервером новостей
     /// </summary>
 
-    public class NewsLogic
+    internal class NewsLogic
     {
         private NewsService.NewsServiceClient client; // Ссылка на клиент
         private DialogService MyDialog; // Для работы с диалогами
@@ -71,9 +71,12 @@ namespace MyClient.ProgramLogic.ServiceLogic
                     return new ObservableCollection<MyModelLibrary.News>(list); // Получаем список новостей
 
                 return null; // Иначе верни пустой список
-
             }
-            catch(Exception ex)
+            catch (System.ServiceModel.EndpointNotFoundException)
+            {
+                MyDialog.ShowMessage("Сервер новостей не работает!");
+            }
+            catch (Exception ex)
             {
                 MyDialog.ShowMessage(ex.Message);
             }

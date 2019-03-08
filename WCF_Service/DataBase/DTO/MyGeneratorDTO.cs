@@ -57,7 +57,6 @@ namespace WCF_Service.DataBase.DTO
             return newlist.ToList();
         }
 
-
         // Метод для получения списка итоговых оценок (Применяется у студента и у деятельности учителя)
         private List<MyModelLibrary.FinalAttendances> GetFinalAttendances (List<FinalAttendances> NotDtoList)
         {
@@ -80,16 +79,17 @@ namespace WCF_Service.DataBase.DTO
         }
 
         // Метод для получения DTO - Специальности (Применяется в методе GetGroups)
-        private MyModelLibrary.Speciality_codes GetSpeciality(Speciality_codes speciality)
+        public MyModelLibrary.Speciality_codes GetSpeciality(Speciality_codes speciality)
         {
             return new MyModelLibrary.Speciality_codes(speciality.idSpeciality, speciality.code_speciality, speciality.name_speciality);
         }
 
         // Метод для получения DTO - группа + Готова
-        private MyModelLibrary.Groups GetGroups(Groups Groups)
+        public MyModelLibrary.Groups GetGroups(Groups Groups)
         {
             // Создаем новый объет Группы, которую будем возвращать
-            MyModelLibrary.Groups MyGroup = new MyModelLibrary.Groups(Groups.idGroup, Groups.GroupName);
+            MyModelLibrary.Groups MyGroup = new MyModelLibrary.Groups(Groups.idGroup, Groups.GroupName, Convert.ToInt16(Groups.idSpeciality));
+            MyGroup.StudentsCount = Groups.StudentsGroup.Count();
 
             // Если группе присвоили специальность, то присвой ее к dto объекту
             if (Groups.Speciality_codes != null)
@@ -262,9 +262,7 @@ namespace WCF_Service.DataBase.DTO
 
 
             return MyList.ToList();
-        }
-
-        
+        }        
 
         // Метод, который генерирует DTO - объект типа accounts и возвращает его + Готов
         public MyModelLibrary.accounts GetAccountDTO(accounts AccountNotDTO)

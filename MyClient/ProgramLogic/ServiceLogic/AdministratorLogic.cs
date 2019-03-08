@@ -12,14 +12,45 @@ namespace MyClient.ProgramLogic.ServiceLogic
     /// Класс предоставляет работу логики администратора с сервером
     /// </summary>
 
-    public class AdministratorLogic
+    internal class AdministratorLogic : CommonLogic
     {
-        private MyService.TransferServiceClient client; // Ссылка на клиент
-        private DialogService MyDialog; // Для работы с диалогами
-
-
-
         #region Методы для работы с сервером
+
+        // Метод для создания группы
+        public bool CreateGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups NewGroup)
+        {
+            // Делаем проверку на то, не пустая ли группа
+            if (NewGroup != null)
+            {
+                try
+                {
+                    // Создаем канал связи с бд
+                    using (client = new MyService.TransferServiceClient())
+                    {
+                        // Передаем текущий аккаунт (идет проверка на администратора) и группу, которую создаем
+                        bool GroupCreated = client.AddGroup(MyAcc, NewGroup);
+
+                        // Делаем проверку на создание группы.Если создалась, то верни true
+                        if (GroupCreated == true)
+                        {
+                            MyDialog.ShowMessage($"Вы успешно создали группу {NewGroup.GroupName}");
+
+                            return true; // возвращаем true, если группа успешно создана
+                        }
+                    }
+                }
+                catch (FaultException<AccountService.AccountConnectedException> ex)
+                {
+                    MyDialog.ShowMessage(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MyDialog.ShowMessage(ex.Message);
+                }
+            }
+
+            return false;
+        }
 
         // Метод для создания аккаунта
         public bool CreateAccount(MyModelLibrary.accounts NewAccount, MyModelLibrary.accounts MyAccount)
@@ -66,7 +97,7 @@ namespace MyClient.ProgramLogic.ServiceLogic
             // Создаем подключение к серверу
             using (client = new MyService.TransferServiceClient())
             {
-                return client.GetAllAccountsList(MyAcc);
+                return client.GetAllAccountsList(MyAcc).ToList();
             }
         }
 
@@ -138,8 +169,5 @@ namespace MyClient.ProgramLogic.ServiceLogic
         {
             MyDialog = new DialogService();
         }
-
-
-
     }
 }

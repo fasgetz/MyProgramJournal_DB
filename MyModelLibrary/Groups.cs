@@ -15,17 +15,28 @@ namespace MyModelLibrary
             //this.TeacherDisciplines = new List<TeacherDisciplines>();
         }
 
-        // Конструктор, который инициализирует группы
-        public Groups(int idGroup, string GroupName)
+
+        public Groups(string GroupName, int idSpeciality)
+        {
+            this.GroupName = GroupName;
+            this.idSpeciality = idSpeciality;
+        }
+
+        public Groups(int idGroup, string GroupName, int idSpeciality)
         {
             this.idGroup = idGroup;
             this.GroupName = GroupName;
+            this.idSpeciality = idSpeciality;
         }
+
+
 
         #region Свойства
 
         public int idGroup { get; set; }
         public string GroupName { get; set; }
+        public Nullable<int> idSpeciality { get; set; }
+        public int StudentsCount { get; set; } // Количество студентов в группе
 
 
         public virtual List<StudentsGroup> StudentsGroup { get; set; }

@@ -476,6 +476,26 @@ namespace MyClient.ViewModel.Administrator
             }
         }
 
+        // Команда, которая перейдет на GroupsListPage
+        public ICommand OpenGroups
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если наша vm = null, то проинициализируй ее
+                    if (locator.MyCreateGroupVM == null)
+                        locator.MyCreateGroupVM = new CreateGroupViewModel();
+
+                    // Мессенджер: передай UsersListPageVM наш MyAcc
+                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+
+                    // Перейди в Page главной страницы
+                    navigation.Navigate("View/Administrator/Groups/GroupsListPage.xaml");
+                    
+                });
+            }
+        }
         #endregion
 
         #region Конструктор
@@ -496,7 +516,7 @@ namespace MyClient.ViewModel.Administrator
 
 
         // Вспомогательный метод для мессенджера, который проинициализирует аккаунт из прошлого vm при создании текущей vm
-        private void GetAccount(GenericMessage<MyModelLibrary.accounts> GetAcc)
+        protected void GetAccount(GenericMessage<MyModelLibrary.accounts> GetAcc)
         {
             MyAcc = GetAcc.Content;
         }

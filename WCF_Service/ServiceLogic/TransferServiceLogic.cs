@@ -27,6 +27,118 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы, которые вызываются в службах
 
+        #region Общие методы
+
+        // Метод, который получает весь список специальность
+        public List<MyModelLibrary.Speciality_codes> GetSpecialityCodes()
+        {
+            try
+            {
+                var repository = new EFGenericRepository<Speciality_codes>(new MyDB()); // Создаем репозиторий для работы с бд
+                var list = repository.GetAllList(); // Получаем весь список
+
+                // Если список не пустой, то приступи к генерации DTO объектов
+                if (list != null)
+                {
+                    List<MyModelLibrary.Speciality_codes> MySpecialityCodesDTO = new List<MyModelLibrary.Speciality_codes>(); // Список специальностей
+                    MyGeneratorDTO generator = new MyGeneratorDTO(); // Генератор DTO сущностей
+
+                    // Перебираем весь список и вносим создаем список DTO объектов специальностей
+                    foreach (var item in list)
+                    {
+                        MySpecialityCodesDTO.Add(generator.GetSpeciality(item));
+                    }
+
+                    return MySpecialityCodesDTO; // Возвращаем список DTO объектов специальностей
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+            return null;
+        }
+
+        // Метод, который получает список групп
+        public List<MyModelLibrary.Groups> GetGroups()
+        {
+            try
+            {
+                var repository = new EFGenericRepository<Groups>(new MyDB());
+                var list = repository.GetAllList().ToList();
+
+                // Если список не пустой, то верни его
+                if (list != null)
+                {
+                    List<MyModelLibrary.Groups> MyGroupsDTO = new List<MyModelLibrary.Groups>(); // Список групп DTO объектов
+                    MyGeneratorDTO generator = new MyGeneratorDTO(); // Генератор DTO объектов
+
+                    // Необходимо сделать преобразование в DTO
+                    // Преобразование
+                    foreach (var item in list)
+                    {
+                        // Добавляем группу, преобразовав в DTO объект
+                        MyGroupsDTO.Add(generator.GetGroups(item));                        
+                    }
+
+                    return MyGroupsDTO; // Вернуть список DTO объектов
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return null; // Иначе вернет пустой список
+        }
+
+        #endregion
+
+        #region Методы администратора
+
+        // Метод, который создает группу
+        public bool AddGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups NewGroup)
+        {
+            // Если статус аккаунта, который послал запрос == 3 (Он администратор), то создай группу
+            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            {
+                var repository = new EFGenericRepository<Groups>(new MyDB());
+
+                // Если все данные заполнили, то создай новую группу
+                if (NewGroup.GroupName != string.Empty && NewGroup.idSpeciality != null)
+                {
+                    try
+                    {
+                        // Добавляем новую группу в репозиторий
+                        repository.Add(new Groups(NewGroup.GroupName, Convert.ToInt16(NewGroup.idSpeciality)));
+
+                        return true;
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateException)
+                    {
+                        ExceptionSender.SendException($"Группа <<{NewGroup.GroupName}>> уже существует в базе данных!\nВыберите другое название для группы");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+                // Иначе выдай ошибку, что не получилось создать группу т.к. не все данные заполнены
+                else
+                {
+                    ExceptionSender.SendException("Вы не заполнили всех необходимых данных!");
+                }
+            }
+            else
+            {
+                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+            }
+
+            return false; // Верни false, если неудачное создание
+        }
+
         // Метод, который получает аккаунт по айди
         public MyModelLibrary.accounts GetAccount(MyModelLibrary.accounts MyAcc, int idSearchAccount)
         {
@@ -252,6 +364,7 @@ namespace WCF_Service.ServiceLogic
 
         }
 
+        #endregion
 
         #endregion
 

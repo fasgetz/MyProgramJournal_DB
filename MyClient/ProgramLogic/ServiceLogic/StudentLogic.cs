@@ -7,7 +7,7 @@ namespace MyClient.ProgramLogic.ServiceLogic
     /// Класс предназначен для организации логики работы студентов с сервером
     /// </summary>
 
-    public class StudentLogic : ObservableObject
+    internal class StudentLogic : CommonLogic
     {
 
         public StudentLogic()

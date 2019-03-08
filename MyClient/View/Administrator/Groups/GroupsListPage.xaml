@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MyClient.View.Administrator.Groups"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1024"
+      DataContext="{Binding MyCreateGroupVM, Source={StaticResource Locator}}"
       Title="GroupsListPage">
 
     <Page.Resources>
@@ -21,32 +22,31 @@
 
     <Grid>
         <Label Content="Создание группы" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="1024"/>
-        <TextBox HorizontalAlignment="Left" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="36" Margin="349,127,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="665"/>
-        <Label Content="Введите название группы" VerticalContentAlignment="Center" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,127,0,0" VerticalAlignment="Top" Width="349" Height="36"/>
-        <Button Content="Создать группу" FontSize="20" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" Width="1004" Height="38"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding GroupName}" MaxLength="50" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="36" Margin="321,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="683"/>
+        <Label Content="Введите название группы" VerticalContentAlignment="Center" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,88,0,0" VerticalAlignment="Top" Width="349" Height="36"/>
+        <Button Content="Создать группу" Command="{Binding AddGroup}" FontSize="20" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Width="994" Height="38"/>
 
-        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,211,0,0" HorizontalAlignment="Left" Height="467" VerticalAlignment="Top" Width="1004" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,172,0,0" HorizontalAlignment="Left" Height="506" VerticalAlignment="Top" Width="994" ItemsSource="{Binding groups}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
 
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Показать студентов" />
                     <MenuItem Header="Добавить студента" />
-                    <MenuItem Header="Редактировать название" />
+                    <MenuItem Header="Редактировать название (off)" />
                     <MenuItem Header="Удалить группу (off)" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Айди" Width="200" Binding="{Binding Path=idAccount}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Название группы" Width="400" Binding="{Binding Path=login}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Количество студентов в группе" Width="400" Binding="{Binding Path=password}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Айди" Width="100" Binding="{Binding Path=idGroup}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Специальность" Width="545" Binding="{Binding Path=Speciality_codes.name_speciality}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Название группы" Width="150" Binding="{Binding Path=GroupName}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Количество студентов" Width="190" Binding="{Binding Path=StudentsCount}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
             </DataGrid.Columns>
 
         </DataGrid>
-        <Label Content="Выберите код специальности" VerticalContentAlignment="Center" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,55,0,0" VerticalAlignment="Top" Width="349" Height="36"/>
-        <ComboBox HorizontalAlignment="Left" Margin="349,55,0,0" VerticalAlignment="Top" Width="665" Height="36"/>
-        <Label Content="Выберите специальность" VerticalContentAlignment="Center" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,91,0,0" VerticalAlignment="Top" Width="349" Height="36"/>
-        <ComboBox HorizontalAlignment="Left" Margin="349,91,0,0" VerticalAlignment="Top" Width="665" Height="36"/>
+        <Label Content="Выберите специальность" VerticalContentAlignment="Center" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,52,0,0" VerticalAlignment="Top" Width="349" Height="36"/>
+        <ComboBox SelectedValue="{Binding SelectedSpeciality}" FontSize="16" ItemsSource="{Binding speciality_list}" DisplayMemberPath="name_speciality" HorizontalAlignment="Left" Margin="321,52,0,0" VerticalAlignment="Top" Width="683" Height="36"/>
 
     </Grid>
 </Page>

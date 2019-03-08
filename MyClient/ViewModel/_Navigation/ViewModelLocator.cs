@@ -51,6 +51,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Register<EditAccountVM>(); // VM страницы редактирования аккаунта
             SimpleIoc.Default.Register<PersonalDataViewModel>(); // VM страницы персональных данных аккаунта
             SimpleIoc.Default.Register<AccountInfoViewModel>(); // VM страницы информации об аккаунте
+            SimpleIoc.Default.Register<CreateGroupViewModel>(); // VM страницы создания группы
 
             // ViewModel Преподавателя
             SimpleIoc.Default.Register<TeacherViewModel>(); // ViewModel окна учителя
@@ -85,6 +86,19 @@ namespace MyClient.ViewModel._Navigation
         #endregion
 
         #region VM Администратора
+
+        private CreateGroupViewModel _MyCreateGroupVM;
+        public CreateGroupViewModel MyCreateGroupVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CreateGroupViewModel>();
+            }
+            set
+            {
+                _MyCreateGroupVM = value;
+            }
+        }
 
         private AccountInfoViewModel _MyAccountInfoVM;
         public AccountInfoViewModel MyAccountInfoVM

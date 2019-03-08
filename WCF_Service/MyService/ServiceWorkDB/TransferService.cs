@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using MyModelLibrary;
 using WCF_Service.DataBase;
 using WCF_Service.DataBase.DTO;
 using WCF_Service.DataBase.Repositories;
@@ -24,7 +25,6 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы контракта служб Администратора
 
-
         // Метод, который вернет весь список аккаунтов, если он является администратором
         public List<MyModelLibrary.accounts> GetAllAccountsList(MyModelLibrary.accounts MyAcc)
         {
@@ -36,7 +36,6 @@ namespace WCF_Service.MyService.ServiceWorkDB
         {
             return MyServiceLogic.GetAllUsersList(MyAcc.idAccount);
         }
-
 
         // Метод, который принимает со стороны клиента аккаунт и добавляет его в базу данных, соответственно, если аккаунт == администратор и возвращает true, если аккаунт создан
         public bool AddAccount(MyModelLibrary.accounts AddAcc, MyModelLibrary.accounts CurrentAcc)
@@ -55,6 +54,29 @@ namespace WCF_Service.MyService.ServiceWorkDB
         {
             return MyServiceLogic.GetAccount(MyAcc, id);
         }
+
+        public bool AddGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups NewGroup)
+        {
+            return MyServiceLogic.AddGroup(MyAcc, NewGroup);
+        }
+
+        #endregion
+
+        #region Общие методы контракта служб
+
+        // Возвращает список специальностей клиенту
+        public List<MyModelLibrary.Speciality_codes> GetSpecialityCodes()
+        {
+            return MyServiceLogic.GetSpecialityCodes(); // Возвращаем список специальностей DTO
+        }
+
+        // Возвращает список групп клиенту
+        public List<MyModelLibrary.Groups> GetGroups()
+        {
+            return MyServiceLogic.GetGroups(); // Возвращаем список групп в DTO
+        }
+
+
         #endregion
 
 

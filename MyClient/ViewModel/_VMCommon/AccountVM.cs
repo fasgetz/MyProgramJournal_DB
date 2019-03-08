@@ -33,16 +33,16 @@ namespace MyClient.ViewModel._VMCommon
 
         #region Свойства для работы с логикой
 
-        protected AdministratorLogic MyAdminLogic;
-        protected StudentLogic MyUserLogic;
-        protected AccountLogic MyAccountLogic;
+        internal AdministratorLogic MyAdminLogic;
+        internal StudentLogic MyUserLogic;
+        protected internal AccountLogic MyAccountLogic;
 
         #endregion
 
         #region Учетные данные
         
         // Аккаунт
-        protected MyModelLibrary.accounts MyAcc; 
+        protected internal MyModelLibrary.accounts MyAcc; 
 
         private string _login;
         public string login // Логин пользователя

@@ -12,9 +12,6 @@ namespace MyClient.ProgramLogic.ServiceLogic
 
     public class AccountLogic : IMyServiceAccountCallback
     {
-
-
-
         public AccountLogic(InstanceContext MyContext)
         {
             AccountProxy = new MyServiceAccountClient(new System.ServiceModel.InstanceContext(this)); // Передаем текущий контекст
@@ -30,8 +27,7 @@ namespace MyClient.ProgramLogic.ServiceLogic
 
         #endregion
 
-
-        #region Методы
+        #region Методы авторизации
 
         // Метод для дисконнекта юзера
         public void DisconnectUser(MyModelLibrary.accounts MyAcc)
