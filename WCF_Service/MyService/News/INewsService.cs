@@ -26,6 +26,13 @@ namespace WCF_Service.MyService.News
         // которую будем удалять если он администратор = =3
         [OperationContract]
         bool RemoveNews(int idNews, MyModelLibrary.accounts MyAcc);
+
+        // Метод на редактирование новости. Принимает аккаунт
+        // Делаем проверку чтобы аккаунт был администратором (СтатусЮзера == 3)
+        // А также получает новость, которую редактируем и выдаем на выходе true, если успешно редактировано, иначе false
+        [OperationContract]
+        bool EditNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News EditNews);
+
         #endregion
     }
 }

@@ -102,6 +102,7 @@
     <Compile Include="ViewModel\Administrator\CreateGroupViewModel.cs" />
     <Compile Include="ViewModel\Administrator\News\CreateNewsViewModel.cs" />
     <Compile Include="ViewModel\Administrator\EditAccountVM.cs" />
+    <Compile Include="ViewModel\Administrator\News\EditNewsViewModel.cs" />
     <Compile Include="ViewModel\Administrator\News\NewsListViewModel.cs" />
     <Compile Include="ViewModel\Administrator\PersonalDataViewModel.cs" />
     <Compile Include="ViewModel\Administrator\UsersListPageViewModel.cs" />
@@ -146,6 +147,9 @@
     </Compile>
     <Compile Include="View\Administrator\News\AddNewsPage.xaml.cs">
       <DependentUpon>AddNewsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\News\EditNewsPage.xaml.cs">
+      <DependentUpon>EditNewsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Administrator\News\NewsListPage.xaml.cs">
       <DependentUpon>NewsListPage.xaml</DependentUpon>
@@ -221,6 +225,10 @@
     <Page Include="View\Administrator\News\AddNewsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Administrator\News\EditNewsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Administrator\News\NewsListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -360,21 +368,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\NewsService\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\NewsService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\NewsService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\NewsService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Connected Services\MyService\item.disco" />
   </ItemGroup>
   <ItemGroup>
@@ -385,6 +378,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\MyService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\NewsService\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\NewsService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\NewsService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\NewsService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

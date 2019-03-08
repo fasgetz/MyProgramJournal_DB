@@ -16,16 +16,16 @@ namespace MyClient.MyService {
     public interface ITransferService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetSpecialityCodes", ReplyAction="http://tempuri.org/ITransferService/GetSpecialityCodesResponse")]
-        MyModelLibrary.Speciality_codes[] GetSpecialityCodes();
+        System.Collections.Generic.List<MyModelLibrary.Speciality_codes> GetSpecialityCodes();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetSpecialityCodes", ReplyAction="http://tempuri.org/ITransferService/GetSpecialityCodesResponse")]
-        System.Threading.Tasks.Task<MyModelLibrary.Speciality_codes[]> GetSpecialityCodesAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Speciality_codes>> GetSpecialityCodesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroups", ReplyAction="http://tempuri.org/ITransferService/GetGroupsResponse")]
-        MyModelLibrary.Groups[] GetGroups();
+        System.Collections.Generic.List<MyModelLibrary.Groups> GetGroups();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroups", ReplyAction="http://tempuri.org/ITransferService/GetGroupsResponse")]
-        System.Threading.Tasks.Task<MyModelLibrary.Groups[]> GetGroupsAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddGroup", ReplyAction="http://tempuri.org/ITransferService/AddGroupResponse")]
         bool AddGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups NewGroup);
@@ -34,16 +34,16 @@ namespace MyClient.MyService {
         System.Threading.Tasks.Task<bool> AddGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups NewGroup);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAllUsersList", ReplyAction="http://tempuri.org/ITransferService/GetAllUsersListResponse")]
-        MyModelLibrary.Users[] GetAllUsersList(MyModelLibrary.accounts MyAcc);
+        System.Collections.Generic.List<MyModelLibrary.Users> GetAllUsersList(MyModelLibrary.accounts MyAcc);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAllUsersList", ReplyAction="http://tempuri.org/ITransferService/GetAllUsersListResponse")]
-        System.Threading.Tasks.Task<MyModelLibrary.Users[]> GetAllUsersListAsync(MyModelLibrary.accounts MyAcc);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetAllUsersListAsync(MyModelLibrary.accounts MyAcc);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAllAccountsList", ReplyAction="http://tempuri.org/ITransferService/GetAllAccountsListResponse")]
-        MyModelLibrary.accounts[] GetAllAccountsList(MyModelLibrary.accounts MyAcc);
+        System.Collections.Generic.List<MyModelLibrary.accounts> GetAllAccountsList(MyModelLibrary.accounts MyAcc);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAllAccountsList", ReplyAction="http://tempuri.org/ITransferService/GetAllAccountsListResponse")]
-        System.Threading.Tasks.Task<MyModelLibrary.accounts[]> GetAllAccountsListAsync(MyModelLibrary.accounts MyAcc);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.accounts>> GetAllAccountsListAsync(MyModelLibrary.accounts MyAcc);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddAccount", ReplyAction="http://tempuri.org/ITransferService/AddAccountResponse")]
         bool AddAccount(MyModelLibrary.accounts AddAcc, MyModelLibrary.accounts CurrentAcc);
@@ -91,19 +91,19 @@ namespace MyClient.MyService {
                 base(binding, remoteAddress) {
         }
         
-        public MyModelLibrary.Speciality_codes[] GetSpecialityCodes() {
+        public System.Collections.Generic.List<MyModelLibrary.Speciality_codes> GetSpecialityCodes() {
             return base.Channel.GetSpecialityCodes();
         }
         
-        public System.Threading.Tasks.Task<MyModelLibrary.Speciality_codes[]> GetSpecialityCodesAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Speciality_codes>> GetSpecialityCodesAsync() {
             return base.Channel.GetSpecialityCodesAsync();
         }
         
-        public MyModelLibrary.Groups[] GetGroups() {
+        public System.Collections.Generic.List<MyModelLibrary.Groups> GetGroups() {
             return base.Channel.GetGroups();
         }
         
-        public System.Threading.Tasks.Task<MyModelLibrary.Groups[]> GetGroupsAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync() {
             return base.Channel.GetGroupsAsync();
         }
         
@@ -115,19 +115,19 @@ namespace MyClient.MyService {
             return base.Channel.AddGroupAsync(MyAcc, NewGroup);
         }
         
-        public MyModelLibrary.Users[] GetAllUsersList(MyModelLibrary.accounts MyAcc) {
+        public System.Collections.Generic.List<MyModelLibrary.Users> GetAllUsersList(MyModelLibrary.accounts MyAcc) {
             return base.Channel.GetAllUsersList(MyAcc);
         }
         
-        public System.Threading.Tasks.Task<MyModelLibrary.Users[]> GetAllUsersListAsync(MyModelLibrary.accounts MyAcc) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetAllUsersListAsync(MyModelLibrary.accounts MyAcc) {
             return base.Channel.GetAllUsersListAsync(MyAcc);
         }
         
-        public MyModelLibrary.accounts[] GetAllAccountsList(MyModelLibrary.accounts MyAcc) {
+        public System.Collections.Generic.List<MyModelLibrary.accounts> GetAllAccountsList(MyModelLibrary.accounts MyAcc) {
             return base.Channel.GetAllAccountsList(MyAcc);
         }
         
-        public System.Threading.Tasks.Task<MyModelLibrary.accounts[]> GetAllAccountsListAsync(MyModelLibrary.accounts MyAcc) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.accounts>> GetAllAccountsListAsync(MyModelLibrary.accounts MyAcc) {
             return base.Channel.GetAllAccountsListAsync(MyAcc);
         }
         

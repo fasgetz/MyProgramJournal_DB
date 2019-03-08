@@ -14,29 +14,8 @@ using MyClient.ProgramLogic.ServiceLogic;
 
 namespace MyClient.ViewModel.Administrator.News
 {
-    public class CreateNewsViewModel : AdministratorViewModel
+    public class CreateNewsViewModel : NewsListViewModel
     {
-
-        #region Свойства       
-
-        MyModelLibrary.News MyNews; // Ссылка на текущую новость
-
-        // Выбранное изображение, которое передается в кнопку удалить
-        private MyModelLibrary.Images _SelectedImage;
-        public MyModelLibrary.Images SelectedImage
-        {
-            get
-            {
-                return _SelectedImage;
-            }
-            set
-            {
-                _SelectedImage = value;
-                RaisePropertyChanged("SelectedImage");
-            }
-        }
-
-        #endregion
 
         #region Команды
 
@@ -47,20 +26,12 @@ namespace MyClient.ViewModel.Administrator.News
             {
                 return new RelayCommand(() =>
                 {
-                    // Добавляем в список изображение
-                    ImagesList.Add(dialog.AddImage(MyNews));
-                });
-            }
-        }
+                    // Создаем image
+                    MyModelLibrary.Images img = dialog.AddImage(MyNews);
 
-        // Команда на удаления картинки из списка
-        public ICommand DeleteImage
-        {
-            get
-            {
-                return new RelayCommand(() =>
-                {
-                    ImagesList.Remove(SelectedImage);
+                    // Если img выбрали, то добавь его в список изображений
+                    if (img != null)
+                        ImagesList.Add(img);
                 });
             }
         }
@@ -114,5 +85,6 @@ namespace MyClient.ViewModel.Administrator.News
         }
 
         #endregion
+
     }
 }

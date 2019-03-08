@@ -25,6 +25,7 @@
     <xs:sequence>
       <xs:element name="_x003C_GroupName_x003E_k__BackingField" nillable="true" type="xs:string" />
       <xs:element name="_x003C_Speciality_codes_x003E_k__BackingField" nillable="true" type="tns:Speciality_codes" />
+      <xs:element name="_x003C_StudentsCount_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_StudentsGroup_x003E_k__BackingField" nillable="true" type="tns:ArrayOfStudentsGroup" />
       <xs:element name="_x003C_TeacherDisciplines_x003E_k__BackingField" nillable="true" type="tns:ArrayOfTeacherDisciplines" />
       <xs:element name="_x003C_idGroup_x003E_k__BackingField" type="xs:int" />

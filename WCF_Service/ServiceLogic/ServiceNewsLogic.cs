@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WCF_Service.DataBase;
+using WCF_Service.DataBase.Repositories;
 using WCF_Service.Exceptions;
 
 namespace WCF_Service.ServiceLogic
@@ -110,7 +111,6 @@ namespace WCF_Service.ServiceLogic
             return false;
         }
 
-
         // Метод, который создаст список новостей и вернет юзеру
         public List<MyModelLibrary.News> GetNews()
         {
@@ -156,6 +156,75 @@ namespace WCF_Service.ServiceLogic
             return null;
         }
 
+        // Метод, который редактирует новость
+        public bool EditNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News EditNews)
+        {
+            // Если статус юзера == администратор, то приступи к созданию новости
+            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            {
+                // Если новость не пустая, то приступи к редактированию новости в бд
+                if (EditNews != null)
+                {
+                    try
+                    {
+                        using (DbNews db = new DbNews())
+                        {
+                            // Найдем редактируемую новость в базе данных
+                            var MyNews = db.News.FirstOrDefault(i => i.IdNews == EditNews.IdNews);
+
+                            // Если новость нашли, то отредактируй ее
+                            if (MyNews != null)
+                            {
+                                MyNews.Title = EditNews.Title; // Изменяем заголовок новости
+                                MyNews.Content = EditNews.Content; // Изменяем содержание новости
+
+                                // Если есть изображения, то добавь их к новости
+                                if (EditNews.Images != null)
+                                {
+                                    // Костыль: сперва удаляем все изображения, затем по новой добавляем их в бд
+                                    // Иначе нам пришлось бы делать проверку каждого загружаемого изображения с каждым изображением в бд
+                                    // Находим все изображения новости и удаляем их
+                                    var imageslist = db.Images.Where(i => i.IdNews == MyNews.IdNews);
+
+                                    // Теперь удаляем все изображения
+                                    foreach (var item in imageslist)
+                                    {
+                                        db.Images.Remove(item);
+                                    }
+
+                                    // Создаем список изображений
+                                    List<Images> imagelist = new List<Images>();
+
+                                    // Перебираем изображения и добавляем их в список not dto объектов
+                                    foreach (var item in EditNews.Images)
+                                    {
+                                        imagelist.Add(new Images(item.IdNews, item.Image, item.format_img));
+                                    }
+
+                                    MyNews.Images = imagelist; // Присваиваем список
+                                }
+
+                                db.SaveChanges(); // Сохраняем базу данных
+
+                                return true; // Возвращаем истину. Это значит, что мы успешно отредактировали новость
+                            }
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+            // Иначе, если юзер != администратор, то выдай ошибку
+            else
+            {
+                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+            }
+
+            return false;
+
+        }
         #endregion
 
     }

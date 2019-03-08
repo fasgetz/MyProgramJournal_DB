@@ -24,7 +24,7 @@
         <DataGrid SelectedValue="{Binding SelectedNews, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding NewsList}" HorizontalAlignment="Left" Height="616" Margin="10,52,0,0" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" VerticalAlignment="Top" Width="1004">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Редактировать (On development stage)" />
+                    <MenuItem Header="Редактировать" Command="{Binding EditNews}" />
                     <MenuItem Header="Удалить" Command="{Binding DeleteNews, UpdateSourceTrigger=PropertyChanged}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>

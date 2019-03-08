@@ -54,6 +54,7 @@
   <xs:complexType name="StudentsGroup">
     <xs:sequence>
       <xs:element name="_x003C_Attendance_x003E_k__BackingField" nillable="true" type="tns:ArrayOfAttendance" />
+      <xs:element name="_x003C_FinalAttendances_x003E_k__BackingField" nillable="true" type="tns:ArrayOfFinalAttendances" />
       <xs:element name="_x003C_Groups_x003E_k__BackingField" nillable="true" type="tns:Groups" />
       <xs:element name="_x003C_IdStudent_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_NumberInJournal_x003E_k__BackingField" nillable="true" type="xs:int" />
@@ -76,30 +77,26 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Attendance" nillable="true" type="tns:Attendance" />
-  <xs:complexType name="Groups">
+  <xs:complexType name="ArrayOfFinalAttendances">
     <xs:sequence>
-      <xs:element name="_x003C_GroupName_x003E_k__BackingField" nillable="true" type="xs:string" />
-      <xs:element name="_x003C_StudentsGroup_x003E_k__BackingField" nillable="true" type="tns:ArrayOfStudentsGroup" />
-      <xs:element name="_x003C_TeacherDisciplines_x003E_k__BackingField" nillable="true" type="tns:ArrayOfTeacherDisciplines" />
-      <xs:element name="_x003C_idGroup_x003E_k__BackingField" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FinalAttendances" nillable="true" type="tns:FinalAttendances" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="Groups" nillable="true" type="tns:Groups" />
-  <xs:complexType name="ArrayOfStudentsGroup">
+  <xs:element name="ArrayOfFinalAttendances" nillable="true" type="tns:ArrayOfFinalAttendances" />
+  <xs:complexType name="FinalAttendances">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="StudentsGroup" nillable="true" type="tns:StudentsGroup" />
+      <xs:element name="_x003C_StudentsGroup_x003E_k__BackingField" nillable="true" type="tns:StudentsGroup" />
+      <xs:element name="_x003C_TeacherDisciplines_x003E_k__BackingField" nillable="true" type="tns:TeacherDisciplines" />
+      <xs:element name="_x003C_idFinalAttendance_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idStudent_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idTeacherActivities_x003E_k__BackingField" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfStudentsGroup" nillable="true" type="tns:ArrayOfStudentsGroup" />
-  <xs:complexType name="ArrayOfTeacherDisciplines">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="TeacherDisciplines" nillable="true" type="tns:TeacherDisciplines" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfTeacherDisciplines" nillable="true" type="tns:ArrayOfTeacherDisciplines" />
+  <xs:element name="FinalAttendances" nillable="true" type="tns:FinalAttendances" />
   <xs:complexType name="TeacherDisciplines">
     <xs:sequence>
       <xs:element name="_x003C_Discipline_x003E_k__BackingField" nillable="true" type="tns:Discipline" />
+      <xs:element name="_x003C_FinalAttendances_x003E_k__BackingField" nillable="true" type="tns:ArrayOfFinalAttendances" />
       <xs:element name="_x003C_Groups_x003E_k__BackingField" nillable="true" type="tns:Groups" />
       <xs:element name="_x003C_IdDiscipline_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_IdGroup_x003E_k__BackingField" type="xs:int" />
@@ -118,6 +115,45 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Discipline" nillable="true" type="tns:Discipline" />
+  <xs:complexType name="Groups">
+    <xs:sequence>
+      <xs:element name="_x003C_GroupName_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Speciality_codes_x003E_k__BackingField" nillable="true" type="tns:Speciality_codes" />
+      <xs:element name="_x003C_StudentsCount_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_StudentsGroup_x003E_k__BackingField" nillable="true" type="tns:ArrayOfStudentsGroup" />
+      <xs:element name="_x003C_TeacherDisciplines_x003E_k__BackingField" nillable="true" type="tns:ArrayOfTeacherDisciplines" />
+      <xs:element name="_x003C_idGroup_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idSpeciality_x003E_k__BackingField" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Groups" nillable="true" type="tns:Groups" />
+  <xs:complexType name="Speciality_codes">
+    <xs:sequence>
+      <xs:element name="_x003C_Groups_x003E_k__BackingField" nillable="true" type="tns:ArrayOfGroups" />
+      <xs:element name="_x003C_code_speciality_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_idSpeciality_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_name_speciality_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Speciality_codes" nillable="true" type="tns:Speciality_codes" />
+  <xs:complexType name="ArrayOfGroups">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Groups" nillable="true" type="tns:Groups" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGroups" nillable="true" type="tns:ArrayOfGroups" />
+  <xs:complexType name="ArrayOfStudentsGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StudentsGroup" nillable="true" type="tns:StudentsGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStudentsGroup" nillable="true" type="tns:ArrayOfStudentsGroup" />
+  <xs:complexType name="ArrayOfTeacherDisciplines">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TeacherDisciplines" nillable="true" type="tns:TeacherDisciplines" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTeacherDisciplines" nillable="true" type="tns:ArrayOfTeacherDisciplines" />
   <xs:complexType name="ArrayOfLessonsDate">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="LessonsDate" nillable="true" type="tns:LessonsDate" />

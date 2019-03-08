@@ -20,25 +20,53 @@ namespace MyClient.ProgramLogic.ServiceLogic
         private DialogService MyDialog; // Для работы с диалогами
 
         #region Методы
+        
+        // Метод редактирования новости
+        public bool EditNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews)
+        {
+            try
+            {
+                // Инициализируем канал связи клиента с сервером
+                using (client = new NewsService.NewsServiceClient())
+                {
+                    // Посылаем запрос на редактирование новости
+                    bool edit_news = client.EditNews(MyAcc, MyNews);
+
+                    // Если новость успешно отредактирована, то выведи об этом и верни true
+                    if (edit_news == true)
+                    {
+                        MyDialog.ShowMessage("Новость успешно отредактирована!");
+                        return true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return false; // false, если неудачное редактирование
+        }
 
         // Метод удаления новости
         public bool DeleteNews(MyModelLibrary.accounts MyAcc, int IdNews)
         {
             try
             {
-                // Инициализируем канал связи клиента с сервером
-                if (client == null)
-                    client = new NewsService.NewsServiceClient();
-
-                // Если true, то новость удалена, иначе (если новость не удалена, то false)
-                bool delete_news = client.RemoveNews(IdNews, MyAcc);
-
-                // Если новость удалена, то выведи об этом и верни true
-                if (delete_news == true)
+                // Создаем канал связи клиента с сервером
+                using (client = new NewsService.NewsServiceClient())
                 {
-                    MyDialog.ShowMessage($"Вы успешно удалили новость!");
+                    // Если true, то новость удалена, иначе (если новость не удалена, то false)
+                    bool delete_news = client.RemoveNews(IdNews, MyAcc);
 
-                    return true;
+                    // Если новость удалена, то выведи об этом и верни true
+                    if (delete_news == true)
+                    {
+                        MyDialog.ShowMessage($"Вы успешно удалили новость!");
+
+                        return true;
+                    }
                 }
             }
             catch (Exception ex)
@@ -88,17 +116,17 @@ namespace MyClient.ProgramLogic.ServiceLogic
         {
             try
             {
-                // Инициализируем канал связи клиента с сервером
-                if (client == null)
-                    client = new NewsService.NewsServiceClient();
+                // Создаем канал связи клиента с сервером
+                using (client = new NewsService.NewsServiceClient())
+                {
+                    List<MyModelLibrary.News> list = client.GetNewsList();
 
-                List<MyModelLibrary.News> list = client.GetNewsList();
+                    // Если список новостей не пустой, то верни его
+                    if (list != null)
+                        return new ObservableCollection<MyModelLibrary.News>(list); // Получаем список новостей
 
-                // Если список новостей не пустой, то верни его
-                if (list != null)
-                    return new ObservableCollection<MyModelLibrary.News>(list); // Получаем список новостей
-
-                return null; // Иначе верни пустой список
+                    return null; // Иначе верни пустой список
+                }
             }
             catch (System.ServiceModel.EndpointNotFoundException)
             {

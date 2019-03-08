@@ -21,7 +21,6 @@ namespace WCF_Service.MyService.News
 
         #endregion
 
-
         #region Методы контракта службы
 
         // Метод, который создает новость, если аккаунт имеет статус администратора
@@ -51,7 +50,11 @@ namespace WCF_Service.MyService.News
             return MyNewsLogic.RemoveNews(idNews, MyAcc); // Возвращаем true если новость удалена. Или false, если новость не удалена
         }
 
-
+        // Метод, который редактирует новости
+        public bool EditNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News EditNews)
+        {
+            return MyNewsLogic.EditNews(MyAcc, EditNews); // Возвращает true, если новость успешно отредактирована, иначе false, если неудачно
+        }
 
         #endregion
 

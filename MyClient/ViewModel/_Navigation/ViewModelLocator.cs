@@ -54,6 +54,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Register<AccountInfoViewModel>(); // VM страницы информации об аккаунте
             SimpleIoc.Default.Register<CreateGroupViewModel>(); // VM страницы создания группы
             SimpleIoc.Default.Register<NewsListViewModel>(); // VM страницы списка новостей
+            SimpleIoc.Default.Register<EditNewsViewModel>(); // VM страницы редактирования новости
 
             // ViewModel Преподавателя
             SimpleIoc.Default.Register<TeacherViewModel>(); // ViewModel окна учителя
@@ -88,6 +89,19 @@ namespace MyClient.ViewModel._Navigation
         #endregion
 
         #region VM Администратора
+
+        private EditNewsViewModel _EditNewsVM;
+        public EditNewsViewModel EditNewsVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<EditNewsViewModel>();
+            }
+            set
+            {
+                _EditNewsVM = value;
+            }
+        }
 
         private NewsListViewModel _NewsListVM;
         public NewsListViewModel NewsListVM

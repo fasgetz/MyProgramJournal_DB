@@ -33,6 +33,12 @@
   <wsdl:message name="INewsService_RemoveNews_OutputMessage">
     <wsdl:part name="parameters" element="tns:RemoveNewsResponse" />
   </wsdl:message>
+  <wsdl:message name="INewsService_EditNews_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditNews" />
+  </wsdl:message>
+  <wsdl:message name="INewsService_EditNews_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditNewsResponse" />
+  </wsdl:message>
   <wsdl:portType name="INewsService">
     <wsdl:operation name="AddNews">
       <wsdl:input wsaw:Action="http://tempuri.org/INewsService/AddNews" message="tns:INewsService_AddNews_InputMessage" />
@@ -45,6 +51,10 @@
     <wsdl:operation name="RemoveNews">
       <wsdl:input wsaw:Action="http://tempuri.org/INewsService/RemoveNews" message="tns:INewsService_RemoveNews_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/INewsService/RemoveNewsResponse" message="tns:INewsService_RemoveNews_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditNews">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsService/EditNews" message="tns:INewsService_EditNews_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsService/EditNewsResponse" message="tns:INewsService_EditNews_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_INewsService" type="tns:INewsService">
@@ -70,6 +80,15 @@
     </wsdl:operation>
     <wsdl:operation name="RemoveNews">
       <soap12:operation soapAction="http://tempuri.org/INewsService/RemoveNews" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditNews">
+      <soap12:operation soapAction="http://tempuri.org/INewsService/EditNews" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

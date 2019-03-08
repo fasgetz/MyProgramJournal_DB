@@ -32,6 +32,12 @@ namespace MyClient.NewsService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INewsService/RemoveNews", ReplyAction="http://tempuri.org/INewsService/RemoveNewsResponse")]
         System.Threading.Tasks.Task<bool> RemoveNewsAsync(int idNews, MyModelLibrary.accounts MyAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INewsService/EditNews", ReplyAction="http://tempuri.org/INewsService/EditNewsResponse")]
+        bool EditNews(MyModelLibrary.accounts MyAcc, [System.ServiceModel.MessageParameterAttribute(Name="EditNews")] MyModelLibrary.News EditNews1);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INewsService/EditNews", ReplyAction="http://tempuri.org/INewsService/EditNewsResponse")]
+        System.Threading.Tasks.Task<bool> EditNewsAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.News EditNews);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -83,6 +89,14 @@ namespace MyClient.NewsService {
         
         public System.Threading.Tasks.Task<bool> RemoveNewsAsync(int idNews, MyModelLibrary.accounts MyAcc) {
             return base.Channel.RemoveNewsAsync(idNews, MyAcc);
+        }
+        
+        public bool EditNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News EditNews1) {
+            return base.Channel.EditNews(MyAcc, EditNews1);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EditNewsAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.News EditNews) {
+            return base.Channel.EditNewsAsync(MyAcc, EditNews);
         }
     }
 }

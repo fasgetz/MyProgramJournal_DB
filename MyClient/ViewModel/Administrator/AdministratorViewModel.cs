@@ -432,7 +432,7 @@ namespace MyClient.ViewModel.Administrator
                     // Мессенджер: передай UsersListPageVM наш MyAcc
                     Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
 
-                    // Перейди в Page главной страницы
+                    // Перейди в Page страницы новостей
                     navigation.Navigate("View/Administrator/News/NewsListPage.xaml");
                 });
             }
