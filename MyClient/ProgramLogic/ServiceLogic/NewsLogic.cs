@@ -21,6 +21,34 @@ namespace MyClient.ProgramLogic.ServiceLogic
 
         #region Методы
 
+        // Метод удаления новости
+        public bool DeleteNews(MyModelLibrary.accounts MyAcc, int IdNews)
+        {
+            try
+            {
+                // Инициализируем канал связи клиента с сервером
+                if (client == null)
+                    client = new NewsService.NewsServiceClient();
+
+                // Если true, то новость удалена, иначе (если новость не удалена, то false)
+                bool delete_news = client.RemoveNews(IdNews, MyAcc);
+
+                // Если новость удалена, то выведи об этом и верни true
+                if (delete_news == true)
+                {
+                    MyDialog.ShowMessage($"Вы успешно удалили новость!");
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return false; // false, если не получилось удалить новость
+        }
+
         // Метод создания новости
         public bool AddNews(MyModelLibrary.accounts MyAcc, MyModelLibrary.News MyNews)
         {

@@ -39,7 +39,7 @@
                 <MenuItem Header="Показать" />
             </MenuItem>
             <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Новости" Width="90" Height="40">
-                <MenuItem Header="Показать"  />
+                <MenuItem Header="Показать" Command="{Binding OpenNewsList}" />
                 <MenuItem Header="Добавить" Command="{Binding OpenCreateNewsPage}"/>
             </MenuItem>
             <MenuItem  FontSize="20" Header="Профиль" Width="100" Height="40">

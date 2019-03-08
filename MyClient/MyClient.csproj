@@ -100,8 +100,9 @@
     <Compile Include="ViewModel\Administrator\AdministratorViewModel.cs" />
     <Compile Include="ViewModel\Administrator\CreateAccountVM.cs" />
     <Compile Include="ViewModel\Administrator\CreateGroupViewModel.cs" />
-    <Compile Include="ViewModel\Administrator\CreateNewsViewModel.cs" />
+    <Compile Include="ViewModel\Administrator\News\CreateNewsViewModel.cs" />
     <Compile Include="ViewModel\Administrator\EditAccountVM.cs" />
+    <Compile Include="ViewModel\Administrator\News\NewsListViewModel.cs" />
     <Compile Include="ViewModel\Administrator\PersonalDataViewModel.cs" />
     <Compile Include="ViewModel\Administrator\UsersListPageViewModel.cs" />
     <Compile Include="ViewModel\Student\StudentViewModel.cs" />

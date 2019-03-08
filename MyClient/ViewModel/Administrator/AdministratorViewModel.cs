@@ -7,6 +7,8 @@ using MyClient.ProgramLogic.DialogServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MyClient.ProgramLogic.ServiceLogic;
+using MyClient.ViewModel.Administrator.News;
 
 namespace MyClient.ViewModel.Administrator
 {
@@ -46,6 +48,27 @@ namespace MyClient.ViewModel.Administrator
                 AddSurname = SelectedAccount.Users.Surname;
             }
         }
+
+        #region Общие свойства новостей
+
+        internal NewsLogic MyNewsLogic; // Логика работы с новостями
+
+        // Заголовок новости
+        private string _title;
+        public string title
+        {
+            get
+            {
+                return _title;
+            }
+            set
+            {
+                _title = value;
+                RaisePropertyChanged("title");
+            }
+        }
+
+        #endregion
 
         #region Свойства страниц добавления и редактирования аккаунта
 
@@ -394,6 +417,26 @@ namespace MyClient.ViewModel.Administrator
         #endregion
 
         #region Команды перехода по страницам (Только страницы администратора)
+
+        // Команда, которая перейдет на страницу новостей
+        public ICommand OpenNewsList
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если наша vm = null, то проинициализируй ее
+                    if (locator.NewsListVM == null)
+                        locator.NewsListVM = new NewsListViewModel();
+
+                    // Мессенджер: передай UsersListPageVM наш MyAcc
+                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+
+                    // Перейди в Page главной страницы
+                    navigation.Navigate("View/Administrator/News/NewsListPage.xaml");
+                });
+            }
+        }
 
         // Команда, которая перейдет на UsersListPage
         public ICommand OpenUsersList

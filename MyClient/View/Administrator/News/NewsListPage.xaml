@@ -6,15 +6,35 @@
       xmlns:local="clr-namespace:MyClient.View.Administrator.News"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1024"
+      DataContext="{Binding NewsListVM, Source={StaticResource Locator}}"      
       Title="NewsListPage">
 
+    <Page.Resources>
+
+        <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="DGC_NumericColumnStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+
     <Grid>
-        <DataGrid HorizontalAlignment="Left" Height="616" Margin="10,52,0,0" VerticalAlignment="Top" Width="1004">
+        <DataGrid SelectedValue="{Binding SelectedNews, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding NewsList}" HorizontalAlignment="Left" Height="616" Margin="10,52,0,0" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" VerticalAlignment="Top" Width="1004">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Удалить" />
+                    <MenuItem Header="Редактировать (On development stage)" />
+                    <MenuItem Header="Удалить" Command="{Binding DeleteNews, UpdateSourceTrigger=PropertyChanged}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Айди" Width="50" Binding="{Binding Path=IdNews}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Дата" Width="150" Binding="{Binding Path=DatePost}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Заголовок" Width="610" Binding="{Binding Path=Title}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Изображений" Width="185" Binding="{Binding Path=Images.Count}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+            </DataGrid.Columns>
         </DataGrid>
         <Label Content="Список новостей" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1004"/>
 

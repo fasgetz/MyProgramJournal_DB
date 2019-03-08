@@ -38,6 +38,8 @@ namespace WCF_Service.ServiceLogic
                     {
                         // Ищем новость которую надо удалять по айди
                         db.News.Remove(db.News.FirstOrDefault(i => i.IdNews == IdNews));
+                        db.SaveChanges(); // Сохраняем бд
+
                         Console.WriteLine($"Пользователь {MyAcc.login} удалил новость id: {IdNews}");
 
                         return true; // Возвращаем истину (Новость удалена)
@@ -115,9 +117,6 @@ namespace WCF_Service.ServiceLogic
             // Создаем подключение к бд
             using (DbNews db = new DbNews())
             {
-
-                // Всего новостей 
-                Console.WriteLine($"Всего новостей: {db.News.Count()}");
 
                 // Если новостей > 0, то верни список
                 if (db.News.Count() > 0)

@@ -12,30 +12,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using MyClient.ProgramLogic.ServiceLogic;
 
-namespace MyClient.ViewModel.Administrator
+namespace MyClient.ViewModel.Administrator.News
 {
     public class CreateNewsViewModel : AdministratorViewModel
     {
 
-        #region Свойства
-
-        // Логика работы с новостями
-        NewsLogic MyNewsLogic;
-
-        // Заголовок новости
-        private string _title;
-        public string title
-        {
-            get
-            {
-                return _title;
-            }
-            set
-            {
-                _title = value;
-                RaisePropertyChanged("title");
-            }
-        }
+        #region Свойства       
 
         MyModelLibrary.News MyNews; // Ссылка на текущую новость
 
@@ -109,7 +91,6 @@ namespace MyClient.ViewModel.Administrator
         }
 
         #endregion
-
 
         #region Конструктор
 
