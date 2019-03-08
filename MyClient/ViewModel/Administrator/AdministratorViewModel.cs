@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MyClient.ProgramLogic.ServiceLogic;
 using MyClient.ViewModel.Administrator.News;
+using MyClient.ViewModel.Administrator.Groups;
 
 namespace MyClient.ViewModel.Administrator
 {

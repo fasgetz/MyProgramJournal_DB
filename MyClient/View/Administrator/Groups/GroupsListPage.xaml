@@ -26,12 +26,12 @@
         <Label Content="Введите название группы" VerticalContentAlignment="Center" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,88,0,0" VerticalAlignment="Top" Width="349" Height="36"/>
         <Button Content="Создать группу" Command="{Binding AddGroup}" FontSize="20" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Width="994" Height="38"/>
 
-        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,172,0,0" HorizontalAlignment="Left" Height="506" VerticalAlignment="Top" Width="994" ItemsSource="{Binding groups}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid x:Name="MyDataGrid" SelectedValue="{Binding SelectedGroup}" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,172,0,0" HorizontalAlignment="Left" Height="506" VerticalAlignment="Top" Width="994" ItemsSource="{Binding groups}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
 
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Показать студентов" />
-                    <MenuItem Header="Добавить студента" />
+                    <MenuItem Header="Показать студентов" Command="{Binding OpenStudentsPage}"/>
+                    <MenuItem Header="Показать дисциплины" />
                     <MenuItem Header="Редактировать название (off)" />
                     <MenuItem Header="Удалить группу (off)" />
                 </ContextMenu>

@@ -16,6 +16,7 @@ using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using MyClient.ViewModel._VMCommon;
 using MyClient.ViewModel.Administrator;
+using MyClient.ViewModel.Administrator.Groups;
 using MyClient.ViewModel.Administrator.News;
 using MyClient.ViewModel.Student;
 using MyClient.ViewModel.Teacher;
@@ -55,6 +56,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Register<CreateGroupViewModel>(); // VM страницы создания группы
             SimpleIoc.Default.Register<NewsListViewModel>(); // VM страницы списка новостей
             SimpleIoc.Default.Register<EditNewsViewModel>(); // VM страницы редактирования новости
+            SimpleIoc.Default.Register<StudentsGroupViewModel>(); // VM страницы студентов группы
 
             // ViewModel Преподавателя
             SimpleIoc.Default.Register<TeacherViewModel>(); // ViewModel окна учителя
@@ -89,6 +91,19 @@ namespace MyClient.ViewModel._Navigation
         #endregion
 
         #region VM Администратора
+
+        private StudentsGroupViewModel _MyStudentsGroupVM;
+        public StudentsGroupViewModel MyStudentsGroupVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<StudentsGroupViewModel>();
+            }
+            set
+            {
+                _MyStudentsGroupVM = value;
+            }
+        }
 
         private EditNewsViewModel _EditNewsVM;
         public EditNewsViewModel EditNewsVM

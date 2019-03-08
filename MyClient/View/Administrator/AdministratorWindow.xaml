@@ -29,7 +29,6 @@
             </MenuItem>
             <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Группы" Width="80" Height="40">
                 <MenuItem Header="Показать список" Command="{Binding OpenGroups}" />
-                <MenuItem Header="Добавить дисциплину группе"/>
             </MenuItem>
             <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Дисциплины" Width="130" Height="40">
                 <MenuItem Header="Показать список" />

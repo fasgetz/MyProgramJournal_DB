@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyClient.ViewModel.Administrator
+namespace MyClient.ViewModel.Administrator.Groups
 {
 
     /// <summary>
@@ -19,6 +19,21 @@ namespace MyClient.ViewModel.Administrator
     {
 
         #region Свойства
+
+        // Выбранная группу
+        private MyModelLibrary.Groups _SelectedGroup;
+        public MyModelLibrary.Groups SelectedGroup
+        {
+            get
+            {
+                return _SelectedGroup;
+            }
+            set
+            {
+                _SelectedGroup = value;
+                RaisePropertyChanged("SelectedGroup");
+            }
+        }
 
         // Список кодов специальностей
         private List<MyModelLibrary.Speciality_codes> _speciality_list;
@@ -49,7 +64,6 @@ namespace MyClient.ViewModel.Administrator
                 RaisePropertyChanged("groups");
             }
         }
-
 
         private MyModelLibrary.Speciality_codes _SelectedSpeciality;
         public MyModelLibrary.Speciality_codes SelectedSpeciality
@@ -84,6 +98,34 @@ namespace MyClient.ViewModel.Administrator
 
         #region Команды
 
+        // Команда на открытие страницы списка студентов выбранной группы
+        public ICommand OpenStudentsPage
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если мы выбрали группу в списке групп, то открой страницу студентов выбранной группы
+                    if (SelectedGroup != null)
+                    {
+                        // Если наша vm = null, то проинициализируй ее
+                        if (locator.MyStudentsGroupVM == null)
+                            locator.MyStudentsGroupVM = new StudentsGroupViewModel();
+
+                        // Инициализируем группу
+                        SelectedGroup = new MyModelLibrary.Groups(SelectedGroup.GroupName, Convert.ToInt16(SelectedGroup.idSpeciality));
+
+                        // Мессенджер: передай в StudentsGroupPage наш MyAcc и SelectedGroup
+                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.Groups>(SelectedGroup)); // Отправляем в следующий DataContext группу
+
+                        // Перейди в Page главной страницы
+                        navigation.Navigate("View/Administrator/Groups/StudentsGroupPage.xaml");
+                    }
+                });
+            }
+        }
+
         // Команда на создание группы
         public ICommand AddGroup
         {
@@ -102,7 +144,11 @@ namespace MyClient.ViewModel.Administrator
                             DeInitialization();
                             groups = MyAdminLogic.GetGroups();
                         }                            
-                    }                    
+                    }
+                    else
+                    {
+                        dialog.ShowMessage("Заполните все данные!");
+                    }
                 });
             }
         }
