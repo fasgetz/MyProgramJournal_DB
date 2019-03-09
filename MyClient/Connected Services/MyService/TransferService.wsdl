@@ -15,6 +15,12 @@
       <xsd:import schemaLocation="http://95.84.158.128:9001/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MyModelLibrary" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ITransferService_GetStudentsGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentsGroup" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_GetStudentsGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentsGroupResponse" />
+  </wsdl:message>
   <wsdl:message name="ITransferService_GetSpecialityCodes_InputMessage">
     <wsdl:part name="parameters" element="tns:GetSpecialityCodes" />
   </wsdl:message>
@@ -64,6 +70,10 @@
     <wsdl:part name="parameters" element="tns:GetAccountResponse" />
   </wsdl:message>
   <wsdl:portType name="ITransferService">
+    <wsdl:operation name="GetStudentsGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetStudentsGroup" message="tns:ITransferService_GetStudentsGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetStudentsGroupResponse" message="tns:ITransferService_GetStudentsGroup_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetSpecialityCodes">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetSpecialityCodes" message="tns:ITransferService_GetSpecialityCodes_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetSpecialityCodesResponse" message="tns:ITransferService_GetSpecialityCodes_OutputMessage" />
@@ -100,6 +110,15 @@
   <wsdl:binding name="NetTcpBinding_ITransferService" type="tns:ITransferService">
     <wsp:PolicyReference URI="#NetTcpBinding_ITransferService_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetStudentsGroup">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/GetStudentsGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetSpecialityCodes">
       <soap12:operation soapAction="http://tempuri.org/ITransferService/GetSpecialityCodes" style="document" />
       <wsdl:input>

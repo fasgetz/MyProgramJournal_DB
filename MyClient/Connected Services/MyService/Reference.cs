@@ -15,6 +15,12 @@ namespace MyClient.MyService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MyService.ITransferService")]
     public interface ITransferService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetStudentsGroup", ReplyAction="http://tempuri.org/ITransferService/GetStudentsGroupResponse")]
+        System.Collections.Generic.List<MyModelLibrary.Users> GetStudentsGroup(MyModelLibrary.accounts MyAcc, int idGroup);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetStudentsGroup", ReplyAction="http://tempuri.org/ITransferService/GetStudentsGroupResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetStudentsGroupAsync(MyModelLibrary.accounts MyAcc, int idGroup);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetSpecialityCodes", ReplyAction="http://tempuri.org/ITransferService/GetSpecialityCodesResponse")]
         System.Collections.Generic.List<MyModelLibrary.Speciality_codes> GetSpecialityCodes();
         
@@ -89,6 +95,14 @@ namespace MyClient.MyService {
         
         public TransferServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.Users> GetStudentsGroup(MyModelLibrary.accounts MyAcc, int idGroup) {
+            return base.Channel.GetStudentsGroup(MyAcc, idGroup);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetStudentsGroupAsync(MyModelLibrary.accounts MyAcc, int idGroup) {
+            return base.Channel.GetStudentsGroupAsync(MyAcc, idGroup);
         }
         
         public System.Collections.Generic.List<MyModelLibrary.Speciality_codes> GetSpecialityCodes() {

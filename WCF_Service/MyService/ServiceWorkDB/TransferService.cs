@@ -22,6 +22,16 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #endregion
 
+        #region Методы контракта служб администратора и преподавателя
+
+        // Метод, который выдаст список студентов по айди группы
+        // (Предварительно аккаунт должен пройти проверку на соответствие статуса)
+        public List<MyModelLibrary.Users> GetStudentsGroup(MyModelLibrary.accounts MyAcc, int idGroup)
+        {
+            return MyServiceLogic.GetStudentsGroup(MyAcc, idGroup);
+        }
+
+        #endregion
 
         #region Методы контракта служб Администратора
 

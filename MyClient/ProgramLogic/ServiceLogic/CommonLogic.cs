@@ -18,6 +18,31 @@ namespace MyClient.ProgramLogic.ServiceLogic
 
         #region Общие методы
 
+        // Метод получения списка студентов (Если запрос послал администратор или преподаватель)
+        internal List<MyModelLibrary.Users> GetStudentsInGroup(MyModelLibrary.accounts MyAcc, int idGroup)
+        {
+            try
+            {
+                // Создаем подключение клиента к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    // Получаем список студентов по айди группы с сервера
+                    var list = client.GetStudentsGroup(MyAcc, idGroup);
+
+                    // Если список студентов не пустой, то возвращаем список
+                    if (list != null)
+                        return list; // Возвращаем клиенту список
+                }
+            }
+            catch(Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            // Возвращаем null, если не удалось получить список с сервера или возникла какая-нибудь ошибка
+            return null;
+        }
+
         // Метод получения списка всех групп
         internal List<MyModelLibrary.Groups> GetGroups()
         {

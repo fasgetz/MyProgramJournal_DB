@@ -136,9 +136,7 @@ namespace WCF_Service.DataBase.DTO
                 (
                 studentsGroup.IdStudent,
                 Convert.ToInt16(studentsGroup.idGroup),
-                Convert.ToInt16(studentsGroup.NumberInJournal),
-                GetAttendanceList(studentsGroup.Attendance.ToList()),
-                GetGroups(studentsGroup.Groups)
+                Convert.ToInt16(studentsGroup.NumberInJournal)
                 );
 
 
@@ -294,7 +292,7 @@ namespace WCF_Service.DataBase.DTO
                         Account.Users.StudentsGroup.Attendance = GetAttendanceList(AccountNotDTO.Users.StudentsGroup.Attendance.ToList()); // Присвой список оценок студента
                         Account.Users.StudentsGroup.FinalAttendances = GetFinalAttendances(AccountNotDTO.Users.StudentsGroup.FinalAttendances.ToList()); // Список итоговых оценок
 
-                        Account.Users.StudentsGroup.Groups.TeacherDisciplines = GetGroupDisciplines(AccountNotDTO.Users.StudentsGroup.Groups); // Присваиваем список дисциплин группе студента       
+                        //Account.Users.StudentsGroup.Groups.TeacherDisciplines = GetGroupDisciplines(AccountNotDTO.Users.StudentsGroup.Groups); // Присваиваем список дисциплин группе студента       
 
                     }
                     // Если юзер == 2 (Если юзер == преподаватель, который имеет дисциплины, то проинициализируй дальше

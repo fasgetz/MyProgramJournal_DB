@@ -22,21 +22,6 @@ namespace MyClient.ViewModel.Administrator.Groups
 
         #region Свойства
 
-        // Тест поиска в combobox
-        private List<string> _MyList;
-        public List<string> MyList
-        {
-            get
-            {
-                return _MyList;
-            }
-            set
-            {
-                _MyList = value;
-                RaisePropertyChanged("MyList");
-            }
-        }
-
         // Для вывода названия группы 
         private string _MyGroupName;
         public string MyGroupName
@@ -50,25 +35,58 @@ namespace MyClient.ViewModel.Administrator.Groups
                 _MyGroupName = value;                
                 RaisePropertyChanged("GroupName");
             }
+        }   
+
+        // Список студентов без группы
+        private ObservableCollection<MyModelLibrary.Users> _NotGrouppedStudents;
+        public ObservableCollection<MyModelLibrary.Users> NotGroupedStudents
+        {
+            get
+            {
+                return _NotGrouppedStudents;
+            }
+            set
+            {
+                _NotGrouppedStudents = value;
+                RaisePropertyChanged("NotGroupedStudents");
+            }
         }
 
-        #endregion        
+        // Список студентов группы
+        private ObservableCollection<MyModelLibrary.Users> _StudentsList;
+        public ObservableCollection<MyModelLibrary.Users> StudentsList
+        {
+            get
+            {
+                return _StudentsList;
+            }
+            set
+            {
+                _StudentsList = value;
+                RaisePropertyChanged("StudentsList");
+            }
+        }
 
-
+        #endregion
 
         #region Команды
 
+        // Команда фильтрации списка поиска в ComboBoxe's
         public ICommand SearchedInCombobox
         {
             get
             {
                 return new RelayCommand(() =>
                 {
+                    // Если в поле ComboBox что-то ввели, то произведи поиск
                     if (text != null)
-                    {                        
-                        CollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(MyList);
+                    {
+                        CollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(NotGroupedStudents);
                         cv.Filter = s =>
-                            ((string)s).IndexOf("a", StringComparison.CurrentCultureIgnoreCase) >= 0;
+                        {
+                            MyModelLibrary.Users u = s as MyModelLibrary.Users;
+                            return (u.GetFIO.StartsWith(text));
+                        };
                     }
 
                 });
@@ -103,8 +121,9 @@ namespace MyClient.ViewModel.Administrator.Groups
             SelectedGroup = GetGroup.Content;
             MyGroupName = $"Группа {SelectedGroup.GroupName}";
 
-            MyList = new List<string>() { "kek", "kekkka", "alalsa", "korol" };
-            MyList.Add("kek");
+            // Получаем список студентов
+            StudentsList = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, SelectedGroup.idGroup)); // Список студентов группы
+            NotGroupedStudents = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, 0)); // Список студентов без группы    
         }
 
         #endregion

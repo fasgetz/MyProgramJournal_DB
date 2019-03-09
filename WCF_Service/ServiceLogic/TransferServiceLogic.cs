@@ -27,6 +27,86 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы, которые вызываются в службах
 
+        #region Методы Администратора и преподавателя
+
+        // Метод, который выдаст список студентов по айди группы
+        // (Предварительно аккаунт должен пройти проверку на соответствие статуса)
+        public List<MyModelLibrary.Users> GetStudentsGroup(MyModelLibrary.accounts MyAcc, int idGroup)
+        {
+            // Создаем репозиторий для работы с бд
+            EFGenericRepository<Users> repository = new EFGenericRepository<Users>(new MyDB());          
+
+            try
+            {
+                // Делаем проверку статуса аккаунта
+                switch (CheckUserStatus(MyAcc.idAccount))
+                {
+                    // Если статус аккаунта == 3 (Если аккаунт является администратором),
+                    // то выдай ему любую группу
+                    case 3:
+
+                        List<Users> mylist;
+
+                        // Если айди группы != 0, то найди всех студентов этой группы
+                        if (idGroup != 0)
+                        {
+                            // Найди всех студентов в группе idGroup
+                            mylist = repository.GetQueryList(i => i.StudentsGroup != null && i.StudentsGroup.idGroup == idGroup).ToList();
+                        }
+                        // Иначе, если айди группы == 0, то найди всех студентов без группы
+                        else
+                        {
+                            // найди всех студентов без группы
+                            mylist = repository.GetQueryList(i => i.StudentsGroup == null);
+                        }
+                        
+
+                        // Если список не пустой, то вернем студентов
+                        if (mylist != null)
+                        {
+                            // Создаем DTO - список студентов
+                            List<MyModelLibrary.Users> StudentsListDTO = new List<MyModelLibrary.Users>();
+                            MyGeneratorDTO generator = new MyGeneratorDTO(); // DTO - генератор
+
+                            // Преобразовываем всех NOT DTO в DTO
+                            foreach (var item in mylist)
+                            {
+                                // Добавляем dto объект в список
+                                StudentsListDTO.Add(generator.GetUser(item));
+                            }
+
+                            // После этого возвращаем список пользователю, который послал запрос
+                            return StudentsListDTO;
+                        }
+
+                        break;
+                    // Если статус аккаунта == 2 (Если аккаунт преподаватель),
+                    // то выдай ему одну из его групп
+                    case 2:
+                        // Получаем список студентов
+                        // Если преподаватель есть в списке преподавателей и он ведет у этой группы (Дополнить - ведет предмет)
+                        if (new MyDB().TeacherDisciplines.FirstOrDefault(i => i.IdTeacher == MyAcc.idAccount && i.IdGroup == idGroup) != null)
+                        {
+
+                        }
+
+                        break;
+                    // Во всех других случаях (Если юзер не является администратором или преподавателем) выдай ошибку
+                    default:
+                        ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+                        break;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return null; // Возвращаем null, если статус не подходит / студентов нет в группе
+        }
+
+        #endregion
+
         #region Общие методы
 
         // Метод, который получает весь список специальность
@@ -342,7 +422,7 @@ namespace WCF_Service.ServiceLogic
                 // Заносим список not dto юзеров 
                 var a = new EFGenericRepository<Users>(new MyDB()).GetAllList();
 
-                DataBase.DTO.MyGeneratorDTO generator = new MyGeneratorDTO();
+                MyGeneratorDTO generator = new MyGeneratorDTO();
 
                 // Перебираем список и генерируем DTO, который внесем в DTO список
                 foreach (var item in a)

@@ -18,6 +18,14 @@ namespace MyModelLibrary
         }
 
         // Конструктор, который инициализирует свойства
+        public StudentsGroup(int idStudent, int idGroup, int NumberInJournal)
+        {
+            this.IdStudent = IdStudent;
+            this.idGroup = idGroup;
+            this.NumberInJournal = NumberInJournal;
+        }
+
+        // Конструктор, который инициализирует свойства
         public StudentsGroup(int idStudent, int idGroup, int NumberInJournal, List<Attendance> Attendance_list, Groups Groups)
         {
             this.IdStudent = IdStudent;

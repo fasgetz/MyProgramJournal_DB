@@ -9,6 +9,16 @@ namespace WCF_Service.MyService.ServiceWorkDB
     public interface ITransferService
     {
 
+
+        #region Общие методы администратора и преподавателя
+
+        // Метод, который выдаст список студентов по айди группы
+        // (Предварительно аккаунт должен пройти проверку на соответствие статуса)
+        [OperationContract]
+        List<MyModelLibrary.Users> GetStudentsGroup(MyModelLibrary.accounts MyAcc, int idGroup);
+
+        #endregion
+
         #region Общие методы
 
         // Метод на получение списка кодов специальностей
@@ -18,8 +28,6 @@ namespace WCF_Service.MyService.ServiceWorkDB
         // Метод на получения списка групп
         [OperationContract]
         List<MyModelLibrary.Groups> GetGroups();
-
-
 
         #endregion
 

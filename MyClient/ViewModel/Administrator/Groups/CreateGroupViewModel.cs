@@ -113,7 +113,7 @@ namespace MyClient.ViewModel.Administrator.Groups
                             locator.MyStudentsGroupVM = new StudentsGroupViewModel();
 
                         // Инициализируем группу
-                        SelectedGroup = new MyModelLibrary.Groups(SelectedGroup.GroupName, Convert.ToInt16(SelectedGroup.idSpeciality));
+                        SelectedGroup = new MyModelLibrary.Groups(SelectedGroup.idGroup, SelectedGroup.GroupName, Convert.ToInt16(SelectedGroup.idSpeciality));
 
                         // Мессенджер: передай в StudentsGroupPage наш MyAcc и SelectedGroup
                         Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
