@@ -202,6 +202,13 @@ namespace WCF_Service.DataBase.DTO
                 // Присваиваем статус юзера
                 UserDTO.UserStatus = GetUserStatus(user.UserStatus);
 
+                // Если этот юзер студент, то присвой ему группу
+                if (user.StudentsGroup != null)
+                {
+                    UserDTO.StudentsGroup = GetStudentsGroup(user.StudentsGroup);
+                }
+                
+
                 // Конвертируем nullable дату
                 if (user.DateOfBirthDay != null)
                     UserDTO.DateOfBirthDay = Convert.ToDateTime(user.DateOfBirthDay);
@@ -287,7 +294,7 @@ namespace WCF_Service.DataBase.DTO
 
                     // Если юзер == 1 (Если юзер == студент, который имеет группу, то проинициализируй дальше
                     if (AccountNotDTO.Users.idUserStatus == 1 && AccountNotDTO.Users.StudentsGroup != null)
-                    {
+                    {                        
                         Account.Users.StudentsGroup = GetStudentsGroup(AccountNotDTO.Users.StudentsGroup); // Присвой группу студенту
                         Account.Users.StudentsGroup.Attendance = GetAttendanceList(AccountNotDTO.Users.StudentsGroup.Attendance.ToList()); // Присвой список оценок студента
                         Account.Users.StudentsGroup.FinalAttendances = GetFinalAttendances(AccountNotDTO.Users.StudentsGroup.FinalAttendances.ToList()); // Список итоговых оценок

@@ -35,6 +35,18 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы контракта служб Администратора
 
+        // Метод на добавление студента в группу (С проверкой на администратора)
+        public bool AddStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
+        {
+            return MyServiceLogic.AddStudentInGroup(MyAcc, Student); // Вернет true, если удаление прошло успешно
+        }
+
+        // Метод на удаление студента из группы (С проверкой на администратора)
+        public bool RemoveStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
+        {
+            return false; // Вернет false, если удаление прошло успешно
+        }
+
         // Метод, который вернет весь список аккаунтов, если он является администратором
         public List<MyModelLibrary.accounts> GetAllAccountsList(MyModelLibrary.accounts MyAcc)
         {

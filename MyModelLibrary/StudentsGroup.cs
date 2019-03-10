@@ -11,10 +11,17 @@ namespace MyModelLibrary
     {
 
 
+        #region Конструкторы
 
         public StudentsGroup()
         {
-            //this.Attendance = new List<Attendance>();
+
+        }
+
+        public StudentsGroup(int IdStudent, int idGroup)
+        {
+            this.IdStudent = IdStudent;
+            this.idGroup = idGroup;
         }
 
         // Конструктор, который инициализирует свойства
@@ -25,15 +32,7 @@ namespace MyModelLibrary
             this.NumberInJournal = NumberInJournal;
         }
 
-        // Конструктор, который инициализирует свойства
-        public StudentsGroup(int idStudent, int idGroup, int NumberInJournal, List<Attendance> Attendance_list, Groups Groups)
-        {
-            this.IdStudent = IdStudent;
-            this.idGroup = idGroup;
-            this.NumberInJournal = NumberInJournal;
-            this.Attendance = Attendance_list;
-            this.Groups = Groups;
-        }
+        #endregion
 
         #region Свойства сущности Студент
 
@@ -47,5 +46,8 @@ namespace MyModelLibrary
         public virtual List<FinalAttendances> FinalAttendances { get; set; } // Список итоговых оценок студента
 
         #endregion
+
+
+
     }
 }

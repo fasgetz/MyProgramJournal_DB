@@ -33,6 +33,18 @@ namespace MyClient.MyService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroups", ReplyAction="http://tempuri.org/ITransferService/GetGroupsResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddStudentInGroup", ReplyAction="http://tempuri.org/ITransferService/AddStudentInGroupResponse")]
+        bool AddStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddStudentInGroup", ReplyAction="http://tempuri.org/ITransferService/AddStudentInGroupResponse")]
+        System.Threading.Tasks.Task<bool> AddStudentInGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/RemoveStudentInGroup", ReplyAction="http://tempuri.org/ITransferService/RemoveStudentInGroupResponse")]
+        bool RemoveStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/RemoveStudentInGroup", ReplyAction="http://tempuri.org/ITransferService/RemoveStudentInGroupResponse")]
+        System.Threading.Tasks.Task<bool> RemoveStudentInGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddGroup", ReplyAction="http://tempuri.org/ITransferService/AddGroupResponse")]
         bool AddGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups NewGroup);
         
@@ -119,6 +131,22 @@ namespace MyClient.MyService {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync() {
             return base.Channel.GetGroupsAsync();
+        }
+        
+        public bool AddStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student) {
+            return base.Channel.AddStudentInGroup(MyAcc, Student);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddStudentInGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student) {
+            return base.Channel.AddStudentInGroupAsync(MyAcc, Student);
+        }
+        
+        public bool RemoveStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student) {
+            return base.Channel.RemoveStudentInGroup(MyAcc, Student);
+        }
+        
+        public System.Threading.Tasks.Task<bool> RemoveStudentInGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student) {
+            return base.Channel.RemoveStudentInGroupAsync(MyAcc, Student);
         }
         
         public bool AddGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups NewGroup) {

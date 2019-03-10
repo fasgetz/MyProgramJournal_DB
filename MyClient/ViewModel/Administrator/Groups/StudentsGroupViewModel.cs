@@ -67,6 +67,7 @@ namespace MyClient.ViewModel.Administrator.Groups
             }
         }
 
+
         #endregion
 
         #region Команды
@@ -89,6 +90,35 @@ namespace MyClient.ViewModel.Administrator.Groups
                         };
                     }
 
+                });
+            }
+        }
+
+        // Команда удаления студенты из группы
+
+
+        // Команда добавления студента в группу
+        public ICommand AddStudentInGroup
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    //Если выбранный текущий аккаунт != null и студента выбрали в ComboBox, то приступи к добавлению
+                    if (MyAcc != null && SelectedUser != null)
+                    {
+                        // Если студент добавлен в группу, то true, иначе false
+                        bool AddedStudent = MyAdminLogic.AddStudentInGroup(MyAcc, new MyModelLibrary.StudentsGroup(SelectedUser.idUser, SelectedGroup.idGroup));
+
+                        // Если студент добавлен в группу, то обнови список студентов
+                        if (AddedStudent == true)
+                        {
+                            // Обновить списки
+                            StudentsList = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, SelectedGroup.idGroup).OrderBy(i => i.StudentsGroup.NumberInJournal)); // Список студентов группы, отсортированный по номеру в журнале
+                            NotGroupedStudents = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, 0)); // Список студентов без группы   
+
+                        }
+                    }
                 });
             }
         }
@@ -121,9 +151,17 @@ namespace MyClient.ViewModel.Administrator.Groups
             SelectedGroup = GetGroup.Content;
             MyGroupName = $"Группа {SelectedGroup.GroupName}";
 
-            // Получаем список студентов
-            StudentsList = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, SelectedGroup.idGroup)); // Список студентов группы
-            NotGroupedStudents = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, 0)); // Список студентов без группы    
+            try
+            {
+                // Получаем список студентов
+                StudentsList = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, SelectedGroup.idGroup).OrderBy(i => i.StudentsGroup.NumberInJournal)); // Список студентов группы, отсортированный по номеру в журнале
+                NotGroupedStudents = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, 0)); // Список студентов без группы   
+            }
+            catch(ArgumentNullException)
+            {
+                dialog.ShowMessage($"Ошибка: вы получили пустые списки");
+            }
+       
         }
 
         #endregion

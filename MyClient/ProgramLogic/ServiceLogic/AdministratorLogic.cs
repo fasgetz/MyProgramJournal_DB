@@ -16,6 +16,43 @@ namespace MyClient.ProgramLogic.ServiceLogic
     {
         #region Методы для работы с сервером
 
+        // Метод добавления студента в группу
+        public bool AddStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
+        {
+            // Делаем проверку на то, не пустые ли входные данные студента
+            if (Student != null)
+            {
+                try
+                {
+                    // Создаем канал связи с сервером
+                    using (client = new MyService.TransferServiceClient())
+                    {
+                        // Передаем текущий аккаунт (На сервере пройдет проверка на администратора) и студента, которого необходимо добавить в группу
+                        bool AddedStudent = client.AddStudentInGroup(MyAcc, Student);
+
+                        // Делаем проверку на добавление студента в группу. Если студент добавлен, то верни true
+                        if (AddedStudent == true)
+                        {
+                            MyDialog.ShowMessage($"Вы успешно добавили студента в группу!");
+
+                            return true; // Возвращаем true, т.к. студент успешно добавлен в группу
+                        }
+
+                    }
+                }
+                catch (FaultException<AccountService.AccountConnectedException> ex)
+                {
+                    MyDialog.ShowMessage(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MyDialog.ShowMessage(ex.Message);
+                }
+            }
+
+            return false; // Вернуть false, если добавление студента неудачно
+        }
+
         // Метод для создания группы
         public bool CreateGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups NewGroup)
         {
@@ -24,7 +61,7 @@ namespace MyClient.ProgramLogic.ServiceLogic
             {
                 try
                 {
-                    // Создаем канал связи с бд
+                    // Создаем канал связи с сервером
                     using (client = new MyService.TransferServiceClient())
                     {
                         // Передаем текущий аккаунт (идет проверка на администратора) и группу, которую создаем

@@ -34,72 +34,86 @@ namespace WCF_Service.ServiceLogic
         public List<MyModelLibrary.Users> GetStudentsGroup(MyModelLibrary.accounts MyAcc, int idGroup)
         {
             // Создаем репозиторий для работы с бд
-            EFGenericRepository<Users> repository = new EFGenericRepository<Users>(new MyDB());          
+            EFGenericRepository<Users> repository = new EFGenericRepository<Users>(new MyDB());
 
-            try
+
+            // Делаем проверку статуса аккаунта
+            int idAccountStatus = CheckUserStatus(MyAcc.idAccount);
+            List<Users> mylist; // Список студентов
+
+            // Если аккаунт является администратором,
+            // то выдай ему данные о любой группе по его запросу
+            if (idAccountStatus == 3)
             {
-                // Делаем проверку статуса аккаунта
-                switch (CheckUserStatus(MyAcc.idAccount))
+                try
                 {
-                    // Если статус аккаунта == 3 (Если аккаунт является администратором),
-                    // то выдай ему любую группу
-                    case 3:
-
-                        List<Users> mylist;
-
-                        // Если айди группы != 0, то найди всех студентов этой группы
-                        if (idGroup != 0)
-                        {
-                            // Найди всех студентов в группе idGroup
-                            mylist = repository.GetQueryList(i => i.StudentsGroup != null && i.StudentsGroup.idGroup == idGroup).ToList();
-                        }
-                        // Иначе, если айди группы == 0, то найди всех студентов без группы
-                        else
-                        {
-                            // найди всех студентов без группы
-                            mylist = repository.GetQueryList(i => i.StudentsGroup == null);
-                        }
-                        
-
-                        // Если список не пустой, то вернем студентов
-                        if (mylist != null)
-                        {
-                            // Создаем DTO - список студентов
-                            List<MyModelLibrary.Users> StudentsListDTO = new List<MyModelLibrary.Users>();
-                            MyGeneratorDTO generator = new MyGeneratorDTO(); // DTO - генератор
-
-                            // Преобразовываем всех NOT DTO в DTO
-                            foreach (var item in mylist)
-                            {
-                                // Добавляем dto объект в список
-                                StudentsListDTO.Add(generator.GetUser(item));
-                            }
-
-                            // После этого возвращаем список пользователю, который послал запрос
-                            return StudentsListDTO;
-                        }
-
-                        break;
-                    // Если статус аккаунта == 2 (Если аккаунт преподаватель),
-                    // то выдай ему одну из его групп
-                    case 2:
-                        // Получаем список студентов
-                        // Если преподаватель есть в списке преподавателей и он ведет у этой группы (Дополнить - ведет предмет)
-                        if (new MyDB().TeacherDisciplines.FirstOrDefault(i => i.IdTeacher == MyAcc.idAccount && i.IdGroup == idGroup) != null)
-                        {
-
-                        }
-
-                        break;
-                    // Во всех других случаях (Если юзер не является администратором или преподавателем) выдай ошибку
-                    default:
-                        ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
-                        break;
+                    // Если айди группы != 0, то найди всех студентов этой группы
+                    if (idGroup != 0)
+                    {
+                        // Найди всех студентов в группе idGroup
+                        mylist = repository.GetQueryList(i => i.StudentsGroup != null && i.StudentsGroup.idGroup == idGroup).ToList();
+                    }
+                    // Иначе, если айди группы == 0, то найди всех студентов без группы
+                    else
+                    {
+                        // Найди всех студентов без группы
+                        mylist = repository.GetQueryList(i => i.StudentsGroup == null && i.idUserStatus == 1);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    mylist = null;
                 }
             }
-            catch(Exception ex)
+            // Иначе, если статус аккаунта преподаватель,
+            // то выдай ему данные о группе, только которой он ведет предмет
+            else if (idAccountStatus == 2)
             {
-                Console.WriteLine(ex.Message);
+                try
+                {
+                    // Получаем список студентов
+                    // Если преподаватель есть в списке преподавателей и он ведет у этой группы (Дополнить - ведет предмет)
+                    if (new MyDB().TeacherDisciplines.FirstOrDefault(i => i.IdTeacher == MyAcc.idAccount && i.IdGroup == idGroup) != null)
+                    {
+                        mylist = null;
+                    }
+                    // Иначе, если группа не найдена, то верни пустой список
+                    else
+                    {
+                        return null; // Возвращаем пустой список
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    mylist = null;
+                }
+
+            }
+            // Иначе, если не преподаватель и не администратор послал запрос, то выдай ошибку
+            else
+            {
+                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+                mylist = null;
+            }
+
+            // Если список не пустой, то вернем студентов
+            if (mylist != null)
+            {
+                // Создаем DTO - список студентов
+                List<MyModelLibrary.Users> StudentsListDTO = new List<MyModelLibrary.Users>();
+                MyGeneratorDTO generator = new MyGeneratorDTO(); // DTO - генератор
+
+                // Преобразовываем всех NOT DTO в DTO
+                foreach (var item in mylist)
+                {
+                    // Добавляем dto объект в список
+                    StudentsListDTO.Add(generator.GetUser(item));
+                }
+
+                // После этого возвращаем список пользователю, который послал запрос
+                return StudentsListDTO;
             }
 
             return null; // Возвращаем null, если статус не подходит / студентов нет в группе
@@ -177,6 +191,51 @@ namespace WCF_Service.ServiceLogic
         #endregion
 
         #region Методы администратора
+
+        // Метод на добавление студента в группу (С проверкой на администратора)
+        public bool AddStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
+        {
+            // Если пользователь, который послал запрос является администратором, то приступи к добавлению студента в группу
+            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            {
+                // Создаем репозитории для работы с БД
+                EFGenericRepository<Users> repository = new EFGenericRepository<Users>(new MyDB()); // Репозиторий для работы с юзерами
+                EFGenericRepository<StudentsGroup> students_repository = new EFGenericRepository<StudentsGroup>(new MyDB()); // Репозиторий для работы со студентами
+
+                var NewStudent = repository.FindQueryEntity(i => i.idUser == Student.IdStudent); // Ищем добавляемого студента в списке юзеров
+
+                // Если юзер существует в списке юзеров и он является студентом по статусу, а также у него нет группы, то добавь его в список студентов
+                if (NewStudent != null)
+                {
+                    // Делаем проверку: является ли добавляемый студент студентом и состоит ли он в группе
+                    if (NewStudent.idUserStatus == 1 && NewStudent.StudentsGroup == null)
+                    {
+                        try
+                        {
+                            // Добавляем в репозиторий студентов нового студента
+                            students_repository.Add(new StudentsGroup
+                                (
+                                Student.IdStudent, // Номер студента
+                                Convert.ToInt16(Student.idGroup), // Айди группы
+                                students_repository.GetQueryList(i => i.idGroup == Student.idGroup).Count() + 1 // Номер по журналу = Количество всех студентов в группе + 1
+                                ));
+
+                            return true; // Возвращаем true, т.к. студент успешно добавлен в группу
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        ExceptionSender.SendException($"Пользователю нельзя добавить группу!");
+                    }
+                }
+            }
+
+            return false; // Возвращаем false, если добавление не удалось
+        }
 
         // Метод, который создает группу
         public bool AddGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups NewGroup)
@@ -279,7 +338,6 @@ namespace WCF_Service.ServiceLogic
             // Если не является, то отмени запрос
             if (CheckUserStatus(MyAcc.idAccount) == 3)
             {
-
                 try
                 {
                     // Найдем редактируемый аккаунт в бд и отредактируем его

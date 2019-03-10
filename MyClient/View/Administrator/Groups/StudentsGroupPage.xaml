@@ -33,19 +33,19 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-
-                <DataGridTextColumn Header="Айди" Width="80" Binding="{Binding Path=idUser}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Имя" Width="150" Binding="{Binding Path=Name}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Фамилия" Width="150" Binding="{Binding Path=Family}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Отчество" Width="150" Binding="{Binding Path=Surname}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Пол" Width="120" Binding="{Binding Path=GetGender}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Телефон" Width="130" Binding="{Binding Path=GetNumberPhone}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Дата рождения" Width="200" Binding="{Binding Path=GetDataTimeFormat}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Айди" Width="70" Binding="{Binding Path=idUser}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Номер в журнале" Width="130" Binding="{Binding Path=StudentsGroup.NumberInJournal}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Имя" Width="130" Binding="{Binding Path=Name}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Фамилия" Width="130" Binding="{Binding Path=Family}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Отчество" Width="130" Binding="{Binding Path=Surname}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Пол" Width="110" Binding="{Binding Path=GetGender}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Телефон" Width="120" Binding="{Binding Path=GetNumberPhone}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Дата рождения" Width="164" Binding="{Binding Path=GetDataTimeFormat}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
             </DataGrid.Columns>
 
         </DataGrid>
         <Label Content="Выберите студента" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,52,0,0" VerticalAlignment="Top" Width="258"/>
-        <ComboBox MaxDropDownHeight="200" IsDropDownOpen="False" IsEditable="True" IsTextSearchEnabled="False" Text="{Binding Path=text, UpdateSourceTrigger=PropertyChanged}"  FontSize="16" ItemsSource="{Binding NotGroupedStudents}" DisplayMemberPath="GetFIO" HorizontalAlignment="Left" Margin="258,52,0,0" VerticalAlignment="Top" Width="744" Height="36">
+        <ComboBox SelectedValue="{Binding SelectedUser}" MaxDropDownHeight="200" IsDropDownOpen="False" IsEditable="True" IsTextSearchEnabled="False" Text="{Binding Path=text, UpdateSourceTrigger=PropertyChanged}"  FontSize="16" ItemsSource="{Binding NotGroupedStudents}" DisplayMemberPath="GetFIO" HorizontalAlignment="Left" Margin="258,52,0,0" VerticalAlignment="Top" Width="744" Height="36">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="KeyUp">
                     <i:InvokeCommandAction Command="{Binding SearchedInCombobox}"/>
@@ -63,7 +63,7 @@
                 </EventTrigger>
             </ComboBox.Triggers>
         </ComboBox>
-        <Button Content="Добавить в группу" Command="{Binding}" FontSize="20" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="992" Height="38"/>
+        <Button Content="Добавить в группу" Command="{Binding AddStudentInGroup}" FontSize="20" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="992" Height="38"/>
         <Button Content="Вернуться назад" Command="{Binding OpenGroups}" FontSize="20" HorizontalAlignment="Left" Margin="10,623,0,0" VerticalAlignment="Top" Width="992" Height="38"/>
     </Grid>
 </Page>

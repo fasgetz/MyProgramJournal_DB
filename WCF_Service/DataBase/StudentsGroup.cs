@@ -20,6 +20,14 @@ namespace WCF_Service.DataBase
             this.Attendance = new HashSet<Attendance>();
             this.FinalAttendances = new HashSet<FinalAttendances>();
         }
+
+
+        public StudentsGroup(int IdStudent, int idGroup, int NumberInJournal)
+        {
+            this.IdStudent = IdStudent;
+            this.idGroup = idGroup;
+            this.NumberInJournal = NumberInJournal;
+        }
     
         public int IdStudent { get; set; }
         public Nullable<int> idGroup { get; set; }

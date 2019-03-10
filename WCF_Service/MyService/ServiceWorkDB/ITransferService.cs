@@ -33,6 +33,14 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы администратора
 
+        // Метод на добавление студента в группу (С проверкой на администратора)
+        [OperationContract]
+        bool AddStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student);
+
+        // Метод на удаление студента из группы (С проверкой на администратора)
+        [OperationContract]
+        bool RemoveStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student);
+
         // Метод на создание группы (Только администратор может создать группу)
         [OperationContract]
         bool AddGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups NewGroup);
