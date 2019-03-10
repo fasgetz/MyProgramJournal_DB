@@ -7,8 +7,9 @@ using MyClient.ProgramLogic.DialogServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MyClient.ViewModel.Administrator.Accounts;
 
-namespace MyClient.ViewModel.Administrator
+namespace MyClient.ViewModel.Administrator.Accounts
 {
 
     /// <summary>

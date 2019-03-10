@@ -31,7 +31,7 @@
                 <MenuItem Header="Показать список" Command="{Binding OpenGroups}" />
             </MenuItem>
             <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Дисциплины" Width="130" Height="40">
-                <MenuItem Header="Показать список" />
+                <MenuItem Header="Показать список" Command="{Binding OpenDisciplinesList}" />
                 <MenuItem Header="Дисциплины преподавателей" />
             </MenuItem>
             <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Расписание" Width="120" Height="40">

@@ -7,7 +7,7 @@ using MyClient.ProgramLogic.DialogServices;
 using System;
 using System.Collections.Generic;
 
-namespace MyClient.ViewModel.Administrator
+namespace MyClient.ViewModel.Administrator.Accounts
 {
     public class CreateAccountVM : AccountsListPageViewModel
     {

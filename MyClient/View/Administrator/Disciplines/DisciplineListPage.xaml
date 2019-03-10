@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MyClient.View.Administrator.Disciplines"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1024"
+      DataContext="{Binding MyDisciplinesListVM, Source={StaticResource Locator}}"      
       Title="DisciplineListPage">
     <Page.Resources>
 
@@ -25,7 +26,7 @@
         <Label Content="Введите название дисциплины" VerticalContentAlignment="Center" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,52,0,0" VerticalAlignment="Top" Width="349" Height="37"/>
         <Button Content="Создать дисциплину" FontSize="20" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="1004" Height="39"/>
 
-        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,151,0,0" HorizontalAlignment="Left" Height="539" VerticalAlignment="Top" Width="1004" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,138,0,0" HorizontalAlignment="Left" Height="552" VerticalAlignment="Top" Width="1004" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
 
             <DataGrid.ContextMenu>
                 <ContextMenu>

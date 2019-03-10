@@ -1,11 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using MyClient.ViewModel.Administrator.Accounts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyClient.ViewModel.Administrator
+namespace MyClient.ViewModel.Administrator.Users
 {
 
     /// <summary>

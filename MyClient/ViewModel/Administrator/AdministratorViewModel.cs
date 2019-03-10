@@ -10,6 +10,8 @@ using System.Linq;
 using MyClient.ProgramLogic.ServiceLogic;
 using MyClient.ViewModel.Administrator.News;
 using MyClient.ViewModel.Administrator.Groups;
+using MyClient.ViewModel.Administrator.Users;
+using MyClient.ViewModel.Administrator.Accounts;
 
 namespace MyClient.ViewModel.Administrator
 {
@@ -419,6 +421,27 @@ namespace MyClient.ViewModel.Administrator
 
         #region Команды перехода по страницам (Только страницы администратора)
 
+        // Команда, которая перейдет на страницу списка дисциплин
+        public ICommand OpenDisciplinesList
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если наша vm = null, то проинициализируй ее
+                    if (locator.MyDisciplinesListVM == null)
+                        locator.MyDisciplinesListVM = new Disciplines.DisciplinesListViewModel();
+
+
+                    // Мессенджер: передай UsersListPageVM наш MyAcc
+                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+
+                    // Перейди в Page страницы дисциплин
+                    navigation.Navigate("View/Administrator/Disciplines/DisciplineListPage.xaml");
+                });
+            }
+        }
+
         // Команда, которая перейдет на страницу новостей
         public ICommand OpenNewsList
         {
@@ -540,6 +563,7 @@ namespace MyClient.ViewModel.Administrator
                 });
             }
         }
+
         #endregion
 
         #region Конструктор

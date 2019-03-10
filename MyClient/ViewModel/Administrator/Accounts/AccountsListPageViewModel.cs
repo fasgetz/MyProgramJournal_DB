@@ -8,8 +8,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Data;
 using System;
+using MyClient.ViewModel.Administrator.Users;
 
-namespace MyClient.ViewModel.Administrator
+namespace MyClient.ViewModel.Administrator.Accounts
 {
     public class AccountsListPageViewModel : AdministratorViewModel
     {

@@ -9,8 +9,9 @@ using System.ComponentModel;
 using System.Windows.Data;
 using System;
 using System.Collections;
+using MyClient.ViewModel.Administrator.Accounts;
 
-namespace MyClient.ViewModel.Administrator
+namespace MyClient.ViewModel.Administrator.Users
 {
     public class UsersListPageViewModel : AdministratorViewModel
     {
