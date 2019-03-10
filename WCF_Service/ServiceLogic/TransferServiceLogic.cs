@@ -22,7 +22,7 @@ namespace WCF_Service.ServiceLogic
             // Возвращаем статус юзера из базы данных
             return Convert.ToInt32(new MyDB().Users.FirstOrDefault(i => i.idUser == idAccount).idUserStatus);
         }
-
+        
         #endregion
 
         #region Методы, которые вызываются в службах
@@ -192,6 +192,65 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы администратора
 
+        // Метод на удаления студенты из группы (С проверкой на администратора)
+        public bool RemoveStudentFromGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
+        {
+            // Если пользователь, который послал запрос является администратором, то приступи к удалению студента из группы
+            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            {
+                try
+                {
+                    using (MyDB db = new MyDB())
+                    {
+                        // Ищем удаляемого студента в списке студентов группы
+                        var DeletedStudent = db.StudentsGroup.FirstOrDefault(i => i.IdStudent == Student.IdStudent && i.idGroup == Student.idGroup);
+
+                        // Если студента нашли в списке, то удали его
+                        if (DeletedStudent != null)
+                        {
+                            // Необходимо сдвинуть номера в журнале всех студентов (Иначе будет проплешина)
+                            // Получаем весь список студентов группы удаляемого студента
+                            List<StudentsGroup> list = db.StudentsGroup.Where(i => i.idGroup == Student.idGroup).ToList();
+
+                            // Если список студентов > 0, то сдвинь номера студентов в журнале
+                            if (list.Count > 0)
+                            {
+                                int index = Convert.ToInt16(DeletedStudent.NumberInJournal); // Определяем индекс, позицию, с которой декрементировать номера по журналу
+
+                                // Перебираем всех студентов во второй половине списка и декрементируем номер по журналу каждого студента
+                                for (int i = index; i < list.Count; i++)
+                                {
+                                    list.ElementAt(i).NumberInJournal--; // Уменьшаем номер в журнале на -1
+                                }
+                            }
+
+                            db.StudentsGroup.Remove(DeletedStudent); // Удаляем студента
+                            db.SaveChanges(); // Сохраняем бд
+
+                            return true; // Возвращаем true, т.к. удаление успешно
+                        }
+                        // Иначе, если студента не нашли, то выдай экзепшен
+                        else
+                        {
+                            ExceptionSender.SendException($"Удаляемого студента нет в списке группы!");
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            // Иначе, если запрос послал не администратор, то выдай ему экзепшен
+            else
+            {
+                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+            }
+
+
+            return false; // Возвращаем false, если удаление не удалось
+        }
+
         // Метод на добавление студента в группу (С проверкой на администратора)
         public bool AddStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
         {
@@ -232,6 +291,11 @@ namespace WCF_Service.ServiceLogic
                         ExceptionSender.SendException($"Пользователю нельзя добавить группу!");
                     }
                 }
+            }
+            // Иначе, если запрос послал не администратор, то выдай ему экзепшен
+            else
+            {
+                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
             }
 
             return false; // Возвращаем false, если добавление не удалось

@@ -44,7 +44,7 @@ namespace WCF_Service.MyService.ServiceWorkDB
         // Метод на удаление студента из группы (С проверкой на администратора)
         public bool RemoveStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
         {
-            return false; // Вернет false, если удаление прошло успешно
+            return MyServiceLogic.RemoveStudentFromGroup(MyAcc, Student); // Вернет false, если удаление прошло успешно
         }
 
         // Метод, который вернет весь список аккаунтов, если он является администратором

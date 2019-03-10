@@ -16,6 +16,43 @@ namespace MyClient.ProgramLogic.ServiceLogic
     {
         #region Методы для работы с сервером
 
+        // Метод удаления студенты из группы
+        public bool DeleteStudentFromGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
+        {
+            // Делаем проверку на то, не пустые ли входные данные студента
+            if (Student != null)
+            {
+                try
+                {
+                    // Создаем канал связи с сервером
+                    using (client = new MyService.TransferServiceClient())
+                    {
+                        // Передаем текущий аккаунт(На сервере пройдет проверка на администратора), а также студента, которого необходимо удалить из группы
+                        bool DeleteStudent = client.RemoveStudentInGroup(MyAcc, Student);
+
+                        // Если студент удален успешно, то выведи об этом пользователю, пославшему запрос
+                        if (DeleteStudent == true)
+                        {
+                            MyDialog.ShowMessage($"Вы успешно удалили студента из группы");
+
+                            return true; // Возвраем true, т.к. студент удален из группы
+                        }
+                    }
+                }
+                catch (FaultException<AccountService.AccountConnectedException> ex)
+                {
+                    MyDialog.ShowMessage(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MyDialog.ShowMessage(ex.Message);
+                }
+
+            }
+
+            return false; // Вернет fasle, если удаление прошло неудачно
+        }
+
         // Метод добавления студента в группу
         public bool AddStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
         {

@@ -67,6 +67,20 @@ namespace MyClient.ViewModel.Administrator.Groups
             }
         }
 
+        // Выбранный студент в списке студентов группы
+        private MyModelLibrary.Users _SelectedStudent;
+        public MyModelLibrary.Users SelectedStudent
+        {
+            get
+            {
+                return _SelectedStudent;
+            }
+            set
+            {
+                _SelectedStudent = value;
+                RaisePropertyChanged("SelectedStudent");
+            }
+        }
 
         #endregion
 
@@ -95,7 +109,29 @@ namespace MyClient.ViewModel.Administrator.Groups
         }
 
         // Команда удаления студенты из группы
+        public ICommand RemoveStudent
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    //Если выбранный текущий аккаунт != null и студента выбрали в ComboBox, то приступи к удалению
+                    if (MyAcc != null && SelectedStudent != null)
+                    {
+                        // Посылаем запрос на сервер удаления студента из группы. Если удален, то вернет true, иначе false
+                        bool RemoveStudent = MyAdminLogic.DeleteStudentFromGroup(MyAcc, new MyModelLibrary.StudentsGroup(SelectedStudent.idUser, SelectedGroup.idGroup));
 
+                        // Если студент успешно удален из группы, то обнови списки
+                        if (RemoveStudent == true)
+                        {
+                            // Обновить списки
+                            StudentsList = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, SelectedGroup.idGroup).OrderBy(i => i.StudentsGroup.NumberInJournal)); // Список студентов группы, отсортированный по номеру в журнале
+                            NotGroupedStudents = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, 0)); // Список студентов без группы
+                        }
+                    }
+                });
+            }
+        }
 
         // Команда добавления студента в группу
         public ICommand AddStudentInGroup
@@ -115,8 +151,7 @@ namespace MyClient.ViewModel.Administrator.Groups
                         {
                             // Обновить списки
                             StudentsList = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, SelectedGroup.idGroup).OrderBy(i => i.StudentsGroup.NumberInJournal)); // Список студентов группы, отсортированный по номеру в журнале
-                            NotGroupedStudents = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, 0)); // Список студентов без группы   
-
+                            NotGroupedStudents = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, 0)); // Список студентов без группы
                         }
                     }
                 });
