@@ -15,6 +15,12 @@ namespace MyClient.MyService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MyService.ITransferService")]
     public interface ITransferService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetDisciplinesList", ReplyAction="http://tempuri.org/ITransferService/GetDisciplinesListResponse")]
+        System.Collections.Generic.List<MyModelLibrary.Discipline> GetDisciplinesList(MyModelLibrary.accounts MyAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetDisciplinesList", ReplyAction="http://tempuri.org/ITransferService/GetDisciplinesListResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Discipline>> GetDisciplinesListAsync(MyModelLibrary.accounts MyAcc);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetStudentsGroup", ReplyAction="http://tempuri.org/ITransferService/GetStudentsGroupResponse")]
         System.Collections.Generic.List<MyModelLibrary.Users> GetStudentsGroup(MyModelLibrary.accounts MyAcc, int idGroup);
         
@@ -32,6 +38,12 @@ namespace MyClient.MyService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroups", ReplyAction="http://tempuri.org/ITransferService/GetGroupsResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddDiscipline", ReplyAction="http://tempuri.org/ITransferService/AddDisciplineResponse")]
+        bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddDiscipline", ReplyAction="http://tempuri.org/ITransferService/AddDisciplineResponse")]
+        System.Threading.Tasks.Task<bool> AddDisciplineAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddStudentInGroup", ReplyAction="http://tempuri.org/ITransferService/AddStudentInGroupResponse")]
         bool AddStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student);
@@ -109,6 +121,14 @@ namespace MyClient.MyService {
                 base(binding, remoteAddress) {
         }
         
+        public System.Collections.Generic.List<MyModelLibrary.Discipline> GetDisciplinesList(MyModelLibrary.accounts MyAcc) {
+            return base.Channel.GetDisciplinesList(MyAcc);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Discipline>> GetDisciplinesListAsync(MyModelLibrary.accounts MyAcc) {
+            return base.Channel.GetDisciplinesListAsync(MyAcc);
+        }
+        
         public System.Collections.Generic.List<MyModelLibrary.Users> GetStudentsGroup(MyModelLibrary.accounts MyAcc, int idGroup) {
             return base.Channel.GetStudentsGroup(MyAcc, idGroup);
         }
@@ -131,6 +151,14 @@ namespace MyClient.MyService {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync() {
             return base.Channel.GetGroupsAsync();
+        }
+        
+        public bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline) {
+            return base.Channel.AddDiscipline(MyAcc, NewDiscipline);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddDisciplineAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline) {
+            return base.Channel.AddDisciplineAsync(MyAcc, NewDiscipline);
         }
         
         public bool AddStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student) {

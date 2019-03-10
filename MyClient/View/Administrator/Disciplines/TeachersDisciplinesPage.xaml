@@ -25,8 +25,8 @@
         <Label Content="Выберите дисциплину" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="196"/>
         <ComboBox HorizontalAlignment="Left" Margin="226,65,0,0" VerticalAlignment="Top" Width="788" Height="31"/>
         <ComboBox HorizontalAlignment="Left" Margin="226,96,0,0" VerticalAlignment="Top" Width="788" Height="31"/>
-        <Button Content="Добавить дисциплину преподавателю" FontSize="20" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" Width="1004" Height="36"/>
-        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,204,0,0" HorizontalAlignment="Left" Height="474" VerticalAlignment="Top" Width="1004" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <Button Content="Добавить дисциплину преподавателю" FontSize="20" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Width="1004" Height="36"/>
+        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,173,0,0" HorizontalAlignment="Left" Height="505" VerticalAlignment="Top" Width="1004" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
 
             <DataGrid.ContextMenu>
                 <ContextMenu>
@@ -36,13 +36,10 @@
             <DataGrid.Columns>
 
                 <DataGridTextColumn Header="Преподаватель" Width="300" Binding="{Binding idAccount}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Дисциплина" Width="500" Binding="{Binding login}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Семестр" Width="200" Binding="{Binding login}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Дисциплина" Width="700" Binding="{Binding login}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
             </DataGrid.Columns>
 
         </DataGrid>
-        <Label Content="Семестр" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Width="196"/>
-        <ComboBox HorizontalAlignment="Left" Margin="226,127,0,0" VerticalAlignment="Top" Width="788" Height="31"/>
 
     </Grid>
 </Page>

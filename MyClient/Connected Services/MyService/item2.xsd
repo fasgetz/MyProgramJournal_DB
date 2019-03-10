@@ -176,6 +176,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserStatus" nillable="true" type="tns:UserStatus" />
+  <xs:complexType name="ArrayOfDiscipline">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Discipline" nillable="true" type="tns:Discipline" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDiscipline" nillable="true" type="tns:ArrayOfDiscipline" />
   <xs:complexType name="ArrayOfUsers">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Users" nillable="true" type="tns:Users" />

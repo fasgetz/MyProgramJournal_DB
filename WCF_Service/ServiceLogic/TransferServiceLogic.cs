@@ -22,12 +22,67 @@ namespace WCF_Service.ServiceLogic
             // Возвращаем статус юзера из базы данных
             return Convert.ToInt32(new MyDB().Users.FirstOrDefault(i => i.idUser == idAccount).idUserStatus);
         }
-        
+
         #endregion
 
         #region Методы, которые вызываются в службах
 
         #region Методы Администратора и преподавателя
+
+        // Метод, который получает список дисциплин
+        // Предварительно аккаунт проходит проверку на соответствие статуса
+        // Если администратор, то выдаются все дисциплины. Если преподаватель, то только те, которые он ведет
+        public List<MyModelLibrary.Discipline> GetDisciplinesList(MyModelLibrary.accounts MyAcc)
+        {
+            // Делаем проверку статуса аккаунта
+            int idAccountStatus = CheckUserStatus(MyAcc.idAccount);
+
+            // Если аккаунт преподаватель или администратор, то продолжи
+            if (idAccountStatus == 2 || idAccountStatus == 3)
+            {
+                EFGenericRepository<Discipline> repository = new EFGenericRepository<Discipline>(new MyDB()); // Репозиторий для работы с бд
+                List<Discipline> list; // Список дисциплин
+
+                // Если администратор, то выдай ему весь список дисциплин
+                if (idAccountStatus == 3)
+                {
+                    list = repository.GetAllList(); // Получаем весь список дисциплин
+                }
+                // Если преподаватель, то выдай ему список дисциплин, которые он ведет
+                else if (idAccountStatus == 2)
+                {
+                    // Сделать реализацию
+                    list = null;
+                }
+                else
+                {
+                    list = null;
+                }
+
+                // Если список не пустой, то сгенерируй DTO список и отправь его клиенту
+                if (list != null)
+                {
+                    // Создаем DTO список и возрващаем его
+                    MyGeneratorDTO generator = new MyGeneratorDTO();
+                    List<MyModelLibrary.Discipline> ListDTO = new List<MyModelLibrary.Discipline>();
+
+                    // Перебираем весь список
+                    foreach (var item in list)
+                    {
+                        ListDTO.Add(new MyModelLibrary.Discipline(item.idDiscipline, item.NameDiscipline)); // Добавляем DTO объект в DTO список
+                    }
+
+                    return ListDTO; // Возвращаем список
+                }
+            }
+            else
+            {
+                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+            }
+
+            return null;
+        }
+
 
         // Метод, который выдаст список студентов по айди группы
         // (Предварительно аккаунт должен пройти проверку на соответствие статуса)

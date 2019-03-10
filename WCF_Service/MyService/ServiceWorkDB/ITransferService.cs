@@ -12,6 +12,13 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Общие методы администратора и преподавателя
 
+
+        // Метод, который получает список дисциплин
+        // Предварительно аккаунт проходит проверку на соответствие статуса
+        // Если администратор, то выдаются все дисциплины. Если преподаватель, то только те, которые он ведет
+        [OperationContract]
+        List<MyModelLibrary.Discipline> GetDisciplinesList(MyModelLibrary.accounts MyAcc);
+
         // Метод, который выдаст список студентов по айди группы
         // (Предварительно аккаунт должен пройти проверку на соответствие статуса)
         [OperationContract]
@@ -32,6 +39,10 @@ namespace WCF_Service.MyService.ServiceWorkDB
         #endregion
 
         #region Методы администратора
+
+        // Метод на добавление дисциплины (С проверкой на администратора)
+        [OperationContract]
+        bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline);
 
         // Метод на добавление студента в группу (С проверкой на администратора)
         [OperationContract]

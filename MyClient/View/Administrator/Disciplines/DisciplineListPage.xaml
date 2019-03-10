@@ -26,18 +26,19 @@
         <Label Content="Введите название дисциплины" VerticalContentAlignment="Center" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,52,0,0" VerticalAlignment="Top" Width="349" Height="37"/>
         <Button Content="Создать дисциплину" FontSize="20" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="1004" Height="39"/>
 
-        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,138,0,0" HorizontalAlignment="Left" Height="552" VerticalAlignment="Top" Width="1004" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,138,0,0" HorizontalAlignment="Left" Height="552" VerticalAlignment="Top" Width="1004" ItemsSource="{Binding Disciplines}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
 
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Редактировать" />
+                    <MenuItem Header="Показать преподавателей (off)" />
+                    <MenuItem Header="Редактировать (off)" />
                     <MenuItem Header="Удалить (off)" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Айди" Width="200" Binding="{Binding idAccount}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Название дисциплины" Width="800" Binding="{Binding login}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Айди" Width="200" Binding="{Binding idDiscipline}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Название дисциплины" Width="795" Binding="{Binding NameDiscipline}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
             </DataGrid.Columns>
 
         </DataGrid>

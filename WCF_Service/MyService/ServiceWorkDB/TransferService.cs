@@ -24,6 +24,15 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы контракта служб администратора и преподавателя
 
+        // Метод, который получает список дисциплин
+        // Предварительно аккаунт проходит проверку на соответствие статуса
+        // Если администратор, то выдаются все дисциплины. Если преподаватель, то только те, которые он ведет
+        public List<MyModelLibrary.Discipline> GetDisciplinesList(MyModelLibrary.accounts MyAcc)
+        {
+            return MyServiceLogic.GetDisciplinesList(MyAcc);
+        }
+
+
         // Метод, который выдаст список студентов по айди группы
         // (Предварительно аккаунт должен пройти проверку на соответствие статуса)
         public List<MyModelLibrary.Users> GetStudentsGroup(MyModelLibrary.accounts MyAcc, int idGroup)
@@ -34,6 +43,12 @@ namespace WCF_Service.MyService.ServiceWorkDB
         #endregion
 
         #region Методы контракта служб Администратора
+
+        // Метод на добавление дисциплины (С проверкой на администратора)
+        public bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline)
+        {
+            return false;
+        }
 
         // Метод на добавление студента в группу (С проверкой на администратора)
         public bool AddStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
@@ -97,7 +112,6 @@ namespace WCF_Service.MyService.ServiceWorkDB
         {
             return MyServiceLogic.GetGroups(); // Возвращаем список групп в DTO
         }
-
 
         #endregion
 
