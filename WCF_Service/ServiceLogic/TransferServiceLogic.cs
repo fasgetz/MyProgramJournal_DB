@@ -72,7 +72,7 @@ namespace WCF_Service.ServiceLogic
                         ListDTO.Add(new MyModelLibrary.Discipline(item.idDiscipline, item.NameDiscipline)); // Добавляем DTO объект в DTO список
                     }
 
-                    return ListDTO; // Возвращаем список
+                    return ListDTO.OrderBy(i => i.idDiscipline).ToList(); // Возвращаем список (Отсортированный по айди дисциплины
                 }
             }
             else
@@ -115,7 +115,7 @@ namespace WCF_Service.ServiceLogic
                         mylist = repository.GetQueryList(i => i.StudentsGroup == null && i.idUserStatus == 1);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     mylist = null;
@@ -130,7 +130,7 @@ namespace WCF_Service.ServiceLogic
                     // Получаем список студентов
                     // Если преподаватель есть в списке преподавателей и он ведет у этой группы (Дополнить - ведет предмет)
                     // && i.GroupDisciplines == idGroup
-                    if (new MyDB().TeacherDisciplines.FirstOrDefault(i => i.IdTeacher == MyAcc.idAccount ) != null)
+                    if (new MyDB().TeacherDisciplines.FirstOrDefault(i => i.IdTeacher == MyAcc.idAccount) != null)
                     {
                         mylist = null;
                     }
@@ -140,7 +140,7 @@ namespace WCF_Service.ServiceLogic
                         return null; // Возвращаем пустой список
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     mylist = null;
@@ -202,7 +202,7 @@ namespace WCF_Service.ServiceLogic
                     return MySpecialityCodesDTO; // Возвращаем список DTO объектов специальностей
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -230,13 +230,13 @@ namespace WCF_Service.ServiceLogic
                     foreach (var item in list)
                     {
                         // Добавляем группу, преобразовав в DTO объект
-                        MyGroupsDTO.Add(generator.GetGroups(item));                        
+                        MyGroupsDTO.Add(generator.GetGroups(item));
                     }
 
                     return MyGroupsDTO; // Вернуть список DTO объектов
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -247,6 +247,47 @@ namespace WCF_Service.ServiceLogic
         #endregion
 
         #region Методы администратора
+
+        // Метод добавления новой дисциплины
+        public bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline)
+        {
+            // Если пользователь, который послал запрос является администратором, то приступи к добавлению дисциплины
+            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            {
+                // Если название дисциплины != пустое название, то добавь дисциплину, иначе выдай ошибку
+                if (NewDiscipline.NameDiscipline != null)
+                {
+                    try
+                    {
+                        // Создаем репозиторий для работы с бд
+                        EFGenericRepository<Discipline> repository = new EFGenericRepository<Discipline>(new MyDB());
+                        repository.Add(new Discipline(NewDiscipline.NameDiscipline)); // Добавляем дисциплину в репозиторий
+
+                        return true; // Возвращаем true, т.к. дисциплина была успешно добавлена в бд
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateException)
+                    {
+                        ExceptionSender.SendException($"Дисциплина <<{NewDiscipline.NameDiscipline}>> уже существует!");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+                // Если название дисциплины передано пустое, то выдай ошибку
+                else
+                {
+                    ExceptionSender.SendException("Вы не ввели название дисциплины");
+                }
+            }
+            // Если тот, кто послал запрос не является администратором, то отправь ему экзепшн
+            else
+            {
+                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+            }
+
+            return false; // Возвращаем false, если неудачно
+        }
 
         // Метод на удаления студенты из группы (С проверкой на администратора)
         public bool RemoveStudentFromGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
@@ -268,15 +309,12 @@ namespace WCF_Service.ServiceLogic
                             // Получаем весь список студентов группы удаляемого студента
                             List<StudentsGroup> list = db.StudentsGroup.Where(i => i.idGroup == Student.idGroup).ToList();
 
-                            // Если список студентов > 0, то сдвинь номера студентов в журнале
-                            if (list.Count > 0)
-                            {
-                                int index = Convert.ToInt16(DeletedStudent.NumberInJournal); // Определяем индекс, позицию, с которой декрементировать номера по журналу
-
-                                // Перебираем всех студентов во второй половине списка и декрементируем номер по журналу каждого студента
-                                for (int i = index; i < list.Count; i++)
+                            // Перебираем всех студентов и декрементируем номер по журналу каждого студента, после удаляемого студента
+                            foreach (var item in list)
+                            {                                
+                                if (item.NumberInJournal > DeletedStudent.NumberInJournal)
                                 {
-                                    list.ElementAt(i).NumberInJournal--; // Уменьшаем номер в журнале на -1
+                                    item.NumberInJournal--;
                                 }
                             }
 

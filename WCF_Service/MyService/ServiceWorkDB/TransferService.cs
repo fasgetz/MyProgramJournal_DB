@@ -47,7 +47,7 @@ namespace WCF_Service.MyService.ServiceWorkDB
         // Метод на добавление дисциплины (С проверкой на администратора)
         public bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline)
         {
-            return false;
+            return MyServiceLogic.AddDiscipline(MyAcc, NewDiscipline);
         }
 
         // Метод на добавление студента в группу (С проверкой на администратора)

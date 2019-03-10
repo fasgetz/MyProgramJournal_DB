@@ -14,6 +14,11 @@ namespace MyModelLibrary
             //this.TeacherDisciplines = new List<TeacherDisciplines>();
         }
 
+        public Discipline(string NameDiscipline)
+        {
+            this.NameDiscipline = NameDiscipline;
+        }
+
         public Discipline(int idDiscipline, string NameDiscipline)
         {
             this.idDiscipline = idDiscipline;

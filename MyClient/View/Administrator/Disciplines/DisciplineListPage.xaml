@@ -22,15 +22,14 @@
 
     <Grid>
         <Label Content="Создание дисциплины" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="1024"/>
-        <TextBox HorizontalAlignment="Left" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="37" Margin="349,52,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="665"/>
+        <TextBox HorizontalAlignment="Left" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="37" Margin="349,52,0,0" TextWrapping="Wrap" Text="{Binding text}" VerticalAlignment="Top" Width="665"/>
         <Label Content="Введите название дисциплины" VerticalContentAlignment="Center" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,52,0,0" VerticalAlignment="Top" Width="349" Height="37"/>
-        <Button Content="Создать дисциплину" FontSize="20" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="1004" Height="39"/>
+        <Button Content="Создать дисциплину" Command="{Binding AddDiscipline}" FontSize="20" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="1004" Height="39"/>
 
         <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,138,0,0" HorizontalAlignment="Left" Height="552" VerticalAlignment="Top" Width="1004" ItemsSource="{Binding Disciplines}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
 
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Показать преподавателей (off)" />
                     <MenuItem Header="Редактировать (off)" />
                     <MenuItem Header="Удалить (off)" />
                 </ContextMenu>
