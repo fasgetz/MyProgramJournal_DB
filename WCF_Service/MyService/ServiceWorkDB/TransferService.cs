@@ -32,7 +32,6 @@ namespace WCF_Service.MyService.ServiceWorkDB
             return MyServiceLogic.GetDisciplinesList(MyAcc);
         }
 
-
         // Метод, который выдаст список студентов по айди группы
         // (Предварительно аккаунт должен пройти проверку на соответствие статуса)
         public List<MyModelLibrary.Users> GetStudentsGroup(MyModelLibrary.accounts MyAcc, int idGroup)
@@ -43,6 +42,27 @@ namespace WCF_Service.MyService.ServiceWorkDB
         #endregion
 
         #region Методы контракта служб Администратора
+
+
+        // Метод, который выдаст список преподавателей (С проверкой на администратора)
+        public List<MyModelLibrary.Users> GetTeacherList(MyModelLibrary.accounts MyAcc)
+        {
+            return MyServiceLogic.GetTeacherList(MyAcc);
+        }
+
+        // Метод, который выдаст список дисциплин учителя / дисциплин, которых еще нет у учителя
+        // (param = 1, выдаст дисциплины учителя / param = 2, выдаст дисциплины, которых еще нет у учителя)
+        public List<MyModelLibrary.Discipline> GetTeacherDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, byte param)
+        {
+            return MyServiceLogic.GetTeacherDisciplines(MyAcc, Teacher, param);
+        }
+
+        // Метод добавления дисциплины учителю
+        public bool AddTeacherDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline Discipline)
+        {
+            return MyServiceLogic.AddTeacherDiscipline(MyAcc, Teacher, Discipline);
+        }
+
 
         // Метод на добавление дисциплины (С проверкой на администратора)
         public bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline)

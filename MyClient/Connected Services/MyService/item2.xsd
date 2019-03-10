@@ -96,15 +96,10 @@
   <xs:complexType name="TeacherDisciplines">
     <xs:sequence>
       <xs:element name="_x003C_Discipline_x003E_k__BackingField" nillable="true" type="tns:Discipline" />
-      <xs:element name="_x003C_FinalAttendances_x003E_k__BackingField" nillable="true" type="tns:ArrayOfFinalAttendances" />
-      <xs:element name="_x003C_Groups_x003E_k__BackingField" nillable="true" type="tns:Groups" />
+      <xs:element name="_x003C_GroupDisciplines_x003E_k__BackingField" nillable="true" type="tns:ArrayOfGroupDisciplines" />
       <xs:element name="_x003C_IdDiscipline_x003E_k__BackingField" type="xs:int" />
-      <xs:element name="_x003C_IdGroup_x003E_k__BackingField" type="xs:int" />
-      <xs:element name="_x003C_IdTeacherActivities_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdTeacherDiscipline_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_IdTeacher_x003E_k__BackingField" type="xs:int" />
-      <xs:element name="_x003C_LessonsDate_x003E_k__BackingField" nillable="true" type="tns:ArrayOfLessonsDate" />
-      <xs:element name="_x003C_NumberSemester_x003E_k__BackingField" type="xs:int" />
-      <xs:element name="_x003C_User_x003E_k__BackingField" nillable="true" type="tns:Users" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TeacherDisciplines" nillable="true" type="tns:TeacherDisciplines" />
@@ -115,6 +110,25 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Discipline" nillable="true" type="tns:Discipline" />
+  <xs:complexType name="ArrayOfGroupDisciplines">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GroupDisciplines" nillable="true" type="tns:GroupDisciplines" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGroupDisciplines" nillable="true" type="tns:ArrayOfGroupDisciplines" />
+  <xs:complexType name="GroupDisciplines">
+    <xs:sequence>
+      <xs:element name="_x003C_FinalAttendances_x003E_k__BackingField" nillable="true" type="tns:ArrayOfFinalAttendances" />
+      <xs:element name="_x003C_Groups_x003E_k__BackingField" nillable="true" type="tns:Groups" />
+      <xs:element name="_x003C_IdGroup_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdTeacherDiscipline_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_LessonsDate_x003E_k__BackingField" nillable="true" type="tns:ArrayOfLessonsDate" />
+      <xs:element name="_x003C_NumberSemester_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_TeacherDisciplines_x003E_k__BackingField" nillable="true" type="tns:TeacherDisciplines" />
+      <xs:element name="_x003C_idTeacherActivities_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GroupDisciplines" nillable="true" type="tns:GroupDisciplines" />
   <xs:complexType name="Groups">
     <xs:sequence>
       <xs:element name="_x003C_GroupName_x003E_k__BackingField" nillable="true" type="xs:string" />

@@ -100,7 +100,7 @@ namespace WCF_Service.DataBase.DTO
         }
 
         // Метод для получения DTO - Discipline + Готов
-        private MyModelLibrary.Discipline GetDiscipline(Discipline Discipline)
+        public MyModelLibrary.Discipline GetDiscipline(Discipline Discipline)
         {
             MyModelLibrary.Discipline MyDiscipline = new MyModelLibrary.Discipline(Discipline.idDiscipline, Discipline.NameDiscipline);
 

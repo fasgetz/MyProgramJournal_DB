@@ -248,6 +248,130 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы администратора
 
+
+        // Метод, который выдаст список преподавателей (С проверкой на администратора)
+        public List<MyModelLibrary.Users> GetTeacherList(MyModelLibrary.accounts MyAcc)
+        {
+            // Если пользователь, который послал запрос является администратором, то приступи к получению списка преподавателей
+            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            {
+                EFGenericRepository<Users> repository = new EFGenericRepository<Users>(new MyDB());
+
+                var list = repository.GetQueryList(i => i.idUserStatus == 2); // Получаем список преподавателей
+
+                // Если список не пустой, то преобразуй его в DTO список и отправь клиенту
+                if (list != null)
+                {
+                    try
+                    {
+                        MyGeneratorDTO generator = new MyGeneratorDTO(); // Генератор DTO объектов
+                        List<MyModelLibrary.Users> MyDTOList = new List<MyModelLibrary.Users>(); // DTO список
+
+                        // Перебираем весь список и преобразуем в DTO
+                        foreach (var item in list)
+                        {
+                            MyDTOList.Add(generator.GetUser(item)); //  добавляем DTO элемент в DTO список
+                        }
+
+                        return MyDTOList; // Возвращаем DTO списо
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+            // Если тот, кто послал запрос не является администратором, то отправь ему экзепшн
+            else
+            {
+                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+            }
+
+            return null; // Вернуть null, если неудалось получить список
+        }
+
+        // Метод, который выдаст список дисциплин учителя / дисциплин, которых еще нет у учителя
+        // (param = 1, выдаст дисциплины учителя / param = 2, выдаст дисциплины, которых еще нет у учителя)
+        public List<MyModelLibrary.Discipline> GetTeacherDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, byte param)
+        {
+            // Если пользователь, который послал запрос является администратором, то приступи к получению списка преподавателей
+            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            {
+                // Если выбрали учителя, то прогрузи список дисциплин по выбранному параметру
+                if (Teacher != null && CheckUserStatus(Teacher.idUser) == 2)
+                {
+                    try
+                    {
+                        // Создаем репозиторий для работы с БД
+                        EFGenericRepository<Discipline> repository = new EFGenericRepository<Discipline>(new MyDB());
+                        EFGenericRepository<TeacherDisciplines> DisciplinesRepository = new EFGenericRepository<TeacherDisciplines>(new MyDB()); // Репозиторий для работы с бд в контексте дисциплин учителя
+
+                        List<TeacherDisciplines> list; // Список дисциплин
+                        
+
+                        // Если выбрали 1 (Значит, что необходимо выбрать все дисциплины, которые ведет учитель)
+                        if (param == 1)
+                        {
+                            list = DisciplinesRepository.GetQueryList(i => i.IdTeacher == Teacher.idUser); // Получаем список дисциплин, которые ведет учитель
+                        }
+                        // Если выбрали 2 (Значит, что необходимо выбрать дисциплины, которые не ведет учитель)
+                        else if (param == 2)
+                        {
+                            list = null;
+                        }
+                        // Иначе, если параметр выбран неверно, то верни ошибку
+                        else
+                        {
+                            return null;
+                        }
+
+                        // Если список не пустой, то преобразуй DTO список объектов и верни юзеру
+                        if (list != null)
+                        {
+                            List<MyModelLibrary.Discipline> disciplines = new List<MyModelLibrary.Discipline>(); // Список дисциплин в DTO
+
+                            var notdtodisciplines = repository.GetAllList(); // Получаем весь список дисциплин
+
+                            // Перебираем все дисциплины и добавляем их в DTO список
+                            foreach (var item in list)
+                            {
+                                // Находим дисциплину в списке по айди
+                                var MyDiscipline = list.FirstOrDefault(i => i.IdDiscipline == item.IdDiscipline);
+
+                                disciplines.Add(new MyModelLibrary.Discipline(item.IdDiscipline, item.Discipline.NameDiscipline)); // Добавляем дисциплину
+                            }
+
+                            Console.WriteLine($"Возвращаем юзеру: {disciplines.Count()} дисциплин!");
+                            return disciplines; // Возвращаем список дисциплин
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }                    
+                }
+                // Иначе, если учителя не выбрали, то верни экзепшен
+                else
+                {
+                    ExceptionSender.SendException("Вы не выбрали учителя!!");
+                }
+            }
+            // Если тот, кто послал запрос не является администратором, то отправь ему экзепшн
+            else
+            {
+                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+            }
+
+            return null; // Вернуть null, если неудалось получить список
+        }
+
+        // Метод добавления дисциплины учителю
+        public bool AddTeacherDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline Discipline)
+        {
+            return true;
+        }
+
+
         // Метод добавления новой дисциплины
         public bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline)
         {
@@ -404,7 +528,7 @@ namespace WCF_Service.ServiceLogic
                 var repository = new EFGenericRepository<Groups>(new MyDB());
 
                 // Если все данные заполнили, то создай новую группу
-                if (NewGroup.GroupName != string.Empty && NewGroup.idSpeciality != null)
+                if (NewGroup.GroupName != null && NewGroup.idSpeciality != null)
                 {
                     try
                     {

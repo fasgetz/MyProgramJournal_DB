@@ -77,7 +77,7 @@ namespace MyClient.ViewModel.Administrator.Disciplines
         protected new void GetAccount(GenericMessage<MyModelLibrary.accounts> GetAcc)
         {
             MyAcc = GetAcc.Content;
-            Disciplines = MyAdminLogic.GetDisciplines(MyAcc); // Прогружаем список дисциплин            
+            Disciplines = MyAdminLogic.GetDisciplines(MyAcc); // Прогружаем список дисциплин              
         }
         #endregion
 

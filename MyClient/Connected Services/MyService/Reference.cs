@@ -39,6 +39,24 @@ namespace MyClient.MyService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroups", ReplyAction="http://tempuri.org/ITransferService/GetGroupsResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetTeacherList", ReplyAction="http://tempuri.org/ITransferService/GetTeacherListResponse")]
+        System.Collections.Generic.List<MyModelLibrary.Users> GetTeacherList(MyModelLibrary.accounts MyAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetTeacherList", ReplyAction="http://tempuri.org/ITransferService/GetTeacherListResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetTeacherListAsync(MyModelLibrary.accounts MyAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetTeacherDisciplines", ReplyAction="http://tempuri.org/ITransferService/GetTeacherDisciplinesResponse")]
+        System.Collections.Generic.List<MyModelLibrary.Discipline> GetTeacherDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, byte param);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetTeacherDisciplines", ReplyAction="http://tempuri.org/ITransferService/GetTeacherDisciplinesResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Discipline>> GetTeacherDisciplinesAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, byte param);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddTeacherDiscipline", ReplyAction="http://tempuri.org/ITransferService/AddTeacherDisciplineResponse")]
+        bool AddTeacherDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline Discipline);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddTeacherDiscipline", ReplyAction="http://tempuri.org/ITransferService/AddTeacherDisciplineResponse")]
+        System.Threading.Tasks.Task<bool> AddTeacherDisciplineAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline Discipline);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddDiscipline", ReplyAction="http://tempuri.org/ITransferService/AddDisciplineResponse")]
         bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline);
         
@@ -151,6 +169,30 @@ namespace MyClient.MyService {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync() {
             return base.Channel.GetGroupsAsync();
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.Users> GetTeacherList(MyModelLibrary.accounts MyAcc) {
+            return base.Channel.GetTeacherList(MyAcc);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetTeacherListAsync(MyModelLibrary.accounts MyAcc) {
+            return base.Channel.GetTeacherListAsync(MyAcc);
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.Discipline> GetTeacherDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, byte param) {
+            return base.Channel.GetTeacherDisciplines(MyAcc, Teacher, param);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Discipline>> GetTeacherDisciplinesAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, byte param) {
+            return base.Channel.GetTeacherDisciplinesAsync(MyAcc, Teacher, param);
+        }
+        
+        public bool AddTeacherDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline Discipline) {
+            return base.Channel.AddTeacherDiscipline(MyAcc, Teacher, Discipline);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddTeacherDisciplineAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline Discipline) {
+            return base.Channel.AddTeacherDisciplineAsync(MyAcc, Teacher, Discipline);
         }
         
         public bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline) {

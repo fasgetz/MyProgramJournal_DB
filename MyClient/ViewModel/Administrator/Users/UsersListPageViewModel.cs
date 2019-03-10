@@ -17,21 +17,6 @@ namespace MyClient.ViewModel.Administrator.Users
     {
 
         #region Свойства
-
-        // Список пользователей
-        private List<MyModelLibrary.Users> _UsersList;
-        public List<MyModelLibrary.Users> UsersList
-        {
-            get
-            {
-                return _UsersList;
-            }
-            set
-            {
-                _UsersList = value;
-                RaisePropertyChanged("UsersList");
-            }
-        }
     
         // Для хранения элементов, которые выводятся в Users ComboBox
         private List<string> _UsersCBData;

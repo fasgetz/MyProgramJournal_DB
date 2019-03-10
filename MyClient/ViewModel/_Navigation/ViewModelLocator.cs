@@ -61,6 +61,8 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Register<EditNewsViewModel>(); // VM страницы редактирования новости
             SimpleIoc.Default.Register<StudentsGroupViewModel>(); // VM страницы студентов группы
             SimpleIoc.Default.Register<DisciplinesListViewModel>(); // VM страницы списка дисциплин и создания
+            SimpleIoc.Default.Register<TeacherDisciplinesViewModel>(); // VM страницы добавления дисциплины преподавателю
+
 
             // ViewModel Преподавателя
             SimpleIoc.Default.Register<TeacherViewModel>(); // ViewModel окна учителя
@@ -95,6 +97,19 @@ namespace MyClient.ViewModel._Navigation
         #endregion
 
         #region VM Администратора
+
+        private TeacherDisciplinesViewModel _TeacherDisciplinesVM;
+        public TeacherDisciplinesViewModel TeacherDisciplinesVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<TeacherDisciplinesViewModel>();
+            }
+            set
+            {
+                _TeacherDisciplinesVM = value;
+            }
+        }
 
         private DisciplinesListViewModel _MyDisciplinesListVM;
         public DisciplinesListViewModel MyDisciplinesListVM

@@ -32,7 +32,7 @@
             </MenuItem>
             <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Дисциплины" Width="130" Height="40">
                 <MenuItem Header="Показать список" Command="{Binding OpenDisciplinesList}" />
-                <MenuItem Header="Дисциплины преподавателей" />
+                <MenuItem Header="Дисциплины преподавателей" Command="{Binding OpenAddTeacherDisciplines}"/>
             </MenuItem>
             <MenuItem VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  FontSize="20" Header="Расписание" Width="120" Height="40">
                 <MenuItem Header="Показать" />

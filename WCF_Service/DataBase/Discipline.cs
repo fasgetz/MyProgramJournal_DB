@@ -25,6 +25,12 @@ namespace WCF_Service.DataBase
             this.NameDiscipline = NameDiscipline;
         }
 
+        public Discipline(int idDiscipline, string NameDiscipline)
+        {
+            this.idDiscipline = idDiscipline;
+            this.NameDiscipline = NameDiscipline;
+        }
+
         public int idDiscipline { get; set; }
         public string NameDiscipline { get; set; }
     

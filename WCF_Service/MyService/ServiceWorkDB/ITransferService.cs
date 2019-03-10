@@ -40,6 +40,19 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы администратора
 
+        // Метод, который выдаст список преподавателей (С проверкой на администратора)
+        [OperationContract]
+        List<MyModelLibrary.Users> GetTeacherList(MyModelLibrary.accounts MyAcc);
+
+        // Метод, который выдаст список дисциплин учителя / дисциплин, которых еще нет у учителя
+        // (param = 1, выдаст дисциплины учителя / param = 2, выдаст дисциплины, которых еще нет у учителя)
+        [OperationContract]
+        List<MyModelLibrary.Discipline> GetTeacherDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, byte param);
+
+        // Метод добавления дисциплины учителю
+        [OperationContract]
+        bool AddTeacherDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline Discipline);
+
         // Метод на добавление дисциплины (С проверкой на администратора)
         [OperationContract]
         bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline);

@@ -16,6 +16,53 @@ namespace MyClient.ProgramLogic.ServiceLogic
     {
         #region Методы для работы с сервером
 
+        // Метод, который выдаст список дисциплин учителя / дисциплин, которых еще нет у учителя
+        // (param = 1, выдаст дисциплины учителя / param = 2, выдаст дисциплины, которых еще нет у учителя)
+        public List<MyModelLibrary.Discipline> GetTeacherDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, byte param)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    return client.GetTeacherDisciplines(MyAcc, Teacher, param);
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return null; // Если неудачно
+        }
+
+        // Метод получения списка учителей
+        public List<MyModelLibrary.Users> GetTeachersList(MyModelLibrary.accounts MyAcc)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    return client.GetTeacherList(MyAcc); // Возвращаем список пользователей
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return null; // Если неудачно
+        }
+
         // Метод добавления дисциплины
         public bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline Discipline)
         {

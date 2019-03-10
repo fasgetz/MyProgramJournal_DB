@@ -291,6 +291,21 @@ namespace MyClient.ViewModel.Administrator
 
         #endregion
 
+        // Список пользователей
+        private List<MyModelLibrary.Users> _UsersList;
+        public List<MyModelLibrary.Users> UsersList
+        {
+            get
+            {
+                return _UsersList;
+            }
+            set
+            {
+                _UsersList = value;
+                RaisePropertyChanged("UsersList");
+            }
+        }
+
         // Выбранный аккаунт в списке
         private MyModelLibrary.accounts _SelectedAccount;
         public MyModelLibrary.accounts SelectedAccount
@@ -420,6 +435,27 @@ namespace MyClient.ViewModel.Administrator
         #endregion
 
         #region Команды перехода по страницам (Только страницы администратора)
+
+        // Команда перехода на страницу добавления дисциплины учителю
+        public ICommand OpenAddTeacherDisciplines
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если наша vm = null, то проинициализируй ее
+                    if (locator.TeacherDisciplinesVM == null)
+                        locator.TeacherDisciplinesVM = new Disciplines.TeacherDisciplinesViewModel();
+
+
+                    // Мессенджер: передай UsersListPageVM наш MyAcc
+                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+
+                    // Перейди в Page страницы дисциплин
+                    navigation.Navigate("View/Administrator/Disciplines/TeachersDisciplinesPage.xaml");
+                });
+            }
+        }
 
         // Команда, которая перейдет на страницу списка дисциплин
         public ICommand OpenDisciplinesList
