@@ -83,6 +83,9 @@
     <Compile Include="DataBase\FinalAttendances.cs">
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataBase\GroupDisciplines.cs">
+      <DependentUpon>MyDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataBase\Groups.cs">
       <DependentUpon>MyDB.tt</DependentUpon>
     </Compile>
@@ -150,10 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="DataBase\MyDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MyDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="DataBase\DbNews.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DbNews.Designer.cs</LastGenOutput>
@@ -161,6 +160,10 @@
     <None Include="DataBase\DbNews.edmx.diagram">
       <DependentUpon>DbNews.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="DataBase\MyDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MyDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="DataBase\MyDB.edmx.diagram">
       <DependentUpon>MyDB.edmx</DependentUpon>
     </None>

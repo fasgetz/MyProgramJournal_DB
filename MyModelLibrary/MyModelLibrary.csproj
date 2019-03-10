@@ -43,6 +43,7 @@
     <Compile Include="accounts.cs" />
     <Compile Include="Attendance.cs" />
     <Compile Include="FinalAttendances.cs" />
+    <Compile Include="GroupDisciplines.cs" />
     <Compile Include="Images.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Discipline.cs" />

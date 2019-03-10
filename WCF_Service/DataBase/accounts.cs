@@ -47,7 +47,7 @@ namespace WCF_Service.DataBase
             this.login = login;
             this.password = password;
             this.DateRegistration = DateRegistration;
-            this.Users = new Users(idAccount, StatusUser, Name, Family, Surname, Gender, NumberPhone, DateOfBirthday);            
+            this.Users = new Users(idAccount, StatusUser, Name, Family, Surname, Gender, NumberPhone, DateOfBirthday);
         }
 
         // Переопределяем конструктор, если требуется добавить айди аккаунта к инициализации объекта
@@ -65,7 +65,7 @@ namespace WCF_Service.DataBase
             string NumberPhone,
             DateTime? DateOfBirthday,
             int idAccount)
-            :this (idAccount)
+            : this(idAccount)
         {
             this.idStatus = idStatus;
             this.login = login;

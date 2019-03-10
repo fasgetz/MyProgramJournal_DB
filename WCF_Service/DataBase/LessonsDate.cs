@@ -27,6 +27,6 @@ namespace WCF_Service.DataBase
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendance> Attendance { get; set; }
-        public virtual TeacherDisciplines TeacherDisciplines { get; set; }
+        public virtual GroupDisciplines GroupDisciplines { get; set; }
     }
 }

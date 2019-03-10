@@ -11,7 +11,7 @@ namespace WCF_Service.DataBase
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class StudentsGroup
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,11 +28,11 @@ namespace WCF_Service.DataBase
             this.idGroup = idGroup;
             this.NumberInJournal = NumberInJournal;
         }
-    
+
         public int IdStudent { get; set; }
         public Nullable<int> idGroup { get; set; }
         public Nullable<int> NumberInJournal { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendance> Attendance { get; set; }
         public virtual Groups Groups { get; set; }

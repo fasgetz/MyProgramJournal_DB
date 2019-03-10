@@ -11,19 +11,26 @@ namespace WCF_Service.DataBase
 {
     using System;
     using System.Collections.Generic;
-
-    public partial class UserStatus
+    
+    public partial class GroupDisciplines
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserStatus()
+        public GroupDisciplines()
         {
-            this.Users = new HashSet<Users>();
+            this.FinalAttendances = new HashSet<FinalAttendances>();
+            this.LessonsDate = new HashSet<LessonsDate>();
         }
-
-        public int idUserStatus { get; set; }
-        public string StatusUser { get; set; }
-
+    
+        public int idTeacherActivities { get; set; }
+        public int IdTeacherDiscipline { get; set; }
+        public int IdGroup { get; set; }
+        public int NumberSemester { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<FinalAttendances> FinalAttendances { get; set; }
+        public virtual Groups Groups { get; set; }
+        public virtual TeacherDisciplines TeacherDisciplines { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LessonsDate> LessonsDate { get; set; }
     }
 }

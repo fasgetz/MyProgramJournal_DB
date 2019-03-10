@@ -12,29 +12,22 @@ namespace MyModelLibrary
 
 
 
-        public TeacherDisciplines(int IdTeacherActivities, int IdTeacher, int IdDiscipline, int IdGroup, int NumberSemester)
+        public TeacherDisciplines(int IdTeacherDiscipline, int IdTeacher, int IdDiscipline)
         {
-            this.IdTeacherActivities = IdTeacherActivities;
+            this.IdTeacherDiscipline = IdTeacherDiscipline;
             this.IdTeacher = IdTeacher;
-            this.IdDiscipline = IdDiscipline;
-            this.IdGroup = IdGroup;
-            this.NumberSemester = NumberSemester;
+            this.IdDiscipline = IdDiscipline;            
         }
 
         #region Свойства TeacherDisciplines
 
-        public int IdTeacherActivities { get; set; }
+        public int IdTeacherDiscipline { get; set; }
         public int IdTeacher { get; set; }
         public int IdDiscipline { get; set; }
-        public int IdGroup { get; set; }
-        public int NumberSemester { get; set; }
 
-
-        public List<LessonsDate> LessonsDate { get; set; }
-        public Discipline Discipline { get; set; }
-        public Groups Groups { get; set; }
-        public Users User { get; set; }
-        public virtual List<FinalAttendances> FinalAttendances { get; set; } // Список итоговых оценок учителя
+        public virtual Discipline Discipline { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GroupDisciplines> GroupDisciplines { get; set; }
 
         #endregion
     }

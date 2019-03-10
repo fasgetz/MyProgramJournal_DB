@@ -18,7 +18,7 @@ namespace WCF_Service.DataBase
         public int idTeacherActivities { get; set; }
         public int idStudent { get; set; }
     
+        public virtual GroupDisciplines GroupDisciplines { get; set; }
         public virtual StudentsGroup StudentsGroup { get; set; }
-        public virtual TeacherDisciplines TeacherDisciplines { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище db_journalModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище db_journalModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="accounts">
           <Key>
             <PropertyRef Name="idAccount" />
@@ -38,6 +38,15 @@
           <Property Name="idFinalAttendance" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idTeacherActivities" Type="int" Nullable="false" />
           <Property Name="idStudent" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GroupDisciplines">
+          <Key>
+            <PropertyRef Name="idTeacherActivities" />
+          </Key>
+          <Property Name="idTeacherActivities" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTeacherDiscipline" Type="int" Nullable="false" />
+          <Property Name="IdGroup" Type="int" Nullable="false" />
+          <Property Name="NumberSemester" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Groups">
           <Key>
@@ -77,7 +86,7 @@
           </Key>
           <Property Name="idSpeciality" Type="int" Nullable="false" />
           <Property Name="code_speciality" Type="nvarchar" MaxLength="10" />
-          <Property Name="name_speciality" Type="nvarchar" MaxLength="50" />
+          <Property Name="name_speciality" Type="nvarchar" MaxLength="70" />
         </EntityType>
         <EntityType Name="StatusAccounts">
           <Key>
@@ -96,13 +105,11 @@
         </EntityType>
         <EntityType Name="TeacherDisciplines">
           <Key>
-            <PropertyRef Name="IdTeacherActivities" />
+            <PropertyRef Name="IdTeacherDiscipline" />
           </Key>
-          <Property Name="IdTeacherActivities" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTeacherDiscipline" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdTeacher" Type="int" Nullable="false" />
           <Property Name="IdDiscipline" Type="int" Nullable="false" />
-          <Property Name="IdGroup" Type="int" Nullable="false" />
-          <Property Name="NumberSemester" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -139,7 +146,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Attendance_LessonsDate">
-          <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="1" />
+          <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LessonsDate">
@@ -178,8 +187,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FinalAttendances_GroupDisciplines">
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="1" />
+          <End Role="FinalAttendances" Type="Self.FinalAttendances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupDisciplines">
+              <PropertyRef Name="idTeacherActivities" />
+            </Principal>
+            <Dependent Role="FinalAttendances">
+              <PropertyRef Name="idTeacherActivities" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FinalAttendances_StudentsGroup">
-          <End Role="StudentsGroup" Type="Self.StudentsGroup" Multiplicity="1" />
+          <End Role="StudentsGroup" Type="Self.StudentsGroup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="FinalAttendances" Type="Self.FinalAttendances" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="StudentsGroup">
@@ -190,20 +213,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FinalAttendances_TeacherDisciplines">
-          <End Role="TeacherDisciplines" Type="Self.TeacherDisciplines" Multiplicity="1" />
-          <End Role="FinalAttendances" Type="Self.FinalAttendances" Multiplicity="*" />
+        <Association Name="FK_GroupDisciplines_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="idGroup" />
+            </Principal>
+            <Dependent Role="GroupDisciplines">
+              <PropertyRef Name="IdGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupDisciplines_TeacherDisciplines">
+          <End Role="TeacherDisciplines" Type="Self.TeacherDisciplines" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TeacherDisciplines">
-              <PropertyRef Name="IdTeacherActivities" />
+              <PropertyRef Name="IdTeacherDiscipline" />
             </Principal>
-            <Dependent Role="FinalAttendances">
-              <PropertyRef Name="idTeacherActivities" />
+            <Dependent Role="GroupDisciplines">
+              <PropertyRef Name="IdTeacherDiscipline" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Groups_Speciality_codes">
-          <End Role="Speciality_codes" Type="Self.Speciality_codes" Multiplicity="0..1" />
+          <End Role="Speciality_codes" Type="Self.Speciality_codes" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Speciality_codes">
@@ -214,14 +255,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LessonsDate_TeacherDisciplines">
-          <End Role="TeacherDisciplines" Type="Self.TeacherDisciplines" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK_LessonsDate_GroupDisciplines">
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="1" />
           <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TeacherDisciplines">
-              <PropertyRef Name="IdTeacherActivities" />
+            <Principal Role="GroupDisciplines">
+              <PropertyRef Name="idTeacherActivities" />
             </Principal>
             <Dependent Role="LessonsDate">
               <PropertyRef Name="IdTeacherActivities" />
@@ -284,34 +323,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TeacherDisciplines_Groups">
-          <End Role="Groups" Type="Self.Groups" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="TeacherDisciplines" Type="Self.TeacherDisciplines" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Groups">
-              <PropertyRef Name="idGroup" />
-            </Principal>
-            <Dependent Role="TeacherDisciplines">
-              <PropertyRef Name="IdGroup" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TeacherDisciplines_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="TeacherDisciplines" Type="Self.TeacherDisciplines" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="idUser" />
-            </Principal>
-            <Dependent Role="TeacherDisciplines">
-              <PropertyRef Name="IdTeacher" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Users_accounts">
           <End Role="accounts" Type="Self.accounts" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -345,6 +356,7 @@
           <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Discipline" EntityType="Self.Discipline" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FinalAttendances" EntityType="Self.FinalAttendances" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupDisciplines" EntityType="Self.GroupDisciplines" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LessonsDate" EntityType="Self.LessonsDate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
@@ -371,20 +383,28 @@
             <End Role="StudentsGroup" EntitySet="StudentsGroup" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
+          <AssociationSet Name="FK_FinalAttendances_GroupDisciplines" Association="Self.FK_FinalAttendances_GroupDisciplines">
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+            <End Role="FinalAttendances" EntitySet="FinalAttendances" />
+          </AssociationSet>
           <AssociationSet Name="FK_FinalAttendances_StudentsGroup" Association="Self.FK_FinalAttendances_StudentsGroup">
             <End Role="StudentsGroup" EntitySet="StudentsGroup" />
             <End Role="FinalAttendances" EntitySet="FinalAttendances" />
           </AssociationSet>
-          <AssociationSet Name="FK_FinalAttendances_TeacherDisciplines" Association="Self.FK_FinalAttendances_TeacherDisciplines">
+          <AssociationSet Name="FK_GroupDisciplines_Groups" Association="Self.FK_GroupDisciplines_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupDisciplines_TeacherDisciplines" Association="Self.FK_GroupDisciplines_TeacherDisciplines">
             <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
-            <End Role="FinalAttendances" EntitySet="FinalAttendances" />
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
           </AssociationSet>
           <AssociationSet Name="FK_Groups_Speciality_codes" Association="Self.FK_Groups_Speciality_codes">
             <End Role="Speciality_codes" EntitySet="Speciality_codes" />
             <End Role="Groups" EntitySet="Groups" />
           </AssociationSet>
-          <AssociationSet Name="FK_LessonsDate_TeacherDisciplines" Association="Self.FK_LessonsDate_TeacherDisciplines">
-            <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
+          <AssociationSet Name="FK_LessonsDate_GroupDisciplines" Association="Self.FK_LessonsDate_GroupDisciplines">
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
             <End Role="LessonsDate" EntitySet="LessonsDate" />
           </AssociationSet>
           <AssociationSet Name="FK_SessionsAccounts_accounts" Association="Self.FK_SessionsAccounts_accounts">
@@ -403,14 +423,6 @@
             <End Role="Discipline" EntitySet="Discipline" />
             <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
           </AssociationSet>
-          <AssociationSet Name="FK_TeacherDisciplines_Groups" Association="Self.FK_TeacherDisciplines_Groups">
-            <End Role="Groups" EntitySet="Groups" />
-            <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TeacherDisciplines_Users" Association="Self.FK_TeacherDisciplines_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
-          </AssociationSet>
           <AssociationSet Name="FK_Users_accounts" Association="Self.FK_Users_accounts">
             <End Role="accounts" EntitySet="accounts" />
             <End Role="Users" EntitySet="Users" />
@@ -420,7 +432,8 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="db_journalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -457,16 +470,39 @@
           <Property Name="NameDiscipline" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TeacherDisciplines" Relationship="Self.FK_TeacherDisciplines_Discipline" FromRole="Discipline" ToRole="TeacherDisciplines" />
         </EntityType>
+        <EntityType Name="FinalAttendances">
+          <Key>
+            <PropertyRef Name="idFinalAttendance" />
+          </Key>
+          <Property Name="idFinalAttendance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTeacherActivities" Type="Int32" Nullable="false" />
+          <Property Name="idStudent" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GroupDisciplines" Relationship="Self.FK_FinalAttendances_GroupDisciplines" FromRole="FinalAttendances" ToRole="GroupDisciplines" />
+          <NavigationProperty Name="StudentsGroup" Relationship="Self.FK_FinalAttendances_StudentsGroup" FromRole="FinalAttendances" ToRole="StudentsGroup" />
+        </EntityType>
+        <EntityType Name="GroupDisciplines">
+          <Key>
+            <PropertyRef Name="idTeacherActivities" />
+          </Key>
+          <Property Name="idTeacherActivities" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTeacherDiscipline" Type="Int32" Nullable="false" />
+          <Property Name="IdGroup" Type="Int32" Nullable="false" />
+          <Property Name="NumberSemester" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FinalAttendances" Relationship="Self.FK_FinalAttendances_GroupDisciplines" FromRole="GroupDisciplines" ToRole="FinalAttendances" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_GroupDisciplines_Groups" FromRole="GroupDisciplines" ToRole="Groups" />
+          <NavigationProperty Name="TeacherDisciplines" Relationship="Self.FK_GroupDisciplines_TeacherDisciplines" FromRole="GroupDisciplines" ToRole="TeacherDisciplines" />
+          <NavigationProperty Name="LessonsDate" Relationship="Self.FK_LessonsDate_GroupDisciplines" FromRole="GroupDisciplines" ToRole="LessonsDate" />
+        </EntityType>
         <EntityType Name="Groups">
           <Key>
             <PropertyRef Name="idGroup" />
           </Key>
           <Property Name="idGroup" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="StudentsGroup" Relationship="Self.FK_StudentsGroup_Groups" FromRole="Groups" ToRole="StudentsGroup" />
-          <NavigationProperty Name="TeacherDisciplines" Relationship="Self.FK_TeacherDisciplines_Groups" FromRole="Groups" ToRole="TeacherDisciplines" />
           <Property Name="idSpeciality" Type="Int32" />
-          <NavigationProperty Name="Speciality_codes" Relationship="db_journalModel.FK_Groups_Speciality_codes" FromRole="Groups" ToRole="Speciality_codes" />
+          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GroupDisciplines" Relationship="Self.FK_GroupDisciplines_Groups" FromRole="Groups" ToRole="GroupDisciplines" />
+          <NavigationProperty Name="Speciality_codes" Relationship="Self.FK_Groups_Speciality_codes" FromRole="Groups" ToRole="Speciality_codes" />
+          <NavigationProperty Name="StudentsGroup" Relationship="Self.FK_StudentsGroup_Groups" FromRole="Groups" ToRole="StudentsGroup" />
         </EntityType>
         <EntityType Name="LessonsDate">
           <Key>
@@ -477,7 +513,7 @@
           <Property Name="DateLesson" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="LessonNumber" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_LessonsDate" FromRole="LessonsDate" ToRole="Attendance" />
-          <NavigationProperty Name="TeacherDisciplines" Relationship="Self.FK_LessonsDate_TeacherDisciplines" FromRole="LessonsDate" ToRole="TeacherDisciplines" />
+          <NavigationProperty Name="GroupDisciplines" Relationship="Self.FK_LessonsDate_GroupDisciplines" FromRole="LessonsDate" ToRole="GroupDisciplines" />
         </EntityType>
         <EntityType Name="Marks">
           <Key>
@@ -496,6 +532,15 @@
           <Property Name="EndLogin" Type="DateTime" Precision="3" />
           <NavigationProperty Name="accounts" Relationship="Self.FK_SessionsAccounts_accounts" FromRole="SessionsAccounts" ToRole="accounts" />
         </EntityType>
+        <EntityType Name="Speciality_codes">
+          <Key>
+            <PropertyRef Name="idSpeciality" />
+          </Key>
+          <Property Name="idSpeciality" Type="Int32" Nullable="false" />
+          <Property Name="code_speciality" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="name_speciality" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Speciality_codes" FromRole="Speciality_codes" ToRole="Groups" />
+        </EntityType>
         <EntityType Name="StatusAccounts">
           <Key>
             <PropertyRef Name="idStatus" />
@@ -512,24 +557,19 @@
           <Property Name="idGroup" Type="Int32" />
           <Property Name="NumberInJournal" Type="Int32" />
           <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_StudentsGroup" FromRole="StudentsGroup" ToRole="Attendance" />
+          <NavigationProperty Name="FinalAttendances" Relationship="Self.FK_FinalAttendances_StudentsGroup" FromRole="StudentsGroup" ToRole="FinalAttendances" />
           <NavigationProperty Name="Groups" Relationship="Self.FK_StudentsGroup_Groups" FromRole="StudentsGroup" ToRole="Groups" />
           <NavigationProperty Name="Users" Relationship="Self.FK_StudentsGroup_Users" FromRole="StudentsGroup" ToRole="Users" />
-          <NavigationProperty Name="FinalAttendances" Relationship="db_journalModel.FK_FinalAttendances_StudentsGroup" FromRole="StudentsGroup" ToRole="FinalAttendances" />
         </EntityType>
         <EntityType Name="TeacherDisciplines">
           <Key>
-            <PropertyRef Name="IdTeacherActivities" />
+            <PropertyRef Name="IdTeacherDiscipline" />
           </Key>
-          <Property Name="IdTeacherActivities" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTeacherDiscipline" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdTeacher" Type="Int32" Nullable="false" />
           <Property Name="IdDiscipline" Type="Int32" Nullable="false" />
-          <Property Name="IdGroup" Type="Int32" Nullable="false" />
-          <Property Name="NumberSemester" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Discipline" Relationship="Self.FK_TeacherDisciplines_Discipline" FromRole="TeacherDisciplines" ToRole="Discipline" />
-          <NavigationProperty Name="Groups" Relationship="Self.FK_TeacherDisciplines_Groups" FromRole="TeacherDisciplines" ToRole="Groups" />
-          <NavigationProperty Name="LessonsDate" Relationship="Self.FK_LessonsDate_TeacherDisciplines" FromRole="TeacherDisciplines" ToRole="LessonsDate" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_TeacherDisciplines_Users" FromRole="TeacherDisciplines" ToRole="Users" />
-          <NavigationProperty Name="FinalAttendances" Relationship="db_journalModel.FK_FinalAttendances_TeacherDisciplines" FromRole="TeacherDisciplines" ToRole="FinalAttendances" />
+          <NavigationProperty Name="GroupDisciplines" Relationship="Self.FK_GroupDisciplines_TeacherDisciplines" FromRole="TeacherDisciplines" ToRole="GroupDisciplines" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -545,7 +585,6 @@
           <Property Name="DateOfBirthDay" Type="DateTime" Precision="0" />
           <NavigationProperty Name="accounts" Relationship="Self.FK_Users_accounts" FromRole="Users" ToRole="accounts" />
           <NavigationProperty Name="StudentsGroup" Relationship="Self.FK_StudentsGroup_Users" FromRole="Users" ToRole="StudentsGroup" />
-          <NavigationProperty Name="TeacherDisciplines" Relationship="Self.FK_TeacherDisciplines_Users" FromRole="Users" ToRole="TeacherDisciplines" />
           <NavigationProperty Name="UserStatus" Relationship="Self.FK_Users_Statuses" FromRole="Users" ToRole="UserStatus" />
         </EntityType>
         <EntityType Name="UserStatus">
@@ -599,7 +638,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Attendance_LessonsDate">
-          <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="1" />
+          <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LessonsDate">
@@ -652,6 +693,86 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FinalAttendances_GroupDisciplines">
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="1" />
+          <End Role="FinalAttendances" Type="Self.FinalAttendances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupDisciplines">
+              <PropertyRef Name="idTeacherActivities" />
+            </Principal>
+            <Dependent Role="FinalAttendances">
+              <PropertyRef Name="idTeacherActivities" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinalAttendances_StudentsGroup">
+          <End Role="StudentsGroup" Type="Self.StudentsGroup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FinalAttendances" Type="Self.FinalAttendances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentsGroup">
+              <PropertyRef Name="IdStudent" />
+            </Principal>
+            <Dependent Role="FinalAttendances">
+              <PropertyRef Name="idStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupDisciplines_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="idGroup" />
+            </Principal>
+            <Dependent Role="GroupDisciplines">
+              <PropertyRef Name="IdGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupDisciplines_TeacherDisciplines">
+          <End Role="TeacherDisciplines" Type="Self.TeacherDisciplines" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TeacherDisciplines">
+              <PropertyRef Name="IdTeacherDiscipline" />
+            </Principal>
+            <Dependent Role="GroupDisciplines">
+              <PropertyRef Name="IdTeacherDiscipline" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonsDate_GroupDisciplines">
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="1" />
+          <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupDisciplines">
+              <PropertyRef Name="idTeacherActivities" />
+            </Principal>
+            <Dependent Role="LessonsDate">
+              <PropertyRef Name="IdTeacherActivities" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Speciality_codes">
+          <End Role="Speciality_codes" Type="Self.Speciality_codes" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Speciality_codes">
+              <PropertyRef Name="idSpeciality" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="idSpeciality" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StudentsGroup_Groups">
           <End Role="Groups" Type="Self.Groups" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -666,34 +787,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TeacherDisciplines_Groups">
-          <End Role="Groups" Type="Self.Groups" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="TeacherDisciplines" Type="Self.TeacherDisciplines" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Groups">
-              <PropertyRef Name="idGroup" />
-            </Principal>
-            <Dependent Role="TeacherDisciplines">
-              <PropertyRef Name="IdGroup" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LessonsDate_TeacherDisciplines">
-          <End Role="TeacherDisciplines" Type="Self.TeacherDisciplines" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="LessonsDate" Type="Self.LessonsDate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TeacherDisciplines">
-              <PropertyRef Name="IdTeacherActivities" />
-            </Principal>
-            <Dependent Role="LessonsDate">
-              <PropertyRef Name="IdTeacherActivities" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_StudentsGroup_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -705,20 +798,6 @@
             </Principal>
             <Dependent Role="StudentsGroup">
               <PropertyRef Name="IdStudent" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TeacherDisciplines_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="TeacherDisciplines" Type="Self.TeacherDisciplines" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="idUser" />
-            </Principal>
-            <Dependent Role="TeacherDisciplines">
-              <PropertyRef Name="IdTeacher" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -740,10 +819,13 @@
           <EntitySet Name="accounts" EntityType="Self.accounts" />
           <EntitySet Name="Attendance" EntityType="Self.Attendance" />
           <EntitySet Name="Discipline" EntityType="Self.Discipline" />
+          <EntitySet Name="FinalAttendances" EntityType="Self.FinalAttendances" />
+          <EntitySet Name="GroupDisciplines" EntityType="Self.GroupDisciplines" />
           <EntitySet Name="Groups" EntityType="Self.Groups" />
           <EntitySet Name="LessonsDate" EntityType="Self.LessonsDate" />
           <EntitySet Name="Marks" EntityType="Self.Marks" />
           <EntitySet Name="SessionsAccounts" EntityType="Self.SessionsAccounts" />
+          <EntitySet Name="Speciality_codes" EntityType="Self.Speciality_codes" />
           <EntitySet Name="StatusAccounts" EntityType="Self.StatusAccounts" />
           <EntitySet Name="StudentsGroup" EntityType="Self.StudentsGroup" />
           <EntitySet Name="TeacherDisciplines" EntityType="Self.TeacherDisciplines" />
@@ -777,100 +859,43 @@
             <End Role="Discipline" EntitySet="Discipline" />
             <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
           </AssociationSet>
+          <AssociationSet Name="FK_FinalAttendances_GroupDisciplines" Association="Self.FK_FinalAttendances_GroupDisciplines">
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+            <End Role="FinalAttendances" EntitySet="FinalAttendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinalAttendances_StudentsGroup" Association="Self.FK_FinalAttendances_StudentsGroup">
+            <End Role="StudentsGroup" EntitySet="StudentsGroup" />
+            <End Role="FinalAttendances" EntitySet="FinalAttendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupDisciplines_Groups" Association="Self.FK_GroupDisciplines_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupDisciplines_TeacherDisciplines" Association="Self.FK_GroupDisciplines_TeacherDisciplines">
+            <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonsDate_GroupDisciplines" Association="Self.FK_LessonsDate_GroupDisciplines">
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+            <End Role="LessonsDate" EntitySet="LessonsDate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Speciality_codes" Association="Self.FK_Groups_Speciality_codes">
+            <End Role="Speciality_codes" EntitySet="Speciality_codes" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
           <AssociationSet Name="FK_StudentsGroup_Groups" Association="Self.FK_StudentsGroup_Groups">
             <End Role="Groups" EntitySet="Groups" />
             <End Role="StudentsGroup" EntitySet="StudentsGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TeacherDisciplines_Groups" Association="Self.FK_TeacherDisciplines_Groups">
-            <End Role="Groups" EntitySet="Groups" />
-            <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LessonsDate_TeacherDisciplines" Association="Self.FK_LessonsDate_TeacherDisciplines">
-            <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
-            <End Role="LessonsDate" EntitySet="LessonsDate" />
           </AssociationSet>
           <AssociationSet Name="FK_StudentsGroup_Users" Association="Self.FK_StudentsGroup_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="StudentsGroup" EntitySet="StudentsGroup" />
           </AssociationSet>
-          <AssociationSet Name="FK_TeacherDisciplines_Users" Association="Self.FK_TeacherDisciplines_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
-          </AssociationSet>
           <AssociationSet Name="FK_Users_Statuses" Association="Self.FK_Users_Statuses">
             <End Role="UserStatus" EntitySet="UserStatus" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <EntitySet Name="Speciality_codes" EntityType="db_journalModel.Speciality_codes" />
-          <AssociationSet Name="FK_Groups_Speciality_codes" Association="db_journalModel.FK_Groups_Speciality_codes">
-            <End Role="Speciality_codes" EntitySet="Speciality_codes" />
-            <End Role="Groups" EntitySet="Groups" />
-          </AssociationSet>
-          <EntitySet Name="FinalAttendances" EntityType="db_journalModel.FinalAttendances" />
-          <AssociationSet Name="FK_FinalAttendances_StudentsGroup" Association="db_journalModel.FK_FinalAttendances_StudentsGroup">
-            <End Role="StudentsGroup" EntitySet="StudentsGroup" />
-            <End Role="FinalAttendances" EntitySet="FinalAttendances" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FinalAttendances_TeacherDisciplines" Association="db_journalModel.FK_FinalAttendances_TeacherDisciplines">
-            <End Role="TeacherDisciplines" EntitySet="TeacherDisciplines" />
-            <End Role="FinalAttendances" EntitySet="FinalAttendances" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Speciality_codes">
-          <Key>
-            <PropertyRef Name="idSpeciality" />
-          </Key>
-          <Property Name="idSpeciality" Type="Int32" Nullable="false" />
-          <Property Name="code_speciality" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Groups" Relationship="db_journalModel.FK_Groups_Speciality_codes" FromRole="Speciality_codes" ToRole="Groups" />
-          <Property Name="name_speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK_Groups_Speciality_codes">
-          <End Type="db_journalModel.Speciality_codes" Role="Speciality_codes" Multiplicity="0..1" />
-          <End Type="db_journalModel.Groups" Role="Groups" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Speciality_codes">
-              <PropertyRef Name="idSpeciality" />
-            </Principal>
-            <Dependent Role="Groups">
-              <PropertyRef Name="idSpeciality" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="FinalAttendances">
-          <Key>
-            <PropertyRef Name="idFinalAttendance" />
-          </Key>
-          <Property Name="idFinalAttendance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idTeacherActivities" Type="Int32" Nullable="false" />
-          <Property Name="idStudent" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="StudentsGroup" Relationship="db_journalModel.FK_FinalAttendances_StudentsGroup" FromRole="FinalAttendances" ToRole="StudentsGroup" />
-          <NavigationProperty Name="TeacherDisciplines" Relationship="db_journalModel.FK_FinalAttendances_TeacherDisciplines" FromRole="FinalAttendances" ToRole="TeacherDisciplines" />
-        </EntityType>
-        <Association Name="FK_FinalAttendances_StudentsGroup">
-          <End Type="db_journalModel.StudentsGroup" Role="StudentsGroup" Multiplicity="1" />
-          <End Type="db_journalModel.FinalAttendances" Role="FinalAttendances" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StudentsGroup">
-              <PropertyRef Name="IdStudent" />
-            </Principal>
-            <Dependent Role="FinalAttendances">
-              <PropertyRef Name="idStudent" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FinalAttendances_TeacherDisciplines">
-          <End Type="db_journalModel.TeacherDisciplines" Role="TeacherDisciplines" Multiplicity="1" />
-          <End Type="db_journalModel.FinalAttendances" Role="FinalAttendances" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TeacherDisciplines">
-              <PropertyRef Name="IdTeacherActivities" />
-            </Principal>
-            <Dependent Role="FinalAttendances">
-              <PropertyRef Name="idTeacherActivities" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -906,11 +931,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="FinalAttendances">
+            <EntityTypeMapping TypeName="db_journalModel.FinalAttendances">
+              <MappingFragment StoreEntitySet="FinalAttendances">
+                <ScalarProperty Name="idFinalAttendance" ColumnName="idFinalAttendance" />
+                <ScalarProperty Name="idTeacherActivities" ColumnName="idTeacherActivities" />
+                <ScalarProperty Name="idStudent" ColumnName="idStudent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupDisciplines">
+            <EntityTypeMapping TypeName="db_journalModel.GroupDisciplines">
+              <MappingFragment StoreEntitySet="GroupDisciplines">
+                <ScalarProperty Name="idTeacherActivities" ColumnName="idTeacherActivities" />
+                <ScalarProperty Name="IdTeacherDiscipline" ColumnName="IdTeacherDiscipline" />
+                <ScalarProperty Name="IdGroup" ColumnName="IdGroup" />
+                <ScalarProperty Name="NumberSemester" ColumnName="NumberSemester" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Groups">
             <EntityTypeMapping TypeName="db_journalModel.Groups">
               <MappingFragment StoreEntitySet="Groups">
-                <ScalarProperty Name="idSpeciality" ColumnName="idSpeciality" />
                 <ScalarProperty Name="idGroup" ColumnName="idGroup" />
+                <ScalarProperty Name="idSpeciality" ColumnName="idSpeciality" />
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -942,6 +986,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Speciality_codes">
+            <EntityTypeMapping TypeName="db_journalModel.Speciality_codes">
+              <MappingFragment StoreEntitySet="Speciality_codes">
+                <ScalarProperty Name="idSpeciality" ColumnName="idSpeciality" />
+                <ScalarProperty Name="code_speciality" ColumnName="code_speciality" />
+                <ScalarProperty Name="name_speciality" ColumnName="name_speciality" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="StatusAccounts">
             <EntityTypeMapping TypeName="db_journalModel.StatusAccounts">
               <MappingFragment StoreEntitySet="StatusAccounts">
@@ -962,11 +1015,9 @@
           <EntitySetMapping Name="TeacherDisciplines">
             <EntityTypeMapping TypeName="db_journalModel.TeacherDisciplines">
               <MappingFragment StoreEntitySet="TeacherDisciplines">
-                <ScalarProperty Name="IdTeacherActivities" ColumnName="IdTeacherActivities" />
+                <ScalarProperty Name="IdTeacherDiscipline" ColumnName="IdTeacherDiscipline" />
                 <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
                 <ScalarProperty Name="IdDiscipline" ColumnName="IdDiscipline" />
-                <ScalarProperty Name="IdGroup" ColumnName="IdGroup" />
-                <ScalarProperty Name="NumberSemester" ColumnName="NumberSemester" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -989,24 +1040,6 @@
               <MappingFragment StoreEntitySet="UserStatus">
                 <ScalarProperty Name="idUserStatus" ColumnName="idUserStatus" />
                 <ScalarProperty Name="StatusUser" ColumnName="StatusUser" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Speciality_codes">
-            <EntityTypeMapping TypeName="db_journalModel.Speciality_codes">
-              <MappingFragment StoreEntitySet="Speciality_codes">
-                <ScalarProperty Name="name_speciality" ColumnName="name_speciality" />
-                <ScalarProperty Name="code_speciality" ColumnName="code_speciality" />
-                <ScalarProperty Name="idSpeciality" ColumnName="idSpeciality" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FinalAttendances">
-            <EntityTypeMapping TypeName="db_journalModel.FinalAttendances">
-              <MappingFragment StoreEntitySet="FinalAttendances">
-                <ScalarProperty Name="idStudent" ColumnName="idStudent" />
-                <ScalarProperty Name="idTeacherActivities" ColumnName="idTeacherActivities" />
-                <ScalarProperty Name="idFinalAttendance" ColumnName="idFinalAttendance" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

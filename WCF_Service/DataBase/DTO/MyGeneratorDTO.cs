@@ -45,11 +45,9 @@ namespace WCF_Service.DataBase.DTO
                     //var a = GetAttendanceList(item.Attendance);
                     newlist.Add(new MyModelLibrary.TeacherDisciplines
                         (
-                        item.IdTeacherActivities,
+                        item.IdTeacherDiscipline,
                         item.IdTeacher,
-                        item.IdDiscipline,
-                        item.IdGroup,
-                        item.NumberSemester
+                        item.IdDiscipline
                         ));
                 }
             }
@@ -222,41 +220,39 @@ namespace WCF_Service.DataBase.DTO
         }
 
         // Метод для получения DTO - Список дисциплин учителя
-        private List<MyModelLibrary.TeacherDisciplines> GetGroupDisciplines(Groups group)
+        private List<MyModelLibrary.GroupDisciplines> GetGroupDisciplines(Groups group)
         {
-            List<MyModelLibrary.TeacherDisciplines> MyList = new List<MyModelLibrary.TeacherDisciplines>();
+            List<MyModelLibrary.GroupDisciplines> MyList = new List<MyModelLibrary.GroupDisciplines>();
 
             // Если список дисциплин у группы > 0, то добавь их
-            if (group.TeacherDisciplines.Count > 0)
+            if (group.GroupDisciplines.Count > 0)
             {
                 // Необходимо проинициализировать какие дисциплины ведутся у группы
-                foreach (var item in group.TeacherDisciplines)
+                foreach (var item in group.GroupDisciplines)
                 {
-                    MyModelLibrary.TeacherDisciplines teacherDisciplines = new MyModelLibrary.TeacherDisciplines
+                    MyModelLibrary.GroupDisciplines teacherDisciplines = new MyModelLibrary.GroupDisciplines
                         (
-                            item.IdTeacherActivities,
-                            item.IdTeacher,
-                            item.IdDiscipline,
+                            item.idTeacherActivities,
+                            item.IdTeacherDiscipline,
                             item.IdGroup,
                             item.NumberSemester
                         );
-                    
+                                        
+                    //// Теперь добавляем итоговые отметки студентов по дисциплине (Если они есть)
+                    //if (item.FinalAttendances != null)
+                    //{
+                    //    // Создаем список итоговых оценок по дисциплине
+                    //    List<MyModelLibrary.FinalAttendances> AttendancesList = new List<MyModelLibrary.FinalAttendances>();
 
-                    // Теперь добавляем итоговые отметки студентов по дисциплине (Если они есть)
-                    if (item.FinalAttendances != null)
-                    {
-                        // Создаем список итоговых оценок по дисциплине
-                        List<MyModelLibrary.FinalAttendances> AttendancesList = new List<MyModelLibrary.FinalAttendances>();
+                    //    // Перебираем все элементы
+                    //    foreach (var attendances in item.FinalAttendances)
+                    //    {
+                    //        AttendancesList.Add(new MyModelLibrary.FinalAttendances(attendances.idFinalAttendance, attendances.idTeacherActivities, attendances.idStudent));
+                    //    }
 
-                        // Перебираем все элементы
-                        foreach (var attendances in item.FinalAttendances)
-                        {
-                            AttendancesList.Add(new MyModelLibrary.FinalAttendances(attendances.idFinalAttendance, attendances.idTeacherActivities, attendances.idStudent));
-                        }
-
-                        // Присваиваем список итоговых оценок дисциплине учителя
-                        teacherDisciplines.FinalAttendances = AttendancesList;
-                    }
+                    //    // Присваиваем список итоговых оценок дисциплине учителя
+                    //    teacherDisciplines.FinalAttendances = AttendancesList;
+                    //}
                     
 
                     MyList.Add(teacherDisciplines);

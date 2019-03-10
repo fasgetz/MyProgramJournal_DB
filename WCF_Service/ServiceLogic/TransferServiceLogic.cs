@@ -129,7 +129,8 @@ namespace WCF_Service.ServiceLogic
                 {
                     // Получаем список студентов
                     // Если преподаватель есть в списке преподавателей и он ведет у этой группы (Дополнить - ведет предмет)
-                    if (new MyDB().TeacherDisciplines.FirstOrDefault(i => i.IdTeacher == MyAcc.idAccount && i.IdGroup == idGroup) != null)
+                    // && i.GroupDisciplines == idGroup
+                    if (new MyDB().TeacherDisciplines.FirstOrDefault(i => i.IdTeacher == MyAcc.idAccount ) != null)
                     {
                         mylist = null;
                     }

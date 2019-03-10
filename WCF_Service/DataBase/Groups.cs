@@ -17,8 +17,8 @@ namespace WCF_Service.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Groups()
         {
+            this.GroupDisciplines = new HashSet<GroupDisciplines>();
             this.StudentsGroup = new HashSet<StudentsGroup>();
-            this.TeacherDisciplines = new HashSet<TeacherDisciplines>();
         }
 
         public Groups(string GroupName, int idSpeciality)
@@ -26,15 +26,17 @@ namespace WCF_Service.DataBase
             this.GroupName = GroupName;
             this.idSpeciality = idSpeciality;
         }
-    
+
+
         public int idGroup { get; set; }
-        public string GroupName { get; set; }
         public Nullable<int> idSpeciality { get; set; }
+        public string GroupName { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GroupDisciplines> GroupDisciplines { get; set; }
+        public virtual Speciality_codes Speciality_codes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentsGroup> StudentsGroup { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TeacherDisciplines> TeacherDisciplines { get; set; }
-        public virtual Speciality_codes Speciality_codes { get; set; }
     }
 }
+    

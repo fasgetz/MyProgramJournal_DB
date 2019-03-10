@@ -29,16 +29,17 @@ namespace WCF_Service.DataBase
         public virtual DbSet<accounts> accounts { get; set; }
         public virtual DbSet<Attendance> Attendance { get; set; }
         public virtual DbSet<Discipline> Discipline { get; set; }
+        public virtual DbSet<FinalAttendances> FinalAttendances { get; set; }
+        public virtual DbSet<GroupDisciplines> GroupDisciplines { get; set; }
         public virtual DbSet<Groups> Groups { get; set; }
         public virtual DbSet<LessonsDate> LessonsDate { get; set; }
         public virtual DbSet<Marks> Marks { get; set; }
         public virtual DbSet<SessionsAccounts> SessionsAccounts { get; set; }
+        public virtual DbSet<Speciality_codes> Speciality_codes { get; set; }
         public virtual DbSet<StatusAccounts> StatusAccounts { get; set; }
         public virtual DbSet<StudentsGroup> StudentsGroup { get; set; }
         public virtual DbSet<TeacherDisciplines> TeacherDisciplines { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<UserStatus> UserStatus { get; set; }
-        public virtual DbSet<Speciality_codes> Speciality_codes { get; set; }
-        public virtual DbSet<FinalAttendances> FinalAttendances { get; set; }
     }
 }
