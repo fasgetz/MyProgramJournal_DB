@@ -343,10 +343,6 @@
       <Project>{b51fc2c5-29b6-4a66-bd87-48ba49f149c2}</Project>
       <Name>MyModelLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WCF_Service\WCF_Service.csproj">
-      <Project>{7FCDFB08-3EB9-4A5E-B156-848018F94EA9}</Project>
-      <Name>WCF_Service</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

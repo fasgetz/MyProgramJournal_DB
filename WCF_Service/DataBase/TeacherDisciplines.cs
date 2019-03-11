@@ -20,6 +20,12 @@ namespace WCF_Service.DataBase
             this.GroupDisciplines = new HashSet<GroupDisciplines>();
         }
     
+        public TeacherDisciplines(int IdTeacher, int IdDiscipline)
+        {
+            this.IdTeacher = IdTeacher;
+            this.IdDiscipline = IdDiscipline;
+        }
+
         public int IdTeacherDiscipline { get; set; }
         public int IdTeacher { get; set; }
         public int IdDiscipline { get; set; }

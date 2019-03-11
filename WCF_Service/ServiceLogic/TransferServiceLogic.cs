@@ -313,36 +313,66 @@ namespace WCF_Service.ServiceLogic
                         if (param == 1)
                         {
                             list = DisciplinesRepository.GetQueryList(i => i.IdTeacher == Teacher.idUser); // Получаем список дисциплин, которые ведет учитель
+
+                            // Если список не пустой, то преобразуй DTO список объектов и верни юзеру
+                            if (list != null)
+                            {
+                                List<MyModelLibrary.Discipline> disciplines = new List<MyModelLibrary.Discipline>(); // Список дисциплин в DTO
+
+                                var notdtodisciplines = repository.GetAllList(); // Получаем весь список дисциплин
+
+                                // Перебираем все дисциплины и добавляем их в DTO список
+                                foreach (var item in list)
+                                {
+                                    // Находим дисциплину в списке по айди
+                                    var MyDiscipline = list.FirstOrDefault(i => i.IdDiscipline == item.IdDiscipline);
+
+                                    disciplines.Add(new MyModelLibrary.Discipline(item.IdDiscipline, item.Discipline.NameDiscipline)); // Добавляем дисциплину
+                                }
+
+                                Console.WriteLine($"Возвращаем юзеру: {disciplines.Count()} дисциплин!");
+                                return disciplines; // Возвращаем список дисциплин
+                            }
                         }
                         // Если выбрали 2 (Значит, что необходимо выбрать дисциплины, которые не ведет учитель)
                         else if (param == 2)
                         {
-                            list = null;
+                            // Загружаем весь список дисциплин
+                            var all_list = repository.GetAllList(); // Получаем весь список дисциплин
+                            List<MyModelLibrary.Discipline> disciplines; // Список дисциплин
+
+
+                            // Получаем список дисциплин, которые ведет учитель
+                            list = DisciplinesRepository.GetQueryList(i => i.IdTeacher == Teacher.idUser); // Получаем список дисциплин, которые ведет учитель
+
+                            // Если список не пустой, то верни дисциплины, которые не ведет учитель
+                            if (list != null)
+                            {
+                                disciplines = new List<MyModelLibrary.Discipline>(); // Инициализируем список
+
+                                // Перебираем все дисциплины и сравниваем есть ли в списке дисциплин учителя эта дисциплина
+                                // Если нету, то добавляем в список
+                                foreach (var item in all_list)
+                                {
+                                    // Ищем дисциплину в списке
+                                    var MyDiscipline = list.FirstOrDefault(i => i.IdDiscipline == item.idDiscipline);
+
+                                    // Если дисциплина == null, то добавь ее в список
+                                    // Это значит, что ее нет в списке дисциплин учителя
+                                    if (MyDiscipline == null)
+                                    {
+                                        disciplines.Add(new MyModelLibrary.Discipline(item.idDiscipline, item.NameDiscipline));
+                                    }
+
+                                }
+                                
+                                return disciplines; // Возвращаем список
+                            }
                         }
                         // Иначе, если параметр выбран неверно, то верни ошибку
                         else
                         {
                             return null;
-                        }
-
-                        // Если список не пустой, то преобразуй DTO список объектов и верни юзеру
-                        if (list != null)
-                        {
-                            List<MyModelLibrary.Discipline> disciplines = new List<MyModelLibrary.Discipline>(); // Список дисциплин в DTO
-
-                            var notdtodisciplines = repository.GetAllList(); // Получаем весь список дисциплин
-
-                            // Перебираем все дисциплины и добавляем их в DTO список
-                            foreach (var item in list)
-                            {
-                                // Находим дисциплину в списке по айди
-                                var MyDiscipline = list.FirstOrDefault(i => i.IdDiscipline == item.IdDiscipline);
-
-                                disciplines.Add(new MyModelLibrary.Discipline(item.IdDiscipline, item.Discipline.NameDiscipline)); // Добавляем дисциплину
-                            }
-
-                            Console.WriteLine($"Возвращаем юзеру: {disciplines.Count()} дисциплин!");
-                            return disciplines; // Возвращаем список дисциплин
                         }
                     }
                     catch(Exception ex)
@@ -368,7 +398,52 @@ namespace WCF_Service.ServiceLogic
         // Метод добавления дисциплины учителю
         public bool AddTeacherDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline Discipline)
         {
-            return true;
+            // Проверяем на заполненные входные данные
+            // Если все они != null, то выполни запрос пользователя
+            if (MyAcc != null && Teacher != null && Discipline != null)
+            {
+                // Если пользователь, который послал запрос является администратором, то приступи к получению списка преподавателей
+                if (CheckUserStatus(MyAcc.idAccount) == 3)
+                {
+                    // Приступи к добавлению дисциплины преподавателю
+
+                    // Создаем репозиторий для работы с бд
+                    EFGenericRepository<TeacherDisciplines> repository = new EFGenericRepository<TeacherDisciplines>(new MyDB());
+
+                    // Делаем проверку на то, есть ли уже эта дисципла у преподавателя в бд
+                    // Если нету, то добавь ее. Если есть, то отклони
+                    if (repository.FindQueryEntity(i => i.IdDiscipline == Discipline.idDiscipline && i.IdTeacher == Teacher.idUser) == null)
+                    {                        
+                        try
+                        {
+                            // Добавляем дисциплину в репозиторий
+                            repository.Add(new TeacherDisciplines(Teacher.idUser, Discipline.idDiscipline));
+
+                            return true; // Возвращаем истину, т.к. дисциплину добавили успешно
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }                        
+                    }
+                    else
+                    {
+                        ExceptionSender.SendException("Эта дисциплина уже есть у преподавателя!");
+                    }
+                }
+                // Если тот, кто послал запрос не является администратором, то отправь ему экзепшн
+                else
+                {
+                    ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+                }
+            }
+            // Иначе, если входные данные == null, то отправь пользователю экзепшен (Иначе могут быть ошибки)
+            else
+            {
+                ExceptionSender.SendException("Вы не можете выполнить запрос! Проверьте правильность входных данных");
+            }
+
+            return false; // Возвращаем false, если неудачный запрос на добавление дисциплины преподавателю
         }
 
 

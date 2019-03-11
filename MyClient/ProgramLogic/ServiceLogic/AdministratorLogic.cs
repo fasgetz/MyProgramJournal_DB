@@ -16,6 +16,39 @@ namespace MyClient.ProgramLogic.ServiceLogic
     {
         #region Методы для работы с сервером
 
+        // Метод добавления дисциплины преподавателю
+        public bool AddTeacherDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline Discipline)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    // Отправляем данные на сервер. Если выдаст true, то дисциплина успешно добавлена
+                    bool Added = client.AddTeacherDiscipline(MyAcc, Teacher, Discipline);
+
+                    // Если дисциплина добавлена, то выведи об этом и верни истину
+                    if (Added == true)
+                    {
+                        MyDialog.ShowMessage($"Вы успешно добавили дисциплину преподавателю!");
+
+                        return true; // Вовзращаем true, т.к. дисциплина успешно добавлена
+                    }
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+
+            return false; // Если добавить не удалось, то false 
+        }
+
         // Метод, который выдаст список дисциплин учителя / дисциплин, которых еще нет у учителя
         // (param = 1, выдаст дисциплины учителя / param = 2, выдаст дисциплины, которых еще нет у учителя)
         public List<MyModelLibrary.Discipline> GetTeacherDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, byte param)

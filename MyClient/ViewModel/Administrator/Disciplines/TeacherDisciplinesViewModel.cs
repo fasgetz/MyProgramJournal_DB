@@ -22,6 +22,20 @@ namespace MyClient.ViewModel.Administrator.Disciplines
 
         #region Свойства
 
+        // Список дисциплин, которые можно добавить учителю
+        private List<MyModelLibrary.Discipline> _NotAddedDisciplines;
+        public List<MyModelLibrary.Discipline> NotAddedDisciplines
+        {
+            get
+            {
+                return _NotAddedDisciplines;
+            }
+            set
+            {
+                _NotAddedDisciplines = value;
+                RaisePropertyChanged("NotAddedDisciplines");
+            }
+        }
 
         // Список дисциплин, которые ведет учитель
         private List<MyModelLibrary.Discipline> _TeacherDisciplines;
@@ -59,15 +73,67 @@ namespace MyClient.ViewModel.Administrator.Disciplines
                         value,
                         1); // 1 значит, что загружаем все дисциплины, которые ведет преподаватель
 
-                    //  Прогружаем список дисциплин, которые не ведет учитель (Для того, чтобы можно было их добавить
+                    //  Прогружаем список дисциплин, которые не ведет учитель (Для того, чтобы можно было их добавить)
+                    NotAddedDisciplines = MyAdminLogic.GetTeacherDisciplines(
+                        MyAcc,
+                        value,
+                        2); // 2 значит, что загружаем все дисциплины, которые можно добавить преподавателю
                 }
                 RaisePropertyChanged("SelectedTeacher");
+            }
+        }
+
+        // Выбранная дисциплина
+        private MyModelLibrary.Discipline _SelectedDiscipline;
+        public MyModelLibrary.Discipline SelectedDiscipline
+        {
+            get
+            {
+                return _SelectedDiscipline;
+            }
+            set
+            {
+                _SelectedDiscipline = value;
+                RaisePropertyChanged("SelectedDiscipline");
             }
         }
 
         #endregion
 
         #region Команды
+
+        // Команда добавления дисциплины преподавателю
+        public new ICommand AddDiscipline
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если мы выбрали данные в ComboBoxe's, то можно отправить их на сервер
+                    if (SelectedTeacher != null && SelectedDiscipline != null)
+                    {
+                        // Отправляем данные на сервер
+                        bool Added = MyAdminLogic.AddTeacherDiscipline(MyAcc, SelectedTeacher, SelectedDiscipline);
+
+                        // Если дисциплина добавлена успешно, то обнови списки
+                        if (Added == true)
+                        {
+                            // Прогружаем список дисциплин, которые ведет учитель
+                            TeacherDisciplines = MyAdminLogic.GetTeacherDisciplines(
+                                MyAcc,
+                                SelectedTeacher,
+                                1); // 1 значит, что загружаем все дисциплины, которые ведет преподаватель
+
+                            //  Прогружаем список дисциплин, которые не ведет учитель (Для того, чтобы можно было их добавить)
+                            NotAddedDisciplines = MyAdminLogic.GetTeacherDisciplines(
+                                MyAcc,
+                                SelectedTeacher,
+                                2); // 2 значит, что загружаем все дисциплины, которые можно добавить преподавателю
+                        }
+                    }
+                });
+            }
+        }
 
         // Команда фильтрации списка поиска в ComboBoxe's
         public ICommand SearchedInCombobox
@@ -110,6 +176,7 @@ namespace MyClient.ViewModel.Administrator.Disciplines
             MyAcc = GetAcc.Content;
             UsersList = MyAdminLogic.GetTeachersList(MyAcc); // Прогружаем список учителей
             TeacherDisciplines = null;
+            NotAddedDisciplines = null;            
         }
 
         #endregion
