@@ -10,8 +10,6 @@ namespace MyClient.ViewModel.Teacher
     public class TeacherViewModel : AccountVM
     {
 
-
-
         #region Конструктор
 
         // Конструктор класса
@@ -36,5 +34,7 @@ namespace MyClient.ViewModel.Teacher
         }
 
         #endregion
+
+
     }
 }

@@ -10,8 +10,6 @@ namespace MyClient.ViewModel.Student
     public class StudentViewModel : AccountVM
     {
 
-
-
         #region Конструктор
 
         // Конструктор класса

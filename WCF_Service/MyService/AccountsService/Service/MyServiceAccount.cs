@@ -223,7 +223,8 @@ namespace WCF_Service.MyService.AccountsService.Service
         // Метод, который дисконнектнет юзера со списка подключенных юзеров на сервисе        
         public void DisconnectUser(MyModelLibrary.accounts MyAccount)
         {
-            DeleteAccount(MyAccount.idAccount); // Дисконнектим юзера
+            if (MyAccount != null)
+                DeleteAccount(MyAccount.idAccount); // Дисконнектим юзера
         }
 
         #endregion

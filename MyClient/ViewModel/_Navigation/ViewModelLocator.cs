@@ -13,6 +13,7 @@
 */
 
 using CommonServiceLocator;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using MyClient.ViewModel._VMCommon;
 using MyClient.ViewModel.Administrator;
@@ -38,39 +39,10 @@ namespace MyClient.ViewModel._Navigation
         /// </summary>
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);            
 
-            // Регистрируем наши ViewModel
-
-            // Общие ViewModel
-            SimpleIoc.Default.Register<AccountVM>(); // Общая ViewModel
-            SimpleIoc.Default.Register<ProfileVM>(); // ViewModel профиля
-            SimpleIoc.Default.Register<MainPageVM>(); // ViewModel главной страницы
-
-
-            // ViewModel администратора
-            SimpleIoc.Default.Register<AdministratorViewModel>(); // ViewModel администратора
-            SimpleIoc.Default.Register<UsersListPageViewModel>(); // VM списка пользователей
-            SimpleIoc.Default.Register<AccountsListPageViewModel>(); // VM списка аккаунтов
-            SimpleIoc.Default.Register<CreateAccountVM>(); // VM страницы создания аккаунта
-            SimpleIoc.Default.Register<CreateNewsViewModel>(); // VM страница создания новости
-            SimpleIoc.Default.Register<EditAccountVM>(); // VM страницы редактирования аккаунта
-            SimpleIoc.Default.Register<PersonalDataViewModel>(); // VM страницы персональных данных аккаунта
-            SimpleIoc.Default.Register<AccountInfoViewModel>(); // VM страницы информации об аккаунте
-            SimpleIoc.Default.Register<CreateGroupViewModel>(); // VM страницы создания группы
-            SimpleIoc.Default.Register<NewsListViewModel>(); // VM страницы списка новостей
-            SimpleIoc.Default.Register<EditNewsViewModel>(); // VM страницы редактирования новости
-            SimpleIoc.Default.Register<StudentsGroupViewModel>(); // VM страницы студентов группы
-            SimpleIoc.Default.Register<DisciplinesListViewModel>(); // VM страницы списка дисциплин и создания
-            SimpleIoc.Default.Register<TeacherDisciplinesViewModel>(); // VM страницы добавления дисциплины преподавателю
-            SimpleIoc.Default.Register<AddGroupDisciplineViewModel>(); // VM страницы добавления дисциплины группе
-
-
-            // ViewModel Преподавателя
-            SimpleIoc.Default.Register<TeacherViewModel>(); // ViewModel окна учителя
-
-            // ViewModel Студента
-            SimpleIoc.Default.Register<StudentViewModel>(); // ViewModel окна студента
+            //// Регистрируем наши ViewModels
+            AdminInitialization(); // Инициализируем VM
         }
 
 
@@ -340,29 +312,108 @@ namespace MyClient.ViewModel._Navigation
 
         #endregion
 
+        #region Вспомогательные методы для инициализации
 
-        private static string _currentKey = System.Guid.NewGuid().ToString();
-        public static string CurrentKey
+        // Метод для регистрации VM
+        private static void AdminInitialization()
         {
-            get
-            {
-                return _currentKey;
-            }
-            private set
-            {
-                _currentKey = value;
-            }
+            // Общие ViewModel
+            SimpleIoc.Default.Register<AccountVM>(); // Общая ViewModel
+            SimpleIoc.Default.Register<ProfileVM>(); // ViewModel профиля
+            SimpleIoc.Default.Register<MainPageVM>(); // ViewModel главной страницы
+
+            //// ViewModel администратора
+            SimpleIoc.Default.Register<AdministratorViewModel>(); // ViewModel администратора
+            SimpleIoc.Default.Register<UsersListPageViewModel>(); // VM списка пользователей
+            SimpleIoc.Default.Register<AccountsListPageViewModel>(); // VM списка аккаунтов
+            SimpleIoc.Default.Register<CreateAccountVM>(); // VM страницы создания аккаунта
+            SimpleIoc.Default.Register<CreateNewsViewModel>(); // VM страница создания новости
+            SimpleIoc.Default.Register<EditAccountVM>(); // VM страницы редактирования аккаунта
+            SimpleIoc.Default.Register<PersonalDataViewModel>(); // VM страницы персональных данных аккаунта
+            SimpleIoc.Default.Register<AccountInfoViewModel>(); // VM страницы информации об аккаунте
+            SimpleIoc.Default.Register<CreateGroupViewModel>(); // VM страницы создания группы
+            SimpleIoc.Default.Register<NewsListViewModel>(); // VM страницы списка новостей
+            SimpleIoc.Default.Register<EditNewsViewModel>(); // VM страницы редактирования новости
+            SimpleIoc.Default.Register<StudentsGroupViewModel>(); // VM страницы студентов группы
+            SimpleIoc.Default.Register<DisciplinesListViewModel>(); // VM страницы списка дисциплин и создания
+            SimpleIoc.Default.Register<TeacherDisciplinesViewModel>(); // VM страницы добавления дисциплины преподавателю
+            SimpleIoc.Default.Register<AddGroupDisciplineViewModel>(); // VM страницы добавления дисциплины группе
+
+            // ViewModel Преподавателя
+            SimpleIoc.Default.Register<TeacherViewModel>(); // ViewModel окна учителя
+
+            // ViewModel Студента
+            SimpleIoc.Default.Register<StudentViewModel>(); // ViewModel окна студента
         }
 
-        // Для очистки ViewModel (пока нет необходимости в реализации)
+        // Метод для отмены регистрации VM
+        private static void AdminDeinitiazalition()
+        {
+            // Общие ViewModel
+            SimpleIoc.Default.GetInstance<AccountVM>().Cleanup(); // Общая ViewModel
+            SimpleIoc.Default.GetInstance<ProfileVM>().Cleanup(); // ViewModel профиля
+            SimpleIoc.Default.GetInstance<MainPageVM>().Cleanup(); // ViewModel главной страницы
+
+            //// ViewModel администратора
+            SimpleIoc.Default.GetInstance<AdministratorViewModel>().Cleanup(); // ViewModel администратора
+            SimpleIoc.Default.GetInstance<UsersListPageViewModel>().Cleanup(); // VM списка пользователей
+            SimpleIoc.Default.GetInstance<AccountsListPageViewModel>().Cleanup(); // VM списка аккаунтов
+            SimpleIoc.Default.GetInstance<CreateAccountVM>().Cleanup(); // VM страницы создания аккаунта
+            SimpleIoc.Default.GetInstance<CreateNewsViewModel>().Cleanup(); // VM страница создания новости
+            SimpleIoc.Default.GetInstance<EditAccountVM>().Cleanup(); // VM страницы редактирования аккаунта
+            SimpleIoc.Default.GetInstance<PersonalDataViewModel>().Cleanup(); // VM страницы персональных данных аккаунта
+            SimpleIoc.Default.GetInstance<AccountInfoViewModel>().Cleanup(); // VM страницы информации об аккаунте
+            SimpleIoc.Default.GetInstance<CreateGroupViewModel>().Cleanup(); // VM страницы создания группы
+            SimpleIoc.Default.GetInstance<NewsListViewModel>().Cleanup(); // VM страницы списка новостей
+            SimpleIoc.Default.GetInstance<EditNewsViewModel>().Cleanup(); // VM страницы редактирования новости
+            SimpleIoc.Default.GetInstance<StudentsGroupViewModel>().Cleanup(); // VM страницы студентов группы
+            SimpleIoc.Default.GetInstance<DisciplinesListViewModel>().Cleanup(); // VM страницы списка дисциплин и создания
+            SimpleIoc.Default.GetInstance<TeacherDisciplinesViewModel>().Cleanup(); // VM страницы добавления дисциплины преподавателю
+            SimpleIoc.Default.GetInstance<AddGroupDisciplineViewModel>().Cleanup(); // VM страницы добавления дисциплины группе
+                                                                                    
+            // ViewModel Преподавателя
+            SimpleIoc.Default.GetInstance<TeacherViewModel>().Cleanup(); // ViewModel окна учителя
+
+            // ViewModel Студента
+            SimpleIoc.Default.GetInstance<StudentViewModel>().Cleanup(); // ViewModel окна студента
+
+
+            // Общие ViewModel
+            SimpleIoc.Default.Unregister<AccountVM>(); // Общая ViewModel
+            SimpleIoc.Default.Unregister<ProfileVM>(); // ViewModel профиля
+            SimpleIoc.Default.Unregister<MainPageVM>(); // ViewModel главной страницы
+
+            //// ViewModel администратора
+            SimpleIoc.Default.Unregister<AdministratorViewModel>(); // ViewModel администратора
+            SimpleIoc.Default.Unregister<UsersListPageViewModel>(); // VM списка пользователей
+            SimpleIoc.Default.Unregister<AccountsListPageViewModel>(); // VM списка аккаунтов
+            SimpleIoc.Default.Unregister<CreateAccountVM>(); // VM страницы создания аккаунта
+            SimpleIoc.Default.Unregister<CreateNewsViewModel>(); // VM страница создания новости
+            SimpleIoc.Default.Unregister<EditAccountVM>(); // VM страницы редактирования аккаунта
+            SimpleIoc.Default.Unregister<PersonalDataViewModel>(); // VM страницы персональных данных аккаунта
+            SimpleIoc.Default.Unregister<AccountInfoViewModel>(); // VM страницы информации об аккаунте
+            SimpleIoc.Default.Unregister<CreateGroupViewModel>(); // VM страницы создания группы
+            SimpleIoc.Default.Unregister<NewsListViewModel>(); // VM страницы списка новостей
+            SimpleIoc.Default.Unregister<EditNewsViewModel>(); // VM страницы редактирования новости
+            SimpleIoc.Default.Unregister<StudentsGroupViewModel>(); // VM страницы студентов группы
+            SimpleIoc.Default.Unregister<DisciplinesListViewModel>(); // VM страницы списка дисциплин и создания
+            SimpleIoc.Default.Unregister<TeacherDisciplinesViewModel>(); // VM страницы добавления дисциплины преподавателю
+            SimpleIoc.Default.Unregister<AddGroupDisciplineViewModel>(); // VM страницы добавления дисциплины группе
+
+            // ViewModel Преподавателя
+            SimpleIoc.Default.Unregister<TeacherViewModel>(); // ViewModel окна учителя
+
+            // ViewModel Студента
+            SimpleIoc.Default.Unregister<StudentViewModel>(); // ViewModel окна студента
+        }
+
+        #endregion
+
+        // Для очистки ViewModel
         public static void Cleanup()
         {
-            // TODO Clear the ViewModels
-            //((IDisposable)ServiceLocator.Current.GetInstance<AccountsListPageViewModel>()).Dispose();
-            //SimpleIoc.Default.Unregister<AccountsListPageViewModel>();
-            SimpleIoc.Default.GetInstance<AccountsListPageViewModel>().Cleanup();
-
-            CurrentKey = System.Guid.NewGuid().ToString();
+            AdminDeinitiazalition(); // Деинициализируем
+            AdminInitialization(); // Инициаилизируем
         }
     }
 }

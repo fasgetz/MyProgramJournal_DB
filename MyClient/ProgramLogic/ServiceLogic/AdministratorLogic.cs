@@ -315,11 +315,20 @@ namespace MyClient.ProgramLogic.ServiceLogic
         // Метод для получения списка аккаунтов
         public List<MyModelLibrary.accounts> GetAccountsList(MyModelLibrary.accounts MyAcc)
         {
-            // Создаем подключение к серверу
-            using (client = new MyService.TransferServiceClient())
+            try
             {
-                return client.GetAllAccountsList(MyAcc).ToList();
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    return client.GetAllAccountsList(MyAcc).ToList();
+                }
             }
+            catch(Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return null;
         }
 
         // Метод, который получает всех пользователей

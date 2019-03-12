@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using MyClient.ViewModel._Navigation;
+using MyClient.ViewModel.Administrator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace MyClient.View.Administrator
         public AdministratorWindow()
         {
             InitializeComponent();
+            DataContext = new AdministratorViewModel();
             NavigationSetup(); // Для того, чтобы можно было делать переход по страницам            
         }
 

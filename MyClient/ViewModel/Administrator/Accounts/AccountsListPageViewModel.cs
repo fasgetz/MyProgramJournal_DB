@@ -154,7 +154,7 @@ namespace MyClient.ViewModel.Administrator.Accounts
 
 
             MyAdminLogic = new ProgramLogic.ServiceLogic.AdministratorLogic(); // Инициализируем логику администратора
-            dialog = new ProgramLogic.DialogServices.DialogService(); // Инициализируем диалоговые окна            
+            dialog = new ProgramLogic.DialogServices.DialogService(); // Инициализируем диалоговые окна
         }
 
         // Вспомогательный метод для мессенджера, который проинициализирует аккаунт из прошлого vm при создании новой vm
@@ -164,12 +164,14 @@ namespace MyClient.ViewModel.Administrator.Accounts
 
             AccountsList = MyAdminLogic.GetAccountsList(MyAcc); // Загружаем список анкет с бд
 
+            
+
             // Передаем в Data элементы, по которым будем производить поиск
             AccountCBData = new List<string>() { "Айди", "Логин", "Пароль", "Статус", "Дата регистрации" };
         }
 
         #endregion
 
-      
+
     }
 }

@@ -526,9 +526,10 @@ namespace MyClient.ViewModel.Administrator
             {
                 return new RelayCommand(() =>
                 {
-                    // Если наша vm = null, то проинициализируй ее
+                    //Если наша vm = null, то проинициализируй ее
                     if (locator.AccountsListVM == null)
                         locator.AccountsListVM = new AccountsListPageViewModel();
+
 
                     // Мессенджер: передай UsersListPageVM наш MyAcc
                     Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
@@ -607,15 +608,16 @@ namespace MyClient.ViewModel.Administrator
         // Конструктор класса
         public AdministratorViewModel()
         {
+            locator = new ViewModelLocator(); // Инициализируем локатор VM
+
             // Получаем аккаунт из предыдущей VM
             Messenger.Default.Register<GenericMessage<MyModelLibrary.accounts>>(this, GetAccount);
-            
-            locator = new ViewModelLocator(); // Инициализируем локатор VM
+
             navigation = new NavigateViewModel(); // Инициализируем навигацию
             dialog = new DialogService(); // Для диалогов
 
             // Задаем текущий Instance для общения клиента с сервером
-            MyAccountLogic = new ProgramLogic.ServiceLogic.AccountLogic(new System.ServiceModel.InstanceContext(this));
+            MyAccountLogic = new ProgramLogic.ServiceLogic.AccountLogic(new System.ServiceModel.InstanceContext(this));           
         }
 
 

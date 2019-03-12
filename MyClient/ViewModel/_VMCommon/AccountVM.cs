@@ -120,9 +120,10 @@ namespace MyClient.ViewModel._VMCommon
             MyAdminLogic = null;
             MyUserLogic = null;
             MyAdminLogic = null;
+
             MyAcc = null;
-            ViewModelLocator.Cleanup(); // Clear
-            //locator.AccountsListVM = null;
+
+            ViewModelLocator.Cleanup();
         }
 
         // Команда авторизации пользователя
@@ -142,18 +143,7 @@ namespace MyClient.ViewModel._VMCommon
                     // Если учетные данные есть у юзера, то создай сервис для работы с юзерами и проинициаилируй
                     if (MyAcc != null && MyAcc.Users != null)
                     {
-                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
-
-                        // Инициализируем логику в зависимости от статуса пользователя (Администратор / преподаватель / студент)
-                        if (MyAcc.Users.idUserStatus == 3)
-                        {
-                            MyAdminLogic = new AdministratorLogic(); // Инициализируем административную логику
-                        }
-                        else if (MyAcc.Users.idUser == 1)
-                        {
-                            MyUserLogic = new StudentLogic(); // Инициализируем логику работы юзера
-                        }
-                            
+                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт                            
                     }
                 });
             }
@@ -253,7 +243,7 @@ namespace MyClient.ViewModel._VMCommon
         // Конструктор класса
         public AccountVM()
         {            
-            dialog = new DialogService(); // Инициализируем диалоги         
+            dialog = new DialogService(); // Инициализируем диалоги              
         }
 
     }
