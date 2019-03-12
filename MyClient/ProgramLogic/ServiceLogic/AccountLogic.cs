@@ -40,9 +40,6 @@ namespace MyClient.ProgramLogic.ServiceLogic
             {
                 MyDialog.ShowMessage(ex.Message);
             }
-
-
-
         }
 
         // Метод, который открывает окна и диалоги, в зависимости от типа аккаунта
@@ -64,7 +61,6 @@ namespace MyClient.ProgramLogic.ServiceLogic
                 else
                 {
                     MyDialog.ShowMessage("Вы успешно авторизировались!");
-
 
                     navigation = new NavigateViewModel();
                     // Выбираем какую страницу открывать по статусу юзера

@@ -19,7 +19,6 @@ namespace MyClient.ViewModel.Administrator.Disciplines
     public class TeacherDisciplinesViewModel : DisciplinesListViewModel
     {
 
-
         #region Свойства
 
         // Список дисциплин, которые можно добавить учителю

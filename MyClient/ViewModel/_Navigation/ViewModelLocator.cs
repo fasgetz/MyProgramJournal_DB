@@ -23,6 +23,7 @@ using MyClient.ViewModel.Administrator.News;
 using MyClient.ViewModel.Administrator.Users;
 using MyClient.ViewModel.Student;
 using MyClient.ViewModel.Teacher;
+using System;
 
 namespace MyClient.ViewModel._Navigation
 {
@@ -62,6 +63,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Register<StudentsGroupViewModel>(); // VM страницы студентов группы
             SimpleIoc.Default.Register<DisciplinesListViewModel>(); // VM страницы списка дисциплин и создания
             SimpleIoc.Default.Register<TeacherDisciplinesViewModel>(); // VM страницы добавления дисциплины преподавателю
+            SimpleIoc.Default.Register<AddGroupDisciplineViewModel>(); // VM страницы добавления дисциплины группе
 
 
             // ViewModel Преподавателя
@@ -74,11 +76,16 @@ namespace MyClient.ViewModel._Navigation
 
         #region VM Студента
 
+        private StudentViewModel _StudentVM;
         public StudentViewModel StudentVM
         {
             get
             {
                 return ServiceLocator.Current.GetInstance<StudentViewModel>();
+            }
+            set
+            {
+                _StudentVM = value;
             }
         }
 
@@ -97,6 +104,19 @@ namespace MyClient.ViewModel._Navigation
         #endregion
 
         #region VM Администратора
+
+        private AddGroupDisciplineViewModel _AddGroupDisciplineVM;
+        public AddGroupDisciplineViewModel AddGroupDisciplineVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddGroupDisciplineViewModel>();
+            }
+            set
+            {
+                _AddGroupDisciplineVM = value;
+            }
+        }
 
         private TeacherDisciplinesViewModel _TeacherDisciplinesVM;
         public TeacherDisciplinesViewModel TeacherDisciplinesVM
@@ -202,11 +222,16 @@ namespace MyClient.ViewModel._Navigation
             }
         }
 
+        private AdministratorViewModel _AdminVM;
         public AdministratorViewModel AdminVM
         {
             get
             {
                 return ServiceLocator.Current.GetInstance<AdministratorViewModel>();
+            }
+            set
+            {
+                _AdminVM = value;
             }
         }
 
@@ -316,12 +341,28 @@ namespace MyClient.ViewModel._Navigation
         #endregion
 
 
-
+        private static string _currentKey = System.Guid.NewGuid().ToString();
+        public static string CurrentKey
+        {
+            get
+            {
+                return _currentKey;
+            }
+            private set
+            {
+                _currentKey = value;
+            }
+        }
 
         // Для очистки ViewModel (пока нет необходимости в реализации)
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
+            //((IDisposable)ServiceLocator.Current.GetInstance<AccountsListPageViewModel>()).Dispose();
+            //SimpleIoc.Default.Unregister<AccountsListPageViewModel>();
+            SimpleIoc.Default.GetInstance<AccountsListPageViewModel>().Cleanup();
+
+            CurrentKey = System.Guid.NewGuid().ToString();
         }
     }
 }

@@ -20,6 +20,21 @@ namespace MyClient.ViewModel.Administrator.Groups
 
         #region Свойства
 
+        // Для вывода названия группы 
+        private string _MyGroupName;
+        public string MyGroupName
+        {
+            get
+            {
+                return _MyGroupName;
+            }
+            set
+            {
+                _MyGroupName = value;
+                RaisePropertyChanged("GroupName");
+            }
+        }
+
         // Выбранная группу
         private MyModelLibrary.Groups _SelectedGroup;
         public MyModelLibrary.Groups SelectedGroup
@@ -97,6 +112,35 @@ namespace MyClient.ViewModel.Administrator.Groups
         #endregion
 
         #region Команды
+
+        // Команда перехода на страницу добавления дисциплины группе
+        public ICommand OpenAddGroupDiscipline
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если мы выбрали группу в списке групп, то открой страницу студентов выбранной группы
+                    if (SelectedGroup != null)
+                    {
+                        // Если наша vm = null, то проинициализируй ее
+                        if (locator.AddGroupDisciplineVM == null)
+                            locator.AddGroupDisciplineVM = new AddGroupDisciplineViewModel();
+
+
+                        // Инициализируем группу
+                        SelectedGroup = new MyModelLibrary.Groups(SelectedGroup.idGroup, SelectedGroup.GroupName, Convert.ToInt16(SelectedGroup.idSpeciality));
+
+                        // Мессенджер: передай в StudentsGroupPage наш MyAcc и SelectedGroup
+                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.Groups>(SelectedGroup)); // Отправляем в следующий DataContext группу
+
+                        // Перейди в Page страницы дисциплин
+                        navigation.Navigate("View/Administrator/Groups/AddGroupDisciplinesPage.xaml");
+                    }
+                });
+            }
+        }
 
         // Команда на открытие страницы списка студентов выбранной группы
         public ICommand OpenStudentsPage

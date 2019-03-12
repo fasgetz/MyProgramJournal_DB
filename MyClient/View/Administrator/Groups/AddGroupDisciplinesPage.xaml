@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MyClient.View.Administrator.Groups"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="1024"
+      d:DesignHeight="700" d:DesignWidth="1024"      
+      DataContext="{Binding AddGroupDisciplineVM, Source={StaticResource Locator}}"
       Title="AddGroupDisciplinesPage">
     <Page.Resources>
 
@@ -20,7 +21,7 @@
     </Page.Resources>
 
     <Grid>
-        <Label Content="Добавление дисциплины группе" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1014"/>
+        <Label Content="{Binding MyGroupName}" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1014"/>
         <Label Content="Выберите дисциплину" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="196"/>
         <Label Content="Выберите преподавателя" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Width="196"/>
         <Label Content="Выберите предмет" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top" Width="196"/>

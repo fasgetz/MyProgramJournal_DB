@@ -22,21 +22,6 @@ namespace MyClient.ViewModel.Administrator.Groups
 
         #region Свойства
 
-        // Для вывода названия группы 
-        private string _MyGroupName;
-        public string MyGroupName
-        {
-            get
-            {
-                return _MyGroupName;
-            }
-            set
-            {
-                _MyGroupName = value;                
-                RaisePropertyChanged("GroupName");
-            }
-        }   
-
         // Список студентов без группы
         private ObservableCollection<MyModelLibrary.Users> _NotGrouppedStudents;
         public ObservableCollection<MyModelLibrary.Users> NotGroupedStudents

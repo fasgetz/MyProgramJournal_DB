@@ -120,6 +120,9 @@ namespace MyClient.ViewModel._VMCommon
             MyAdminLogic = null;
             MyUserLogic = null;
             MyAdminLogic = null;
+            MyAcc = null;
+            ViewModelLocator.Cleanup(); // Clear
+            //locator.AccountsListVM = null;
         }
 
         // Команда авторизации пользователя
@@ -129,6 +132,7 @@ namespace MyClient.ViewModel._VMCommon
             {
                 return new RelayCommand(() =>
                 {
+
                     // Создаем канал связи между клиентом и сервером
                     MyAccountLogic = new AccountLogic(new System.ServiceModel.InstanceContext(this));
 
@@ -142,9 +146,14 @@ namespace MyClient.ViewModel._VMCommon
 
                         // Инициализируем логику в зависимости от статуса пользователя (Администратор / преподаватель / студент)
                         if (MyAcc.Users.idUserStatus == 3)
+                        {
                             MyAdminLogic = new AdministratorLogic(); // Инициализируем административную логику
+                        }
                         else if (MyAcc.Users.idUser == 1)
+                        {
                             MyUserLogic = new StudentLogic(); // Инициализируем логику работы юзера
+                        }
+                            
                     }
                 });
             }

@@ -137,8 +137,6 @@ namespace WCF_Service.DataBase.DTO
                 Convert.ToInt16(studentsGroup.NumberInJournal)
                 );
 
-
-
             return StudentGroup; // Возвращаем объект
         }
 
@@ -291,10 +289,17 @@ namespace WCF_Service.DataBase.DTO
                     // Если юзер == 1 (Если юзер == студент, который имеет группу, то проинициализируй дальше
                     if (AccountNotDTO.Users.idUserStatus == 1 && AccountNotDTO.Users.StudentsGroup != null)
                     {                        
-                        Account.Users.StudentsGroup = GetStudentsGroup(AccountNotDTO.Users.StudentsGroup); // Присвой группу студенту
+                        Account.Users.StudentsGroup = GetStudentsGroup(AccountNotDTO.Users.StudentsGroup); // Присвой принадлежность студента к группе
                         Account.Users.StudentsGroup.Attendance = GetAttendanceList(AccountNotDTO.Users.StudentsGroup.Attendance.ToList()); // Присвой список оценок студента
                         Account.Users.StudentsGroup.FinalAttendances = GetFinalAttendances(AccountNotDTO.Users.StudentsGroup.FinalAttendances.ToList()); // Список итоговых оценок
 
+                        // Если студент состоит в группе, то добавь ее
+                        if (AccountNotDTO.Users.StudentsGroup.Groups != null)
+                            Account.Users.StudentsGroup.Groups = new MyModelLibrary.Groups
+                                (
+                                AccountNotDTO.Users.StudentsGroup.Groups.GroupName,
+                                Convert.ToInt16(AccountNotDTO.Users.StudentsGroup.Groups.idSpeciality
+                                ));
                         //Account.Users.StudentsGroup.Groups.TeacherDisciplines = GetGroupDisciplines(AccountNotDTO.Users.StudentsGroup.Groups); // Присваиваем список дисциплин группе студента       
 
                     }

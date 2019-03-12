@@ -248,7 +248,6 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы администратора
 
-
         // Метод, который выдаст список преподавателей (С проверкой на администратора)
         public List<MyModelLibrary.Users> GetTeacherList(MyModelLibrary.accounts MyAcc)
         {
@@ -445,7 +444,6 @@ namespace WCF_Service.ServiceLogic
 
             return false; // Возвращаем false, если неудачный запрос на добавление дисциплины преподавателю
         }
-
 
         // Метод добавления новой дисциплины
         public bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline)
