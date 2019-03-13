@@ -151,6 +151,66 @@ namespace MyClient.ViewModel.Administrator
 
         #region Свойства страниц добавления и редактирования аккаунта
 
+        private int _idAccountStatus;
+        public int idAccountStatus
+        {
+            get
+            {
+                return _idAccountStatus;
+            }
+            set
+            {
+                _idAccountStatus = value;
+                if (SelectedAccount != null)
+                {
+                    switch (value)
+                    {
+                        case (0):
+                            SelectedAccount.idStatus = 0;
+                            break;
+                        case (1):
+                            SelectedAccount.idStatus = 1;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                RaisePropertyChanged("idAccountStatus");
+            }
+        }
+
+        private int _UserStatus;
+        public int UserStatus
+        {
+            get
+            {
+                return _UserStatus;
+            }
+            set
+            {
+                _UserStatus = value;
+                if (SelectedAccount != null)
+                {
+                    switch (value)
+                    {
+                        case (1):
+                            SelectedAccount.Users.idUserStatus = 1;
+                            break;
+                        case (2):
+                            SelectedAccount.Users.idUserStatus = 2;
+                            break;
+                        case (3):
+                            SelectedAccount.Users.idUserStatus = 3;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                RaisePropertyChanged("UserStatus");
+            }
+        }
+
         private string _AddName;
         public string AddName
         {
@@ -232,15 +292,19 @@ namespace MyClient.ViewModel.Administrator
             set
             {
                 _AddStatus = value;
-                if (SelectedAccount != null)
+                if (value == "Студент")
                 {
-                    if (value == "Студент")
-                        SelectedAccount.Users.idUserStatus = 1;
-                    else if (value == "Преподаватель")
-                        SelectedAccount.Users.idUserStatus = 2;
-                    else if (value == "Администратор")
-                        SelectedAccount.Users.idUserStatus = 3;
+                    UserStatus = 1;
                 }
+                else if (value == "Преподаватель")
+                {
+                    UserStatus = 2;
+                }                  
+                else if (value == "Администратор")
+                {
+                    UserStatus = 3;
+                }
+
                 RaisePropertyChanged("AddStatus");
             }
         }
@@ -255,14 +319,15 @@ namespace MyClient.ViewModel.Administrator
             set
             {
                 _AddAccountStatus = value;
-                if (SelectedAccount != null)
+                if (value == "Неактивный")
                 {
-                    if (value == "Неактивный")
-                        SelectedAccount.idStatus = 0;
-                    else
-                        SelectedAccount.idStatus = 1;
+                    idAccountStatus = 0;
                 }
-
+                else if (value == "Активный")
+                {
+                    idAccountStatus = 1;
+                }
+                   
                 RaisePropertyChanged("AddAccountStatus");
             }
         }

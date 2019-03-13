@@ -237,6 +237,105 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы администратора
 
+        // Метод, который добавляет дисциплину группе (С проверкой на администратора)
+        public bool AddDisciplineGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline discipline, int? NumbSem)
+        {
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если статус соответствует, то приступи к добавлению группы
+            if (status == true)
+            {
+                // Если входные данные не пусты, то приступи к добавлению группы
+                if (group != null && Teacher != null && discipline != null && NumbSem != null && NumbSem >= 1 && NumbSem <= 8)
+                {
+                    // Устанавливаем подключение к бд
+                    using (MyDB db = new MyDB())
+                    {
+                        // Необходимо додумать проверку на то, ведет ли уже преподаватель данную дисциплину в данном семестре у данной группы
+                        var check = db.GroupDisciplines.FirstOrDefault
+                            (
+                                i => i.TeacherDisciplines.IdTeacher == Teacher.idUser && i.TeacherDisciplines.IdDiscipline == discipline.idDiscipline
+                                && i.IdGroup == group.idGroup
+                                && i.NumberSemester == NumbSem
+                            );
+
+                        // Если не нашли, то можно добавить
+                        if (check == null)
+                        {
+                            try
+                            {
+                                // Создаем репозиторий для работы с БД
+                                EFGenericRepository<GroupDisciplines> repository = new EFGenericRepository<GroupDisciplines>(new MyDB());
+
+                                // Добавляем дисциплину группе
+                                repository.Add(new GroupDisciplines(new MyDB().TeacherDisciplines.FirstOrDefault(i => i.IdTeacher == Teacher.idUser && i.IdDiscipline == discipline.idDiscipline).IdTeacherDiscipline,
+                                    group.idGroup, Convert.ToInt16(NumbSem)));
+
+                                return true;
+                            }
+                            catch(Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }                            
+                        }
+                        else
+                        {
+                            ExceptionSender.SendException("Мы не можем добавить так как дисциплина у группы уже добавлена!");
+                        }
+                    }
+                }
+                // Иначе, если входные данные не заполнены, то выдай экзепшен пользователю
+                else
+                    ExceptionSender.SendException("Вы не заполнили необходимые данные!");
+            }
+
+            return false; // Верни false, если добавление дисциплины группе неудачно
+        }
+
+        // Метод, который возвращает список преподавателей, которые ведут дисциплину
+        public List<MyModelLibrary.Users> GetUsersFromDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline SelectedDiscipline)
+        {
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если статус соответствует, то выполни поиск преподавателей, которые ведут эту дисциплину
+            if (status == true)
+            {
+                if (SelectedDiscipline != null)
+                {
+                    // Создаем репозиторий для работы с БД
+                    EFGenericRepository<Users> repository = new EFGenericRepository<Users>(new MyDB());
+                    EFGenericRepository<TeacherDisciplines> teachers_repository = new EFGenericRepository<TeacherDisciplines>(new MyDB());
+
+                    // Ищем всех преподавателей, которые ведут выбранню дисциплину
+                    var list = new MyDB().TeacherDisciplines.Where(i => i.IdDiscipline == SelectedDiscipline.idDiscipline);
+
+                    // Если список не пустой, то создай DTO список и верни его пользователю
+                    if (list != null)
+                    {
+                        MyGeneratorDTO generator = new MyGeneratorDTO();
+                        List<MyModelLibrary.Users> Teachers = new List<MyModelLibrary.Users>();
+
+                        // Перебираем весь список и добавляем в DTO список уже DTO объекты
+                        foreach (var item in list)
+                        {
+                            var teacher = repository.FindQueryEntity(i => i.idUser == item.IdTeacher); // Находим юзера в бд
+                            Teachers.Add(generator.GetUser(teacher)); // Добавляем в список
+                        }
+
+                        return Teachers; // Возвращаем DTO список
+                    }
+                }
+                else
+                {
+                    ExceptionSender.SendException("Вы не заполнили необходимые данные!");
+                }
+            }
+
+            return null; // Возвращаем null, если не удалось получить список
+        }
+
         // Метод, который возвращает список дисциплин группы, которых еще нету у группы в семестре
         public List<MyModelLibrary.Discipline> GetNotAddedGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, byte sem)
         {
@@ -249,34 +348,39 @@ namespace WCF_Service.ServiceLogic
                 // Если группу выбрали, то продолжи
                 if (group != null && sem >= 1 && sem <= 8)
                 {
-                    // Репозитории для работы с БД
-                    EFGenericRepository<Discipline> discipline_repository = new EFGenericRepository<Discipline>(new MyDB());
-
-                    // Сперва находим дисциплины, которые есть у группы в этом семестре
-                    var templist = new MyDB().GroupDisciplines.Where(i => i.IdGroup == group.idGroup && i.NumberSemester == sem);
-                    Console.WriteLine($"Всего нашлось: {templist.Count()} дисциплин у группы {group.GroupName}");
-
-                    // Если дисциплины у группы есть, то верни ей список тех дисциплин, которых нету у группы
-                    if (templist != null)
+                    try
                     {
+                        // Репозитории для работы с БД
+                        EFGenericRepository<Discipline> discipline_repository = new EFGenericRepository<Discipline>(new MyDB());
 
-                        var alldisciplines = discipline_repository.GetAllList(); // Получаем весь список дисциплин
-                        List<MyModelLibrary.Discipline> disciplines = new List<MyModelLibrary.Discipline>(); // Список дисциплин в DTO
+                        // Сперва находим дисциплины, которые есть у группы в этом семестре
+                        var templist = new MyDB().GroupDisciplines.Where(i => i.IdGroup == group.idGroup && i.NumberSemester == sem);
+                        Console.WriteLine($"Всего нашлось: {templist.Count()} дисциплин у группы {group.GroupName}");
 
-                        // Перебираем весь список дисциплин и сравниваем
-                        foreach (var item in alldisciplines)
+                        // Если дисциплины у группы есть, то верни ей список тех дисциплин, которых нету у группы
+                        if (templist != null)
                         {
-                            // Находим дисциплину в списке по айди
-                            var MyDiscipline = templist.FirstOrDefault(i => i.TeacherDisciplines.IdDiscipline == item.idDiscipline);
 
-                            // Если дисциплина найдена, то добавляем в DTO список
-                            if (MyDiscipline == null)
-                                disciplines.Add(new MyModelLibrary.Discipline(item.idDiscipline, item.NameDiscipline)); // Добавляем дисциплину
+                            var alldisciplines = discipline_repository.GetAllList(); // Получаем весь список дисциплин
+                            List<MyModelLibrary.Discipline> disciplines = new List<MyModelLibrary.Discipline>(); // Список дисциплин в DTO
+
+                            // Перебираем весь список дисциплин и сравниваем
+                            foreach (var item in alldisciplines)
+                            {
+                                // Находим дисциплину в списке по айди
+                                var MyDiscipline = templist.FirstOrDefault(i => i.TeacherDisciplines.IdDiscipline == item.idDiscipline);
+
+                                // Если дисциплина найдена, то добавляем в DTO список
+                                if (MyDiscipline == null)
+                                    disciplines.Add(new MyModelLibrary.Discipline(item.idDiscipline, item.NameDiscipline)); // Добавляем дисциплину
+                            }
+
+                            return disciplines; // Возвращаем список
                         }
-
-                        Console.WriteLine($"Возвращаем юзеру {disciplines.Count} дисциплин группы {group.GroupName}");
-
-                        return disciplines; // Возвращаем список
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
                     }
                 }
                 // Иначе выдай ошибку о том, что входные данные не заполнены

@@ -9,7 +9,8 @@ namespace ConsoleHost
 {
     class Program
     {
-        static void Main(string[] args)
+        // Метод, который запускает сервер
+        private static void StartServer()
         {
             // Запускаем сервис TransferService
             using (var host = new ServiceHost(typeof(WCF_Service.MyService.ServiceWorkDB.TransferService)))
@@ -18,6 +19,11 @@ namespace ConsoleHost
                 Console.WriteLine($"{DateTime.Now}) Хост TransferSerivce стартовал!");
                 Console.ReadLine();
             }
+        }
+
+        static void Main(string[] args)
+        {
+            StartServer();
         }
     }
     

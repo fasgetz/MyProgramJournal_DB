@@ -39,6 +39,18 @@
   <wsdl:message name="ITransferService_GetGroups_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetGroupsResponse" />
   </wsdl:message>
+  <wsdl:message name="ITransferService_AddDisciplineGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddDisciplineGroup" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_AddDisciplineGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddDisciplineGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_GetUsersFromDiscipline_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsersFromDiscipline" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_GetUsersFromDiscipline_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsersFromDisciplineResponse" />
+  </wsdl:message>
   <wsdl:message name="ITransferService_GetNotAddedGroupDisciplines_InputMessage">
     <wsdl:part name="parameters" element="tns:GetNotAddedGroupDisciplines" />
   </wsdl:message>
@@ -152,6 +164,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetGroups" message="tns:ITransferService_GetGroups_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetGroupsResponse" message="tns:ITransferService_GetGroups_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="AddDisciplineGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/AddDisciplineGroup" message="tns:ITransferService_AddDisciplineGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/AddDisciplineGroupResponse" message="tns:ITransferService_AddDisciplineGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsersFromDiscipline">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetUsersFromDiscipline" message="tns:ITransferService_GetUsersFromDiscipline_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetUsersFromDisciplineResponse" message="tns:ITransferService_GetUsersFromDiscipline_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetNotAddedGroupDisciplines">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetNotAddedGroupDisciplines" message="tns:ITransferService_GetNotAddedGroupDisciplines_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetNotAddedGroupDisciplinesResponse" message="tns:ITransferService_GetNotAddedGroupDisciplines_OutputMessage" />
@@ -249,6 +269,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetGroups">
       <soap12:operation soapAction="http://tempuri.org/ITransferService/GetGroups" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDisciplineGroup">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/AddDisciplineGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsersFromDiscipline">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/GetUsersFromDiscipline" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -40,6 +40,14 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы администратора
 
+        // Метод, который добавляет дисциплину группе (С проверкой на администратора)
+        [OperationContract]
+        bool AddDisciplineGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline discipline, int? NumbSem);
+
+        // Метод, который возвращает список преподавателей, которые ведут дисциплину
+        [OperationContract]
+        List<MyModelLibrary.Users> GetUsersFromDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline SelectedDiscipline);
+
         // Метод, который возвращает список дисциплин группы, которых еще нету у группы в семестре
         [OperationContract]
         List<MyModelLibrary.Discipline> GetNotAddedGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, byte sem);

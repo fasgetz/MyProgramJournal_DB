@@ -12,6 +12,11 @@ namespace MyClient.ViewModel.Administrator.Accounts
     public class CreateAccountVM : AccountsListPageViewModel
     {
 
+        #region Свойства
+
+
+        #endregion
+
         #region Команды
 
         // Команда создания аккаунта
@@ -21,43 +26,17 @@ namespace MyClient.ViewModel.Administrator.Accounts
             {
                 return new RelayCommand(() =>
                 {
-                    // Создаем новый аккаунт и инициализируем его данные
-                    MyModelLibrary.accounts NewAccount = new MyModelLibrary.accounts();
-                    NewAccount.login = AddLogin;
-                    NewAccount.password = AddPassword;
-                    if (AddAccountStatus == "Активный")
-                        NewAccount.idStatus = 1;
-                    else if (AddAccountStatus == "Неактивный")
-                        NewAccount.idStatus = 0;
-
-                    // Инициализируем теперь анкетные данные
-                    NewAccount.Users = new MyModelLibrary.Users();
-                    NewAccount.Users.Name = AddName;
-                    NewAccount.Users.Family = AddFamily;
-                    NewAccount.Users.Surname = AddSurname;
-                    if (AddGender == "Мужчина")
-                        NewAccount.Users.Gender = "М";
-                    else if (AddGender == "Женщина")
-                        NewAccount.Users.Gender = "Ж";
-                    if (AddStatus == "Студент")
-                        NewAccount.Users.idUserStatus = 1;
-                    else if (AddStatus == "Преподаватель")
-                        NewAccount.Users.idUserStatus = 2;
-                    if (AddTelephone == null)
-                        NewAccount.Users.NumberPhone = null;
-                    else
-                        NewAccount.Users.NumberPhone = AddTelephone;
-                    NewAccount.Users.DateOfBirthDay = AddDateOfBirthday;
+                    // Создаем новый аккаунт и инициализируем данные
+                    MyModelLibrary.accounts NewAccount = new MyModelLibrary.accounts
+                    (idAccountStatus, AddLogin, AddPassword, 
+                    new MyModelLibrary.Users(AddName, AddFamily, AddSurname, AddGender, UserStatus, AddTelephone, AddDateOfBirthday));
 
                     // Создаем аккаунт
                     bool Created = MyAdminLogic.CreateAccount(NewAccount, MyAcc);
 
                     // Если аккаунт успешно создан, то перейди на главную страницу
                     if (Created == true)
-                    {
-                        // Перейди в Page главной страницы
                         navigation.Navigate("View/CommonPages/MainPage.xaml");
-                    }
                 });
             }
         }

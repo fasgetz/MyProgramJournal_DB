@@ -13,7 +13,13 @@ namespace MyModelLibrary
         }
 
 
-
+        public accounts(int status, string login, string password, Users user)
+        {
+            this.idStatus = status;
+            this.login = login;
+            this.password = password;
+            this.Users = user;
+        }
 
         public accounts(int idAccount, int idStatus, string login, string password, System.DateTime DateRegistration)
         {
@@ -71,7 +77,6 @@ namespace MyModelLibrary
             }
         }
 
-
         #endregion
 
 
@@ -89,10 +94,6 @@ namespace MyModelLibrary
         public virtual Users Users { get; set; } // Ссылка на сущность Юзер 
 
         #endregion
-
-
-
-
 
     }
 }

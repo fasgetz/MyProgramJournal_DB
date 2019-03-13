@@ -86,6 +86,22 @@ namespace MyModelLibrary
         }
         #endregion
 
+        public Users(string Name, string Family, string Surname, string Gender, int UserStatus, string NumberPhone, DateTime? DateOfBirthday)
+        {
+            this.Name = Name;
+            this.Family = Family;
+            this.Surname = Surname;
+
+            // Определяем гендер
+            if (Gender == "Мужчина")
+                this.Gender = "М";
+            else
+                this.Gender = "Ж";
+
+            this.idUserStatus = UserStatus;
+            this.NumberPhone = NumberPhone;
+            this.DateOfBirthDay = DateOfBirthDay;
+        }
 
         // Конструктор для инициализации свойств юзера
         public Users(int idUser, int? idUserStatus, string Name, string Family, string Surname, string Gender, string NumberPhone, DateTime? DateOfBirthday)

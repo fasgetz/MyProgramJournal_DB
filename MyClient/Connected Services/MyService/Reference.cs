@@ -39,6 +39,18 @@ namespace MyClient.MyService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroups", ReplyAction="http://tempuri.org/ITransferService/GetGroupsResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddDisciplineGroup", ReplyAction="http://tempuri.org/ITransferService/AddDisciplineGroupResponse")]
+        bool AddDisciplineGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline discipline, System.Nullable<int> NumbSem);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddDisciplineGroup", ReplyAction="http://tempuri.org/ITransferService/AddDisciplineGroupResponse")]
+        System.Threading.Tasks.Task<bool> AddDisciplineGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline discipline, System.Nullable<int> NumbSem);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetUsersFromDiscipline", ReplyAction="http://tempuri.org/ITransferService/GetUsersFromDisciplineResponse")]
+        System.Collections.Generic.List<MyModelLibrary.Users> GetUsersFromDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline SelectedDiscipline);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetUsersFromDiscipline", ReplyAction="http://tempuri.org/ITransferService/GetUsersFromDisciplineResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetUsersFromDisciplineAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline SelectedDiscipline);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetNotAddedGroupDisciplines", ReplyAction="http://tempuri.org/ITransferService/GetNotAddedGroupDisciplinesResponse")]
         System.Collections.Generic.List<MyModelLibrary.Discipline> GetNotAddedGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, byte sem);
         
@@ -193,6 +205,22 @@ namespace MyClient.MyService {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync() {
             return base.Channel.GetGroupsAsync();
+        }
+        
+        public bool AddDisciplineGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline discipline, System.Nullable<int> NumbSem) {
+            return base.Channel.AddDisciplineGroup(MyAcc, group, Teacher, discipline, NumbSem);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddDisciplineGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline discipline, System.Nullable<int> NumbSem) {
+            return base.Channel.AddDisciplineGroupAsync(MyAcc, group, Teacher, discipline, NumbSem);
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.Users> GetUsersFromDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline SelectedDiscipline) {
+            return base.Channel.GetUsersFromDiscipline(MyAcc, SelectedDiscipline);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetUsersFromDisciplineAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline SelectedDiscipline) {
+            return base.Channel.GetUsersFromDisciplineAsync(MyAcc, SelectedDiscipline);
         }
         
         public System.Collections.Generic.List<MyModelLibrary.Discipline> GetNotAddedGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, byte sem) {

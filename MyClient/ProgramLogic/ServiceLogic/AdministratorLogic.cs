@@ -16,6 +16,60 @@ namespace MyClient.ProgramLogic.ServiceLogic
     {
         #region Методы для работы с сервером
 
+        public bool AddDisciplineGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline discipline, int? NumbSem)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    // Отправляем данные на сервер и получаем true, если дисциплина группе добавлена успешно
+                    bool Added = client.AddDisciplineGroup(MyAcc, group, Teacher, discipline, NumbSem);
+
+                    // Если дисциплина группе добавлена успешно, то выведи об этом
+                    if (Added == true)
+                    {
+                        MyDialog.ShowMessage($"Дисциплина группе добавлена успешно!");
+
+                        return true; // Возвращаем true, т.к. дисциплина группе добавлена успешно
+                    }
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return false; // false, если неудачное добавление
+        }
+
+        // Метод, который возвращает список преподавателей, которые ведут дисциплину
+        public List<MyModelLibrary.Users> GetUsersFromDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline SelectedDiscipline)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    return client.GetUsersFromDiscipline(MyAcc, SelectedDiscipline);
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return null; // Если не удалось ничего получить, то возвращаем null
+        }
+
         // Метод получения списка дисциплин группы
         public List<MyModelLibrary.GroupDisciplines> GetGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, int? semestr)
         {
