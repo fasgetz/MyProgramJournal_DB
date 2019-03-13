@@ -16,6 +16,53 @@ namespace MyClient.ProgramLogic.ServiceLogic
     {
         #region Методы для работы с сервером
 
+        // Метод получения списка дисциплин группы
+        public List<MyModelLibrary.GroupDisciplines> GetGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, int? semestr)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    return client.GetGroupDisciplines(MyAcc, group, semestr); // Возвращаем с сервера
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return null; // Если не удалось получить группы
+        }
+
+        // Метод, который выдаст список дисциплин учителя / дисциплин, которых еще нет у учителя
+        // (param = 1, выдаст дисциплины учителя / param = 2, выдаст дисциплины, которых еще нет у учителя)
+        public List<MyModelLibrary.Discipline> GetTeacherDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, byte param)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    return client.GetTeacherDisciplines(MyAcc, Teacher, param);
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return null; // Если неудачно
+        }
+
         // Метод редактирования группы
         public bool EditGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups EditGroup)
         {
@@ -119,14 +166,14 @@ namespace MyClient.ProgramLogic.ServiceLogic
 
         // Метод, который выдаст список дисциплин учителя / дисциплин, которых еще нет у учителя
         // (param = 1, выдаст дисциплины учителя / param = 2, выдаст дисциплины, которых еще нет у учителя)
-        public List<MyModelLibrary.Discipline> GetTeacherDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, byte param)
+        public List<MyModelLibrary.Discipline> GetNotAddedGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, byte param)
         {
             try
             {
                 // Создаем подключение к серверу
                 using (client = new MyService.TransferServiceClient())
                 {
-                    return client.GetTeacherDisciplines(MyAcc, Teacher, param);
+                    return client.GetNotAddedGroupDisciplines(MyAcc, group, param);
                 }
             }
             catch (FaultException<AccountService.AccountConnectedException> ex)

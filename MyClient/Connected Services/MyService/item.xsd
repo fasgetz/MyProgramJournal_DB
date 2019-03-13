@@ -54,11 +54,43 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="EditGroup">
+  <xs:element name="GetNotAddedGroupDisciplines">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q7:accounts" />
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="EditGroup" nillable="true" type="q8:Groups" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="group" nillable="true" type="q8:Groups" />
+        <xs:element minOccurs="0" name="sem" type="xs:unsignedByte" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNotAddedGroupDisciplinesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetNotAddedGroupDisciplinesResult" nillable="true" type="q9:ArrayOfDiscipline" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGroupDisciplines">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q10:accounts" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="group" nillable="true" type="q11:Groups" />
+        <xs:element minOccurs="0" name="semestr" nillable="true" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGroupDisciplinesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetGroupDisciplinesResult" nillable="true" type="q12:ArrayOfGroupDisciplines" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditGroup">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q13:accounts" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="EditGroup" nillable="true" type="q14:Groups" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -72,8 +104,8 @@
   <xs:element name="RemoveGroup">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q9:accounts" />
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Group" nillable="true" type="q10:Groups" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q15:accounts" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Group" nillable="true" type="q16:Groups" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -87,22 +119,22 @@
   <xs:element name="GetTeacherList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q11:accounts" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q17:accounts" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTeacherListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetTeacherListResult" nillable="true" type="q12:ArrayOfUsers" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetTeacherListResult" nillable="true" type="q18:ArrayOfUsers" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTeacherDisciplines">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q13:accounts" />
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Teacher" nillable="true" type="q14:Users" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q19:accounts" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Teacher" nillable="true" type="q20:Users" />
         <xs:element minOccurs="0" name="param" type="xs:unsignedByte" />
       </xs:sequence>
     </xs:complexType>
@@ -110,16 +142,16 @@
   <xs:element name="GetTeacherDisciplinesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetTeacherDisciplinesResult" nillable="true" type="q15:ArrayOfDiscipline" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetTeacherDisciplinesResult" nillable="true" type="q21:ArrayOfDiscipline" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddTeacherDiscipline">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q16:accounts" />
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Teacher" nillable="true" type="q17:Users" />
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Discipline" nillable="true" type="q18:Discipline" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q22:accounts" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Teacher" nillable="true" type="q23:Users" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Discipline" nillable="true" type="q24:Discipline" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -133,8 +165,8 @@
   <xs:element name="AddDiscipline">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q19:accounts" />
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="NewDiscipline" nillable="true" type="q20:Discipline" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q25:accounts" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="NewDiscipline" nillable="true" type="q26:Discipline" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -148,8 +180,8 @@
   <xs:element name="AddStudentInGroup">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q21:accounts" />
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Student" nillable="true" type="q22:StudentsGroup" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q27:accounts" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Student" nillable="true" type="q28:StudentsGroup" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -163,8 +195,8 @@
   <xs:element name="RemoveStudentInGroup">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q23:accounts" />
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Student" nillable="true" type="q24:StudentsGroup" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q29:accounts" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Student" nillable="true" type="q30:StudentsGroup" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -178,8 +210,8 @@
   <xs:element name="AddGroup">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q25:accounts" />
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="NewGroup" nillable="true" type="q26:Groups" />
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q31:accounts" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="NewGroup" nillable="true" type="q32:Groups" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -193,36 +225,36 @@
   <xs:element name="GetAllUsersList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q27:accounts" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q33:accounts" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAllUsersListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetAllUsersListResult" nillable="true" type="q28:ArrayOfUsers" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetAllUsersListResult" nillable="true" type="q34:ArrayOfUsers" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAllAccountsList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q29:accounts" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q35:accounts" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAllAccountsListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetAllAccountsListResult" nillable="true" type="q30:ArrayOfaccounts" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetAllAccountsListResult" nillable="true" type="q36:ArrayOfaccounts" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddAccount">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="AddAcc" nillable="true" type="q31:accounts" />
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="CurrentAcc" nillable="true" type="q32:accounts" />
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="AddAcc" nillable="true" type="q37:accounts" />
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="CurrentAcc" nillable="true" type="q38:accounts" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -236,8 +268,8 @@
   <xs:element name="EditAccount">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q33:accounts" />
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="EditAcc" nillable="true" type="q34:accounts" />
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q39:accounts" />
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="EditAcc" nillable="true" type="q40:accounts" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -251,7 +283,7 @@
   <xs:element name="GetAccount">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q35:accounts" />
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q41:accounts" />
         <xs:element minOccurs="0" name="id" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -259,7 +291,7 @@
   <xs:element name="GetAccountResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetAccountResult" nillable="true" type="q36:accounts" />
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetAccountResult" nillable="true" type="q42:accounts" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

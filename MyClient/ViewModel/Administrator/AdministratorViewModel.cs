@@ -52,6 +52,82 @@ namespace MyClient.ViewModel.Administrator
             }
         }
 
+        // Список дисциплин, которые можно добавить учителю
+        private List<MyModelLibrary.Discipline> _NotAddedDisciplines;
+        public List<MyModelLibrary.Discipline> NotAddedDisciplines
+        {
+            get
+            {
+                return _NotAddedDisciplines;
+            }
+            set
+            {
+                _NotAddedDisciplines = value;
+                RaisePropertyChanged("NotAddedDisciplines");
+            }
+        }
+
+        // Список дисциплин, которые ведет учитель
+        private List<MyModelLibrary.Discipline> _TeacherDisciplines;
+        public List<MyModelLibrary.Discipline> TeacherDisciplines
+        {
+            get
+            {
+                return _TeacherDisciplines;
+            }
+            set
+            {
+                _TeacherDisciplines = value;
+                RaisePropertyChanged("TeacherDisciplines");
+            }
+        }
+
+        // Выбранный учитель
+        private MyModelLibrary.Users _SelectedTeacher;
+        public MyModelLibrary.Users SelectedTeacher
+        {
+            get
+            {
+                return _SelectedTeacher;
+            }
+            set
+            {
+                _SelectedTeacher = value;
+
+                // Если юзера выбрали, то прогрузи его дисциплины (которые он ведет, и которые можно добавить в качестве ведомых дисциплин)
+                if (value != null)
+                {
+                    // Прогружаем список дисциплин, которые ведет учитель
+                    TeacherDisciplines = MyAdminLogic.GetTeacherDisciplines(
+                        MyAcc,
+                        value,
+                        1); // 1 значит, что загружаем все дисциплины, которые ведет преподаватель
+
+                    //  Прогружаем список дисциплин, которые не ведет учитель (Для того, чтобы можно было их добавить)
+                    NotAddedDisciplines = MyAdminLogic.GetTeacherDisciplines(
+                        MyAcc,
+                        value,
+                        2); // 2 значит, что загружаем все дисциплины, которые можно добавить преподавателю
+                }
+                RaisePropertyChanged("SelectedTeacher");
+            }
+        }
+
+        // Выбранная дисциплина
+        private MyModelLibrary.Discipline _SelectedDiscipline;
+        public MyModelLibrary.Discipline SelectedDiscipline
+        {
+            get
+            {
+                return _SelectedDiscipline;
+            }
+            set
+            {
+                _SelectedDiscipline = value;
+                RaisePropertyChanged("SelectedDiscipline");
+            }
+        }
+
         #region Общие свойства новостей
 
         internal NewsLogic MyNewsLogic; // Логика работы с новостями

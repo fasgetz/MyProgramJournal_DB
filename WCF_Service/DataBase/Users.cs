@@ -37,6 +37,18 @@ namespace WCF_Service.DataBase
         }
 
 
+        #region Свойства для контролов
+
+        public string GetFIO
+        {
+            get
+            {
+                return $"{Family} {Name} {Surname}";
+            }
+        }
+
+        #endregion
+
         #region Свойства юзера
 
         public int idUser { get; set; }

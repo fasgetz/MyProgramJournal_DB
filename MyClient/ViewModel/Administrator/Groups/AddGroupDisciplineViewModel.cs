@@ -1,8 +1,4 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
-using MyClient.ViewModel._VMCommon;
-using System.Windows.Input;
-using GalaSoft.MvvmLight.CommandWpf;
-using MyClient.ViewModel._Navigation;
 using MyClient.ProgramLogic.DialogServices;
 using System;
 using System.Collections.Generic;
@@ -17,6 +13,72 @@ namespace MyClient.ViewModel.Administrator.Groups
 
     public class AddGroupDisciplineViewModel : CreateGroupViewModel
     {
+
+        #region Свойства
+
+        // Список дисциплин учителя
+        private List<MyModelLibrary.GroupDisciplines> _GroupDisciplines;
+        public List<MyModelLibrary.GroupDisciplines> GroupDisciplines
+        {
+            get
+            {
+                return _GroupDisciplines;
+            }
+            set
+            {
+                _GroupDisciplines = value;                
+                RaisePropertyChanged("GroupDisciplines");
+            }
+        }
+
+        // Свойство выбранный семестр
+        private int? _SelectedSemestr;
+        public int? SelectedSemestr
+        {
+            get
+            {
+                return _SelectedSemestr;
+            }
+            set
+            {
+                _SelectedSemestr = value;
+
+                // Если выбрали семестр, то прогрузи данные по нему
+                if (value != null)
+                {
+                    // Список дисциплин группы в семестре
+                    GroupDisciplines = MyAdminLogic.GetGroupDisciplines(MyAcc, SelectedGroup, value);
+
+                    // Список дисциплин, которые можно добавить в семестре (То есть которые еще не добавлены)
+                    NotAddedDisciplines = MyAdminLogic.GetNotAddedGroupDisciplines(MyAcc, SelectedGroup, Convert.ToByte(value));
+
+
+                    
+                }
+
+
+
+                RaisePropertyChanged("SelectedSemestr");
+            }
+        }
+
+        // Семестры
+        private List<int?> _Semesters;
+        public List<int?> Semester
+        {
+            get
+            {
+                return _Semesters;
+            }
+            set
+            {
+                _Semesters = value;
+                RaisePropertyChanged("Semester");
+            }
+        }
+
+
+        #endregion
 
         public AddGroupDisciplineViewModel()
         {
@@ -41,18 +103,9 @@ namespace MyClient.ViewModel.Administrator.Groups
             // Инициализируем свойства
             SelectedGroup = GetGroup.Content;
             MyGroupName = $"Дисциплины группы {SelectedGroup.GroupName}";
+            SelectedSemestr = null;
 
-            //try
-            //{
-            //    // Получаем список студентов
-            //    StudentsList = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, SelectedGroup.idGroup).OrderBy(i => i.StudentsGroup.NumberInJournal)); // Список студентов группы, отсортированный по номеру в журнале
-            //    NotGroupedStudents = new ObservableCollection<MyModelLibrary.Users>(MyAdminLogic.GetStudentsInGroup(MyAcc, 0)); // Список студентов без группы   
-            //}
-            //catch (ArgumentNullException)
-            //{
-            //    dialog.ShowMessage($"Ошибка: вы получили пустые списки");
-            //}
-
+            Semester = new List<int?>() { 1, 2, 3, 4, 5, 6, 7, 8 }; // Инициализируем список семестров            
         }
     }
 }

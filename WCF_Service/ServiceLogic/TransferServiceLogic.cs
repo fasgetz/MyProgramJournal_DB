@@ -237,6 +237,115 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы администратора
 
+        // Метод, который возвращает список дисциплин группы, которых еще нету у группы в семестре
+        public List<MyModelLibrary.Discipline> GetNotAddedGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, byte sem)
+        {
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
+            {
+                // Если группу выбрали, то продолжи
+                if (group != null && sem >= 1 && sem <= 8)
+                {
+                    // Репозитории для работы с БД
+                    EFGenericRepository<Discipline> discipline_repository = new EFGenericRepository<Discipline>(new MyDB());
+
+                    // Сперва находим дисциплины, которые есть у группы в этом семестре
+                    var templist = new MyDB().GroupDisciplines.Where(i => i.IdGroup == group.idGroup && i.NumberSemester == sem);
+                    Console.WriteLine($"Всего нашлось: {templist.Count()} дисциплин у группы {group.GroupName}");
+
+                    // Если дисциплины у группы есть, то верни ей список тех дисциплин, которых нету у группы
+                    if (templist != null)
+                    {
+
+                        var alldisciplines = discipline_repository.GetAllList(); // Получаем весь список дисциплин
+                        List<MyModelLibrary.Discipline> disciplines = new List<MyModelLibrary.Discipline>(); // Список дисциплин в DTO
+
+                        // Перебираем весь список дисциплин и сравниваем
+                        foreach (var item in alldisciplines)
+                        {
+                            // Находим дисциплину в списке по айди
+                            var MyDiscipline = templist.FirstOrDefault(i => i.TeacherDisciplines.IdDiscipline == item.idDiscipline);
+
+                            // Если дисциплина найдена, то добавляем в DTO список
+                            if (MyDiscipline == null)
+                                disciplines.Add(new MyModelLibrary.Discipline(item.idDiscipline, item.NameDiscipline)); // Добавляем дисциплину
+                        }
+
+                        Console.WriteLine($"Возвращаем юзеру {disciplines.Count} дисциплин группы {group.GroupName}");
+
+                        return disciplines; // Возвращаем список
+                    }
+                }
+                // Иначе выдай ошибку о том, что входные данные не заполнены
+                else
+                    ExceptionSender.SendException("Вы не заполнили необходимые данные!");
+            }
+
+            return null; // Возвращаем null, если неудалось получить список
+        }
+
+        // Метод получения списка дисциплин групп с проверкой на администратора по выбранному семестру
+        public List<MyModelLibrary.GroupDisciplines> GetGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, int? semestr)
+        {
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
+            {
+                // Проверяем на правильность входных данных (Должна быть указана группа и семестр в диапазоне 1..8
+                if (group != null && semestr != null && semestr >= 1 & semestr <= 8)
+                {
+                    // Создаем репозиторий для работы с бд
+                    EFGenericRepository<GroupDisciplines> repository = new EFGenericRepository<GroupDisciplines>(new MyDB());
+                    EFGenericRepository<Users> users = new EFGenericRepository<Users>(new MyDB());
+
+                    // Ищем все дисциплины учителя, указанной группы, указанного семестра
+                    var list = repository.GetQueryList
+                        (i => 
+                        i.IdGroup == group.idGroup // По айди группы
+                        && i.NumberSemester == semestr // По семестру
+                        );
+
+                    // Если список не пустой преобразуй список в DTO
+                    if (list != null)
+                    {
+                        // Создаем генератор и DTO список
+                        MyGeneratorDTO generator = new MyGeneratorDTO();
+                        List<MyModelLibrary.GroupDisciplines> MyDTOList = new List<MyModelLibrary.GroupDisciplines>();
+
+                        // Перебираем все элементы и добавляем их в dto список
+                        foreach (var item in list)
+                        {
+                            MyDTOList.Add(new MyModelLibrary.GroupDisciplines
+                                (
+                                item.idTeacherActivities, item.IdTeacherDiscipline, item.IdGroup, item.NumberSemester, 
+                                item.TeacherDisciplines.Discipline.NameDiscipline, 
+                                users.FindQueryEntity(i => i.idUser == item.TeacherDisciplines.IdTeacher).GetFIO) // Добавляем фио учителя
+                                ); // Добавляем в dto список
+                        }
+
+                        // Возвращаем dto список пользователю
+                        return MyDTOList;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Не удалось найти");
+                    }
+                }
+                // Если входные данные не заполнены, то здесь что-то не так, выдай экзепшен шутнику
+                else
+                {
+                    ExceptionSender.SendException("Вы не заполнили необходимые данные!");
+                }
+            }
+        
+            return null; // Возвращаем null, если неудалось найти
+        }
+
         // Метод редактирования группы
         public bool EditGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups EditGroup)
         {

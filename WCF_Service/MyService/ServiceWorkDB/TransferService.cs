@@ -43,6 +43,18 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы контракта служб Администратора
 
+        // Метод, который возвращает список дисциплин группы, которых еще нету у группы в семестре
+        public List<MyModelLibrary.Discipline> GetNotAddedGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, byte sem)
+        {
+            return MyServiceLogic.GetNotAddedGroupDisciplines(MyAcc, group, sem);
+        }
+
+        // Метод получения списка дисциплин групп с проверкой на администратора по выбранному семестру
+        public List<MyModelLibrary.GroupDisciplines> GetGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, int? semestr)
+        {
+            return MyServiceLogic.GetGroupDisciplines(MyAcc, group, semestr);
+        }
+
         // Метод удаления группы (С проверкой на администратора)
         public bool RemoveGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups Group)
         {

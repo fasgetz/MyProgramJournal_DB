@@ -39,6 +39,18 @@ namespace MyClient.MyService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroups", ReplyAction="http://tempuri.org/ITransferService/GetGroupsResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetNotAddedGroupDisciplines", ReplyAction="http://tempuri.org/ITransferService/GetNotAddedGroupDisciplinesResponse")]
+        System.Collections.Generic.List<MyModelLibrary.Discipline> GetNotAddedGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, byte sem);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetNotAddedGroupDisciplines", ReplyAction="http://tempuri.org/ITransferService/GetNotAddedGroupDisciplinesResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Discipline>> GetNotAddedGroupDisciplinesAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, byte sem);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroupDisciplines", ReplyAction="http://tempuri.org/ITransferService/GetGroupDisciplinesResponse")]
+        System.Collections.Generic.List<MyModelLibrary.GroupDisciplines> GetGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, System.Nullable<int> semestr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroupDisciplines", ReplyAction="http://tempuri.org/ITransferService/GetGroupDisciplinesResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.GroupDisciplines>> GetGroupDisciplinesAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, System.Nullable<int> semestr);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/EditGroup", ReplyAction="http://tempuri.org/ITransferService/EditGroupResponse")]
         bool EditGroup(MyModelLibrary.accounts MyAcc, [System.ServiceModel.MessageParameterAttribute(Name="EditGroup")] MyModelLibrary.Groups EditGroup1);
         
@@ -181,6 +193,22 @@ namespace MyClient.MyService {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync() {
             return base.Channel.GetGroupsAsync();
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.Discipline> GetNotAddedGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, byte sem) {
+            return base.Channel.GetNotAddedGroupDisciplines(MyAcc, group, sem);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Discipline>> GetNotAddedGroupDisciplinesAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, byte sem) {
+            return base.Channel.GetNotAddedGroupDisciplinesAsync(MyAcc, group, sem);
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.GroupDisciplines> GetGroupDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, System.Nullable<int> semestr) {
+            return base.Channel.GetGroupDisciplines(MyAcc, group, semestr);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.GroupDisciplines>> GetGroupDisciplinesAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, System.Nullable<int> semestr) {
+            return base.Channel.GetGroupDisciplinesAsync(MyAcc, group, semestr);
         }
         
         public bool EditGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups EditGroup1) {

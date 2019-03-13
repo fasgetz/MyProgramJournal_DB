@@ -333,6 +333,7 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\MyModelLibrary.accounts.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.Discipline.datasource" />
+    <None Include="Properties\DataSources\MyModelLibrary.GroupDisciplines.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.Groups.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.News.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.Speciality_codes.datasource" />
