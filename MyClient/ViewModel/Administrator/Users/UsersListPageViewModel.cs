@@ -168,6 +168,9 @@ namespace MyClient.ViewModel.Administrator.Users
 
             UsersList = MyAdminLogic.GetUsersList(MyAcc); // Загружаем список анкет с бд
 
+            SelectedSearchItem = null;
+            text = null;
+
             // Передаем в Data элементы, по которым будем производить поиск
             UsersCBData = new List<string>() { "Айди", "Имя", "Фамилия", "Отчество", "Пол", "Статус", "Телефон", "Дата рождения" };
         }

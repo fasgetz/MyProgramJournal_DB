@@ -40,6 +40,14 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы администратора
 
+        // Метод редактирования группы
+        [OperationContract]
+        bool EditGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups EditGroup);
+
+        // Метод удаления группы (С проверкой на администратора)
+        [OperationContract]
+        bool RemoveGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups Group);
+
         // Метод, который выдаст список преподавателей (С проверкой на администратора)
         [OperationContract]
         List<MyModelLibrary.Users> GetTeacherList(MyModelLibrary.accounts MyAcc);

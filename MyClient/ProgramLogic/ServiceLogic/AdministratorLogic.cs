@@ -16,6 +16,74 @@ namespace MyClient.ProgramLogic.ServiceLogic
     {
         #region Методы для работы с сервером
 
+        // Метод редактирования группы
+        public bool EditGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups EditGroup)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    // Отправляем данные на сервер. Выдаст true, если удаление успешно
+                    bool GroupEdit = client.EditGroup(MyAcc, EditGroup);
+
+                    // Если группа отредактирована успешно, то выведи об этом и верни true
+                    if (GroupEdit == true)
+                    {
+                        MyDialog.ShowMessage($"Группа редактирована успешно");
+
+                        return true;
+                    }
+                    else
+                    {
+                        MyDialog.ShowMessage($"Не удалось редактировать группу");                        
+                    }
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return false; // Возвращаем false, если редактирование неудачно
+        }
+
+        // Метод удаления группа
+        public bool RemoveGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups Group)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    // Отправляем данные на сервер. Выдаст true, если удаление успешно
+                    bool GroupRemoved = client.RemoveGroup(MyAcc, Group);
+
+                    // Если группа удалена успешно, то выведи об этом и верни true
+                    if (GroupRemoved == true)
+                    {
+                        MyDialog.ShowMessage($"Группа удалена успешно");
+
+                        return true;
+                    }
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return false; // Возвращаем false, если удаление неудачно
+        }
+
         // Метод добавления дисциплины преподавателю
         public bool AddTeacherDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline Discipline)
         {

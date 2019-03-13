@@ -39,6 +39,18 @@ namespace MyClient.MyService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroups", ReplyAction="http://tempuri.org/ITransferService/GetGroupsResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/EditGroup", ReplyAction="http://tempuri.org/ITransferService/EditGroupResponse")]
+        bool EditGroup(MyModelLibrary.accounts MyAcc, [System.ServiceModel.MessageParameterAttribute(Name="EditGroup")] MyModelLibrary.Groups EditGroup1);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/EditGroup", ReplyAction="http://tempuri.org/ITransferService/EditGroupResponse")]
+        System.Threading.Tasks.Task<bool> EditGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups EditGroup);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/RemoveGroup", ReplyAction="http://tempuri.org/ITransferService/RemoveGroupResponse")]
+        bool RemoveGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups Group);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/RemoveGroup", ReplyAction="http://tempuri.org/ITransferService/RemoveGroupResponse")]
+        System.Threading.Tasks.Task<bool> RemoveGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups Group);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetTeacherList", ReplyAction="http://tempuri.org/ITransferService/GetTeacherListResponse")]
         System.Collections.Generic.List<MyModelLibrary.Users> GetTeacherList(MyModelLibrary.accounts MyAcc);
         
@@ -169,6 +181,22 @@ namespace MyClient.MyService {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync() {
             return base.Channel.GetGroupsAsync();
+        }
+        
+        public bool EditGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups EditGroup1) {
+            return base.Channel.EditGroup(MyAcc, EditGroup1);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EditGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups EditGroup) {
+            return base.Channel.EditGroupAsync(MyAcc, EditGroup);
+        }
+        
+        public bool RemoveGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups Group) {
+            return base.Channel.RemoveGroup(MyAcc, Group);
+        }
+        
+        public System.Threading.Tasks.Task<bool> RemoveGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups Group) {
+            return base.Channel.RemoveGroupAsync(MyAcc, Group);
         }
         
         public System.Collections.Generic.List<MyModelLibrary.Users> GetTeacherList(MyModelLibrary.accounts MyAcc) {

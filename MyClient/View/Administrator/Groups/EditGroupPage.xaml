@@ -1,0 +1,24 @@
+﻿<Page x:Class="MyClient.View.Administrator.Groups.EditGroupPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MyClient.View.Administrator.Groups"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1024"
+      DataContext="{Binding MyEditGroupVM, Source={StaticResource Locator}}"
+      Title="EditGroupPage">
+
+    <Grid>
+        <Label Content="Редактирование группы" FontSize="30" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="1024"/>
+        <Label Content="Название" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,130,0,0" VerticalAlignment="Top" Width="252"/>
+        <Label Content="Студентов в группе" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,173,0,0" VerticalAlignment="Top" Width="252"/>
+        <Label Content="{Binding SelectedGroup.StudentsCount}" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="257,173,0,0" VerticalAlignment="Top" Width="747" Height="43"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding GroupName}" MaxLength="50" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="43" Margin="257,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="747"/>
+        <Button Content="Сохранить" Command="{Binding EditGroup}" FontSize="30" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Width="994" Height="44"/>
+        <Button Content="Отменить редактирование" Command="{Binding OpenGroups}" FontSize="30" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" Width="994" Height="44"/>
+        <ComboBox HorizontalContentAlignment="Center" SelectedValue="{Binding SelectedSpeciality}" FontSize="20" ItemsSource="{Binding speciality_list}" DisplayMemberPath="name_speciality" HorizontalAlignment="Left" Margin="257,87,0,0" VerticalAlignment="Top" Width="747" Height="43"/>
+        <Label Content="Специальность" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,87,0,0" VerticalAlignment="Top" Width="252"/>
+
+    </Grid>
+</Page>

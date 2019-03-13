@@ -77,6 +77,19 @@ namespace MyClient.ViewModel._Navigation
 
         #region VM Администратора
 
+        private EditGroupViewModel _MyEditGroupVM;
+        public EditGroupViewModel MyEditGroupVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<EditGroupViewModel>();
+            }
+            set
+            {
+                _MyEditGroupVM = value;
+            }
+        }
+
         private AddGroupDisciplineViewModel _AddGroupDisciplineVM;
         public AddGroupDisciplineViewModel AddGroupDisciplineVM
         {
@@ -338,6 +351,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Register<DisciplinesListViewModel>(); // VM страницы списка дисциплин и создания
             SimpleIoc.Default.Register<TeacherDisciplinesViewModel>(); // VM страницы добавления дисциплины преподавателю
             SimpleIoc.Default.Register<AddGroupDisciplineViewModel>(); // VM страницы добавления дисциплины группе
+            SimpleIoc.Default.Register<EditGroupViewModel>(); // VM страницы редактирования группы
 
             // ViewModel Преподавателя
             SimpleIoc.Default.Register<TeacherViewModel>(); // ViewModel окна учителя
@@ -370,7 +384,8 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.GetInstance<DisciplinesListViewModel>().Cleanup(); // VM страницы списка дисциплин и создания
             SimpleIoc.Default.GetInstance<TeacherDisciplinesViewModel>().Cleanup(); // VM страницы добавления дисциплины преподавателю
             SimpleIoc.Default.GetInstance<AddGroupDisciplineViewModel>().Cleanup(); // VM страницы добавления дисциплины группе
-                                                                                    
+            SimpleIoc.Default.GetInstance<EditGroupViewModel>().Cleanup(); // VM страницы редактирования группы                        
+
             // ViewModel Преподавателя
             SimpleIoc.Default.GetInstance<TeacherViewModel>().Cleanup(); // ViewModel окна учителя
 
@@ -399,6 +414,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Unregister<DisciplinesListViewModel>(); // VM страницы списка дисциплин и создания
             SimpleIoc.Default.Unregister<TeacherDisciplinesViewModel>(); // VM страницы добавления дисциплины преподавателю
             SimpleIoc.Default.Unregister<AddGroupDisciplineViewModel>(); // VM страницы добавления дисциплины группе
+            SimpleIoc.Default.Unregister<EditGroupViewModel>(); // VM страницы редактирования группы
 
             // ViewModel Преподавателя
             SimpleIoc.Default.Unregister<TeacherViewModel>(); // ViewModel окна учителя

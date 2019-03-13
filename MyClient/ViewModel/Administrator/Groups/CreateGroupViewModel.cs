@@ -113,6 +113,35 @@ namespace MyClient.ViewModel.Administrator.Groups
 
         #region Команды
 
+        // Команда редактирования группы
+        public ICommand OpenEditGroup
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если мы выбрали группу в списке групп, то открой страницу для редактирования группы
+                    if (SelectedGroup != null)
+                    {
+                        // Если наша vm = null, то проинициализируй ее
+                        if (locator.MyEditGroupVM == null)
+                            locator.MyEditGroupVM = new EditGroupViewModel();
+
+                        // Инициализируем группу
+                        SelectedGroup = new MyModelLibrary.Groups(SelectedGroup.idGroup, SelectedGroup.GroupName, Convert.ToInt16(SelectedGroup.idSpeciality));
+                        SelectedGroup.StudentsCount = groups.FirstOrDefault(i => i.idGroup == SelectedGroup.idGroup).StudentsCount; // Инициализируем количество студентов
+
+                        // Мессенджер: передай в StudentsGroupPage наш MyAcc и SelectedGroup
+                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.Groups>(SelectedGroup)); // Отправляем в следующий DataContext группу
+
+                        // Перейди в Page редактирования группы
+                        navigation.Navigate("View/Administrator/Groups/EditGroupPage.xaml");
+                    }
+                });
+            }
+        }
+
         // Команда перехода на страницу добавления дисциплины группе
         public ICommand OpenAddGroupDiscipline
         {
@@ -163,8 +192,31 @@ namespace MyClient.ViewModel.Administrator.Groups
                         Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
                         Messenger.Default.Send(new GenericMessage<MyModelLibrary.Groups>(SelectedGroup)); // Отправляем в следующий DataContext группу
 
-                        // Перейди в Page главной страницы
+                        // Перейди в Page группы студентов
                         navigation.Navigate("View/Administrator/Groups/StudentsGroupPage.xaml");
+                    }
+                });
+            }
+        }
+
+        // Команда на удаление группы
+        public ICommand RemoveGroup
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если мы выбрали группу в списке групп, то отправь команду на удаление группы
+                    if (SelectedGroup != null)
+                    {
+                        // Отправляем данные на удаление группы
+                        bool GroupDeleted = MyAdminLogic.RemoveGroup(MyAcc, SelectedGroup);
+
+                        // Если группа удалена успешно
+                        if (GroupDeleted == true)
+                        {
+                            groups = MyAdminLogic.GetGroups(); // Загрузить список групп
+                        }
                     }
                 });
             }

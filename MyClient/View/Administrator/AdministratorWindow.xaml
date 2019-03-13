@@ -6,8 +6,6 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
         mc:Ignorable="d"        
         Title="Панель Администратора" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-
-
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
             <i:InvokeCommandAction Command="{Binding Disconnect}"/>

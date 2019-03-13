@@ -10,20 +10,10 @@ using WCF_Service.Exceptions;
 
 namespace WCF_Service.ServiceLogic
 {
+
     // Класс реализует логику работы TransferSerice
     public class TransferServiceLogic
     {
-
-        #region Вспомогательные методы
-
-        // Метод, который проверяет статус юзера в базу данных и возвращает его
-        private int CheckUserStatus(int idAccount)
-        {
-            // Возвращаем статус юзера из базы данных
-            return Convert.ToInt32(new MyDB().Users.FirstOrDefault(i => i.idUser == idAccount).idUserStatus);
-        }
-
-        #endregion
 
         #region Методы, которые вызываются в службах
 
@@ -35,7 +25,7 @@ namespace WCF_Service.ServiceLogic
         public List<MyModelLibrary.Discipline> GetDisciplinesList(MyModelLibrary.accounts MyAcc)
         {
             // Делаем проверку статуса аккаунта
-            int idAccountStatus = CheckUserStatus(MyAcc.idAccount);
+            int idAccountStatus = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
 
             // Если аккаунт преподаватель или администратор, то продолжи
             if (idAccountStatus == 2 || idAccountStatus == 3)
@@ -77,7 +67,7 @@ namespace WCF_Service.ServiceLogic
             }
             else
             {
-                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея необходимый статус!");
             }
 
             return null;
@@ -91,9 +81,8 @@ namespace WCF_Service.ServiceLogic
             // Создаем репозиторий для работы с бд
             EFGenericRepository<Users> repository = new EFGenericRepository<Users>(new MyDB());
 
-
             // Делаем проверку статуса аккаунта
-            int idAccountStatus = CheckUserStatus(MyAcc.idAccount);
+            int idAccountStatus = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
             List<Users> mylist; // Список студентов
 
             // Если аккаунт является администратором,
@@ -150,7 +139,7 @@ namespace WCF_Service.ServiceLogic
             // Иначе, если не преподаватель и не администратор послал запрос, то выдай ошибку
             else
             {
-                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
+                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея необходимый статус!");
                 mylist = null;
             }
 
@@ -248,11 +237,83 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы администратора
 
+        // Метод редактирования группы
+        public bool EditGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups EditGroup)
+        {
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
+            {
+                // Если название данные группы заполнены, то отредактируй
+                if (EditGroup != null && EditGroup.GroupName != string.Empty && EditGroup.idSpeciality != null)
+                {
+                    try
+                    {
+                        // Создаем репозиторий для работы с бд
+                        EFGenericRepository<Groups> repository = new EFGenericRepository<Groups>(new MyDB());
+                        repository.Edit(new Groups(EditGroup.idGroup, EditGroup.GroupName, Convert.ToInt16(EditGroup.idSpeciality))); // Обновляем группу в бд 
+
+                        Console.WriteLine($"Группа {EditGroup.idGroup} успешно редактирована администратором {MyAcc.login}");
+                        return true; // Возвращаем true, т.к. успешно отредактировано
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+                // Иначе, выдай ошибку о том, что входные данные не заполнены
+                else
+                {
+                    ExceptionSender.SendException("Вы не заполнили необходимые данные!");
+                }
+            }
+
+            return false; // Вовзращаем false, если неудачное редактирование
+        }
+
+        // Метод удаления группы (С проверкой на администратора)
+        public bool RemoveGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups Group)
+        {
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
+            {
+                try
+                {
+                    if (Group != null)
+                    {
+                        // Ищем группу по айди, которую надо удалить
+                        EFGenericRepository<Groups> repository = new EFGenericRepository<Groups>(new MyDB());
+                        repository.Remove(repository.FindQueryEntity(i => i.idGroup == Group.idGroup)); // Удаляем группу
+
+                        return true; //Возвращаем true, т.к. группа удалена успешно
+                    }
+                    else
+                    {
+                        ExceptionSender.SendException("Вы не выбрали группу");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return false;
+        }
+
         // Метод, который выдаст список преподавателей (С проверкой на администратора)
         public List<MyModelLibrary.Users> GetTeacherList(MyModelLibrary.accounts MyAcc)
         {
-            // Если пользователь, который послал запрос является администратором, то приступи к получению списка преподавателей
-            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
             {
                 EFGenericRepository<Users> repository = new EFGenericRepository<Users>(new MyDB());
 
@@ -274,16 +335,11 @@ namespace WCF_Service.ServiceLogic
 
                         return MyDTOList; // Возвращаем DTO списо
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
                 }
-            }
-            // Если тот, кто послал запрос не является администратором, то отправь ему экзепшн
-            else
-            {
-                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
             }
 
             return null; // Вернуть null, если неудалось получить список
@@ -293,20 +349,21 @@ namespace WCF_Service.ServiceLogic
         // (param = 1, выдаст дисциплины учителя / param = 2, выдаст дисциплины, которых еще нет у учителя)
         public List<MyModelLibrary.Discipline> GetTeacherDisciplines(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, byte param)
         {
-            // Если пользователь, который послал запрос является администратором, то приступи к получению списка преподавателей
-            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
             {
                 // Если выбрали учителя, то прогрузи список дисциплин по выбранному параметру
-                if (Teacher != null && CheckUserStatus(Teacher.idUser) == 2)
+                if (Teacher != null && HelpersForTransferService.CheckUserStatus(Teacher.idUser) == 2)
                 {
                     try
                     {
                         // Создаем репозиторий для работы с БД
                         EFGenericRepository<Discipline> repository = new EFGenericRepository<Discipline>(new MyDB());
                         EFGenericRepository<TeacherDisciplines> DisciplinesRepository = new EFGenericRepository<TeacherDisciplines>(new MyDB()); // Репозиторий для работы с бд в контексте дисциплин учителя
-
                         List<TeacherDisciplines> list; // Список дисциплин
-                        
 
                         // Если выбрали 1 (Значит, что необходимо выбрать все дисциплины, которые ведет учитель)
                         if (param == 1)
@@ -340,7 +397,6 @@ namespace WCF_Service.ServiceLogic
                             var all_list = repository.GetAllList(); // Получаем весь список дисциплин
                             List<MyModelLibrary.Discipline> disciplines; // Список дисциплин
 
-
                             // Получаем список дисциплин, которые ведет учитель
                             list = DisciplinesRepository.GetQueryList(i => i.IdTeacher == Teacher.idUser); // Получаем список дисциплин, которые ведет учитель
 
@@ -360,11 +416,10 @@ namespace WCF_Service.ServiceLogic
                                     // Это значит, что ее нет в списке дисциплин учителя
                                     if (MyDiscipline == null)
                                     {
-                                        disciplines.Add(new MyModelLibrary.Discipline(item.idDiscipline, item.NameDiscipline));
+                                        disciplines.Add(new MyModelLibrary.Discipline(item.idDiscipline, item.NameDiscipline)); // Добавляем DTO объект в список
                                     }
-
                                 }
-                                
+
                                 return disciplines; // Возвращаем список
                             }
                         }
@@ -374,21 +429,16 @@ namespace WCF_Service.ServiceLogic
                             return null;
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
-                    }                    
+                    }
                 }
                 // Иначе, если учителя не выбрали, то верни экзепшен
                 else
                 {
                     ExceptionSender.SendException("Вы не выбрали учителя!!");
                 }
-            }
-            // Если тот, кто послал запрос не является администратором, то отправь ему экзепшн
-            else
-            {
-                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
             }
 
             return null; // Вернуть null, если неудалось получить список
@@ -397,22 +447,22 @@ namespace WCF_Service.ServiceLogic
         // Метод добавления дисциплины учителю
         public bool AddTeacherDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline Discipline)
         {
-            // Проверяем на заполненные входные данные
-            // Если все они != null, то выполни запрос пользователя
-            if (MyAcc != null && Teacher != null && Discipline != null)
-            {
-                // Если пользователь, который послал запрос является администратором, то приступи к получению списка преподавателей
-                if (CheckUserStatus(MyAcc.idAccount) == 3)
-                {
-                    // Приступи к добавлению дисциплины преподавателю
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
 
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
+            {
+                // Если входные данные не пустые, то выполни запрос
+                if (Teacher != null && Discipline != null)
+                {
                     // Создаем репозиторий для работы с бд
                     EFGenericRepository<TeacherDisciplines> repository = new EFGenericRepository<TeacherDisciplines>(new MyDB());
 
                     // Делаем проверку на то, есть ли уже эта дисципла у преподавателя в бд
                     // Если нету, то добавь ее. Если есть, то отклони
                     if (repository.FindQueryEntity(i => i.IdDiscipline == Discipline.idDiscipline && i.IdTeacher == Teacher.idUser) == null)
-                    {                        
+                    {
                         try
                         {
                             // Добавляем дисциплину в репозиторий
@@ -420,26 +470,19 @@ namespace WCF_Service.ServiceLogic
 
                             return true; // Возвращаем истину, т.к. дисциплину добавили успешно
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             Console.WriteLine(ex.Message);
-                        }                        
+                        }
                     }
                     else
                     {
                         ExceptionSender.SendException("Эта дисциплина уже есть у преподавателя!");
                     }
                 }
-                // Если тот, кто послал запрос не является администратором, то отправь ему экзепшн
+                // Иначе выдай экзепшен
                 else
-                {
-                    ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
-                }
-            }
-            // Иначе, если входные данные == null, то отправь пользователю экзепшен (Иначе могут быть ошибки)
-            else
-            {
-                ExceptionSender.SendException("Вы не можете выполнить запрос! Проверьте правильность входных данных");
+                    ExceptionSender.SendException("Вы не можете выполнить запрос! Проверьте входные данные");
             }
 
             return false; // Возвращаем false, если неудачный запрос на добавление дисциплины преподавателю
@@ -448,11 +491,14 @@ namespace WCF_Service.ServiceLogic
         // Метод добавления новой дисциплины
         public bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline NewDiscipline)
         {
-            // Если пользователь, который послал запрос является администратором, то приступи к добавлению дисциплины
-            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
             {
                 // Если название дисциплины != пустое название, то добавь дисциплину, иначе выдай ошибку
-                if (NewDiscipline.NameDiscipline != null)
+                if (NewDiscipline.NameDiscipline != null & NewDiscipline != null)
                 {
                     try
                     {
@@ -477,11 +523,6 @@ namespace WCF_Service.ServiceLogic
                     ExceptionSender.SendException("Вы не ввели название дисциплины");
                 }
             }
-            // Если тот, кто послал запрос не является администратором, то отправь ему экзепшн
-            else
-            {
-                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
-            }
 
             return false; // Возвращаем false, если неудачно
         }
@@ -489,8 +530,11 @@ namespace WCF_Service.ServiceLogic
         // Метод на удаления студенты из группы (С проверкой на администратора)
         public bool RemoveStudentFromGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
         {
-            // Если пользователь, который послал запрос является администратором, то приступи к удалению студента из группы
-            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
             {
                 try
                 {
@@ -508,7 +552,7 @@ namespace WCF_Service.ServiceLogic
 
                             // Перебираем всех студентов и декрементируем номер по журналу каждого студента, после удаляемого студента
                             foreach (var item in list)
-                            {                                
+                            {
                                 if (item.NumberInJournal > DeletedStudent.NumberInJournal)
                                 {
                                     item.NumberInJournal--;
@@ -527,17 +571,11 @@ namespace WCF_Service.ServiceLogic
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             }
-            // Иначе, если запрос послал не администратор, то выдай ему экзепшен
-            else
-            {
-                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
-            }
-
 
             return false; // Возвращаем false, если удаление не удалось
         }
@@ -545,8 +583,11 @@ namespace WCF_Service.ServiceLogic
         // Метод на добавление студента в группу (С проверкой на администратора)
         public bool AddStudentInGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
         {
-            // Если пользователь, который послал запрос является администратором, то приступи к добавлению студента в группу
-            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
             {
                 // Создаем репозитории для работы с БД
                 EFGenericRepository<Users> repository = new EFGenericRepository<Users>(new MyDB()); // Репозиторий для работы с юзерами
@@ -572,7 +613,7 @@ namespace WCF_Service.ServiceLogic
 
                             return true; // Возвращаем true, т.к. студент успешно добавлен в группу
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             Console.WriteLine(ex.Message);
                         }
@@ -583,11 +624,6 @@ namespace WCF_Service.ServiceLogic
                     }
                 }
             }
-            // Иначе, если запрос послал не администратор, то выдай ему экзепшен
-            else
-            {
-                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
-            }
 
             return false; // Возвращаем false, если добавление не удалось
         }
@@ -595,8 +631,11 @@ namespace WCF_Service.ServiceLogic
         // Метод, который создает группу
         public bool AddGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups NewGroup)
         {
-            // Если статус аккаунта, который послал запрос == 3 (Он администратор), то создай группу
-            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
             {
                 var repository = new EFGenericRepository<Groups>(new MyDB());
 
@@ -625,10 +664,6 @@ namespace WCF_Service.ServiceLogic
                     ExceptionSender.SendException("Вы не заполнили всех необходимых данных!");
                 }
             }
-            else
-            {
-                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
-            }
 
             return false; // Верни false, если неудачное создание
         }
@@ -636,8 +671,11 @@ namespace WCF_Service.ServiceLogic
         // Метод, который получает аккаунт по айди
         public MyModelLibrary.accounts GetAccount(MyModelLibrary.accounts MyAcc, int idSearchAccount)
         {
-            // Если аккаунт, который послал запрос администратор, то верни ему аккаунт по айди
-            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
             {
                 try
                 {
@@ -647,38 +685,51 @@ namespace WCF_Service.ServiceLogic
 
                     return MyAcountDTO; // Возвращаем аккаунт
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             }
 
-            return null; // Вернет null, если запрос послал не администратор
+            return null; // Вернет null, если неудачный запрос
         }
 
         // Метод, который вернет весь список аккаунтов, если он является администратором
         public List<MyModelLibrary.accounts> GetAllAccountsList(int IdAcc)            
-        {
-            // Делаем проверку: Является ли полученный юзер администратором ( s == 3 )
-            if (CheckUserStatus(IdAcc) == 3)
+        {            
+            MyModelLibrary.accounts Acc = new MyModelLibrary.accounts();
+            Acc.idAccount = IdAcc; // Инициализируем айди
+
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(Acc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
             {
-                // Если прошли проверку на администратора, то возвращаем список аккаунтов администратору
-                List<MyModelLibrary.accounts> AccountsList = new List<MyModelLibrary.accounts>();
-
-                // Заносим список not dto юзеров
-                var a = new EFGenericRepository<accounts>(new MyDB()).GetAllList();
-
-                MyGeneratorDTO generator = new MyGeneratorDTO();
-
-                // Перебираем список и генерируем DTO, который внесем в DTO список
-                foreach (var item in a)
+                try
                 {
-                    // Вносим в список сгенерированный dto item
-                    AccountsList.Add(generator.GetAccountDTO(item));
-                }
+                    // Если прошли проверку на администратора, то возвращаем список аккаунтов администратору
+                    List<MyModelLibrary.accounts> AccountsList = new List<MyModelLibrary.accounts>();
 
-                // Возвращаем dto список
-                return AccountsList;
+                    // Заносим список not dto юзеров
+                    var a = new EFGenericRepository<accounts>(new MyDB()).GetAllList();
+
+                    MyGeneratorDTO generator = new MyGeneratorDTO();
+
+                    // Перебираем список и генерируем DTO, который внесем в DTO список
+                    foreach (var item in a)
+                    {
+                        // Вносим в список сгенерированный dto item
+                        AccountsList.Add(generator.GetAccountDTO(item));
+                    }
+
+                    // Возвращаем dto список
+                    return AccountsList;
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
 
             // Иначе вернется пустой список
@@ -688,10 +739,11 @@ namespace WCF_Service.ServiceLogic
         // Метод, который принимает со стороны клиента аккаунты (он должен быть администратором, чтобы можно было редактирвоать редактируемый аккаунт)
         public bool EditAccount(MyModelLibrary.accounts MyAcc, MyModelLibrary.accounts EditAcc)
         {
-            // Делаем проверку в базе данных: является ли юзер, который послал запрос администратором
-            // Если является, то отредактируй аккаун
-            // Если не является, то отмени запрос
-            if (CheckUserStatus(MyAcc.idAccount) == 3)
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
             {
                 try
                 {
@@ -739,23 +791,21 @@ namespace WCF_Service.ServiceLogic
                     Console.WriteLine(ex.Message);
                 }
             }
-            // Иначе, если не администратор послал запрос, то выдай ему ошибку, что он не администратор
-            else
-            {
-                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
-            }
 
-
-            return false; // Если редактирование не успешно
+            return false; // Если редактирование неудачно, верни false
         }
 
         // Метод, который принимает со стороны клиента аккаунт и добавляет его в базу данных, соответственно, если аккаунт == администратор и возвращает true, если аккаунт создан
         public bool AddUser(MyModelLibrary.accounts AddAcc, int CurrentIdAcc)
         {
-            // Делаем проверку в базе данных: является ли юзер, который послал запрос администратором
-            // Если является, то продолжи добавление аккаунта
-            // Если не является, то отмени запрос
-            if (CheckUserStatus(CurrentIdAcc) == 3)
+            MyModelLibrary.accounts MyAcc = new MyModelLibrary.accounts();
+            MyAcc.idAccount = CurrentIdAcc;
+
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
             {
                 if
                                    (AddAcc.login != null
@@ -768,7 +818,6 @@ namespace WCF_Service.ServiceLogic
                 {
                     try
                     {
-
                         // Если логин или пароль пользователя < 6 символов длиной, то выдай соответствующую ошибку
                         if (
                             AddAcc.login.Length > 5
@@ -800,8 +849,7 @@ namespace WCF_Service.ServiceLogic
                         {
                             ExceptionSender.SendException($"Логин и пароль должны иметь больше 5-ти символов!");
                             return false;
-                        }                        
-
+                        }
                     }
                     catch (System.Data.Entity.Infrastructure.DbUpdateException)
                     {
@@ -814,11 +862,6 @@ namespace WCF_Service.ServiceLogic
                     ExceptionSender.SendException("Вы не можете выполнить запрос, пока не заполните необходимые данные!");
                 }
             }
-            // Иначе, если запрос подал не администратор, то выдай ошибку
-            else
-            {
-                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
-            }
 
             return false; // Верни false, если операция не выполнилась
         }
@@ -826,8 +869,14 @@ namespace WCF_Service.ServiceLogic
         // Метод, который вернет весь список пользователей если он является администратором
         public List<MyModelLibrary.Users> GetAllUsersList(int IdAcc)
         {
-            // Делаем проверку: Является ли полученный юзер администратором ( s == 3 )
-            if (CheckUserStatus(IdAcc) == 3)
+            MyModelLibrary.accounts MyAcc = new MyModelLibrary.accounts();
+            MyAcc.idAccount = IdAcc;
+
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
+            if (status == true)
             {
                 // Тогда создаем DTO список юзеров и возвращаем его администратору
                 List<MyModelLibrary.Users> UsersList = new List<MyModelLibrary.Users>();
@@ -847,14 +896,8 @@ namespace WCF_Service.ServiceLogic
                 // Возвращаем dto список
                 return UsersList;
             }
-            else
-            {
-                // Иначе, если юзер не администратор, то выдай ошибку об этом
-                ExceptionSender.SendException("Вы не можете выполнить запрос, не имея статус администратора!");
-            }
 
-            return null;
-
+            return null; // Возвращаем null, если запрос неудачный
         }
 
         #endregion

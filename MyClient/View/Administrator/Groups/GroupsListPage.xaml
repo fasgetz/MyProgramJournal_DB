@@ -32,8 +32,8 @@
                 <ContextMenu>
                     <MenuItem Header="Показать студентов" Command="{Binding OpenStudentsPage}"/>
                     <MenuItem Header="Показать дисциплины" Command="{Binding OpenAddGroupDiscipline}"/>
-                    <MenuItem Header="Редактировать название (off)" />
-                    <MenuItem Header="Удалить группу (off)" />
+                    <MenuItem Header="Редактировать" Command="{Binding OpenEditGroup}"/>
+                    <MenuItem Header="Удалить группу" Command="{Binding RemoveGroup}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>

@@ -21,6 +21,13 @@ namespace WCF_Service.DataBase
             this.StudentsGroup = new HashSet<StudentsGroup>();
         }
 
+        public Groups(int idGroup, string GroupName, int idSpeciality)
+        {
+            this.idGroup = idGroup;
+            this.GroupName = GroupName;
+            this.idSpeciality = idSpeciality;
+        }
+
         public Groups(string GroupName, int idSpeciality)
         {
             this.GroupName = GroupName;

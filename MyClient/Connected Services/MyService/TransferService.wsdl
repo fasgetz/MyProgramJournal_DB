@@ -39,6 +39,18 @@
   <wsdl:message name="ITransferService_GetGroups_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetGroupsResponse" />
   </wsdl:message>
+  <wsdl:message name="ITransferService_EditGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditGroup" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_EditGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_RemoveGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveGroup" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_RemoveGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveGroupResponse" />
+  </wsdl:message>
   <wsdl:message name="ITransferService_GetTeacherList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTeacherList" />
   </wsdl:message>
@@ -128,6 +140,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetGroups" message="tns:ITransferService_GetGroups_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetGroupsResponse" message="tns:ITransferService_GetGroups_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EditGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/EditGroup" message="tns:ITransferService_EditGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/EditGroupResponse" message="tns:ITransferService_EditGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/RemoveGroup" message="tns:ITransferService_RemoveGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/RemoveGroupResponse" message="tns:ITransferService_RemoveGroup_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetTeacherList">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetTeacherList" message="tns:ITransferService_GetTeacherList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetTeacherListResponse" message="tns:ITransferService_GetTeacherList_OutputMessage" />
@@ -209,6 +229,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetGroups">
       <soap12:operation soapAction="http://tempuri.org/ITransferService/GetGroups" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditGroup">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/EditGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveGroup">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/RemoveGroup" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

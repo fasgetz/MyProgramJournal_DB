@@ -164,7 +164,8 @@ namespace MyClient.ViewModel.Administrator.Accounts
 
             AccountsList = MyAdminLogic.GetAccountsList(MyAcc); // Загружаем список анкет с бд
 
-            
+            SelectedSearchItem = null;
+            text = null;
 
             // Передаем в Data элементы, по которым будем производить поиск
             AccountCBData = new List<string>() { "Айди", "Логин", "Пароль", "Статус", "Дата регистрации" };
