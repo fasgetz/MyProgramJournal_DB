@@ -39,6 +39,12 @@ namespace MyClient.MyService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroups", ReplyAction="http://tempuri.org/ITransferService/GetGroupsResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/EditDisciplineName", ReplyAction="http://tempuri.org/ITransferService/EditDisciplineNameResponse")]
+        bool EditDisciplineName(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline Discipline);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/EditDisciplineName", ReplyAction="http://tempuri.org/ITransferService/EditDisciplineNameResponse")]
+        System.Threading.Tasks.Task<bool> EditDisciplineNameAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline Discipline);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddDisciplineGroup", ReplyAction="http://tempuri.org/ITransferService/AddDisciplineGroupResponse")]
         bool AddDisciplineGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline discipline, System.Nullable<int> NumbSem);
         
@@ -205,6 +211,14 @@ namespace MyClient.MyService {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync() {
             return base.Channel.GetGroupsAsync();
+        }
+        
+        public bool EditDisciplineName(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline Discipline) {
+            return base.Channel.EditDisciplineName(MyAcc, Discipline);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EditDisciplineNameAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline Discipline) {
+            return base.Channel.EditDisciplineNameAsync(MyAcc, Discipline);
         }
         
         public bool AddDisciplineGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline discipline, System.Nullable<int> NumbSem) {

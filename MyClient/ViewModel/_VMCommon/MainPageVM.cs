@@ -48,6 +48,7 @@ namespace MyClient.ViewModel._VMCommon
         {
             // Инициализируем диалог
             dialog = new DialogService();
+            
         }
     }
 }

@@ -237,6 +237,51 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы администратора
 
+        // Метод, который редактирует название дисциплины. Возвращает true, если редактирование успешно
+        public bool EditDisciplineName(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline Discipline)
+        {
+            // Проверяем юзера на соответствие статуса
+            bool status = HelpersForTransferService.CheckStatus(MyAcc, 3);
+
+            // Если статус соответствует, то приступи к добавлению группы
+            if (status == true)
+            {
+                // Если входные данные дисциплины не пусты, то приступи к редактированию
+                if (Discipline != null && Discipline.NameDiscipline != string.Empty)
+                {
+                    try
+                    {
+                        // Репозиторий для работы с БД
+                        EFGenericRepository<Discipline> repository = new EFGenericRepository<Discipline>(new MyDB());
+
+                        // Ищем дисциплину
+                        var discip = repository.FindQueryEntity(i => i.idDiscipline == Discipline.idDiscipline);
+
+                        // Если дисциплину нашли, то измени ее название
+                        if (discip != null)
+                        {
+                            discip.NameDiscipline = Discipline.NameDiscipline; // Изменяем название дисциплины
+                            repository.Edit(discip); // Отправляем измененную дисциплину в бд
+
+                            return true; // Возвращаем true, т.к. дисциплина отредактирована
+                        }
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateException)
+                    {
+                        ExceptionSender.SendException($"Дисциплина <<{Discipline.NameDiscipline}>> уже существует!");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+                else
+                    ExceptionSender.SendException("Вы не заполнили необходимые данные!");
+            }
+
+            return false; // Возвращаем false, если редактирование неудачное
+        }
+
         // Метод, который добавляет дисциплину группе (С проверкой на администратора)
         public bool AddDisciplineGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline discipline, int? NumbSem)
         {

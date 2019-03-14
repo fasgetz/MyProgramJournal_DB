@@ -41,14 +41,10 @@ namespace MyClient.ViewModel.Administrator.News
                 return new RelayCommand(() =>
                 {
                     if (SelectedNews != null)
-                    {
-                        // Инициализируем свойства в выбранную редактируемую новость
-                        SelectedNews.Title = title;
-                        SelectedNews.Content = text;
+                    {                        
+                        SelectedNews = new MyModelLibrary.News(SelectedNews.IdNews, title, text);
                         if (ImagesList != null)
                             SelectedNews.Images = ImagesList.ToList();
-                        else
-                            SelectedNews.Images = null;
 
                         // Посылаем запрос на редактирование новости
                         bool edit_news = MyNewsLogic.EditNews(MyAcc, SelectedNews);
@@ -57,6 +53,7 @@ namespace MyClient.ViewModel.Administrator.News
                         if (edit_news == true)
                         {
                             // Перейди в Page страницы новостей
+                            locator.NewsListVM.NewsList = MyNewsLogic.GetNews();
                             navigation.Navigate("View/Administrator/News/NewsListPage.xaml");
                         }
                     }

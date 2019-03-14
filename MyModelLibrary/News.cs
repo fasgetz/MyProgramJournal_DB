@@ -20,12 +20,27 @@ namespace MyModelLibrary
 
         }
 
-        public News(int IdNews, string Title, string Content, DateTime DatePost)
+
+        public News(DateTime DatePost)
+        {
+            this.DatePost = DatePost;
+        }    
+
+        public News(int IdNews, string Title, string Content)
         {
             this.IdNews = IdNews;
             this.Title = Title;
             this.Content = Content;
-            this.DatePost = DatePost;
+        }
+
+
+
+        public News(int IdNews, string Title, string Content, DateTime DatePost)
+            :this(DatePost)
+        {
+            this.IdNews = IdNews;
+            this.Title = Title;
+            this.Content = Content;            
         }
 
 

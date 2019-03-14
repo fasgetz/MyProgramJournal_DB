@@ -26,11 +26,11 @@
         <Label Content="Введите название дисциплины" VerticalContentAlignment="Center" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,52,0,0" VerticalAlignment="Top" Width="349" Height="37"/>
         <Button Content="Создать дисциплину" Command="{Binding AddDiscipline}" FontSize="20" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="994" Height="39"/>
 
-        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,138,0,0" HorizontalAlignment="Left" Height="552" VerticalAlignment="Top" Width="994" ItemsSource="{Binding Disciplines}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto" SelectedValue="{Binding SelectedDiscipline}"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,138,0,0" HorizontalAlignment="Left" Height="552" VerticalAlignment="Top" Width="994" ItemsSource="{Binding Disciplines}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
 
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Редактировать (off)" />
+                    <MenuItem Header="Редактировать" Command="{Binding OpenEditDisciplinePage}"/>
                     <MenuItem Header="Удалить (off)" />
                 </ContextMenu>
             </DataGrid.ContextMenu>

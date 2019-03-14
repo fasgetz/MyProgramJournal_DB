@@ -40,6 +40,33 @@ namespace MyClient.ViewModel.Administrator.Disciplines
         #endregion
 
         #region Команды
+        
+        // Команда перехода на страницу EditDisciplinePage
+        public ICommand OpenEditDisciplinePage
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    if (SelectedDiscipline != null)
+                    {
+                        // Если наша vm = null, то проинициализируй ее
+                        if (locator.MyEditDisciplineVM == null)
+                            locator.MyEditDisciplineVM = new EditDisciplineViewModel();
+
+
+                        SelectedDiscipline = new MyModelLibrary.Discipline(SelectedDiscipline.idDiscipline, SelectedDiscipline.NameDiscipline);
+
+                        // Мессенджер: передай в EditDisciplineViewModel наш MyAcc и SelectedDiscipline
+                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.Discipline>(SelectedDiscipline)); // Отправляем в следующий DataContext выбранную дисциплину
+
+                        // Перейди в Page страницы дисциплин
+                        navigation.Navigate("View/Administrator/Disciplines/EditDisciplinePage.xaml");
+                    }
+                });
+            }
+        }
 
         // Команда на добавление дисциплины
         public ICommand AddDiscipline

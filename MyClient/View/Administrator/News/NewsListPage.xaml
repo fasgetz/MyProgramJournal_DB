@@ -21,10 +21,10 @@
     </Page.Resources>
 
     <Grid>
-        <DataGrid SelectedValue="{Binding SelectedNews, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding NewsList}" HorizontalAlignment="Left" Height="616" Margin="10,52,0,0" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" VerticalAlignment="Top" Width="1004">
+        <DataGrid SelectedValue="{Binding SelectedNews, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding NewsList, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="616" Margin="10,52,0,0" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" VerticalAlignment="Top" Width="1004">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Редактировать" Command="{Binding EditNews}" />
+                    <MenuItem Header="Редактировать" Command="{Binding EditNews, UpdateSourceTrigger=PropertyChanged}" />
                     <MenuItem Header="Удалить" Command="{Binding DeleteNews, UpdateSourceTrigger=PropertyChanged}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>

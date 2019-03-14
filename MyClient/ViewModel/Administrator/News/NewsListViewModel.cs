@@ -143,5 +143,6 @@ namespace MyClient.ViewModel.Administrator.News
         }
 
         #endregion
+
     }
 }

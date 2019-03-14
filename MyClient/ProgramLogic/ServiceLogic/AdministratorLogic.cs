@@ -16,6 +16,39 @@ namespace MyClient.ProgramLogic.ServiceLogic
     {
         #region Методы для работы с сервером
 
+        // Метод редактирования названия дисциплины
+        public bool EditDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline discipline)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    // Отправляем данные с клиента на сервер
+                    bool edit = client.EditDisciplineName(MyAcc, discipline);
+
+                    // Если редактирование прошло успешно (== true), то выведи об этом и верни true
+                    if (edit == true)
+                    {
+                        MyDialog.ShowMessage($"Название дисциплины редактировано успешно!");
+
+                        return true; // Вовзрщаем true, т.к. редактирование прошло успешно
+                    }
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return false; // Вовзращаем false, если рендактиорвание неудачно
+        }
+
+        // Метод добавления дисциплины группе
         public bool AddDisciplineGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline discipline, int? NumbSem)
         {
             try
@@ -268,34 +301,30 @@ namespace MyClient.ProgramLogic.ServiceLogic
         // Метод добавления дисциплины
         public bool AddDiscipline(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline Discipline)
         {
-            // Если входные данные не пустые, то продолжи добавление
-            if (Discipline != null && MyAcc != null)
+            try
             {
-                try
+                // Создаем канал связи с сервером
+                using (client = new MyService.TransferServiceClient())
                 {
-                    // Создаем канал связи с сервером
-                    using (client = new MyService.TransferServiceClient())
+                    // Отправляем аккаунт и дисциплину на сервер. На выходе получаем true, если дисциплина добавлена успешно
+                    bool Add = client.AddDiscipline(MyAcc, Discipline);
+
+                    // Если дисциплина добавлена успешно, то выведи об этом и верни true
+                    if (Add == true)
                     {
-                        // Отправляем аккаунт и дисциплину на сервер. На выходе получаем true, если дисциплина добавлена успешно
-                        bool Add = client.AddDiscipline(MyAcc, Discipline); 
+                        MyDialog.ShowMessage("Дисциплина добавлена успешно!");
 
-                        // Если дисциплина добавлена успешно, то выведи об этом и верни true
-                        if (Add == true)
-                        {
-                            MyDialog.ShowMessage("Дисциплина добавлена успешно!");
-
-                            return true;
-                        }
+                        return true;
                     }
                 }
-                catch (FaultException<AccountService.AccountConnectedException> ex)
-                {
-                    MyDialog.ShowMessage(ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    MyDialog.ShowMessage(ex.Message);
-                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
             }
 
             return false; // Возвращаем false, если добавление прошло неудачно
@@ -445,39 +474,32 @@ namespace MyClient.ProgramLogic.ServiceLogic
         // Метод для создания аккаунта
         public bool CreateAccount(MyModelLibrary.accounts NewAccount, MyModelLibrary.accounts MyAccount)
         {
-            // Делаем проверку: все ли данные переданы в аккаунте, которые необходимы для создания
-            if (NewAccount != null)
+            try
             {
-                try
+                using (client = new MyService.TransferServiceClient())
                 {
-                    // Создаем канал связи с бд
-                    using (client = new MyService.TransferServiceClient())
+
+                    // Передаем новый и текущий аккаунт. Если аккаунт создастся на сервере, то выдаст true, иначе false
+                    bool AccountCreated = client.AddAccount(NewAccount, MyAccount);
+
+                    if (AccountCreated == true)
                     {
+                        MyDialog.ShowMessage($"Аккаунт <<{NewAccount.login}>> успешно создан!\nДата создания: {DateTime.Now}");
 
-                        // Передаем новый и текущий аккаунт. Если аккаунт создастся на сервере, то выдаст true, иначе false
-                        bool AccountCreated = client.AddAccount(NewAccount, MyAccount);
-
-                        if (AccountCreated == true)
-                        {
-                            MyDialog.ShowMessage($"Аккаунт <<{NewAccount.login}>> успешно создан!\nДата создания: {DateTime.Now}");
-
-                            return true; // Возвращаем true, если аккаунт успешно создан
-                        }
+                        return true; // Возвращаем true, если аккаунт успешно создан
                     }
                 }
-                catch (FaultException<AccountService.AccountConnectedException> ex)
-                {
-                    MyDialog.ShowMessage(ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    MyDialog.ShowMessage(ex.Message);
-                }
-
-                return false; //Возвращаем false, если аккаунт не создан
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
             }
 
-            return false;
+            return false; //Возвращаем false, если аккаунт не создан
 
         }
 
@@ -506,7 +528,7 @@ namespace MyClient.ProgramLogic.ServiceLogic
             // Создаем подключение к серверу
             using (client = new MyService.TransferServiceClient())
             {
-                    return client.GetAllUsersList(MyAcc).ToList(); // Возвращаем список пользователей
+                return client.GetAllUsersList(MyAcc).ToList(); // Возвращаем список пользователей
             }
         }
 

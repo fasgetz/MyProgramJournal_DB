@@ -40,6 +40,11 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы администратора
 
+        // Метод, который редактирует название дисциплины
+        // Возвращает true, если редактирование успешно
+        [OperationContract]
+        bool EditDisciplineName(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline Discipline);
+
         // Метод, который добавляет дисциплину группе (С проверкой на администратора)
         [OperationContract]
         bool AddDisciplineGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, MyModelLibrary.Users Teacher, MyModelLibrary.Discipline discipline, int? NumbSem);

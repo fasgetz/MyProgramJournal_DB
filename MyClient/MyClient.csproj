@@ -100,6 +100,7 @@
     <Compile Include="ViewModel\Administrator\AdministratorViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Accounts\CreateAccountVM.cs" />
     <Compile Include="ViewModel\Administrator\Disciplines\DisciplinesListViewModel.cs" />
+    <Compile Include="ViewModel\Administrator\Disciplines\EditDisciplineViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Disciplines\TeacherDisciplinesViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Groups\AddGroupDisciplineViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Groups\CreateGroupViewModel.cs" />
@@ -137,6 +138,9 @@
     </Compile>
     <Compile Include="View\Administrator\Disciplines\DisciplineListPage.xaml.cs">
       <DependentUpon>DisciplineListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\Disciplines\EditDisciplinePage.xaml.cs">
+      <DependentUpon>EditDisciplinePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Administrator\Disciplines\TeachersDisciplinesPage.xaml.cs">
       <DependentUpon>TeachersDisciplinesPage.xaml</DependentUpon>
@@ -211,6 +215,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Administrator\Disciplines\DisciplineListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Administrator\Disciplines\EditDisciplinePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
