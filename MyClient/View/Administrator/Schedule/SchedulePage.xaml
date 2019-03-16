@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MyClient.View.Administrator.Schedule"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1024"
+      DataContext="{Binding ScheduleVM, Source={StaticResource Locator}}"         
       Title="SchedulePage">
     <Page.Resources>
 
@@ -20,35 +21,34 @@
     </Page.Resources>
 
     <Grid>
-        <Label Content="Выберите дату" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Width="226"/>
+        <Label Content="Выберите дату" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Width="226" Height="33"/>
         <Label Content="Добавление занятий группам" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="1014"/>
-        <Label Content="Выберите группу" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="226"/>
-        <Label Content="Выберите дисциплину" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" Width="226"/>
-        <Label Content="Преподаватель" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="226"/>
-        <Label Content="Выберите пару" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,237,0,0" VerticalAlignment="Top" Width="226"/>
-        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,294,0,0" HorizontalAlignment="Left" Height="396" VerticalAlignment="Top" Width="1004" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
-
+        <Label Content="Выберите группу" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" Width="226" Height="33"/>
+        <Label Content="Выберите дисциплину" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="226" Height="33"/>
+        <Label Content="Преподаватель" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Width="226" Height="33"/>
+        <Label Content="Выберите пару" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,218,0,0" VerticalAlignment="Top" Width="226" Height="34"/>
+        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,298,0,0" HorizontalAlignment="Left" Height="371" VerticalAlignment="Top" Width="987" ItemsSource="{Binding lessons}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Удалить" />
-
+                    <MenuItem Header="Удалить (off)" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Пара" Width="200" Binding="{Binding idAccount}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Дисциплина" Width="300" Binding="{Binding login}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Преподаватель" Width="300" Binding="{Binding password}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Пара" Width="179" Binding="{Binding LessonNumber}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Дисциплина" Width="500" Binding="{Binding DisciplineName}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                <DataGridTextColumn Header="Преподаватель" Width="300" Binding="{Binding TeacherFIO}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
             </DataGrid.Columns>
 
         </DataGrid>
-        <DatePicker FontSize="20" HorizontalAlignment="Left" Margin="248,53,0,0" VerticalAlignment="Top" Height="37" Width="766"/>
-        <ComboBox HorizontalAlignment="Left" FontSize="20" Margin="248,90,0,0" VerticalAlignment="Top" Width="766" Height="37"/>
-        <ComboBox HorizontalAlignment="Left" FontSize="20" Margin="248,163,0,0" VerticalAlignment="Top" Width="766" Height="37"/>
-        <ComboBox HorizontalAlignment="Left" FontSize="20" Margin="248,237,0,0" VerticalAlignment="Top" Width="766" Height="37"/>
-        <Label Content="Глускер Александр Игоревич" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="248,200,0,0" VerticalAlignment="Top" Width="766"/>
-        <Label Content="Выберите семестр" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Width="226"/>
-        <ComboBox HorizontalAlignment="Left" FontSize="20" Margin="248,127,0,0" VerticalAlignment="Top" Width="766" Height="37"/>
+        <DatePicker HorizontalContentAlignment="Center" SelectedDate="{Binding SelectDate}" FontSize="18" HorizontalAlignment="Left" Margin="244,53,0,0" VerticalAlignment="Top" Height="33" Width="753"/>
+        <ComboBox HorizontalContentAlignment="Center" SelectedValue="{Binding SelectedGroup}" DisplayMemberPath="GroupName" MaxDropDownHeight="200" ItemsSource="{Binding groups}" HorizontalAlignment="Left" FontSize="16" Margin="244,86,0,0" VerticalAlignment="Top" Width="753" Height="33"/>
+        <ComboBox HorizontalContentAlignment="Center" ItemsSource="{Binding disciplines}" DisplayMemberPath="DiscipName" SelectedValue="{Binding SelectedDiscipline}" HorizontalAlignment="Left" FontSize="16" Margin="244,152,0,0" VerticalAlignment="Top" Width="753" Height="33"/>
+        <ComboBox SelectedValue="{Binding SelectNumber}" ItemsSource="{Binding numberslessons}" HorizontalContentAlignment="Center" HorizontalAlignment="Left" FontSize="16" Margin="244,218,0,0" VerticalAlignment="Top" Width="753" Height="34"/>
+        <Label Content="{Binding text}" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="244,185,0,0" VerticalAlignment="Top" Width="753" Height="33"/>
+        <Label Content="Выберите семестр" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" Width="226" Height="34"/>
+        <ComboBox HorizontalContentAlignment="Center" ItemsSource="{Binding Semesters}" SelectedValue="{Binding SelectedSemestr}" HorizontalAlignment="Left" FontSize="16" Margin="244,119,0,0" VerticalAlignment="Top" Width="753" Height="34"/>
+        <Button FontSize="16" Content="Добавить занятие" HorizontalAlignment="Left" Margin="10,257,0,0" VerticalAlignment="Top" Width="987" Height="36"/>
 
     </Grid>
 </Page>

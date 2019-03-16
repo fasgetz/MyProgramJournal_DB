@@ -12,7 +12,7 @@ namespace WCF_Service.DataBase.DTO
         #region Методы для получения DTO объектов
 
         // Метод для получения DTO - Список LessonsDate + Готово
-        private List<MyModelLibrary.LessonsDate> GetLessonsDates(List<LessonsDate> lessonsDates)
+        public List<MyModelLibrary.LessonsDate> GetLessonsDates(List<LessonsDate> lessonsDates)
         {
             // Создаем новый список, который будем возвращать
             List<MyModelLibrary.LessonsDate> list = new List<MyModelLibrary.LessonsDate>();
@@ -23,7 +23,8 @@ namespace WCF_Service.DataBase.DTO
                 // Перебираем все lessonsDates и присваиваем в новый список
                 foreach (var item in lessonsDates)
                 {
-                    list.Add(new MyModelLibrary.LessonsDate(item.IdTeacherActivities, item.IdLesson, item.DateLesson, item.LessonNumber));
+                    list.Add(new MyModelLibrary.LessonsDate(item.IdTeacherActivities, item.IdLesson, item.DateLesson, item.LessonNumber, item.GroupDisciplines.TeacherDisciplines.Discipline.NameDiscipline,
+                        new MyDB().Users.FirstOrDefault(i => i.idUser == item.GroupDisciplines.TeacherDisciplines.IdTeacher).GetFIO));
                 }
             }
 

@@ -237,6 +237,91 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы администратора
 
+        // Метод, который добавляет занятие (С проверкой на администратора) группе в семестре, по выбранной дате, по номеру пары и возвращает true, если занятие добавлено успешно
+        public bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, int? semestr, int? number, System.DateTime date)
+        {
+            return false;
+        }
+
+        // Метод, который возвращает пользователю с проверкой на администратора, список пар (от 1 до 8), которые можно еще добавить группе в семестре, по дате
+        public List<int> GetLessonsNumbers(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups SelectedGroup, DateTime Date, int? Semestr)
+        {
+            // Проверяем юзера на соответствие статуса
+            int status = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
+
+            // Если аккаунт администратор, то проверь правильность входных данных, иначе выдай экзепшен
+            if (status == 3)
+            {
+                // Если входные данные соответствуют логике приложения, то продолжи, иначе выдай экзепшен
+                if (SelectedGroup != null && Date != null && Semestr != null && Semestr >= 1 && Semestr <= 8)
+                {
+                    // Создаем репозиторий для работы с БД
+                    EFGenericRepository<LessonsDate> repository = new EFGenericRepository<LessonsDate>(new MyDB()); // Репозиторий для работы с занятиями
+                    EFGenericRepository<GroupDisciplines> group_repository = new EFGenericRepository<GroupDisciplines>(new MyDB()); // Репозиторий для работы с группами
+
+                    // Ищем список занятий группы в указанный период (Даты и семестра)
+                    var list = repository.GetQueryList(i => i.DateLesson == Date // Соответствие по дате
+                    && new MyDB().GroupDisciplines.FirstOrDefault(s => s.idTeacherActivities == i.IdTeacherActivities).IdGroup == SelectedGroup.idGroup // Соответствие по айди группы
+                    && new MyDB().GroupDisciplines.FirstOrDefault(s => s.idTeacherActivities == i.IdTeacherActivities).NumberSemester == Semestr // Соответствие по семестру
+                    );
+
+                    // Создаем список пар (От 1 до 8)
+                    List<int> dto = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+                    // Перебираем пары и сравниваем. Если пара (номер занятия) есть в списке, то убираем ее. Таким образом формируем список
+                    foreach (var item in list)
+                    {
+                        if (dto.Contains(item.LessonNumber))
+                            dto.Remove(item.LessonNumber);
+                    }
+
+
+                    return dto; // Возвращаем список
+                }
+                else
+                    ExceptionSender.SendException("Вы не заполнили необходимые данные!");
+            }
+
+            return null; // Возвращаем null, если не удалось получить список
+        }
+
+        // Метод, который получает список занятий за выбранный период (Дата) группы в семестре с проверкой на администратора
+        public List<MyModelLibrary.LessonsDate> GetLessonsOnDate(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, System.DateTime date, int? semestr)
+        {
+            // Проверяем юзера на соответствие статуса
+            int status = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
+
+            // Если аккаунт администратор, то проверь правильность входных данных, иначе выдай экзепшен
+            if (status == 3)
+            {
+                if (group != null && date != null && semestr != null && semestr >= 1 && semestr <= 8)
+                {
+                    // Создаем репозиторий для работы с БД
+                    EFGenericRepository<LessonsDate> repository = new EFGenericRepository<LessonsDate>(new MyDB());
+
+                    // Ищем все занятия группы по времени date семестру semestr
+                    var list = repository.GetQueryList
+                        (
+                        i => i.DateLesson == date // По дате
+                        && i.GroupDisciplines.IdGroup == group.idGroup // Занятие по айди группы
+                        && i.GroupDisciplines.NumberSemester == semestr // По номеру семестра
+                        );
+
+                    // Если список занятий не пустой, то верни его пользователю в DTO
+                    if (list != null)
+                    {
+                        MyGeneratorDTO generator = new MyGeneratorDTO();
+
+                        return generator.GetLessonsDates(list); ; // Возвращаем DTO список
+                    }
+                }
+                else
+                    ExceptionSender.SendException("Вы не заполнили необходимые данные!");
+            }
+
+            return null; // Возвращаем пустой список, если не удалось получить
+        }
+
         // Метод, который редактирует название дисциплины. Возвращает true, если редактирование успешно
         public bool EditDisciplineName(MyModelLibrary.accounts MyAcc, MyModelLibrary.Discipline Discipline)
         {

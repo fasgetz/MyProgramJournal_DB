@@ -432,6 +432,36 @@ namespace MyClient.ViewModel.Administrator
 
         #endregion
 
+        // Список существующих групп
+        private List<MyModelLibrary.Groups> _groups;
+        public List<MyModelLibrary.Groups> groups
+        {
+            get
+            {
+                return _groups;
+            }
+            set
+            {
+                _groups = value;
+                RaisePropertyChanged("groups");
+            }
+        }
+
+        // Выбранная группа
+        private MyModelLibrary.Groups _SelectedGroup;
+        public MyModelLibrary.Groups SelectedGroup
+        {
+            get
+            {
+                return _SelectedGroup;
+            }
+            set
+            {
+                _SelectedGroup = value;
+                RaisePropertyChanged("SelectedGroup");
+            }
+        }
+
         // Список пользователей
         private List<MyModelLibrary.Users> _UsersList;
         public List<MyModelLibrary.Users> UsersList
@@ -576,6 +606,26 @@ namespace MyClient.ViewModel.Administrator
         #endregion
 
         #region Команды перехода по страницам (Только страницы администратора)
+
+        // Команда перехода на страницу SchedulePage
+        public ICommand OpenSchedulePage
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если наша vm = null, то проинициализируй ее
+                    if (locator.ScheduleVM == null)
+                        locator.ScheduleVM = new Schedule.ScheduleViewModel();
+
+                    // Мессенджер: передай в ScheduleViewModel наш MyAcc
+                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+
+                    // Перейди в Page страницы занятий группы
+                    navigation.Navigate("View/Administrator/Schedule/SchedulePage.xaml");
+                });
+            }
+        }
 
         // Команда перехода на страницу добавления дисциплины учителю
         public ICommand OpenAddTeacherDisciplines

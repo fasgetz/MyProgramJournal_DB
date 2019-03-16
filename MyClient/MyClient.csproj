@@ -110,6 +110,7 @@
     <Compile Include="ViewModel\Administrator\Accounts\EditAccountVM.cs" />
     <Compile Include="ViewModel\Administrator\News\EditNewsViewModel.cs" />
     <Compile Include="ViewModel\Administrator\News\NewsListViewModel.cs" />
+    <Compile Include="ViewModel\Administrator\Schedule\ScheduleViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Users\PersonalDataViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Users\UsersListPageViewModel.cs" />
     <Compile Include="ViewModel\Student\StudentViewModel.cs" />
@@ -327,6 +328,9 @@
     <None Include="Connected Services\MyService\item2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\MyService\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\MyService\TransferService.wsdl" />
     <None Include="Connected Services\NewsService\item.xsd">
       <SubType>Designer</SubType>
@@ -343,6 +347,7 @@
     <None Include="Properties\DataSources\MyModelLibrary.Discipline.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.GroupDisciplines.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.Groups.datasource" />
+    <None Include="Properties\DataSources\MyModelLibrary.LessonsDate.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.News.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.Speciality_codes.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.Users.datasource" />

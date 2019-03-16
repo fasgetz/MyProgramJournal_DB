@@ -35,21 +35,6 @@ namespace MyClient.ViewModel.Administrator.Groups
             }
         }
 
-        // Выбранная группу
-        private MyModelLibrary.Groups _SelectedGroup;
-        public MyModelLibrary.Groups SelectedGroup
-        {
-            get
-            {
-                return _SelectedGroup;
-            }
-            set
-            {
-                _SelectedGroup = value;
-                RaisePropertyChanged("SelectedGroup");
-            }
-        }
-
         // Список кодов специальностей
         private List<MyModelLibrary.Speciality_codes> _speciality_list;
         public List<MyModelLibrary.Speciality_codes> speciality_list
@@ -62,21 +47,6 @@ namespace MyClient.ViewModel.Administrator.Groups
             {
                 _speciality_list = value;
                 RaisePropertyChanged("speciality_list");
-            }
-        }
-
-        // Список существующих групп
-        private List<MyModelLibrary.Groups> _groups;
-        public List<MyModelLibrary.Groups> groups
-        {
-            get
-            {
-                return _groups;
-            }
-            set
-            {
-                _groups = value;
-                RaisePropertyChanged("groups");
             }
         }
 

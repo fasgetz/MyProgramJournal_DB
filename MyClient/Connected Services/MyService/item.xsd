@@ -1,346 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://95.84.158.128:9001/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MyModelLibrary" />
-  <xs:element name="GetDisciplinesList">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q1:accounts" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetDisciplinesListResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetDisciplinesListResult" nillable="true" type="q2:ArrayOfDiscipline" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetStudentsGroup">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q3:accounts" />
-        <xs:element minOccurs="0" name="idGroup" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetStudentsGroupResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetStudentsGroupResult" nillable="true" type="q4:ArrayOfUsers" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetSpecialityCodes">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetSpecialityCodesResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetSpecialityCodesResult" nillable="true" type="q5:ArrayOfSpeciality_codes" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetGroups">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetGroupsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetGroupsResult" nillable="true" type="q6:ArrayOfGroups" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="EditDisciplineName">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q7:accounts" />
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Discipline" nillable="true" type="q8:Discipline" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="EditDisciplineNameResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="EditDisciplineNameResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddDisciplineGroup">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q9:accounts" />
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="group" nillable="true" type="q10:Groups" />
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Teacher" nillable="true" type="q11:Users" />
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="discipline" nillable="true" type="q12:Discipline" />
-        <xs:element minOccurs="0" name="NumbSem" nillable="true" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddDisciplineGroupResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="AddDisciplineGroupResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetUsersFromDiscipline">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q13:accounts" />
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="SelectedDiscipline" nillable="true" type="q14:Discipline" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetUsersFromDisciplineResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetUsersFromDisciplineResult" nillable="true" type="q15:ArrayOfUsers" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetNotAddedGroupDisciplines">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q16:accounts" />
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="group" nillable="true" type="q17:Groups" />
-        <xs:element minOccurs="0" name="sem" type="xs:unsignedByte" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetNotAddedGroupDisciplinesResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetNotAddedGroupDisciplinesResult" nillable="true" type="q18:ArrayOfDiscipline" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetGroupDisciplines">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q19:accounts" />
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="group" nillable="true" type="q20:Groups" />
-        <xs:element minOccurs="0" name="semestr" nillable="true" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetGroupDisciplinesResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetGroupDisciplinesResult" nillable="true" type="q21:ArrayOfGroupDisciplines" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="EditGroup">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q22:accounts" />
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="EditGroup" nillable="true" type="q23:Groups" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="EditGroupResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="EditGroupResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RemoveGroup">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q24:accounts" />
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Group" nillable="true" type="q25:Groups" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RemoveGroupResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="RemoveGroupResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetTeacherList">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q26:accounts" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetTeacherListResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetTeacherListResult" nillable="true" type="q27:ArrayOfUsers" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetTeacherDisciplines">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q28:accounts" />
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Teacher" nillable="true" type="q29:Users" />
-        <xs:element minOccurs="0" name="param" type="xs:unsignedByte" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetTeacherDisciplinesResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetTeacherDisciplinesResult" nillable="true" type="q30:ArrayOfDiscipline" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddTeacherDiscipline">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q31:accounts" />
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Teacher" nillable="true" type="q32:Users" />
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Discipline" nillable="true" type="q33:Discipline" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddTeacherDisciplineResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="AddTeacherDisciplineResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddDiscipline">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q34:accounts" />
-        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="NewDiscipline" nillable="true" type="q35:Discipline" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddDisciplineResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="AddDisciplineResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddStudentInGroup">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q36:accounts" />
-        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Student" nillable="true" type="q37:StudentsGroup" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddStudentInGroupResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="AddStudentInGroupResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RemoveStudentInGroup">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q38:accounts" />
-        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="Student" nillable="true" type="q39:StudentsGroup" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RemoveStudentInGroupResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="RemoveStudentInGroupResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddGroup">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q40:accounts" />
-        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="NewGroup" nillable="true" type="q41:Groups" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddGroupResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="AddGroupResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAllUsersList">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q42:accounts" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAllUsersListResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetAllUsersListResult" nillable="true" type="q43:ArrayOfUsers" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAllAccountsList">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q44:accounts" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAllAccountsListResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetAllAccountsListResult" nillable="true" type="q45:ArrayOfaccounts" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddAccount">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="AddAcc" nillable="true" type="q46:accounts" />
-        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="CurrentAcc" nillable="true" type="q47:accounts" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddAccountResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="AddAccountResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="EditAccount">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q48:accounts" />
-        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="EditAcc" nillable="true" type="q49:accounts" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="EditAccountResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="EditAccountResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAccount">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="MyAcc" nillable="true" type="q50:accounts" />
-        <xs:element minOccurs="0" name="id" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAccountResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/MyModelLibrary" minOccurs="0" name="GetAccountResult" nillable="true" type="q51:accounts" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MyModelLibrary" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MyModelLibrary" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="accounts">
+    <xs:sequence>
+      <xs:element name="_x003C_DateRegistration_x003E_k__BackingField" nillable="true" type="xs:dateTime" />
+      <xs:element name="_x003C_SessionsAccounts_x003E_k__BackingField" nillable="true" type="tns:ArrayOfSessionsAccounts" />
+      <xs:element name="_x003C_StatusAccounts_x003E_k__BackingField" nillable="true" type="tns:StatusAccounts" />
+      <xs:element name="_x003C_Users_x003E_k__BackingField" nillable="true" type="tns:Users" />
+      <xs:element name="_x003C_idAccount_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idStatus_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_login_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_password_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="accounts" nillable="true" type="tns:accounts" />
+  <xs:complexType name="ArrayOfSessionsAccounts">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SessionsAccounts" nillable="true" type="tns:SessionsAccounts" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSessionsAccounts" nillable="true" type="tns:ArrayOfSessionsAccounts" />
+  <xs:complexType name="SessionsAccounts">
+    <xs:sequence>
+      <xs:element name="_x003C_EndLogin_x003E_k__BackingField" nillable="true" type="xs:dateTime" />
+      <xs:element name="_x003C_StartLogin_x003E_k__BackingField" nillable="true" type="xs:dateTime" />
+      <xs:element name="_x003C_idAccount_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idSession_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SessionsAccounts" nillable="true" type="tns:SessionsAccounts" />
+  <xs:complexType name="StatusAccounts">
+    <xs:sequence>
+      <xs:element name="_x003C_StatusAccount_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_idStatus_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StatusAccounts" nillable="true" type="tns:StatusAccounts" />
+  <xs:complexType name="Users">
+    <xs:sequence>
+      <xs:element name="_DateOfBirthDay" nillable="true" type="xs:dateTime" />
+      <xs:element name="_NumberPhone" nillable="true" type="xs:string" />
+      <xs:element name="_Surname" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Family_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Gender_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_StudentsGroup_x003E_k__BackingField" nillable="true" type="tns:StudentsGroup" />
+      <xs:element name="_x003C_TeacherDisciplines_x003E_k__BackingField" nillable="true" type="tns:ArrayOfTeacherDisciplines" />
+      <xs:element name="_x003C_UserStatus_x003E_k__BackingField" nillable="true" type="tns:UserStatus" />
+      <xs:element name="_x003C_idUserStatus_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element name="_x003C_idUser_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Users" nillable="true" type="tns:Users" />
+  <xs:complexType name="StudentsGroup">
+    <xs:sequence>
+      <xs:element name="_x003C_Attendance_x003E_k__BackingField" nillable="true" type="tns:ArrayOfAttendance" />
+      <xs:element name="_x003C_FinalAttendances_x003E_k__BackingField" nillable="true" type="tns:ArrayOfFinalAttendances" />
+      <xs:element name="_x003C_Groups_x003E_k__BackingField" nillable="true" type="tns:Groups" />
+      <xs:element name="_x003C_IdStudent_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_NumberInJournal_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element name="_x003C_idGroup_x003E_k__BackingField" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StudentsGroup" nillable="true" type="tns:StudentsGroup" />
+  <xs:complexType name="ArrayOfAttendance">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Attendance" nillable="true" type="tns:Attendance" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAttendance" nillable="true" type="tns:ArrayOfAttendance" />
+  <xs:complexType name="Attendance">
+    <xs:sequence>
+      <xs:element name="_x003C_IdLesson_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_Mark_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_StudentId_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idAttendance_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Attendance" nillable="true" type="tns:Attendance" />
+  <xs:complexType name="ArrayOfFinalAttendances">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FinalAttendances" nillable="true" type="tns:FinalAttendances" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFinalAttendances" nillable="true" type="tns:ArrayOfFinalAttendances" />
+  <xs:complexType name="FinalAttendances">
+    <xs:sequence>
+      <xs:element name="_x003C_StudentsGroup_x003E_k__BackingField" nillable="true" type="tns:StudentsGroup" />
+      <xs:element name="_x003C_TeacherDisciplines_x003E_k__BackingField" nillable="true" type="tns:TeacherDisciplines" />
+      <xs:element name="_x003C_idFinalAttendance_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idStudent_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idTeacherActivities_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FinalAttendances" nillable="true" type="tns:FinalAttendances" />
+  <xs:complexType name="TeacherDisciplines">
+    <xs:sequence>
+      <xs:element name="_x003C_Discipline_x003E_k__BackingField" nillable="true" type="tns:Discipline" />
+      <xs:element name="_x003C_GroupDisciplines_x003E_k__BackingField" nillable="true" type="tns:ArrayOfGroupDisciplines" />
+      <xs:element name="_x003C_IdDiscipline_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdTeacherDiscipline_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdTeacher_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TeacherDisciplines" nillable="true" type="tns:TeacherDisciplines" />
+  <xs:complexType name="Discipline">
+    <xs:sequence>
+      <xs:element name="_x003C_NameDiscipline_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_idDiscipline_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Discipline" nillable="true" type="tns:Discipline" />
+  <xs:complexType name="ArrayOfGroupDisciplines">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GroupDisciplines" nillable="true" type="tns:GroupDisciplines" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGroupDisciplines" nillable="true" type="tns:ArrayOfGroupDisciplines" />
+  <xs:complexType name="GroupDisciplines">
+    <xs:sequence>
+      <xs:element name="_x003C_DiscipName_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_FinalAttendances_x003E_k__BackingField" nillable="true" type="tns:ArrayOfFinalAttendances" />
+      <xs:element name="_x003C_Groups_x003E_k__BackingField" nillable="true" type="tns:Groups" />
+      <xs:element name="_x003C_IdGroup_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdTeacherDiscipline_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_LessonsDate_x003E_k__BackingField" nillable="true" type="tns:ArrayOfLessonsDate" />
+      <xs:element name="_x003C_NumberSemester_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_TeacherDisciplines_x003E_k__BackingField" nillable="true" type="tns:TeacherDisciplines" />
+      <xs:element name="_x003C_TeacherFio_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_idTeacherActivities_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GroupDisciplines" nillable="true" type="tns:GroupDisciplines" />
+  <xs:complexType name="Groups">
+    <xs:sequence>
+      <xs:element name="_x003C_GroupName_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Speciality_codes_x003E_k__BackingField" nillable="true" type="tns:Speciality_codes" />
+      <xs:element name="_x003C_StudentsCount_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_StudentsGroup_x003E_k__BackingField" nillable="true" type="tns:ArrayOfStudentsGroup" />
+      <xs:element name="_x003C_TeacherDisciplines_x003E_k__BackingField" nillable="true" type="tns:ArrayOfTeacherDisciplines" />
+      <xs:element name="_x003C_idGroup_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_idSpeciality_x003E_k__BackingField" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Groups" nillable="true" type="tns:Groups" />
+  <xs:complexType name="Speciality_codes">
+    <xs:sequence>
+      <xs:element name="_x003C_Groups_x003E_k__BackingField" nillable="true" type="tns:ArrayOfGroups" />
+      <xs:element name="_x003C_code_speciality_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_idSpeciality_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_name_speciality_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Speciality_codes" nillable="true" type="tns:Speciality_codes" />
+  <xs:complexType name="ArrayOfGroups">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Groups" nillable="true" type="tns:Groups" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGroups" nillable="true" type="tns:ArrayOfGroups" />
+  <xs:complexType name="ArrayOfStudentsGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StudentsGroup" nillable="true" type="tns:StudentsGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStudentsGroup" nillable="true" type="tns:ArrayOfStudentsGroup" />
+  <xs:complexType name="ArrayOfTeacherDisciplines">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TeacherDisciplines" nillable="true" type="tns:TeacherDisciplines" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTeacherDisciplines" nillable="true" type="tns:ArrayOfTeacherDisciplines" />
+  <xs:complexType name="ArrayOfLessonsDate">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LessonsDate" nillable="true" type="tns:LessonsDate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLessonsDate" nillable="true" type="tns:ArrayOfLessonsDate" />
+  <xs:complexType name="LessonsDate">
+    <xs:sequence>
+      <xs:element name="_x003C_DateLesson_x003E_k__BackingField" type="xs:dateTime" />
+      <xs:element name="_x003C_DisciplineName_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_IdLesson_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdTeacherActivities_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_LessonNumber_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_TeacherFIO_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LessonsDate" nillable="true" type="tns:LessonsDate" />
+  <xs:complexType name="UserStatus">
+    <xs:sequence>
+      <xs:element name="_x003C_StatusUser_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_idUserStatus_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserStatus" nillable="true" type="tns:UserStatus" />
+  <xs:complexType name="ArrayOfDiscipline">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Discipline" nillable="true" type="tns:Discipline" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDiscipline" nillable="true" type="tns:ArrayOfDiscipline" />
+  <xs:complexType name="ArrayOfUsers">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Users" nillable="true" type="tns:Users" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUsers" nillable="true" type="tns:ArrayOfUsers" />
+  <xs:complexType name="ArrayOfSpeciality_codes">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Speciality_codes" nillable="true" type="tns:Speciality_codes" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSpeciality_codes" nillable="true" type="tns:ArrayOfSpeciality_codes" />
+  <xs:complexType name="ArrayOfaccounts">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="accounts" nillable="true" type="tns:accounts" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfaccounts" nillable="true" type="tns:ArrayOfaccounts" />
 </xs:schema>

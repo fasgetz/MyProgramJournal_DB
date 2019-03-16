@@ -24,8 +24,18 @@ namespace MyModelLibrary
             this.LessonNumber = LessonNumber;
         }
 
+        public LessonsDate(int idTeacherActivities, int idLesson, DateTime DateLesson, int LessonNumber, string FIO, string DisciplineName)
+            :this(idTeacherActivities, idLesson, DateLesson, LessonNumber)
+        {
+            this.TeacherFIO = FIO;
+            this.DisciplineName = DisciplineName;
+        }
+
 
         #region Свойства
+
+        public string TeacherFIO { get; set; } // Фио учителя
+        public string DisciplineName { get; set; } // Название дисциплины
 
         public int IdLesson { get; set; }
         public int IdTeacherActivities { get; set; }

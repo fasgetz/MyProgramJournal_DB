@@ -40,6 +40,19 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы администратора
 
+
+        // Метод, который добавляет занятие (С проверкой на администратора) группе в семестре, по выбранной дате, по номеру пары и возвращает true, если занятие добавлено успешно
+        [OperationContract]
+        bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, int? semestr, int? number, System.DateTime date);
+
+        // Метод, который возвращает пользователю с проверкой на администратора, список пар (от 1 до 8), которые можно еще добавить группе в семестре, по дате
+        [OperationContract]
+        List<int> GetLessonsNumbers(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups SelectedGroup, System.DateTime Date, int? Semestr);
+
+        // Метод, который получает список занятий за выбранный период (Дата) группы в семестре с проверкой на администратора
+        [OperationContract]
+        List<MyModelLibrary.LessonsDate> GetLessonsOnDate(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, System.DateTime date, int? semestr);
+
         // Метод, который редактирует название дисциплины
         // Возвращает true, если редактирование успешно
         [OperationContract]
