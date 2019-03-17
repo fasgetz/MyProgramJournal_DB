@@ -19,6 +19,13 @@ namespace WCF_Service.DataBase
         {
             this.Attendance = new HashSet<Attendance>();
         }
+
+        public LessonsDate(int IdTeacherActivities, System.DateTime DateLesson, int LessonNumber)
+        {
+            this.IdTeacherActivities = IdTeacherActivities;
+            this.DateLesson = DateLesson;
+            this.LessonNumber = LessonNumber;
+        }
     
         public int IdLesson { get; set; }
         public int IdTeacherActivities { get; set; }

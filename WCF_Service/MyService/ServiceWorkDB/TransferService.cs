@@ -43,12 +43,17 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы контракта служб Администратора
 
-        // Метод, который добавляет занятие (С проверкой на администратора) группе в семестре, по выбранной дате, по номеру пары и возвращает true, если занятие добавлено успешно
-        public bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, int? semestr, int? number, System.DateTime date)
+        // Метод, который удаляет занятие у группы (С проверкой на администратора)
+        public bool DeleteLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons)
         {
-            return MyServiceLogic.AddLessonGroup(MyAcc, group, semestr, number, date);
+            return MyServiceLogic.DeleteLessonGroup(MyAcc, lessons);
         }
 
+        // Метод, который добавляет занятие (С проверкой на администратора) группе в семестре, по выбранной дате, по номеру пары и возвращает true, если занятие добавлено успешно
+        public bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline, int? numberlesson, System.DateTime date)
+        {
+            return MyServiceLogic.AddLessonGroup(MyAcc, discipline, numberlesson, date);
+        }
 
         // Метод, который возвращает пользователю с проверкой на администратора, список пар (от 1 до 8), которые можно еще добавить группе в семестре, по дате
         public List<int> GetLessonsNumbers(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups SelectedGroup, System.DateTime Date, int? Semestr)

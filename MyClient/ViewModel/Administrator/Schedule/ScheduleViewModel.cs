@@ -20,6 +20,21 @@ namespace MyClient.ViewModel.Administrator.Schedule
 
         #region Свойства
 
+        // Выбранное занятие
+        private MyModelLibrary.LessonsDate _SelectedLesson;
+        public MyModelLibrary.LessonsDate SelectedLesson
+        {
+            get
+            {
+                return _SelectedLesson;
+            }
+            set
+            {
+                _SelectedLesson = value;
+                RaisePropertyChanged("SelectedLesson");
+            }
+        }
+
         // Номер занятия, которое выбрали
         private int? _SelectNumber;
         public int? SelectNumber
@@ -185,6 +200,60 @@ namespace MyClient.ViewModel.Administrator.Schedule
             }
         }
 
+        #endregion
+
+        #region Команды
+
+        // Команда на удаление занятия
+        public ICommand DeleteLesson
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если занятие выбрали, то отправь его на сервер (Чтобы не вылетал экзепшен лишний раз)
+                    if (SelectedLesson != null)
+                    {
+                        // Отправляем данные на сервер и получаем от него ответ
+                        bool DeleteLesson = MyAdminLogic.DeleteLessonGroup(MyAcc, SelectedLesson);
+
+                        // Если занятие удалено (== true), то прогрузи списки
+                        if (DeleteLesson == true)
+                        {
+
+                            // Прогружаем списки по новой
+                            numberslessons = MyAdminLogic.GetLessonsNumbers(MyAcc, SelectedGroup, SelectDate, SelectedSemestr); // Прогружаем номера занятий
+                            lessons = MyAdminLogic.GetLessonsOnDate(MyAcc, SelectedGroup, SelectDate, SelectedSemestr); // Список занятий
+                        }
+                    }
+                });
+            }
+        }
+
+        // Команда на добавление занятия
+        public ICommand AddLesson
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Отправляем входные данные на сервер и получаем от него ответ
+                    bool AddedLesson = MyAdminLogic.AddLessonGroup(MyAcc, SelectedDiscipline, SelectNumber, SelectDate);
+                    
+                    // Если занятие добавлено успешно, прогрузи списки и обнули некоторые свойства
+                    if (AddedLesson == true)
+                    {
+                        SelectedDiscipline = null; // Обнуляем свойство выбранной дисциплины
+                        SelectNumber = null; // Обнуляем свойство выбранного номера занятия
+
+                        // Прогружаем списки по новой
+                        numberslessons = MyAdminLogic.GetLessonsNumbers(MyAcc, SelectedGroup, SelectDate, SelectedSemestr); // Прогружаем номера занятий
+                        lessons = MyAdminLogic.GetLessonsOnDate(MyAcc, SelectedGroup, SelectDate, SelectedSemestr); // Список занятий
+                    }
+
+                });
+            }
+        }
 
         #endregion
 
@@ -202,6 +271,7 @@ namespace MyClient.ViewModel.Administrator.Schedule
             disciplines = null;
             numberslessons = null;
             SelectNumber = null;
+            SelectedLesson = null;
         }
 
         public ScheduleViewModel()

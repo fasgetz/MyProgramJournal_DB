@@ -237,10 +237,76 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы администратора
 
-        // Метод, который добавляет занятие (С проверкой на администратора) группе в семестре, по выбранной дате, по номеру пары и возвращает true, если занятие добавлено успешно
-        public bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, int? semestr, int? number, System.DateTime date)
+        // Метод, который удаляет занятие у группы (С проверкой на администратора)
+        public bool DeleteLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons)
         {
+            // Проверяем юзера на соответствие статуса
+            int status = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
+
+            // Если аккаунт администратор, то проверь правильность входных данных, иначе выдай экзепшен
+            if (status == 3)
+            {
+                // Если входные данные заполнены, то удали запись, иначе выдай экзепшен
+                if (lessons != null)
+                {
+                    // Создаем репозиторий для работы с БД
+                    EFGenericRepository<LessonsDate> repository = new EFGenericRepository<LessonsDate>(new MyDB());
+                    
+                    try
+                    {
+                        // Удаляем из базы
+                        repository.Remove(repository.FindQueryEntity(i => i.IdLesson == lessons.IdLesson)); // Удаляем из базы данных занятие
+
+                        return true; // Возвращаем true, если удаление успешно
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+                else
+                    ExceptionSender.SendException("Вы не заполнили необходимые данные!");
+            }
+
             return false;
+        }
+
+        // Метод, который добавляет занятие (С проверкой на администратора) группе в семестре, по выбранной дате, по номеру пары и возвращает true, если занятие добавлено успешно
+        public bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline, int? numberlesson, System.DateTime date)
+        {
+            // Проверяем юзера на соответствие статуса
+            int status = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
+
+            // Если аккаунт администратор, то проверь правильность входных данных, иначе выдай экзепшен
+            if (status == 3)
+            {
+                // Если необходимые входные данные не пустые и соответствуют логике, то продолжи
+                if (discipline != null  && numberlesson != null && numberlesson >= 1 && numberlesson <= 8 && date != null)
+                {
+                    // Добавляем занятия, т.к. по логике входные данные верны
+                    // Создаем репозиторий для работы с БД
+                    EFGenericRepository<LessonsDate> repository = new EFGenericRepository<LessonsDate>(new MyDB());
+
+                    try
+                    {
+                        // Добавляем занятие
+                        repository.Add(new LessonsDate(discipline.idTeacherActivities, date, Convert.ToInt16(numberlesson)));
+
+                        return true; // Возвращаем true, т.к. занятие добавлено успешно
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    
+                }
+                else
+                    ExceptionSender.SendException("Вы не заполнили необходимые данные!");
+            }
+            else
+                ExceptionSender.SendException("Вы являетесь администратором!");
+
+            return false; // Возвращаем false, если добавление не удалось
         }
 
         // Метод, который возвращает пользователю с проверкой на администратора, список пар (от 1 до 8), которые можно еще добавить группе в семестре, по дате
@@ -312,7 +378,7 @@ namespace WCF_Service.ServiceLogic
                     {
                         MyGeneratorDTO generator = new MyGeneratorDTO();
 
-                        return generator.GetLessonsDates(list); ; // Возвращаем DTO список
+                        return generator.GetLessonsDates(list).OrderBy(i => i.LessonNumber).ToList(); // Возвращаем DTO список
                     }
                 }
                 else

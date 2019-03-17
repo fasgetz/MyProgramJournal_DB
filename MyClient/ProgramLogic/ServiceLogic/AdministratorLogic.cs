@@ -16,6 +16,61 @@ namespace MyClient.ProgramLogic.ServiceLogic
     {
         #region Методы для работы с сервером
 
+        // Метод, который удаляет занятие у группы (С проверкой на администратора)
+        public bool DeleteLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    // Отправляем данные с удалением на сервер
+                    return client.DeleteLessonGroup(MyAcc, lessons); // Возвращаем результат удаления
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return false; // Возвращаем false, если удаление неудачно
+        }
+
+        // Метод, который добавляет занятие (С проверкой на администратора) группе в семестре, по выбранной дате, по номеру пары и возвращает true, если занятие добавлено успешно
+        public bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline, int? numberlesson, System.DateTime date)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    // Отправляем данные на сервер. Если получили true, то добавлено успешно
+                    bool AddedLesson = client.AddLessonGroup(MyAcc, discipline, numberlesson, date);
+
+                    if (AddedLesson == true)
+                    {
+                        MyDialog.ShowMessage($"Занятие добавлено успешно!");
+
+                        return true; // Возвращаем true, т.к. добавили успешно
+                    }
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return false; // Возвращаем false, если добавление неудачно
+        }
+
         // Метод, который возвращает пользователю с проверкой на администратора, список пар (от 1 до 8), которые можно еще добавить группе в семестре, по дате
         public List<int> GetLessonsNumbers(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups SelectedGroup, DateTime Date, int? Semestr)
         {

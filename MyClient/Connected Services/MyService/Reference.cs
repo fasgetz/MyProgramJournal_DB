@@ -39,11 +39,17 @@ namespace MyClient.MyService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroups", ReplyAction="http://tempuri.org/ITransferService/GetGroupsResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddLessonGroup", ReplyAction="http://tempuri.org/ITransferService/AddLessonGroupResponse")]
-        bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, System.Nullable<int> semestr, System.DateTime date);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/DeleteLessonGroup", ReplyAction="http://tempuri.org/ITransferService/DeleteLessonGroupResponse")]
+        bool DeleteLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/DeleteLessonGroup", ReplyAction="http://tempuri.org/ITransferService/DeleteLessonGroupResponse")]
+        System.Threading.Tasks.Task<bool> DeleteLessonGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddLessonGroup", ReplyAction="http://tempuri.org/ITransferService/AddLessonGroupResponse")]
-        System.Threading.Tasks.Task<bool> AddLessonGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, System.Nullable<int> semestr, System.DateTime date);
+        bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline, System.Nullable<int> numberlesson, System.DateTime date);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/AddLessonGroup", ReplyAction="http://tempuri.org/ITransferService/AddLessonGroupResponse")]
+        System.Threading.Tasks.Task<bool> AddLessonGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline, System.Nullable<int> numberlesson, System.DateTime date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetLessonsNumbers", ReplyAction="http://tempuri.org/ITransferService/GetLessonsNumbersResponse")]
         System.Collections.Generic.List<int> GetLessonsNumbers(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups SelectedGroup, System.DateTime Date, System.Nullable<int> Semestr);
@@ -231,12 +237,20 @@ namespace MyClient.MyService {
             return base.Channel.GetGroupsAsync();
         }
         
-        public bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, System.Nullable<int> semestr, System.DateTime date) {
-            return base.Channel.AddLessonGroup(MyAcc, group, semestr, date);
+        public bool DeleteLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons) {
+            return base.Channel.DeleteLessonGroup(MyAcc, lessons);
         }
         
-        public System.Threading.Tasks.Task<bool> AddLessonGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, System.Nullable<int> semestr, System.DateTime date) {
-            return base.Channel.AddLessonGroupAsync(MyAcc, group, semestr, date);
+        public System.Threading.Tasks.Task<bool> DeleteLessonGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons) {
+            return base.Channel.DeleteLessonGroupAsync(MyAcc, lessons);
+        }
+        
+        public bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline, System.Nullable<int> numberlesson, System.DateTime date) {
+            return base.Channel.AddLessonGroup(MyAcc, discipline, numberlesson, date);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddLessonGroupAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline, System.Nullable<int> numberlesson, System.DateTime date) {
+            return base.Channel.AddLessonGroupAsync(MyAcc, discipline, numberlesson, date);
         }
         
         public System.Collections.Generic.List<int> GetLessonsNumbers(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups SelectedGroup, System.DateTime Date, System.Nullable<int> Semestr) {

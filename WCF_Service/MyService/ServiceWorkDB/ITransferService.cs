@@ -40,10 +40,13 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы администратора
 
+        // Метод, который удаляет занятие у группы (С проверкой на администратора)
+        [OperationContract]
+        bool DeleteLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons);
 
         // Метод, который добавляет занятие (С проверкой на администратора) группе в семестре, по выбранной дате, по номеру пары и возвращает true, если занятие добавлено успешно
         [OperationContract]
-        bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.Groups group, int? semestr, int? number, System.DateTime date);
+        bool AddLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline, int? numberlesson, System.DateTime date);
 
         // Метод, который возвращает пользователю с проверкой на администратора, список пар (от 1 до 8), которые можно еще добавить группе в семестре, по дате
         [OperationContract]
