@@ -78,6 +78,19 @@ namespace MyClient.ViewModel._Navigation
 
         #region VM Администратора
 
+        private SessionsViewModel _SessionsVM;
+        public SessionsViewModel SessionsVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SessionsViewModel>();
+            }
+            set
+            {
+                _SessionsVM = value;
+            }
+        }
+
         private ScheduleViewModel _ScheduleVM;
         public ScheduleViewModel ScheduleVM
         {
@@ -381,6 +394,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Register<EditGroupViewModel>(); // VM страницы редактирования группы
             SimpleIoc.Default.Register<EditDisciplineViewModel>(); // VM страницы редактирования дисциплины
             SimpleIoc.Default.Register<ScheduleViewModel>(); // VM страницы занятий группы
+            SimpleIoc.Default.Register<SessionsViewModel>(); // VM страницы сессий аккаунта
 
             // ViewModel Преподавателя
             SimpleIoc.Default.Register<TeacherViewModel>(); // ViewModel окна учителя
@@ -416,6 +430,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.GetInstance<EditGroupViewModel>().Cleanup(); // VM страницы редактирования группы                        
             SimpleIoc.Default.GetInstance<EditDisciplineViewModel>().Cleanup(); // VM страницы редактирования названия дисциплины
             SimpleIoc.Default.GetInstance<ScheduleViewModel>().Cleanup(); // VM страницы занятий групп
+            SimpleIoc.Default.GetInstance<SessionsViewModel>().Cleanup(); // VM страницы сессий аккаунта
 
             // ViewModel Преподавателя
             SimpleIoc.Default.GetInstance<TeacherViewModel>().Cleanup(); // ViewModel окна учителя
@@ -448,6 +463,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Unregister<EditGroupViewModel>(); // VM страницы редактирования группы
             SimpleIoc.Default.Unregister<EditDisciplineViewModel>(); // VM страницы редактирования дисциплины
             SimpleIoc.Default.Unregister<ScheduleViewModel>(); // VM страницы занятий групп
+            SimpleIoc.Default.Unregister<SessionsViewModel>(); // VM страницы сессий аккаунта
 
             // ViewModel Преподавателя
             SimpleIoc.Default.Unregister<TeacherViewModel>(); // ViewModel окна учителя

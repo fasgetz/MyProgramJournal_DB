@@ -17,6 +17,37 @@ namespace MyClient.ViewModel.Administrator.Accounts
 
         #region Команды
 
+        // Команда перехода на страницу сессий аккаунта
+        public ICommand OpenSessionsList
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если аккаунт в ListBox выбрали (кликнули на него), то можно перейти на страницу просмотра сессий аккаунта
+                    if (SelectedAccount != null)
+                    {
+                        // Если VM не инициализирована, то проинициализируй
+                        if (locator.SessionsVM == null)
+                            locator.SessionsVM = new SessionsViewModel();
+
+
+                        // Создаем список, который передадим в следующий контекст (Необходимо передать 2 аккаунта:
+                        // Мой аккаунт - аккаунт, который вызвал редактирование (Для логики администратора на следующей странице)
+                        // И выбранный SelectedAccount в списке, котроый будем редактировать
+                        List<MyModelLibrary.accounts> list = new List<MyModelLibrary.accounts>() { MyAcc, SelectedAccount };
+
+
+                        // Мессенджер: передай в MyEditAccountVM наш список двух аккаунтов
+                        Messenger.Default.Send(new GenericMessage<List<MyModelLibrary.accounts>>(list)); // Отправляем в следующий DataContext аккаунт
+
+                        // Перейди в Page просмотря профиля
+                        navigation.Navigate("View/Administrator/AccountsPages/SessionsPage.xaml");
+                    }
+                });
+            }
+        }
+
         // Команда на кнопку в контекстном меню редактирование (В списке аккаунтов и персональных данных)
         public ICommand EditAccount
         {

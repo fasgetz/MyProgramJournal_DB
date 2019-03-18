@@ -131,8 +131,12 @@ namespace MyClient.ViewModel._VMCommon
         {
             get
             {
-                return new RelayCommand(() =>
+                return new RelayCommand<object>( parameter =>
                 {
+                    // Получаем пароль с PasswordBox
+                    var passwordContainer = parameter as Password.IHavePassword;
+                    if (passwordContainer != null)
+                        password = Password.PasswordDecoder.ConvertToUnsecureString(passwordContainer.Password); // Декодируем пароль
 
                     // Создаем канал связи между клиентом и сервером
                     MyAccountLogic = new AccountLogic(new System.ServiceModel.InstanceContext(this));
@@ -243,7 +247,7 @@ namespace MyClient.ViewModel._VMCommon
         // Конструктор класса
         public AccountVM()
         {            
-            dialog = new DialogService(); // Инициализируем диалоги              
+            dialog = new DialogService(); // Инициализируем диалоги            
         }
 
     }

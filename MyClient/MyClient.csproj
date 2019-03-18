@@ -89,6 +89,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Password\IHavePassword.cs" />
+    <Compile Include="Password\PasswordDecoder.cs" />
     <Compile Include="ProgramLogic\DialogServices\IDialogService.cs" />
     <Compile Include="ProgramLogic\ServiceLogic\AccountLogic.cs" />
     <Compile Include="ProgramLogic\ServiceLogic\AdministratorLogic.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="ProgramLogic\ServiceLogic\StudentLogic.cs" />
     <Compile Include="ViewModel\Administrator\Accounts\AccountInfoViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Accounts\AccountsListPageViewModel.cs" />
+    <Compile Include="ViewModel\Administrator\Accounts\SessionsViewModel.cs" />
     <Compile Include="ViewModel\Administrator\AdministratorViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Accounts\CreateAccountVM.cs" />
     <Compile Include="ViewModel\Administrator\Disciplines\DisciplinesListViewModel.cs" />
@@ -130,6 +133,9 @@
     </Compile>
     <Compile Include="View\Administrator\AccountsPages\EditAccountPage.xaml.cs">
       <DependentUpon>EditAccountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\AccountsPages\SessionsPage.xaml.cs">
+      <DependentUpon>SessionsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Administrator\AccountsPages\UsersDataPge.xaml.cs">
       <DependentUpon>UsersDataPge.xaml</DependentUpon>
@@ -204,6 +210,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Administrator\AccountsPages\EditAccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Administrator\AccountsPages\SessionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

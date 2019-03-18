@@ -31,7 +31,7 @@
                     <MenuItem Header="Удалить (off)"></MenuItem>
                     <MenuItem Header="Редактировать" Command="{Binding EditAccount}"></MenuItem>
                     <MenuItem Header="Показать персональные данные" Command="{Binding PersonalData}"></MenuItem>
-                    <MenuItem Header="Показать список сессий"></MenuItem>
+                    <MenuItem Header="Показать список сессий" Command="{Binding OpenSessionsList}"></MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
