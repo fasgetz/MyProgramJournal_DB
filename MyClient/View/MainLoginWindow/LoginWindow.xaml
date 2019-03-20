@@ -5,14 +5,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Окно авторизации" Height="270" Width="510" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        Title="Окно авторизации" Height="256" Width="510" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderBrush="Black" BorderThickness="0.3">
     <Grid>
-        <Button Content="Войти" FontSize="20" Command="{Binding Authorization}" CommandParameter="{Binding ElementName=This}" HorizontalAlignment="Left" Margin="23,160,0,0" VerticalAlignment="Top" Width="460" Height="37"/>
-        <Label Content="Логин" FontSize="20" HorizontalContentAlignment="Center" Margin="25,70,349,0" VerticalAlignment="Top" Width="130"/>
-        <Label Content="Пароль" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="24,107,0,0" VerticalAlignment="Top" Width="130"/>
-        <TextBox HorizontalAlignment="Left" Height="37" FontSize="20" MaxLength="20" Margin="151,70,0,0" TextWrapping="Wrap" Text="{Binding login}" VerticalAlignment="Top" Width="332"/>
-        <Label FontSize="20" Content="Электронный журнал"  HorizontalContentAlignment="Center" Margin="11,20,10,0" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="UserPassword" FontSize="20" MaxLength="20" HorizontalAlignment="Left" Margin="151,107,0,0" VerticalAlignment="Top" Width="332" Height="37"/>
+        <Grid Background="AliceBlue" MouseLeftButtonDown="Grid_MouseLeftButtonDown" VerticalAlignment="Top" Height="30">
+            <StackPanel Orientation="Horizontal">
+                <md:PackIcon Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Margin="5,0,0,5" Kind="Windows" Width="30" Height="30"/>
+                <Label Foreground="#FFA2a2a2" Content="Окно авторизации" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2"  Click="HideTray_Click" Margin="0,0,0,0" Width="50" Height="Auto" >
+                    <md:PackIcon Kind="ArrowCollapseDown" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2"  Command="{Binding Close}" Margin="0,0,0,0" Width="50" Height="Auto" >
+                    <md:PackIcon Kind="Power" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button>
+            </StackPanel>
+
+        </Grid>
+        <Button Content="Войти" FontSize="20" Command="{Binding Authorization}" CommandParameter="{Binding ElementName=This}" HorizontalAlignment="Left" Margin="22,188,0,0" VerticalAlignment="Top" Width="460" Height="37"/>
+        <Label Content="Логин" FontSize="20" HorizontalContentAlignment="Center" Margin="27,98,359,0" VerticalAlignment="Top"/>
+        <Label Content="Пароль" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="23,135,0,0" VerticalAlignment="Top" Width="130"/>
+        <TextBox md:HintAssist.Hint="Введите логин" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="37" FontSize="20" MaxLength="20" Margin="150,98,0,0" TextWrapping="Wrap" Text="{Binding login}" VerticalAlignment="Top" Width="332"/>
+        <Label FontSize="20" Content="Электронный журнал"  HorizontalContentAlignment="Center" Margin="10,48,11,0" VerticalAlignment="Top"/>
+        <PasswordBox x:Name="UserPassword" md:HintAssist.Hint="Введите пароль" HorizontalContentAlignment="Center" FontSize="20" MaxLength="20" HorizontalAlignment="Left" Margin="150,135,0,0" VerticalAlignment="Top" Width="332" Height="37"/>
 
 
     </Grid>

@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:MyClient.View.Administrator.Schedule"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1024"
-      DataContext="{Binding ScheduleVM, Source={StaticResource Locator}}"         
+      DataContext="{Binding ScheduleVM, Source={StaticResource Locator}}"   
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="SchedulePage">
     <Page.Resources>
 
@@ -41,13 +42,13 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <DatePicker HorizontalContentAlignment="Center" SelectedDate="{Binding SelectDate}" FontSize="18" HorizontalAlignment="Left" Margin="244,53,0,0" VerticalAlignment="Top" Height="33" Width="753"/>
-        <ComboBox HorizontalContentAlignment="Center" SelectedValue="{Binding SelectedGroup}" DisplayMemberPath="GroupName" MaxDropDownHeight="200" ItemsSource="{Binding groups}" HorizontalAlignment="Left" FontSize="16" Margin="244,86,0,0" VerticalAlignment="Top" Width="753" Height="33"/>
-        <ComboBox HorizontalContentAlignment="Center" ItemsSource="{Binding disciplines}" DisplayMemberPath="DiscipName" SelectedValue="{Binding SelectedDiscipline}" HorizontalAlignment="Left" FontSize="16" Margin="244,152,0,0" VerticalAlignment="Top" Width="753" Height="33"/>
-        <ComboBox SelectedValue="{Binding SelectNumber}" ItemsSource="{Binding numberslessons}" HorizontalContentAlignment="Center" HorizontalAlignment="Left" FontSize="16" Margin="244,218,0,0" VerticalAlignment="Top" Width="753" Height="34"/>
-        <Label Content="{Binding text}" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="244,185,0,0" VerticalAlignment="Top" Width="753" Height="33"/>
+        <DatePicker Padding="25,5,0,0" SelectedDate="{Binding SelectDate}" FontSize="18" Margin="244,53,27,0" VerticalAlignment="Top" Height="33"/>
+        <ComboBox Padding="10,5,0,0" md:HintAssist.Hint="Выберите группу из списка" SelectedValue="{Binding SelectedGroup}" DisplayMemberPath="GroupName" MaxDropDownHeight="200" ItemsSource="{Binding groups}" FontSize="16" Margin="244,86,27,0" VerticalAlignment="Top" Width="753" Height="33"/>
+        <ComboBox Padding="10,5,0,0" md:HintAssist.Hint="Выберите дисциплину из списка" ItemsSource="{Binding disciplines}" DisplayMemberPath="DiscipName" SelectedValue="{Binding SelectedDiscipline}" HorizontalAlignment="Left" FontSize="16" Margin="244,152,0,0" VerticalAlignment="Top" Width="753" Height="33"/>
+        <ComboBox Padding="10,5,0,0" md:HintAssist.Hint="Выберите пару из списка" SelectedValue="{Binding SelectNumber}" ItemsSource="{Binding numberslessons}" FontSize="16" Margin="244,218,27,0" VerticalAlignment="Top" Height="34"/>
+        <Label Padding="10,5,0,0" Content="{Binding text}" FontSize="16" Margin="244,185,27,0" VerticalAlignment="Top" Width="753" Height="33"/>
         <Label Content="Выберите семестр" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" Width="226" Height="34"/>
-        <ComboBox HorizontalContentAlignment="Center" ItemsSource="{Binding Semesters}" SelectedValue="{Binding SelectedSemestr}" HorizontalAlignment="Left" FontSize="16" Margin="244,119,0,0" VerticalAlignment="Top" Width="753" Height="34"/>
+        <ComboBox Padding="10,5,0,0" md:HintAssist.Hint="Выберите семестр из списка" ItemsSource="{Binding Semesters}" SelectedValue="{Binding SelectedSemestr}" FontSize="16" Margin="244,119,27,0" VerticalAlignment="Top" Width="753" Height="34"/>
         <Button FontSize="16" Content="Добавить занятие" Command="{Binding AddLesson}" HorizontalAlignment="Left" Margin="10,257,0,0" VerticalAlignment="Top" Width="987" Height="36"/>
 
     </Grid>

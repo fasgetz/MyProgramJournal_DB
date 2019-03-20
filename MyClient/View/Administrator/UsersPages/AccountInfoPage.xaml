@@ -11,7 +11,7 @@
 
     <Grid>
         <Label Content="Информация об аккаунте" HorizontalContentAlignment="Center" FontSize="35" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1004"/>
-        <Button Content="Вернуться назад" Command="{Binding OpenUsersList}" FontSize="25" HorizontalAlignment="Left" Margin="10,642,0,0" VerticalAlignment="Top" Width="1004"/>
+        <Button Content="Вернуться назад" Command="{Binding OpenUsersList}" FontSize="25" HorizontalAlignment="Left" Margin="10,628,0,0" VerticalAlignment="Top" Width="1004" Height="46"/>
         <Label Content="Айди аккаунта" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="270"/>
         <Label Content="{Binding SelectedAccount.idAccount}" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Left" Margin="285,88,0,0" VerticalAlignment="Top" Width="729" Height="43"/>
         <Label Content="Логин" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Width="270"/>

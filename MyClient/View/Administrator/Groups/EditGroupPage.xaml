@@ -7,6 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1024"
       DataContext="{Binding MyEditGroupVM, Source={StaticResource Locator}}"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="EditGroupPage">
 
     <Grid>
@@ -17,7 +18,7 @@
         <TextBox HorizontalAlignment="Left" Text="{Binding GroupName}" MaxLength="50" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="43" Margin="257,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="747"/>
         <Button Content="Сохранить" Command="{Binding EditGroup}" FontSize="30" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Width="994" Height="44"/>
         <Button Content="Отменить редактирование" Command="{Binding OpenGroups}" FontSize="30" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" Width="994" Height="44"/>
-        <ComboBox HorizontalContentAlignment="Center" SelectedValue="{Binding SelectedSpeciality}" FontSize="20" ItemsSource="{Binding speciality_list}" DisplayMemberPath="name_speciality" HorizontalAlignment="Left" Margin="257,87,0,0" VerticalAlignment="Top" Width="747" Height="43"/>
+        <ComboBox md:HintAssist.Hint="Выберите специальность из списка" HorizontalContentAlignment="Center" SelectedValue="{Binding SelectedSpeciality}" FontSize="20" ItemsSource="{Binding speciality_list}" DisplayMemberPath="name_speciality" HorizontalAlignment="Left" Margin="257,87,0,0" VerticalAlignment="Top" Width="747" Height="43"/>
         <Label Content="Специальность" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,87,0,0" VerticalAlignment="Top" Width="252"/>
 
     </Grid>

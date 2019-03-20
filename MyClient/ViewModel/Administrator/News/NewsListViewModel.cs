@@ -139,7 +139,9 @@ namespace MyClient.ViewModel.Administrator.News
         private new void GetAccount(GenericMessage<MyModelLibrary.accounts> GetAcc)
         {
             MyAcc = GetAcc.Content;
-            NewsList = MyNewsLogic.GetNews();
+
+            Load();
+            //NewsList = MyNewsLogic.GetNews();
         }
 
         #endregion

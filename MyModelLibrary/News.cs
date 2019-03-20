@@ -50,7 +50,7 @@ namespace MyModelLibrary
         {
             get
             {
-                return $"Дата создания новости: {DatePost}";
+                return $"{DatePost}";
             }
         }
 

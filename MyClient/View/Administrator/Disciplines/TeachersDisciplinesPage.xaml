@@ -7,6 +7,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" x:Class="MyClient.View.Administrator.Disciplines.TeachersDisciplinesPage"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1024"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="TeachersDisciplinesPage">
     <Page.Resources>
 
@@ -28,7 +29,7 @@
         <Label Content="Добавление дисциплины преподавателю" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,-224,0" VerticalAlignment="Top" Width="1014"/>
         <Label Content="Выберите преподавателя" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="196"/>
         <Label Content="Выберите дисциплину" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="196"/>
-        <ComboBox SelectedValue="{Binding SelectedDiscipline}" FontSize="16" HorizontalAlignment="Left" Margin="226,96,0,0" VerticalAlignment="Top" Width="779" Height="31" ItemsSource="{Binding NotAddedDisciplines}" DisplayMemberPath="NameDiscipline"/>
+        <ComboBox md:HintAssist.Hint="Выберите дисциплину из списка" HorizontalContentAlignment="Center" SelectedValue="{Binding SelectedDiscipline}" FontSize="16" HorizontalAlignment="Left" Margin="226,96,0,0" VerticalAlignment="Top" Width="779" Height="31" ItemsSource="{Binding NotAddedDisciplines}" DisplayMemberPath="NameDiscipline"/>
         <Button Content="Добавить дисциплину преподавателю" Command="{Binding AddDiscipline}" FontSize="20" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Width="995" Height="36"/>
 
         <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,173,0,0" HorizontalAlignment="Left" Height="505" VerticalAlignment="Top" Width="995" ItemsSource="{Binding TeacherDisciplines}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
@@ -44,7 +45,7 @@
 
         </DataGrid>
 
-        <ComboBox SelectedValue="{Binding SelectedTeacher}" MaxDropDownHeight="200" IsDropDownOpen="False" IsEditable="True" IsTextSearchEnabled="False" Text="{Binding text, UpdateSourceTrigger=PropertyChanged}"  FontSize="16" ItemsSource="{Binding UsersList}" DisplayMemberPath="GetFIO" HorizontalAlignment="Left" Margin="226,65,0,0" VerticalAlignment="Top" Width="779" Height="31">
+        <ComboBox HorizontalContentAlignment="Center" md:HintAssist.Hint="Выберите преподавателя из списка" SelectedValue="{Binding SelectedTeacher}" MaxDropDownHeight="200" IsDropDownOpen="False" IsEditable="True" IsTextSearchEnabled="False" Text="{Binding text, UpdateSourceTrigger=PropertyChanged}"  FontSize="16" ItemsSource="{Binding UsersList}" DisplayMemberPath="GetFIO" HorizontalAlignment="Left" Margin="226,65,0,0" VerticalAlignment="Top" Width="779" Height="31">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="KeyUp">
                     <i:InvokeCommandAction Command="{Binding SearchedInCombobox}"/>

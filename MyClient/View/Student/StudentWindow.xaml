@@ -7,7 +7,8 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         DataContext="{Binding StudentVM, Source={StaticResource Locator}}"
-        Title="Панель студента" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Панель студента" Height="768" Width="1024" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
@@ -19,19 +20,95 @@
     </i:Interaction.Triggers>
 
     <Grid>
-        <Menu HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="1024">
+        <Grid Background="AliceBlue" MouseLeftButtonDown="Grid_MouseLeftButtonDown" VerticalAlignment="Top" Height="30">
+            <StackPanel Orientation="Horizontal">
+                <md:PackIcon Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Margin="5,0,0,5" Kind="Windows" Width="30" Height="30"/>
+                <Label Foreground="#FFA2a2a2" Content="Панель студента" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Главная страница" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Height="Auto" Command="{Binding OpenMainPage}"/>
+                <Button Content="Мой аккаунт" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Height="Auto" Command="{Binding OpenProfilePage}"/>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Command="{Binding ChangeUser}" Margin="0,0,0,0" Width="50" Height="Auto"  >
+                    <md:PackIcon Kind="EmergencyExit" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2"  Click="HideTray_Click" Margin="0,0,0,0" Width="50" Height="Auto" >
+                    <md:PackIcon Kind="ArrowCollapseDown" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2"  Command="{Binding WinClose}" Margin="0,0,0,0" Width="50" Height="Auto" >
+                    <md:PackIcon Kind="Power" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button>
+            </StackPanel>
 
-            
-            
-            <MenuItem Margin="685,0,0,0"  FontSize="20" Header="Профиль" Width="110" Height="40">
-                <MenuItem Header="Главная страница" Command="{Binding OpenMainPage}"></MenuItem>
-                <MenuItem Header="Показать профиль"  Command="{Binding OpenProfilePage}" />
-                <MenuItem Header="Сменить аккаунт" Command="{Binding ChangeUser}"/>
-                <MenuItem Header="Выход" Command="{Binding WinClose}">
-                </MenuItem>
-            </MenuItem>
-
-        </Menu>
-        <Frame x:Name="frame" NavigationUIVisibility="Hidden" Height="700" Margin="0,40,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <!--<Grid Height="40" Margin="0,30" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Left" Width="160" Orientation="Horizontal">
+                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="160">
+                        <md:PopupBox.ToggleContent>
+                            <Label Width="160" HorizontalContentAlignment="Center" FontSize="20" Content="Аккаунты"/>
+                        </md:PopupBox.ToggleContent>
+                        <StackPanel Width="160">
+                            <Button Content="Показать" VerticalContentAlignment="Center" Height="30" Command="{Binding OpenAccountsList}"/>
+                            <Button Content="Создать" VerticalContentAlignment="Center" Height="30" Command="{Binding OpenCreateAccountPage}"/>
+                        </StackPanel>
+                    </md:PopupBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="280">
+                        <md:PopupBox.ToggleContent>
+                            <Label Width="220" HorizontalContentAlignment="Center" FontSize="20" Content="Персональные данные"/>
+                        </md:PopupBox.ToggleContent>
+                        <StackPanel Width="250">
+                            <Button Content="Показать" VerticalContentAlignment="Center" Height="30" Command="{Binding OpenUsersList}"/>
+                        </StackPanel>
+                    </md:PopupBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="130">
+                        <md:PopupBox.ToggleContent>
+                            <Label Width="100" HorizontalContentAlignment="Center" FontSize="20" Content="Группы"/>
+                        </md:PopupBox.ToggleContent>
+                        <StackPanel Width="100">
+                            <Button Content="Показать" VerticalContentAlignment="Center" Height="30" Command="{Binding OpenGroups}"/>
+                        </StackPanel>
+                    </md:PopupBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="160">
+                        <md:PopupBox.ToggleContent>
+                            <Label Width="130" HorizontalContentAlignment="Center" FontSize="20" Content="Дисциплины"/>
+                        </md:PopupBox.ToggleContent>
+                        <StackPanel Width="250">
+                            <Button Content="Показать список" VerticalContentAlignment="Center" Height="30" Command="{Binding OpenDisciplinesList}"/>
+                            <Button Content="Дисциплины преподавателей" VerticalContentAlignment="Center" Height="30" Command="{Binding OpenAddTeacherDisciplines}"/>
+                        </StackPanel>
+                    </md:PopupBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="160">
+                        <md:PopupBox.ToggleContent>
+                            <Label Width="130" HorizontalContentAlignment="Center" FontSize="20" Content="Расписание"/>
+                        </md:PopupBox.ToggleContent>
+                        <StackPanel Width="130">
+                            <Button Content="Показать" VerticalContentAlignment="Center" Height="30" Command="{Binding OpenSchedulePage}"/>
+                        </StackPanel>
+                    </md:PopupBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="130">
+                        <md:PopupBox.ToggleContent>
+                            <Label Width="130" HorizontalContentAlignment="Center" FontSize="20" Content="Новости"/>
+                        </md:PopupBox.ToggleContent>
+                        <StackPanel Width="130">
+                            <Button Content="Показать" VerticalContentAlignment="Center" Height="30" Command="{Binding OpenNewsList}" />
+                            <Button Content="Добавить" VerticalContentAlignment="Center" Height="30" Command="{Binding OpenCreateNewsPage}" />
+                        </StackPanel>
+                    </md:PopupBox>
+                </StackPanel>
+            </StackPanel>
+        </Grid>-->
+        <Grid VerticalAlignment="Bottom" Height="697">
+            <Frame x:Name="frame" NavigationUIVisibility="Hidden" Height="740" Margin="0,0,0,-40" VerticalAlignment="Top"/>
+        </Grid>
     </Grid>
 </Window>

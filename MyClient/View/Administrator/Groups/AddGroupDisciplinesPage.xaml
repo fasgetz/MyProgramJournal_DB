@@ -7,6 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1024"      
       DataContext="{Binding AddGroupDisciplineVM, Source={StaticResource Locator}}"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="AddGroupDisciplinesPage">
     <Page.Resources>
 
@@ -42,10 +43,10 @@
 
         </DataGrid>
         <Button Content="Добавить дисциплину группе" Command="{Binding AddGroupDiscipline}" FontSize="20" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="994" Height="34"/>
-        <ComboBox SelectedValue="{Binding SelectedDiscipline}" FontSize="16" HorizontalContentAlignment="Center" MaxDropDownHeight="300" DisplayMemberPath="NameDiscipline" ItemsSource="{Binding NotAddedDisciplines}" HorizontalAlignment="Left" Margin="224,85,0,0" VerticalAlignment="Top" Width="780" Height="31"/>
-        <ComboBox SelectedValue="{Binding SelectedTeacher}" FontSize="16" HorizontalContentAlignment="Center" DisplayMemberPath="GetFIO" ItemsSource="{Binding TeachersFromDiscipline}" HorizontalAlignment="Left" Margin="224,116,0,0" VerticalAlignment="Top" Width="780" Height="31"/>
+        <ComboBox md:HintAssist.Hint="Выберите дисциплину из списка" SelectedValue="{Binding SelectedDiscipline}" FontSize="16" HorizontalContentAlignment="Center" MaxDropDownHeight="300" DisplayMemberPath="NameDiscipline" ItemsSource="{Binding NotAddedDisciplines}" HorizontalAlignment="Left" Margin="224,85,0,0" VerticalAlignment="Top" Width="780" Height="31"/>
+        <ComboBox md:HintAssist.Hint="Выберите преподавателя из списка" SelectedValue="{Binding SelectedTeacher}" FontSize="16" HorizontalContentAlignment="Center" DisplayMemberPath="GetFIO" ItemsSource="{Binding TeachersFromDiscipline}" HorizontalAlignment="Left" Margin="224,116,0,0" VerticalAlignment="Top" Width="780" Height="31"/>
         <Label Content="Выберите семестр" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Width="196"/>
-        <ComboBox SelectedValue="{Binding SelectedSemestr}" ItemsSource="{Binding Semester}" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="224,54,0,0" VerticalAlignment="Top" Width="780" Height="31"/>
+        <ComboBox md:HintAssist.Hint="Выберите семестр из списка" SelectedValue="{Binding SelectedSemestr}" ItemsSource="{Binding Semester}" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="224,54,0,0" VerticalAlignment="Top" Width="780" Height="31"/>
         <Button Content="Вернуться назад" Command="{Binding OpenGroups}" FontSize="20" HorizontalAlignment="Left" Margin="10,640,0,0" VerticalAlignment="Top" Width="994" Height="33"/>
 
     </Grid>

@@ -8,15 +8,14 @@
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1024"
       DataContext="{Binding AccountsListVM, Source={StaticResource Locator}}"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="AccountsListPage">
 
 
     <Page.Resources>
-
         <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
-
         <Style x:Key="DGC_NumericColumnStyle" TargetType="TextBlock">
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
@@ -24,34 +23,37 @@
 
 
     <Grid>
-        <DataGrid x:Name="MyDataGrid" SelectedValue="{Binding SelectedAccount}" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="0, 0, 0 ,0" HorizontalAlignment="Left" Height="626" VerticalAlignment="Top" Width="1024" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <Grid VerticalAlignment="Top" Height="690">
+            <DataGrid x:Name="MyDataGrid" SelectedValue="{Binding SelectedAccount}" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="0, 0, 0 ,0" HorizontalAlignment="Left" Height="645" VerticalAlignment="Top" Width="1024" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
 
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Удалить (off)"></MenuItem>
-                    <MenuItem Header="Редактировать" Command="{Binding EditAccount}"></MenuItem>
-                    <MenuItem Header="Показать персональные данные" Command="{Binding PersonalData}"></MenuItem>
-                    <MenuItem Header="Показать список сессий" Command="{Binding OpenSessionsList}"></MenuItem>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
-            <DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Удалить (off)"></MenuItem>
+                        <MenuItem Header="Редактировать" Command="{Binding EditAccount}"></MenuItem>
+                        <MenuItem Header="Показать персональные данные" Command="{Binding PersonalData}"></MenuItem>
+                        <MenuItem Header="Показать список сессий" Command="{Binding OpenSessionsList}"></MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Айди" Width="140" Binding="{Binding Path=idAccount}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Логин" Width="210" Binding="{Binding Path=login}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Пароль" Width="210" Binding="{Binding Path=password}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Статус" Width="210" Binding="{Binding Path=GetStatus}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                <DataGridTextColumn Header="Дата регистрации" Width="229" Binding="{Binding Path=GetDataTimeFormat}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-            </DataGrid.Columns>
+                    <DataGridTextColumn Header="Айди" Width="140" Binding="{Binding Path=idAccount}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                    <DataGridTextColumn Header="Логин" Width="210" Binding="{Binding Path=login}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                    <DataGridTextColumn Header="Пароль" Width="210" Binding="{Binding Path=password}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                    <DataGridTextColumn Header="Статус" Width="210" Binding="{Binding Path=GetStatus}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                    <DataGridTextColumn Header="Дата регистрации" Width="229" Binding="{Binding Path=GetDataTimeFormat}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                </DataGrid.Columns>
 
-        </DataGrid>
-
-        <TextBox HorizontalAlignment="Left" FontSize="25" MaxLength="20" Height="45" Margin="188,626,0,0" TextWrapping="Wrap" Text="{Binding text, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="836">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction Command="{Binding SearchAccountCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </TextBox>
-        <ComboBox FontSize="20" ItemsSource="{Binding AccountCBData}" SelectedItem="{Binding SelectedSearchItem}" HorizontalAlignment="Left" Margin="0,626,0,0" VerticalAlignment="Top" Width="188" Height="45"/>
+            </DataGrid>
+            <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal">
+                <ComboBox VerticalAlignment="Bottom" md:HintAssist.Hint="Поиск" HorizontalContentAlignment="Center" FontSize="20" ItemsSource="{Binding AccountCBData}" SelectedItem="{Binding SelectedSearchItem}" HorizontalAlignment="Left" Width="200" Height="40"/>
+                <TextBox Padding="5,0,0,0" VerticalAlignment="Bottom" md:HintAssist.Hint="Введите значение" FontSize="25" MaxLength="20" TextWrapping="Wrap" Margin="5,0,5,0" Text="{Binding text, UpdateSourceTrigger=PropertyChanged}" Height="40" Width="820">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SearchAccountCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

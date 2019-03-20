@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -26,6 +27,8 @@ namespace MyClient.ViewModel._VMCommon
 
         #region Команды
 
+
+
         // Команда на получение списка новостей
         public ICommand GetNewsCommand
         {
@@ -33,10 +36,15 @@ namespace MyClient.ViewModel._VMCommon
             {
                 return new RelayCommand(() =>
                 {
-                    NewsLogicService = new NewsLogic();
+                    //// Если сервис новостей не проинициализирован, то проинициализируй его
+                    //NewsLogicService = new NewsLogic();
 
-                    // Получаем список новостей 
-                    NewsList = NewsLogicService.GetNews();
+                    // Загружаем список новостей в асинхронном режиме
+                    Load();
+                    //Thread t = new Thread(Load);
+                    //t.SetApartmentState(ApartmentState.STA);
+                    //t.Start();
+                    //Load(); // Загружаем новости в асинхронном режиме
                 });
             }
         }

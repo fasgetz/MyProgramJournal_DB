@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:MyClient.View.Teacher"
         mc:Ignorable="d"
         DataContext="{Binding TeacherVM, Source={StaticResource Locator}}"
-        Title="Панель учителя" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Панель учителя" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
@@ -17,19 +18,85 @@
             <i:InvokeCommandAction Command="{Binding OpenMainPage}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
-    
-    <Grid>
-        <Menu HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="1024">
-            
-            <MenuItem Margin="685,0,0,0"  FontSize="20" Header="Профиль" Width="110" Height="40">
-                <MenuItem Header="Главная страница" Command="{Binding OpenMainPage}"></MenuItem>
-                <MenuItem Header="Показать профиль"  Command="{Binding OpenProfilePage}" />
-                <MenuItem Header="Сменить аккаунт" Command="{Binding ChangeUser}"/>
-                <MenuItem Header="Выход" Command="{Binding WinClose}"/>
-            </MenuItem>
 
-        </Menu>
-        <Frame x:Name="frame" NavigationUIVisibility="Hidden" Height="700" Margin="0,40,0,0" VerticalAlignment="Top"/>
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+            <DoubleAnimationUsingKeyFrames>
+                <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClosed" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+            <DoubleAnimationUsingKeyFrames>
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="70"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonMenuOpen">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonMenuClose">
+            <BeginStoryboard Storyboard="{StaticResource MenuClosed}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <StackPanel>
+            <Grid Background="AliceBlue" MouseLeftButtonDown="Grid_MouseLeftButtonDown" VerticalAlignment="Top" Height="30">
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Margin="5,0,0,5" Kind="Windows" Width="30" Height="30"/>
+                    <Label Foreground="#FFA2a2a2" Content="Панель преподавателя" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Главная страница" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Height="Auto" Command="{Binding OpenMainPage}"/>
+                    <Button Content="Мой аккаунт" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Height="Auto" Command="{Binding OpenProfilePage}"/>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Command="{Binding ChangeUser}" Margin="0,0,0,0" Width="50" Height="Auto"  >
+                        <md:PackIcon Kind="EmergencyExit" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2"  Click="HideTray_Click" Margin="0,0,0,0" Width="50" Height="Auto" >
+                        <md:PackIcon Kind="ArrowCollapseDown" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2"  Command="{Binding WinClose}" Margin="0,0,0,0" Width="50" Height="Auto" >
+                        <md:PackIcon Kind="Power" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+
+            <StackPanel Orientation="Horizontal">
+                <Grid x:Name="GridMenu" Background="AliceBlue" Width="70" HorizontalAlignment="Left">
+                    <Button x:Name="ButtonMenuClose" Visibility="Collapsed" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Right" Foreground="#FFA2a2a2" Height="40" Click="ButtonCloseMenu_Click">
+                        <md:PackIcon Kind="ArrowLeft" Height="30" Width="30"/>
+                    </Button>
+                    <Button x:Name="ButtonMenuOpen" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Right" Foreground="#FFA2a2a2" Height="40" Click="ButtonOpenMenu_Click">
+                        <md:PackIcon Kind="Menu" Height="30" Width="30"/>
+                    </Button>
+                    <StackPanel Margin="0,40,0,0">
+
+                        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListViewItem>
+                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="180">
+                                    <StackPanel Orientation="Horizontal" Width="170">
+                                        <md:PackIcon Kind="Judaism" Width="30" Height="30" />
+                                        <Label VerticalAlignment="Center" Margin="20 10" Content="Расписание" Height="30"/>
+                                    </StackPanel>
+                                </Button>
+                            </ListViewItem>
+                        </ListView>
+                        
+                    </StackPanel>
+                </Grid>
+                <Grid VerticalAlignment="Bottom" Height="740" Width="900">
+                    <Frame x:Name="frame" NavigationUIVisibility="Hidden" Height="740" VerticalAlignment="Top"/>
+                </Grid>
+            </StackPanel>
+
+        </StackPanel>
+
+
+
+
     </Grid>
 </Window>

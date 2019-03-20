@@ -112,25 +112,25 @@ namespace MyClient.ProgramLogic.ServiceLogic
         }
 
         // Метод для получения списка новостей
-        public ObservableCollection<MyModelLibrary.News> GetNews()
+        public async Task<ObservableCollection<MyModelLibrary.News>> GetNews()
         {
             try
             {
                 // Создаем канал связи клиента с сервером
                 using (client = new NewsService.NewsServiceClient())
                 {
-                    List<MyModelLibrary.News> list = client.GetNewsList();
+                    // Загружаем список новостей в асинхронном режиме
+                    var result = await Task<List<MyModelLibrary.News>>.Factory.StartNew(() =>
+                    {
+                        return client.GetNewsList();
+                    });
 
-                    // Если список новостей не пустой, то верни его
-                    if (list != null)
-                        return new ObservableCollection<MyModelLibrary.News>(list); // Получаем список новостей
-
-                    return null; // Иначе верни пустой список
+                    return new ObservableCollection<MyModelLibrary.News>(result);
                 }
             }
-            catch (System.ServiceModel.EndpointNotFoundException)
+            catch (System.ServiceModel.CommunicationObjectFaultedException)
             {
-                MyDialog.ShowMessage("Сервер новостей не работает!");
+                //MyDialog.ShowMessage($"Сервер новостей не работает");
             }
             catch (Exception ex)
             {

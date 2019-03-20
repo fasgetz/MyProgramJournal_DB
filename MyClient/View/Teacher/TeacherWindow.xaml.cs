@@ -34,5 +34,31 @@ namespace MyClient.View.Teacher
                 frame.Navigate(new Uri(x.Url, UriKind.Relative));
             });
         }
+
+        // Событие на перемещение формы окна
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        // Событие на кнопку свернуть в трей
+        private void HideTray_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = System.Windows.WindowState.Minimized;
+        }
+
+        // Событие на кнопку закрыть меню
+        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonMenuOpen.Visibility = Visibility.Visible;
+            ButtonMenuClose.Visibility = Visibility.Collapsed;
+        }
+
+        // Событие на кнопку показать меню
+        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonMenuClose.Visibility = Visibility.Visible;
+            ButtonMenuOpen.Visibility = Visibility.Collapsed;
+        }
     }
 }

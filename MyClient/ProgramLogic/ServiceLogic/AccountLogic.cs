@@ -3,6 +3,7 @@ using MyClient.ProgramLogic.DialogServices;
 using MyClient.ViewModel._Navigation;
 using System;
 using System.ServiceModel;
+using System.Threading.Tasks;
 
 namespace MyClient.ProgramLogic.ServiceLogic
 {
@@ -36,6 +37,14 @@ namespace MyClient.ProgramLogic.ServiceLogic
             {
                 AccountProxy.DisconnectUser(MyAcc); // Отправляем на сервер аккаунт, который отключаем
             }
+            catch (EndpointNotFoundException)
+            {
+                MyDialog.ShowMessage("Сервер не запущен!");
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
             catch (Exception ex)
             {
                 MyDialog.ShowMessage(ex.Message);
@@ -60,8 +69,6 @@ namespace MyClient.ProgramLogic.ServiceLogic
                 // Иначе, если у юзера есть учетные данные, то открой соответствующее окно
                 else
                 {
-                    MyDialog.ShowMessage("Вы успешно авторизировались!");
-
                     navigation = new NavigateViewModel();
                     // Выбираем какую страницу открывать по статусу юзера
                     switch (MyAcc.Users.idUserStatus)

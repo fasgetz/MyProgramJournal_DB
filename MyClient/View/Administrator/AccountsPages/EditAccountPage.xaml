@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MyClient.View.Administrator.AccountsPages"
       mc:Ignorable="d" 
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="700" d:DesignWidth="1024"
       DataContext="{Binding MyEditAccountVM, Source={StaticResource Locator}}"
       Title="EditAccountPage">
@@ -26,13 +27,12 @@
         <TextBox HorizontalAlignment="Left" FontSize="25" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="46" Margin="314,303,0,0" TextWrapping="Wrap" Text="{Binding AddSurname}" VerticalAlignment="Top" Width="680"/>
         <TextBox HorizontalAlignment="Left" FontSize="25" MaxLength="11" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="46" Margin="314,440,0,0" TextWrapping="Wrap" Text="{Binding AddTelephone}" VerticalAlignment="Top" Width="680"/>
         <Label Content="Статус пользователя" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,395,0,0" VerticalAlignment="Top" Width="280" Height="46"/>
-        <Button Content="Редактировать" Command="{Binding SaveAccount}" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="31,534,10,0" VerticalAlignment="Top" Width="983" Height="52"/>
-        <Button Content="Отменить" Command="{Binding OpenAccountsList}" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="31,586,10,0" VerticalAlignment="Top" Width="983" Height="52"/>
-        <ComboBox  ItemsSource="{Binding GenderList}" FontSize="25" SelectedItem="{Binding AddGender}" HorizontalAlignment="Left" Margin="314,349,0,0" VerticalAlignment="Top" Width="680" Height="46"/>
+        <Button Content="Редактировать" Command="{Binding SaveAccount}" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="31,538,10,0" VerticalAlignment="Top" Width="983" Height="52"/>
+        <Button Content="Отменить" Command="{Binding OpenAccountsList}" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="31,596,10,0" VerticalAlignment="Top" Width="983" Height="52"/>
+        <ComboBox HorizontalContentAlignment="Center" ItemsSource="{Binding GenderList}" FontSize="25" SelectedItem="{Binding AddGender}" HorizontalAlignment="Left" Margin="314,349,0,0" VerticalAlignment="Top" Width="680" Height="46"/>
         <DatePicker HorizontalAlignment="Left" FontSize="25" SelectedDate="{Binding AddDateOfBirthday}" HorizontalContentAlignment="Center" Margin="314,486,0,0" VerticalAlignment="Top" Height="43" Width="680"/>
-        <ComboBox ItemsSource="{Binding StatusAccountsList}" FontSize="25" SelectedItem="{Binding AddAccountStatus}" HorizontalAlignment="Left" Margin="314,164,0,0" VerticalAlignment="Top" Width="680" Height="46"/>
+        <ComboBox HorizontalContentAlignment="Center" ItemsSource="{Binding StatusAccountsList}" FontSize="25" SelectedItem="{Binding AddAccountStatus}" HorizontalAlignment="Left" Margin="314,164,0,0" VerticalAlignment="Top" Width="680" Height="46"/>
         <Label Content="Статус аккаунта" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Width="280" Height="46"/>
         <Label Content="{Binding AddStatus}" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="314,394,0,0" VerticalAlignment="Top" Width="680" Height="46"/>
-
     </Grid>
 </Page>

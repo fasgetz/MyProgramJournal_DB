@@ -11,7 +11,7 @@
 
     <Grid>
         <Label Content="Персональные данные" FontSize="35" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,-214,0" VerticalAlignment="Top" Width="1004"/>
-        <Button Content="Вернуться назад" Command="{Binding OpenAccountsList}" FontSize="35" HorizontalAlignment="Left" Margin="10,622,0,0" VerticalAlignment="Top" Width="1004"/>
+        <Button Content="Вернуться назад" Command="{Binding OpenAccountsList}" FontSize="25" HorizontalAlignment="Left" Margin="10,604,0,0" VerticalAlignment="Top" Width="1004" Height="50"/>
         <Label Content="Айди" FontSize="35" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="274"/>
         <Label Content="Статус" FontSize="35" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="274"/>
         <Label Content="Имя" FontSize="35" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,207,0,0" VerticalAlignment="Top" Width="274"/>

@@ -53,7 +53,9 @@ namespace MyClient.ViewModel.Administrator.News
                         if (edit_news == true)
                         {
                             // Перейди в Page страницы новостей
-                            locator.NewsListVM.NewsList = MyNewsLogic.GetNews();
+                            Load();
+                            //locator.NewsListVM.NewsList = MyNewsLogic.GetNews();
+                            //locator.NewsListVM.lo
                             navigation.Navigate("View/Administrator/News/NewsListPage.xaml");
                         }
                     }

@@ -7,6 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1024"
       DataContext="{Binding MyCreateAccountVM, Source={StaticResource Locator}}"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="CreateAccountPage">
 
     <Grid>
@@ -19,20 +20,20 @@
         <Label Content="Пол" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,349,0,0" VerticalAlignment="Top" Width="280" Height="46"/>
         <Label Content="Номер телефона" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,440,0,0" VerticalAlignment="Top" Width="280" Height="46"/>
         <Label Content="Дата рождения" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,486,0,0" VerticalAlignment="Top" Width="280" Height="48"/>
-        <TextBox HorizontalAlignment="Left" FontSize="25" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="48" Margin="314,72,0,0" TextWrapping="Wrap" Text="{Binding AddLogin}" VerticalAlignment="Top" Width="680"/>
-        <TextBox HorizontalAlignment="Left" FontSize="25" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="45" Margin="314,120,0,0" TextWrapping="Wrap" Text="{Binding AddPassword}" VerticalAlignment="Top" Width="680"/>
-        <TextBox HorizontalAlignment="Left" FontSize="25" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="47" Margin="314,210,0,0" TextWrapping="Wrap" Text="{Binding AddName}" VerticalAlignment="Top" Width="680"/>
-        <TextBox HorizontalAlignment="Left" FontSize="25" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="46" Margin="314,257,0,0" TextWrapping="Wrap" Text="{Binding AddFamily}" VerticalAlignment="Top" Width="680"/>
-        <TextBox HorizontalAlignment="Left" FontSize="25" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="46" Margin="314,303,0,0" TextWrapping="Wrap" Text="{Binding AddSurname}" VerticalAlignment="Top" Width="680"/>
-        <TextBox HorizontalAlignment="Left" FontSize="25" MaxLength="11" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="46" Margin="314,440,0,0" TextWrapping="Wrap" Text="{Binding AddTelephone}" VerticalAlignment="Top" Width="680"/>
+        <TextBox md:HintAssist.Hint="Введите логин" HorizontalAlignment="Left" FontSize="25" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="48" Margin="314,72,0,0" TextWrapping="Wrap" Text="{Binding AddLogin}" VerticalAlignment="Top" Width="680"/>
+        <TextBox md:HintAssist.Hint="Введите пароль" HorizontalAlignment="Left" FontSize="25" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="45" Margin="314,120,0,0" TextWrapping="Wrap" Text="{Binding AddPassword}" VerticalAlignment="Top" Width="680"/>
+        <TextBox md:HintAssist.Hint="Введите имя" HorizontalAlignment="Left" FontSize="25" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="47" Margin="314,210,0,0" TextWrapping="Wrap" Text="{Binding AddName}" VerticalAlignment="Top" Width="680"/>
+        <TextBox md:HintAssist.Hint="Введите фамилию" HorizontalAlignment="Left" FontSize="25" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="46" Margin="314,257,0,0" TextWrapping="Wrap" Text="{Binding AddFamily}" VerticalAlignment="Top" Width="680"/>
+        <TextBox md:HintAssist.Hint="Введите отчество" HorizontalAlignment="Left" FontSize="25" MaxLength="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="46" Margin="314,303,0,0" TextWrapping="Wrap" Text="{Binding AddSurname}" VerticalAlignment="Top" Width="680"/>
+        <TextBox md:HintAssist.Hint="Введите номер телефона" HorizontalAlignment="Left" FontSize="25" MaxLength="11" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="46" Margin="314,440,0,0" TextWrapping="Wrap" Text="{Binding AddTelephone}" VerticalAlignment="Top" Width="680"/>
         <Label Content="Статус пользователя" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,395,0,0" VerticalAlignment="Top" Width="280" Height="46"/>
         <Button Content="Создать аккаунт" Command="{Binding CreateAccount}" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="31,534,10,0" VerticalAlignment="Top" Width="983" Height="52"/>
-        <Button Content="Отменить" Command="{Binding OpenMainPage}" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="31,586,10,0" VerticalAlignment="Top" Width="983" Height="52"/>
-        <ComboBox  ItemsSource="{Binding GenderList}" FontSize="25" SelectedItem="{Binding AddGender}" HorizontalAlignment="Left" Margin="314,349,0,0" VerticalAlignment="Top" Width="680" Height="46"></ComboBox>
-        <ComboBox  ItemsSource="{Binding StatusList}" FontSize="25" SelectedItem="{Binding AddStatus}" HorizontalAlignment="Left" Margin="314,394,0,0" VerticalAlignment="Top" Width="680" Height="46"/>
-        <DatePicker HorizontalAlignment="Left" FontSize="25" SelectedDate="{Binding AddDateOfBirthday}" HorizontalContentAlignment="Center" Margin="314,486,0,0" VerticalAlignment="Top" Height="43" Width="680">
+        <Button Content="Отменить" Command="{Binding OpenMainPage}" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="31,591,10,0" VerticalAlignment="Top" Width="983" Height="52"/>
+        <ComboBox md:HintAssist.Hint="Введите пол" HorizontalContentAlignment="Center"  ItemsSource="{Binding GenderList}" FontSize="25" SelectedItem="{Binding AddGender}" HorizontalAlignment="Left" Margin="314,349,0,0" VerticalAlignment="Top" Width="680" Height="46"></ComboBox>
+        <ComboBox md:HintAssist.Hint="Введите статус" HorizontalContentAlignment="Center" ItemsSource="{Binding StatusList}" FontSize="25" SelectedItem="{Binding AddStatus}" HorizontalAlignment="Left" Margin="314,394,0,0" VerticalAlignment="Top" Width="680" Height="46"/>
+        <DatePicker md:HintAssist.Hint="Введите дату рождения" HorizontalAlignment="Left" FontSize="25" SelectedDate="{Binding AddDateOfBirthday}" HorizontalContentAlignment="Center" Margin="314,486,0,0" VerticalAlignment="Top" Height="43" Width="680">
         </DatePicker>
-        <ComboBox ItemsSource="{Binding StatusAccountsList}" FontSize="25" SelectedItem="{Binding AddAccountStatus}" HorizontalAlignment="Left" Margin="314,164,0,0" VerticalAlignment="Top" Width="680" Height="46"/>
+        <ComboBox md:HintAssist.Hint="Выберите статус" HorizontalContentAlignment="Center" ItemsSource="{Binding StatusAccountsList}" FontSize="25" SelectedItem="{Binding AddAccountStatus}" HorizontalAlignment="Left" Margin="314,164,0,0" VerticalAlignment="Top" Width="680" Height="46"/>
         <Label Content="Статус аккаунта" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Width="280" Height="46"/>
     </Grid>
 </Page>

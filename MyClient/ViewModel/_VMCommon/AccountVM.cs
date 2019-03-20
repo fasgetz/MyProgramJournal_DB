@@ -76,6 +76,16 @@ namespace MyClient.ViewModel._VMCommon
 
         #region Новости
 
+        protected async void Load()
+        {
+            //NewsList = await Task.Run(() => NewsLogicService.GetNews());
+
+            // Если сервис новостей не проинициализирован, то проинициализируй его
+            //NewsLogicService = new NewsLogic();
+
+            NewsList = await new NewsLogic().GetNews();
+        }
+
         // Список новостей
         private ObservableCollection<MyModelLibrary.News> _NewsList;
         public ObservableCollection<MyModelLibrary.News> NewsList
@@ -149,6 +159,20 @@ namespace MyClient.ViewModel._VMCommon
                     {
                         Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт                            
                     }
+                });
+            }
+        }
+
+        // Команда закрытия окна без дисконнекта (В окне авторизации)
+        public ICommand Close
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    if (navigation == null)
+                        navigation = new NavigateViewModel();
+                    navigation.CloseWindow(); // Закрываем текущее окно       
                 });
             }
         }
