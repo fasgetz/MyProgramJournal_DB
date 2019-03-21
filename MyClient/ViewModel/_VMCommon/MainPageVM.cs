@@ -20,7 +20,7 @@ namespace MyClient.ViewModel._VMCommon
 
         #region Свойства
 
-        NewsLogic NewsLogicService; // Сервис для работы с логикой новостей
+        //NewsLogic NewsLogicService; // Сервис для работы с логикой новостей
 
 
         #endregion
@@ -55,8 +55,7 @@ namespace MyClient.ViewModel._VMCommon
         public MainPageVM()
         {
             // Инициализируем диалог
-            dialog = new DialogService();
-            
+            dialog = new DialogService();            
         }
     }
 }

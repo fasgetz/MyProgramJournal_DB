@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using WCF_Service.DataBase;
 
@@ -27,6 +28,10 @@ namespace WCF_Service.MyService.ServiceWorkDB
         #endregion
 
         #region Общие методы
+
+        // Метод на получение списка занятий группы по дате
+        [OperationContract]
+        List<MyModelLibrary.LessonsDate> GetLessons(MyModelLibrary.Groups Group, DateTime date);
 
         // Метод на получение списка кодов специальностей
         [OperationContract]

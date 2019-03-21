@@ -49,14 +49,8 @@ namespace MyClient.ProgramLogic.ServiceLogic
                 using (client = new MyService.TransferServiceClient())
                 {
                     // Отправляем данные на сервер. Если получили true, то добавлено успешно
-                    bool AddedLesson = client.AddLessonGroup(MyAcc, discipline, numberlesson, date);
-
-                    if (AddedLesson == true)
-                    {
-                        MyDialog.ShowMessage($"Занятие добавлено успешно!");
-
-                        return true; // Возвращаем true, т.к. добавили успешно
-                    }
+                    return client.AddLessonGroup(MyAcc, discipline, numberlesson, date);
+                    
                 }
             }
             catch (FaultException<AccountService.AccountConnectedException> ex)

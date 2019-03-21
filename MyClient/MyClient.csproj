@@ -109,6 +109,7 @@
     <Compile Include="ProgramLogic\ServiceLogic\CommonLogic.cs" />
     <Compile Include="ProgramLogic\ServiceLogic\NewsLogic.cs" />
     <Compile Include="ProgramLogic\ServiceLogic\StudentLogic.cs" />
+    <Compile Include="ProgramLogic\ServiceLogic\TeacherLogic.cs" />
     <Compile Include="ViewModel\Administrator\Accounts\AccountInfoViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Accounts\AccountsListPageViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Accounts\SessionsViewModel.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="ViewModel\_Navigation\NavigateArgs.cs" />
     <Compile Include="ViewModel\_Navigation\NavigateViewModel.cs" />
     <Compile Include="ViewModel\_VMCommon\AccountVM.cs" />
+    <Compile Include="ViewModel\_VMCommon\AllScheduleViewModel.cs" />
     <Compile Include="ViewModel\_VMCommon\MainPageVM.cs" />
     <Compile Include="ViewModel\_VMCommon\ProfileVM.cs" />
     <Compile Include="View\Administrator\AccountsPages\AccountsListPage.xaml.cs">
@@ -199,6 +201,9 @@
     </Compile>
     <Compile Include="View\CommonPages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CommonPages\SchedulePage.xaml.cs">
+      <DependentUpon>SchedulePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainLoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -296,6 +301,10 @@
     <Page Include="View\CommonPages\ProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\CommonPages\SchedulePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainLoginWindow\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

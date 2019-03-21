@@ -20,6 +20,21 @@ namespace MyClient.ViewModel.Administrator.Schedule
 
         #region Свойства
 
+        // Список занятий
+        private List<MyModelLibrary.LessonsDate> _lessons;
+        public List<MyModelLibrary.LessonsDate> lessons
+        {
+            get
+            {
+                return _lessons;
+            }
+            set
+            {
+                _lessons = value;
+                RaisePropertyChanged("lessons");
+            }
+        }
+
         // Выбранное занятие
         private MyModelLibrary.LessonsDate _SelectedLesson;
         public MyModelLibrary.LessonsDate SelectedLesson
@@ -145,21 +160,6 @@ namespace MyClient.ViewModel.Administrator.Schedule
                     numberslessons = MyAdminLogic.GetLessonsNumbers(MyAcc, SelectedGroup, SelectDate, value);
                 }
                 RaisePropertyChanged($"SelectedSemestr");
-            }
-        }
-
-        // Список занятий
-        private List<MyModelLibrary.LessonsDate> _lessons;
-        public List<MyModelLibrary.LessonsDate> lessons
-        {
-            get
-            {
-                return _lessons;
-            }
-            set
-            {
-                _lessons = value;
-                RaisePropertyChanged("lessons");
             }
         }
 
@@ -294,8 +294,6 @@ namespace MyClient.ViewModel.Administrator.Schedule
             SelectDate = DateTime.Now;
             Semesters = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8 };
 
-            //lessons.ElementAt(0).LessonNumber
-            
         }
 
         #endregion

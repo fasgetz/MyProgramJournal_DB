@@ -21,7 +21,22 @@ namespace MyClient.ViewModel._VMCommon
 
     public class AccountVM : ViewModelBase
     {
-        #region Свойства       
+        #region Свойства
+
+        // Список существующих групп
+        private List<MyModelLibrary.Groups> _groups;
+        public List<MyModelLibrary.Groups> groups
+        {
+            get
+            {
+                return _groups;
+            }
+            set
+            {
+                _groups = value;
+                RaisePropertyChanged("groups");
+            }
+        }
 
         #region Свойства навигации и диалогов
 
@@ -35,6 +50,8 @@ namespace MyClient.ViewModel._VMCommon
 
         internal AdministratorLogic MyAdminLogic;
         internal StudentLogic MyUserLogic;
+        //internal TeacherLogic MyTeacherLogic;
+        //internal CommonLogic CommonLogic;
         protected internal AccountLogic MyAccountLogic;
 
         #endregion
@@ -224,6 +241,24 @@ namespace MyClient.ViewModel._VMCommon
         #endregion
 
         #region Команды для перехода по страницам
+
+        // Команда перехода на страницу расписания
+        public ICommand OpenSchedulePage
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    if (locator.AllScheduleVM == null)
+                        locator.AllScheduleVM = new AllScheduleViewModel();
+
+                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт     
+
+                    // Переходим на страницу расписания
+                    navigation.Navigate("View/CommonPages/SchedulePage.xaml");
+                });
+            }
+        }
 
         // Команда, которая перейдет на страницу профиля
         public ICommand OpenProfilePage

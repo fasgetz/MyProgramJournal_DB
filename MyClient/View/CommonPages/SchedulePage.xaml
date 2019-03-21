@@ -1,0 +1,54 @@
+﻿<Page x:Class="MyClient.View.CommonPages.SchedulePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MyClient.View.CommonPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1024"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      DataContext="{Binding AllScheduleVM, Source={StaticResource Locator}}"
+      Title="SchedulePage">
+    <Page.Resources>
+
+        <Style x:Key="DGC_NumericColumnStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <Style x:Key="CenterGridHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid>
+        <StackPanel>
+            <Label Content="Расписание занятий" FontSize="35" HorizontalContentAlignment="Center" Margin="10,10,0,0"/>
+            <StackPanel Orientation="Horizontal" Height="50"  Margin="10,5,20,0">
+                <Label Content="Дата" FontSize="25" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center"  Width="200"/>
+                <DatePicker SelectedDate="{Binding SelectDate}" HorizontalContentAlignment="Center" md:HintAssist.Hint="Выберите дату" FontSize="25" VerticalContentAlignment="Bottom" Width="790">
+                </DatePicker>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="50"  Margin="10,10,20,0">
+                <Label Content="Группа" FontSize="25" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center"  Width="200"/>
+                <ComboBox SelectedValue="{Binding SelectedGroup}" DisplayMemberPath="GroupName" ItemsSource="{Binding groups}" VerticalContentAlignment="Bottom" md:HintAssist.Hint="Выберите группу" HorizontalContentAlignment="Center" Width="790"  FontSize="25" Height="50"/>
+            </StackPanel>
+            <StackPanel Margin="10,10,0,0" Height="500">
+                <DataGrid ItemsSource="{Binding lessons}" x:Name="MyDataGrid" SelectedValue="{Binding SelectedLesson}" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" HorizontalAlignment="Left" Height="490" VerticalAlignment="Top" Width="994" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Пара" Width="150" Binding="{Binding LessonNumber}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                        <DataGridTextColumn Header="Дисциплина" Width="420" Binding="{Binding DisciplineName}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                        <DataGridTextColumn Header="Преподаватель" Width="420" Binding="{Binding TeacherFIO}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </StackPanel>
+            
+
+        </StackPanel>
+
+
+
+    </Grid>
+</Page>

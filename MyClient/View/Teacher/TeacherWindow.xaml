@@ -50,11 +50,7 @@
                     <Label Foreground="#FFA2a2a2" Content="Панель преподавателя" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Главная страница" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Height="Auto" Command="{Binding OpenMainPage}"/>
-                    <Button Content="Мой аккаунт" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Height="Auto" Command="{Binding OpenProfilePage}"/>
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Command="{Binding ChangeUser}" Margin="0,0,0,0" Width="50" Height="Auto"  >
-                        <md:PackIcon Kind="EmergencyExit" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Button>
+                    
                     <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2"  Click="HideTray_Click" Margin="0,0,0,0" Width="50" Height="Auto" >
                         <md:PackIcon Kind="ArrowCollapseDown" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Button>
@@ -77,18 +73,52 @@
 
                         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListViewItem>
-                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="180">
-                                    <StackPanel Orientation="Horizontal" Width="170">
-                                        <md:PackIcon Kind="Judaism" Width="30" Height="30" />
+                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="180" Command="{Binding OpenMainPage}">
+                                    <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Center" Width="170">
+                                        <md:PackIcon Kind="Newspaper" Width="30" Height="30" />
+                                        <Label VerticalAlignment="Center" Margin="20 10" Content="Новости" Height="30"/>
+                                    </StackPanel>
+                                </Button>
+                            </ListViewItem>
+                            <ListViewItem>
+                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="180" Command="{Binding OpenProfilePage}">
+                                    <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Center" Width="170">
+                                        <md:PackIcon Kind="Account" Width="30" Height="30" />
+                                        <Label VerticalAlignment="Center" Margin="20 10" Content="Профиль" Height="30"/>
+                                    </StackPanel>
+                                </Button>
+                            </ListViewItem>
+                            <ListViewItem>
+                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="180" Command="{Binding OpenSchedulePage}">
+                                    <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Center" Width="170" >
+                                        <md:PackIcon Kind="CalendarDay" Width="30" Height="30" />
                                         <Label VerticalAlignment="Center" Margin="20 10" Content="Расписание" Height="30"/>
                                     </StackPanel>
                                 </Button>
                             </ListViewItem>
+                            <ListViewItem>
+                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="180">
+                                    <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Center" Width="170" >
+                                        <md:PackIcon Kind="FormatListNumbers" Width="30" Height="30" />
+                                        <Label VerticalAlignment="Center" Margin="20 10" Content="Журнал" Height="30"/>
+                                    </StackPanel>
+                                </Button>
+                            </ListViewItem>
+                            <Separator/>
+                            <ListViewItem>
+                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="180" Command="{Binding ChangeUser}">
+                                    <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Center" Width="170" >
+                                        <md:PackIcon Kind="EmergencyExit" Width="30" Height="30" />
+                                        <Label VerticalAlignment="Center" Margin="20 10" Content="Перезайти" Height="30"/>
+                                    </StackPanel>
+                                </Button>
+                            </ListViewItem>
+                            
                         </ListView>
                         
                     </StackPanel>
                 </Grid>
-                <Grid VerticalAlignment="Bottom" Height="740" Width="900">
+                <Grid VerticalAlignment="Bottom" Height="740" Width="950">
                     <Frame x:Name="frame" NavigationUIVisibility="Hidden" Height="740" VerticalAlignment="Top"/>
                 </Grid>
             </StackPanel>

@@ -18,6 +18,24 @@ namespace MyClient.ProgramLogic.ServiceLogic
 
         #region Общие методы
 
+        // Метод на получение списка занятий группы по дате
+        public List<MyModelLibrary.LessonsDate> GetLessons(MyModelLibrary.Groups Group, DateTime date)
+        {
+            try
+            {
+                using (client = new MyService.TransferServiceClient())
+                {
+                    return client.GetLessons(Group, date);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return null; // Возвращаем null, если нету занятий у группы за указанную дату
+        }
+
         // Метод получения списка студентов (Если запрос послал администратор или преподаватель)
         internal List<MyModelLibrary.Users> GetStudentsInGroup(MyModelLibrary.accounts MyAcc, int idGroup)
         {

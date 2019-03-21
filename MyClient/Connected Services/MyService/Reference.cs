@@ -27,6 +27,12 @@ namespace MyClient.MyService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetStudentsGroup", ReplyAction="http://tempuri.org/ITransferService/GetStudentsGroupResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetStudentsGroupAsync(MyModelLibrary.accounts MyAcc, int idGroup);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetLessons", ReplyAction="http://tempuri.org/ITransferService/GetLessonsResponse")]
+        System.Collections.Generic.List<MyModelLibrary.LessonsDate> GetLessons(MyModelLibrary.Groups Group, System.DateTime date);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetLessons", ReplyAction="http://tempuri.org/ITransferService/GetLessonsResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.LessonsDate>> GetLessonsAsync(MyModelLibrary.Groups Group, System.DateTime date);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetSpecialityCodes", ReplyAction="http://tempuri.org/ITransferService/GetSpecialityCodesResponse")]
         System.Collections.Generic.List<MyModelLibrary.Speciality_codes> GetSpecialityCodes();
         
@@ -219,6 +225,14 @@ namespace MyClient.MyService {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Users>> GetStudentsGroupAsync(MyModelLibrary.accounts MyAcc, int idGroup) {
             return base.Channel.GetStudentsGroupAsync(MyAcc, idGroup);
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.LessonsDate> GetLessons(MyModelLibrary.Groups Group, System.DateTime date) {
+            return base.Channel.GetLessons(Group, date);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.LessonsDate>> GetLessonsAsync(MyModelLibrary.Groups Group, System.DateTime date) {
+            return base.Channel.GetLessonsAsync(Group, date);
         }
         
         public System.Collections.Generic.List<MyModelLibrary.Speciality_codes> GetSpecialityCodes() {

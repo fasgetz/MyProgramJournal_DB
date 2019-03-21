@@ -70,6 +70,7 @@ namespace MyClient.ProgramLogic.ServiceLogic
                 else
                 {
                     navigation = new NavigateViewModel();
+
                     // Выбираем какую страницу открывать по статусу юзера
                     switch (MyAcc.Users.idUserStatus)
                     {

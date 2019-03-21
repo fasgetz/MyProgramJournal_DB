@@ -168,6 +168,31 @@ namespace WCF_Service.ServiceLogic
 
         #region Общие методы
 
+        // Метод на получение списка занятий группы по дате
+        public List<MyModelLibrary.LessonsDate> GetLessons(MyModelLibrary.Groups Group, DateTime date)
+        {
+            try
+            {
+                // Создаем репозиторий для работы с БД
+                EFGenericRepository<LessonsDate> repository = new EFGenericRepository<LessonsDate>(new MyDB());
+
+                // Возвращаем DTO список занятий
+                return new MyGeneratorDTO().GetLessonsDates(
+                    // Находим список занятий по группе
+                    repository.GetQueryList(i => i.DateLesson == date // По дате
+                        && i.GroupDisciplines.IdGroup == Group.idGroup // Занятие по айди группы
+                        )
+                    ).OrderBy(i => i.LessonNumber).ToList(); // Сортируем по номеру пары и преобразуем в List
+
+                }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return null; // Возвращаем null, если нету занятий у группы за указанную дату
+        }
+
         // Метод, который получает весь список специальность
         public List<MyModelLibrary.Speciality_codes> GetSpecialityCodes()
         {

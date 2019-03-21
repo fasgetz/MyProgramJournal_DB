@@ -432,21 +432,6 @@ namespace MyClient.ViewModel.Administrator
 
         #endregion
 
-        // Список существующих групп
-        private List<MyModelLibrary.Groups> _groups;
-        public List<MyModelLibrary.Groups> groups
-        {
-            get
-            {
-                return _groups;
-            }
-            set
-            {
-                _groups = value;
-                RaisePropertyChanged("groups");
-            }
-        }
-
         // Выбранная группа
         private MyModelLibrary.Groups _SelectedGroup;
         public MyModelLibrary.Groups SelectedGroup
@@ -608,7 +593,7 @@ namespace MyClient.ViewModel.Administrator
         #region Команды перехода по страницам (Только страницы администратора)
 
         // Команда перехода на страницу SchedulePage
-        public ICommand OpenSchedulePage
+        public new ICommand OpenSchedulePage
         {
             get
             {

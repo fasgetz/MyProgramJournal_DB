@@ -26,6 +26,9 @@ using MyClient.ViewModel.Administrator.Users;
 using MyClient.ViewModel.Student;
 using MyClient.ViewModel.Teacher;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MyClient.ViewModel._Navigation
 {
@@ -35,12 +38,73 @@ namespace MyClient.ViewModel._Navigation
     /// </summary>
     public class ViewModelLocator
     {
+
+        //public static void Cleanup()
+        //{
+        //    SimpleIoc.Default.Unregister<AccountVM>(CurrentKey);
+        //    CurrentKey = System.Guid.NewGuid().ToString();
+        //}
+
+        //private static string _currentKey = System.Guid.NewGuid().ToString();
+        //public static string CurrentKey
+        //{
+        //    get
+        //    {
+        //        return _currentKey;
+        //    }
+        //    private set
+        //    {
+        //        _currentKey = value;
+        //    }
+        //}
+
+        //public static T GetNewInstance<T>(string uniqueKey)
+        //{
+        //    var model = ServiceLocator.Current.GetInstance<T>(uniqueKey);
+        //    return model;
+        //}
+
+
+        //// Метод, который регистрируем VM
+        //public static void Register<T>(T VM)
+        //    where T: class
+        //{
+        //    SimpleIoc.Default.Register<T>();
+
+        //    SimpleIoc.Default.Unregister<T>(CurrentKey);
+        //}
+
+        //public T GetInstance<T>()
+        //{
+        //    return ServiceLocator.Current.GetInstance<T>();
+        //}
+
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);            
+            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            
+            //SimpleIoc.Default.Register<AccountVM>(); // Общая ViewModel
+            //SimpleIoc.Default.Register<MainPageVM>(); // Общая ViewModel
+
+            //var a = SimpleIoc.Default.GetAllInstances(typeof(MainPageVM));
+            //ProgramLogic.DialogServices.DialogService dialog = new ProgramLogic.DialogServices.DialogService();
+
+
+            //dialog.ShowMessage(a.Count().ToString());
+
+
+            //ArrayList list = new ArrayList();
+
+            //list.Add(SimpleIoc.Default.Register<AccountVM>());
+
+            //foreach (var item in list)
+            //{
+                
+            //}
+
 
             //// Регистрируем наши ViewModels
             AdminInitialization(); // Инициализируем VM
@@ -336,6 +400,18 @@ namespace MyClient.ViewModel._Navigation
             }
         }
 
+        private AllScheduleViewModel _AllScheduleVM;
+        public AllScheduleViewModel AllScheduleVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AllScheduleViewModel>();
+            }
+            set
+            {
+                _AllScheduleVM = value;
+            }
+        }
 
         private ProfileVM _MyProfileVM;
         public ProfileVM MyProfileVM
@@ -374,6 +450,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Register<AccountVM>(); // Общая ViewModel
             SimpleIoc.Default.Register<ProfileVM>(); // ViewModel профиля
             SimpleIoc.Default.Register<MainPageVM>(); // ViewModel главной страницы
+            SimpleIoc.Default.Register<AllScheduleViewModel>(); // ViewModel страницы расписания занятий
 
             //// ViewModel администратора
             SimpleIoc.Default.Register<AdministratorViewModel>(); // ViewModel администратора
@@ -410,6 +487,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.GetInstance<AccountVM>().Cleanup(); // Общая ViewModel
             SimpleIoc.Default.GetInstance<ProfileVM>().Cleanup(); // ViewModel профиля
             SimpleIoc.Default.GetInstance<MainPageVM>().Cleanup(); // ViewModel главной страницы
+            SimpleIoc.Default.GetInstance<AllScheduleViewModel>().Cleanup();
 
             //// ViewModel администратора
             SimpleIoc.Default.GetInstance<AdministratorViewModel>().Cleanup(); // ViewModel администратора
@@ -443,6 +521,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Unregister<AccountVM>(); // Общая ViewModel
             SimpleIoc.Default.Unregister<ProfileVM>(); // ViewModel профиля
             SimpleIoc.Default.Unregister<MainPageVM>(); // ViewModel главной страницы
+            SimpleIoc.Default.Unregister<AllScheduleViewModel>(); // ViewModel страницы расписания занятий
 
             //// ViewModel администратора
             SimpleIoc.Default.Unregister<AdministratorViewModel>(); // ViewModel администратора

@@ -186,6 +186,12 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Общие методы контракта служб
 
+        // Метод на получение списка занятий группы по дате
+        public List<MyModelLibrary.LessonsDate> GetLessons(MyModelLibrary.Groups Group, DateTime date)
+        {
+            return MyServiceLogic.GetLessons(Group, date);
+        }
+
         // Возвращает список специальностей клиенту
         public List<MyModelLibrary.Speciality_codes> GetSpecialityCodes()
         {

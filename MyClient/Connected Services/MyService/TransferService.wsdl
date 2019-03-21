@@ -28,6 +28,12 @@
   <wsdl:message name="ITransferService_GetStudentsGroup_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStudentsGroupResponse" />
   </wsdl:message>
+  <wsdl:message name="ITransferService_GetLessons_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLessons" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_GetLessons_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLessonsResponse" />
+  </wsdl:message>
   <wsdl:message name="ITransferService_GetSpecialityCodes_InputMessage">
     <wsdl:part name="parameters" element="tns:GetSpecialityCodes" />
   </wsdl:message>
@@ -187,6 +193,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetStudentsGroup" message="tns:ITransferService_GetStudentsGroup_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetStudentsGroupResponse" message="tns:ITransferService_GetStudentsGroup_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetLessons">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetLessons" message="tns:ITransferService_GetLessons_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetLessonsResponse" message="tns:ITransferService_GetLessons_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetSpecialityCodes">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetSpecialityCodes" message="tns:ITransferService_GetSpecialityCodes_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetSpecialityCodesResponse" message="tns:ITransferService_GetSpecialityCodes_OutputMessage" />
@@ -302,6 +312,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetStudentsGroup">
       <soap12:operation soapAction="http://tempuri.org/ITransferService/GetStudentsGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLessons">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/GetLessons" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
