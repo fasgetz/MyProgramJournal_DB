@@ -10,6 +10,46 @@ namespace MyClient.ViewModel.Teacher
     public class TeacherViewModel : AccountVM
     {
 
+        // Команда на открытие странпицы групп учителя
+        public ICommand OpenTeacherGroups
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Инициализируем VM
+                    if (locator.TeacherGroupsVM == null)
+                        locator.TeacherGroupsVM = new Journal.GroupsJournalViewModel();
+
+                    // Передаем в следующий контекст аккаунт
+                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт     
+
+                    // Переходим на страницу расписания
+                    navigation.Navigate("View/Teacher/Journal/GroupsPage.xaml");
+                });
+            }
+        }
+
+
+        // Команда на октрытие журнала
+        public ICommand OpenJournal
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    if (locator.JournalVM == null)
+                        locator.JournalVM = new Journal.JournalViewModel();
+
+                    // Передаем в следующий контекст аккаунт
+                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт     
+
+                    // Переходим на страницу расписания
+                    navigation.Navigate("View/Teacher/Journal/JournalPage.xaml");
+                });
+            }
+        }
+
         #region Конструктор
 
         // Конструктор класса

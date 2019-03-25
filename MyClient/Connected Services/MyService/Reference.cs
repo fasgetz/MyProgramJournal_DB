@@ -15,6 +15,18 @@ namespace MyClient.MyService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MyService.ITransferService")]
     public interface ITransferService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetTeacherDiscipline", ReplyAction="http://tempuri.org/ITransferService/GetTeacherDisciplineResponse")]
+        System.Collections.Generic.List<MyModelLibrary.GroupDisciplines> GetTeacherDiscipline(MyModelLibrary.accounts MyAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetTeacherDiscipline", ReplyAction="http://tempuri.org/ITransferService/GetTeacherDisciplineResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.GroupDisciplines>> GetTeacherDisciplineAsync(MyModelLibrary.accounts MyAcc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAttendancesFromJournal", ReplyAction="http://tempuri.org/ITransferService/GetAttendancesFromJournalResponse")]
+        System.Collections.Generic.List<MyModelLibrary.LessonsDate> GetAttendancesFromJournal(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines SelectedTeacherAtivitie);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetAttendancesFromJournal", ReplyAction="http://tempuri.org/ITransferService/GetAttendancesFromJournalResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.LessonsDate>> GetAttendancesFromJournalAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines SelectedTeacherAtivitie);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetDisciplinesList", ReplyAction="http://tempuri.org/ITransferService/GetDisciplinesListResponse")]
         System.Collections.Generic.List<MyModelLibrary.Discipline> GetDisciplinesList(MyModelLibrary.accounts MyAcc);
         
@@ -209,6 +221,22 @@ namespace MyClient.MyService {
         
         public TransferServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.GroupDisciplines> GetTeacherDiscipline(MyModelLibrary.accounts MyAcc) {
+            return base.Channel.GetTeacherDiscipline(MyAcc);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.GroupDisciplines>> GetTeacherDisciplineAsync(MyModelLibrary.accounts MyAcc) {
+            return base.Channel.GetTeacherDisciplineAsync(MyAcc);
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.LessonsDate> GetAttendancesFromJournal(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines SelectedTeacherAtivitie) {
+            return base.Channel.GetAttendancesFromJournal(MyAcc, SelectedTeacherAtivitie);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.LessonsDate>> GetAttendancesFromJournalAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines SelectedTeacherAtivitie) {
+            return base.Channel.GetAttendancesFromJournalAsync(MyAcc, SelectedTeacherAtivitie);
         }
         
         public System.Collections.Generic.List<MyModelLibrary.Discipline> GetDisciplinesList(MyModelLibrary.accounts MyAcc) {

@@ -24,6 +24,12 @@ namespace MyModelLibrary
             this.LessonNumber = LessonNumber;
         }
 
+        public LessonsDate(int idTeacherActivities, int idLesson, DateTime DateLesson, int LessonNumber, List<Attendance> attendances)
+            : this(idTeacherActivities, idLesson, DateLesson, LessonNumber)
+        {
+            this.Attendance = attendances;
+        }
+
         public LessonsDate(int idTeacherActivities, int idLesson, DateTime DateLesson, int LessonNumber, string FIO, string DisciplineName)
             :this(idTeacherActivities, idLesson, DateLesson, LessonNumber)
         {
@@ -42,7 +48,7 @@ namespace MyModelLibrary
         public System.DateTime DateLesson { get; set; }
         public int LessonNumber { get; set; }
 
-        //public virtual List<Attendance> Attendance { get; set; }
+        public List<Attendance> Attendance { get; set; } // Список оценок занятия
         //public virtual TeacherDisciplines TeacherDisciplines { get; set; }
 
 

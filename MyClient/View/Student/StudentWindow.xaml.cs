@@ -46,5 +46,19 @@ namespace MyClient.View.Student
         {
             this.WindowState = System.Windows.WindowState.Minimized;
         }
+
+        // Событие на кнопку закрыть меню
+        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonMenuOpen.Visibility = Visibility.Visible;
+            ButtonMenuClose.Visibility = Visibility.Collapsed;
+        }
+
+        // Событие на кнопку показать меню
+        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonMenuClose.Visibility = Visibility.Visible;
+            ButtonMenuOpen.Visibility = Visibility.Collapsed;
+        }
     }
 }

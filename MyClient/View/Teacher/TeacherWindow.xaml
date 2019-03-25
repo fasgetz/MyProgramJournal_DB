@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         DataContext="{Binding TeacherVM, Source={StaticResource Locator}}"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Панель учителя" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="Панель учителя" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderBrush="Black" BorderThickness="0.5" WindowStyle="None">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
@@ -50,7 +50,9 @@
                     <Label Foreground="#FFA2a2a2" Content="Панель преподавателя" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Margin="0,0,0,0" Width="50" Height="Auto" >
+                        <md:PackIcon Kind="Help" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
                     <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2"  Click="HideTray_Click" Margin="0,0,0,0" Width="50" Height="Auto" >
                         <md:PackIcon Kind="ArrowCollapseDown" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Button>
@@ -97,36 +99,37 @@
                                 </Button>
                             </ListViewItem>
                             <ListViewItem>
-                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="180">
+                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="180" Command="{Binding OpenTeacherGroups}">
                                     <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Center" Width="170" >
                                         <md:PackIcon Kind="FormatListNumbers" Width="30" Height="30" />
                                         <Label VerticalAlignment="Center" Margin="20 10" Content="Журнал" Height="30"/>
                                     </StackPanel>
                                 </Button>
                             </ListViewItem>
-                            <Separator/>
                             <ListViewItem>
-                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="180" Command="{Binding ChangeUser}">
+                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="200">
                                     <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Center" Width="170" >
-                                        <md:PackIcon Kind="EmergencyExit" Width="30" Height="30" />
-                                        <Label VerticalAlignment="Center" Margin="20 10" Content="Перезайти" Height="30"/>
+                                        <md:PackIcon Kind="Hammer" Width="30" Height="30" />
+                                        <Label VerticalAlignment="Center" Margin="20 10" Content="Мои предметы" Height="30"/>
                                     </StackPanel>
                                 </Button>
                             </ListViewItem>
-                            
+                            <Separator/>
+                            <ListViewItem>
+                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="200" Command="{Binding ChangeUser}">
+                                    <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Center" Width="170" >
+                                        <md:PackIcon Kind="EmergencyExit" Width="30" Height="30" />
+                                        <Label VerticalAlignment="Center" Margin="10 10" Content="Сменить профиль" Height="30"/>
+                                    </StackPanel>
+                                </Button>
+                            </ListViewItem>
                         </ListView>
-                        
                     </StackPanel>
                 </Grid>
                 <Grid VerticalAlignment="Bottom" Height="740" Width="950">
                     <Frame x:Name="frame" NavigationUIVisibility="Hidden" Height="740" VerticalAlignment="Top"/>
                 </Grid>
             </StackPanel>
-
         </StackPanel>
-
-
-
-
     </Grid>
 </Window>

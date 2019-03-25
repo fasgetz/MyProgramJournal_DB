@@ -25,6 +25,7 @@ using MyClient.ViewModel.Administrator.Schedule;
 using MyClient.ViewModel.Administrator.Users;
 using MyClient.ViewModel.Student;
 using MyClient.ViewModel.Teacher;
+using MyClient.ViewModel.Teacher.Journal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,46 +40,6 @@ namespace MyClient.ViewModel._Navigation
     public class ViewModelLocator
     {
 
-        //public static void Cleanup()
-        //{
-        //    SimpleIoc.Default.Unregister<AccountVM>(CurrentKey);
-        //    CurrentKey = System.Guid.NewGuid().ToString();
-        //}
-
-        //private static string _currentKey = System.Guid.NewGuid().ToString();
-        //public static string CurrentKey
-        //{
-        //    get
-        //    {
-        //        return _currentKey;
-        //    }
-        //    private set
-        //    {
-        //        _currentKey = value;
-        //    }
-        //}
-
-        //public static T GetNewInstance<T>(string uniqueKey)
-        //{
-        //    var model = ServiceLocator.Current.GetInstance<T>(uniqueKey);
-        //    return model;
-        //}
-
-
-        //// Метод, который регистрируем VM
-        //public static void Register<T>(T VM)
-        //    where T: class
-        //{
-        //    SimpleIoc.Default.Register<T>();
-
-        //    SimpleIoc.Default.Unregister<T>(CurrentKey);
-        //}
-
-        //public T GetInstance<T>()
-        //{
-        //    return ServiceLocator.Current.GetInstance<T>();
-        //}
-
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
@@ -86,26 +47,6 @@ namespace MyClient.ViewModel._Navigation
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             
-            //SimpleIoc.Default.Register<AccountVM>(); // Общая ViewModel
-            //SimpleIoc.Default.Register<MainPageVM>(); // Общая ViewModel
-
-            //var a = SimpleIoc.Default.GetAllInstances(typeof(MainPageVM));
-            //ProgramLogic.DialogServices.DialogService dialog = new ProgramLogic.DialogServices.DialogService();
-
-
-            //dialog.ShowMessage(a.Count().ToString());
-
-
-            //ArrayList list = new ArrayList();
-
-            //list.Add(SimpleIoc.Default.Register<AccountVM>());
-
-            //foreach (var item in list)
-            //{
-                
-            //}
-
-
             //// Регистрируем наши ViewModels
             AdminInitialization(); // Инициализируем VM
         }
@@ -129,6 +70,32 @@ namespace MyClient.ViewModel._Navigation
         #endregion
 
         #region VM Преподавателя
+
+        private GroupsJournalViewModel _TeacherGroupsVM;
+        public GroupsJournalViewModel TeacherGroupsVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<GroupsJournalViewModel>();
+            }
+            set
+            {
+                _TeacherGroupsVM = value;
+            }
+        }
+
+        private JournalViewModel _JournalVM;
+        public JournalViewModel JournalVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<JournalViewModel>();
+            }
+            set
+            {
+                _JournalVM = value;
+            }
+        }
 
         public TeacherViewModel TeacherVM
         {
@@ -475,6 +442,8 @@ namespace MyClient.ViewModel._Navigation
 
             // ViewModel Преподавателя
             SimpleIoc.Default.Register<TeacherViewModel>(); // ViewModel окна учителя
+            SimpleIoc.Default.Register<JournalViewModel>(); // ViewModel страницы журнала выбранной группы
+            SimpleIoc.Default.Register<GroupsJournalViewModel>(); // ViewModel страницы групп учителя
 
             // ViewModel Студента
             SimpleIoc.Default.Register<StudentViewModel>(); // ViewModel окна студента
@@ -508,10 +477,12 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.GetInstance<EditGroupViewModel>().Cleanup(); // VM страницы редактирования группы                        
             SimpleIoc.Default.GetInstance<EditDisciplineViewModel>().Cleanup(); // VM страницы редактирования названия дисциплины
             SimpleIoc.Default.GetInstance<ScheduleViewModel>().Cleanup(); // VM страницы занятий групп
-            SimpleIoc.Default.GetInstance<SessionsViewModel>().Cleanup(); // VM страницы сессий аккаунта
+            SimpleIoc.Default.GetInstance<SessionsViewModel>().Cleanup(); // VM страницы сессий аккаунта            
 
             // ViewModel Преподавателя
             SimpleIoc.Default.GetInstance<TeacherViewModel>().Cleanup(); // ViewModel окна учителя
+            SimpleIoc.Default.GetInstance<JournalViewModel>().Cleanup(); // ViewModel страницы журнала выбранной группы
+            SimpleIoc.Default.GetInstance<GroupsJournalViewModel>().Cleanup(); // ViewModel страницы групп учителя
 
             // ViewModel Студента
             SimpleIoc.Default.GetInstance<StudentViewModel>().Cleanup(); // ViewModel окна студента
@@ -546,6 +517,8 @@ namespace MyClient.ViewModel._Navigation
 
             // ViewModel Преподавателя
             SimpleIoc.Default.Unregister<TeacherViewModel>(); // ViewModel окна учителя
+            SimpleIoc.Default.Unregister<JournalViewModel>(); // ViewModel страницы журнала выбранной группы
+            SimpleIoc.Default.Unregister<GroupsJournalViewModel>(); // ViewModel страницы групп учителя
 
             // ViewModel Студента
             SimpleIoc.Default.Unregister<StudentViewModel>(); // ViewModel окна студента

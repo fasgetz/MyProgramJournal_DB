@@ -84,6 +84,12 @@ namespace MyModelLibrary
                 return $"{Family} {Name} {Surname} - (id: {idUser})";
             }
         }
+
+        // Свойства для простого вывода ФИО
+        public string fio
+        {
+            get => $"{Family} {Name} {Surname}";
+        }
         #endregion
 
         public Users(string Name, string Family, string Surname, string Gender, int UserStatus, string NumberPhone, DateTime? DateOfBirthday)

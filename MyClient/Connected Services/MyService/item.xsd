@@ -120,6 +120,7 @@
     <xs:sequence>
       <xs:element name="_x003C_DiscipName_x003E_k__BackingField" nillable="true" type="xs:string" />
       <xs:element name="_x003C_FinalAttendances_x003E_k__BackingField" nillable="true" type="tns:ArrayOfFinalAttendances" />
+      <xs:element name="_x003C_GroupName_x003E_k__BackingField" nillable="true" type="xs:string" />
       <xs:element name="_x003C_Groups_x003E_k__BackingField" nillable="true" type="tns:Groups" />
       <xs:element name="_x003C_IdGroup_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_IdTeacherDiscipline_x003E_k__BackingField" type="xs:int" />
@@ -178,6 +179,7 @@
   <xs:element name="ArrayOfLessonsDate" nillable="true" type="tns:ArrayOfLessonsDate" />
   <xs:complexType name="LessonsDate">
     <xs:sequence>
+      <xs:element name="_x003C_Attendance_x003E_k__BackingField" nillable="true" type="tns:ArrayOfAttendance" />
       <xs:element name="_x003C_DateLesson_x003E_k__BackingField" type="xs:dateTime" />
       <xs:element name="_x003C_DisciplineName_x003E_k__BackingField" nillable="true" type="xs:string" />
       <xs:element name="_x003C_IdLesson_x003E_k__BackingField" type="xs:int" />

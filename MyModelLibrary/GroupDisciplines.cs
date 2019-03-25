@@ -35,6 +35,13 @@ namespace MyModelLibrary
             this.TeacherFio = TeacherFIO;
         }
 
+        public GroupDisciplines(int idTeacherActivities, int NumberSemester, string DiscipName, string GroupName)
+        {
+            this.idTeacherActivities = idTeacherActivities;
+            this.NumberSemester = NumberSemester;
+            this.DiscipName = DiscipName;
+            this.GroupName = GroupName;
+        }
 
         #region Свойства
 
@@ -42,8 +49,11 @@ namespace MyModelLibrary
         public int IdTeacherDiscipline { get; set; }
         public int IdGroup { get; set; }
         public int NumberSemester { get; set; }
+
+        // Дополнительные свойства
         public string DiscipName { get; set; }
         public string TeacherFio { get; set; }
+        public string GroupName { get; set; }
 
         public virtual ICollection<FinalAttendances> FinalAttendances { get; set; }
         public virtual Groups Groups { get; set; }

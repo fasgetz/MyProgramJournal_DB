@@ -11,6 +11,53 @@ namespace WCF_Service.DataBase.DTO
     {
         #region Методы для получения DTO объектов
 
+        #region Методы, которые используют преподаватели и администраторы
+
+        // Метод который преобразует NotDTO список в DTO список
+        public List<MyModelLibrary.GroupDisciplines> GetTeacherDiscipline(List<GroupDisciplines> NotDTOList)
+        {
+            List<MyModelLibrary.GroupDisciplines> list = new List<MyModelLibrary.GroupDisciplines>();
+
+            foreach (var item in NotDTOList)
+            {
+                list.Add(new MyModelLibrary.GroupDisciplines(item.idTeacherActivities, item.NumberSemester,
+                    item.TeacherDisciplines.Discipline.NameDiscipline, item.Groups.GroupName));
+            }
+
+            return list;
+        }
+        
+        public List<MyModelLibrary.LessonsDate> GetTeacherLessons(List<LessonsDate> NotDTOList)
+        {
+            List<MyModelLibrary.LessonsDate> list = new List<MyModelLibrary.LessonsDate>();
+            foreach (var item in NotDTOList)
+            {
+                List<MyModelLibrary.Attendance> attendances = new List<MyModelLibrary.Attendance>();
+                foreach (var kek in item.Attendance)
+                {
+                    attendances.Add(new MyModelLibrary.Attendance(kek.idAttendance, kek.IdLesson, kek.StudentId, kek.Mark));
+                }
+
+
+                list.Add(new MyModelLibrary.LessonsDate(item.IdTeacherActivities, item.IdLesson, item.DateLesson, item.LessonNumber,
+                    attendances));
+
+                if (item.Attendance.Count() == 0)
+                {
+                    Console.WriteLine($"Пустой список");
+                }
+                else
+                {
+                    Console.WriteLine($"Не пустой список");
+                }
+                Console.WriteLine(item.Attendance.Count().ToString());
+            }
+            
+            return list;
+        }
+
+        #endregion
+
         // Метод для получения DTO - Список LessonsDate + Готово
         public List<MyModelLibrary.LessonsDate> GetLessonsDates(List<LessonsDate> lessonsDates)
         {

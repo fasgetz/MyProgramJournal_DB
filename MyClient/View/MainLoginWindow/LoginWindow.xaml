@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:tb="http://www.hardcodet.net/taskbar"
-        Title="Окно авторизации" Height="256" Width="510" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderBrush="Black" BorderThickness="0.3">
+        Title="Окно авторизации" Height="256" Width="510" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderBrush="Black" BorderThickness="0.5">
     <Grid>
         <Grid Background="AliceBlue" MouseLeftButtonDown="Grid_MouseLeftButtonDown" VerticalAlignment="Top" Height="30">
             <StackPanel Orientation="Horizontal">

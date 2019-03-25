@@ -19,6 +19,57 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы Администратора и преподавателя
 
+        // Метод, который выдает преподавателю список его групп, занятия у которых он ведет (С проверкой на учителя/администратора)       
+        public List<MyModelLibrary.GroupDisciplines> GetTeacherDiscipline(MyModelLibrary.accounts MyAcc)
+        {
+            // Делаем проверку статуса аккаунта
+            int idAccountStatus = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
+
+            // Если аккаунт администратор или преподаватель, то выдай ему то, что он требует по запросу
+            if (idAccountStatus == 2 || idAccountStatus == 3)
+            {
+                try
+                {
+                    // Возвращаем DTO список дисциплин учителя
+                    return new MyGeneratorDTO().GetTeacherDiscipline
+                        (
+                            new EFGenericRepository<GroupDisciplines>(new MyDB()).GetQueryList(i => i.TeacherDisciplines.IdTeacher == MyAcc.idAccount)
+                        );
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return null;
+        }
+
+        // Метод, который выдает список оценок группы по предмету (С проверкой статуса (Преподаватель и Администратор
+        public List<MyModelLibrary.LessonsDate> GetAttendancesFromJournal(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines SelectedTeacherAtivitie)
+        {
+            // Делаем проверку статуса аккаунта
+            int idAccountStatus = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
+
+            // Если аккаунт администратор или преподаватель, то выдай ему то, что он требует по запросу
+            if (idAccountStatus == 3 || idAccountStatus == 2 && SelectedTeacherAtivitie != null)
+            {
+                try
+                {
+                    return new MyGeneratorDTO().GetTeacherLessons
+                        (
+                        new EFGenericRepository<LessonsDate>(new MyDB()).GetQueryList(i => i.IdTeacherActivities == SelectedTeacherAtivitie.idTeacherActivities)
+                        );
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return null;
+        }
+
         // Метод, который получает список дисциплин
         // Предварительно аккаунт проходит проверку на соответствие статуса
         // Если администратор, то выдаются все дисциплины. Если преподаватель, то только те, которые он ведет
@@ -311,12 +362,35 @@ namespace WCF_Service.ServiceLogic
                     // Добавляем занятия, т.к. по логике входные данные верны
                     // Создаем репозиторий для работы с БД
                     EFGenericRepository<LessonsDate> repository = new EFGenericRepository<LessonsDate>(new MyDB());
-
+                    EFGenericRepository<Attendance> repository_attendances = new EFGenericRepository<Attendance>(new MyDB());
                     try
                     {
-                        // Добавляем занятие
-                        repository.Add(new LessonsDate(discipline.idTeacherActivities, date, Convert.ToInt16(numberlesson)));
+                        LessonsDate lesson = new LessonsDate(discipline.idTeacherActivities, date, Convert.ToInt16(numberlesson));
+                        lesson.Attendance = new List<Attendance>(); // Добавляем список оценок
 
+                        //// Добавляем занятие
+                        //repository.Add(new LessonsDate(discipline.idTeacherActivities, date, Convert.ToInt16(numberlesson)));
+
+                        // Теперь необходимо добавить оценки занятию, сколько студентов у группы
+                        //Ищем студентов группы                            
+                        List<int> studentsID = new List<int>();
+                        //discipline.IdGroup
+
+                        EFGenericRepository<StudentsGroup> students = new EFGenericRepository<StudentsGroup>(new MyDB());
+
+
+                        var list = students.GetQueryList(i => i.idGroup == discipline.IdGroup); // Список студентов
+
+                        foreach (var item in list)
+                        {
+                            Attendance attendance = new Attendance();
+                            attendance.IdLesson = lesson.IdLesson;
+                            attendance.StudentId = item.IdStudent;
+
+                            lesson.Attendance.Add(attendance);
+                        }
+
+                        repository.Add(lesson);
                         return true; // Возвращаем true, т.к. занятие добавлено успешно
                     }
                     catch(Exception ex)
@@ -730,6 +804,10 @@ namespace WCF_Service.ServiceLogic
                     {
                         ExceptionSender.SendException("Вы не выбрали группу");
                     }
+                }
+                catch (System.Data.Entity.Infrastructure.DbUpdateException)
+                {
+                    ExceptionSender.SendException("Невозможно удалить группу так как существуют зависимые данные");
                 }
                 catch (Exception ex)
                 {

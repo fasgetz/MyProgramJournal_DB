@@ -24,6 +24,18 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы контракта служб администратора и преподавателя
 
+        // Метод, который выдает преподавателю список его групп, занятия у которых он ведет (С проверкой на учителя/администратора)       
+        public List<MyModelLibrary.GroupDisciplines> GetTeacherDiscipline(MyModelLibrary.accounts MyAcc)
+        {
+            return MyServiceLogic.GetTeacherDiscipline(MyAcc);
+        }
+
+        // Метод, который выдает список оценок группы по предмету (С проверкой статуса (Преподаватель и Администратор
+        public List<MyModelLibrary.LessonsDate> GetAttendancesFromJournal(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines SelectedTeacherAtivitie)
+        {
+            return MyServiceLogic.GetAttendancesFromJournal(MyAcc, SelectedTeacherAtivitie);
+        }
+
         // Метод, который получает список дисциплин
         // Предварительно аккаунт проходит проверку на соответствие статуса
         // Если администратор, то выдаются все дисциплины. Если преподаватель, то только те, которые он ведет

@@ -6,7 +6,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
         mc:Ignorable="d"        
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Панель Администратора" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderBrush="Black" BorderThickness="0.3">
+        Title="Панель Администратора" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderBrush="Black" BorderThickness="0.5">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
             <i:InvokeCommandAction Command="{Binding Disconnect}"/>
