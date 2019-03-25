@@ -20,10 +20,10 @@ namespace WCF_Service.DataBase.DTO
 
             foreach (var item in NotDTOList)
             {
-                list.Add(new MyModelLibrary.GroupDisciplines(item.idTeacherActivities, item.NumberSemester,
-                    item.TeacherDisciplines.Discipline.NameDiscipline, item.Groups.GroupName));
+                list.Add(new MyModelLibrary.GroupDisciplines(item.TeacherDisciplines.Discipline.NameDiscipline, item.Groups.GroupName,
+                    item.idTeacherActivities, item.IdGroup, item.NumberSemester
+                    ));
             }
-
             return list;
         }
         
@@ -42,15 +42,6 @@ namespace WCF_Service.DataBase.DTO
                 list.Add(new MyModelLibrary.LessonsDate(item.IdTeacherActivities, item.IdLesson, item.DateLesson, item.LessonNumber,
                     attendances));
 
-                if (item.Attendance.Count() == 0)
-                {
-                    Console.WriteLine($"Пустой список");
-                }
-                else
-                {
-                    Console.WriteLine($"Не пустой список");
-                }
-                Console.WriteLine(item.Attendance.Count().ToString());
             }
             
             return list;

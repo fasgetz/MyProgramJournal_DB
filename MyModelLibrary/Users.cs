@@ -75,7 +75,7 @@ namespace MyModelLibrary
                 return NumberPhone;
             }
         }
-        
+
         // Свойство для вывода ФИО + id
         public string GetFIO
         {

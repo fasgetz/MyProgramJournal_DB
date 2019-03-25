@@ -8,6 +8,7 @@
       xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="954"
+      DataContext="{Binding JournalVM, Source={StaticResource Locator}}"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"      
       Title="JournalPage">
     <Page.Resources>
@@ -15,29 +16,27 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>
-
         <Style x:Key="CenterGridHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
-
     </Page.Resources>
-
     <Grid>
         <Grid.DataContext>
             <Binding Source="{StaticResource Locator}" Mode="OneWay" Path="JournalVM"/>
         </Grid.DataContext>
         <StackPanel>
-            <Label Content="Группа ПКС-304" HorizontalContentAlignment="Center" FontSize="30"/>
-            <StackPanel Height="640" Orientation="Horizontal">
+            <Label Height="50" Content="{Binding SelectedGroup.GroupName}" HorizontalContentAlignment="Center" FontSize="30"/>
+            <Label Height="50" Content="{Binding SelectedGroup.DiscipName}" HorizontalContentAlignment="Center" FontSize="30"/>
+            <StackPanel Height="620" Orientation="Horizontal">
                 <StackPanel Background="#fafafa" Width="954" Orientation="Horizontal">
                     <ScrollViewer x:Name="s2" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <StackPanel Width="50" Orientation="Vertical">
-                            <Label Height="40" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Content="№"/>
+                            <Label Height="65" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Content="№"/>
                             <Separator Margin="10,0,10,2"/>
                             <ListView Width="50" ItemsSource="{Binding Students}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Label FontSize="14" Width="32" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding idUserStatus}"/>
+                                        <Label FontSize="14" Width="32" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Path=StudentsGroup.NumberInJournal}"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -45,7 +44,7 @@
                     </ScrollViewer>
                     <ScrollViewer x:Name="s3" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <StackPanel Width="250" Orientation="Vertical">
-                            <Label Height="40" FontSize="16" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Content="ФИО"/>
+                            <Label Height="65" FontSize="16" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Content="ФИО"/>
                             <Separator Margin="10,0,10,2"/>
                             <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="250" ItemsSource="{Binding Students}">
                                 <ListView.ItemTemplate>
@@ -66,7 +65,8 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel ScrollViewer.HorizontalScrollBarVisibility="Visible" Orientation="Vertical">
-                                        <Label FontSize="16" VerticalAlignment="Top" HorizontalContentAlignment="Center" Height="30" Width="80" Content="{Binding DateLesson}"/>
+                                        <Label FontSize="16" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Height="30" Width="80" Content="{Binding DateLesson}"/>
+                                        <Label FontSize="12" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Height="25" Width="80" Content="{Binding GetNumberLesson}"/>
                                         <Separator/>
                                         <ListView SelectedValue="{Binding Path=DataContext.select, Mode=TwoWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" ItemsSource="{Binding Attendance}">
                                             <ListBox.ItemContainerStyle>

@@ -40,7 +40,7 @@ namespace MyClient.ViewModel.Teacher.Journal
         #region Команды
 
         // Метод открытия журнала выбранной деятельности учителя
-        public new ICommand OpenJournal
+        public ICommand OpenJournalActivity
         {
             get
             {
@@ -52,7 +52,7 @@ namespace MyClient.ViewModel.Teacher.Journal
 
                     if (SelectedGroup != null)
                     {
-                        SelectedGroup = new MyModelLibrary.GroupDisciplines(SelectedGroup.idTeacherActivities, SelectedGroup.NumberSemester, SelectedGroup.DiscipName, SelectedGroup.GroupName);
+                        SelectedGroup = new MyModelLibrary.GroupDisciplines(SelectedGroup.DiscipName, SelectedGroup.GroupName, SelectedGroup.idTeacherActivities, SelectedGroup.IdGroup, SelectedGroup.NumberSemester);
 
                         // Передаем в следующий контекст аккаунт
                         Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт     
@@ -81,7 +81,7 @@ namespace MyClient.ViewModel.Teacher.Journal
             MyAcc = GetAcc.Content;
 
             // Получаем список групп с сервера
-            groups = new ProgramLogic.ServiceLogic.TeacherLogic().GetTeacherDiscipline(MyAcc);            
+            groups = new ProgramLogic.ServiceLogic.TeacherLogic().GetTeacherDiscipline(MyAcc);      
         }
 
         #endregion

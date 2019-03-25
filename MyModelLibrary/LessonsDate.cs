@@ -40,6 +40,12 @@ namespace MyModelLibrary
 
         #region Свойства
 
+        // Для вывода в контрол
+        public string GetNumberLesson
+        {
+            get => $"Пара {LessonNumber}";
+        }
+
         public string TeacherFIO { get; set; } // Фио учителя
         public string DisciplineName { get; set; } // Название дисциплины
 

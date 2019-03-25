@@ -172,7 +172,9 @@ namespace WCF_Service.ServiceLogic
                     // && i.GroupDisciplines == idGroup
                     if (new MyDB().TeacherDisciplines.FirstOrDefault(i => i.IdTeacher == MyAcc.idAccount) != null)
                     {
-                        mylist = null;
+                        mylist = repository.GetQueryList(i => i.StudentsGroup != null && i.StudentsGroup.idGroup == idGroup).ToList();
+                        Console.WriteLine($"Количество студентов {mylist.Count}");
+                        Console.WriteLine($"Айди группы {idGroup}");
                     }
                     // Иначе, если группа не найдена, то верни пустой список
                     else

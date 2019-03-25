@@ -24,7 +24,7 @@
             <DataGrid SelectedValue="{Binding SelectedGroup}" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" HorizontalAlignment="Left" Height="630" VerticalAlignment="Top" ItemsSource="{Binding groups}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" Width="954">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Открыть журнал" Command="{Binding OpenJournal}"></MenuItem>
+                        <MenuItem Header="Открыть журнал" Command="{Binding OpenJournalActivity}"></MenuItem>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>

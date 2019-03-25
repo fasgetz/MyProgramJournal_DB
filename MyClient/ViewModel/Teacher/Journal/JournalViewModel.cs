@@ -18,6 +18,7 @@ namespace MyClient.ViewModel.Teacher.Journal
     public class JournalViewModel : GroupsJournalViewModel
     {
 
+        #region Свойства
 
         private MyModelLibrary.Attendance _select;
         public MyModelLibrary.Attendance select
@@ -62,6 +63,30 @@ namespace MyClient.ViewModel.Teacher.Journal
             }
         }
 
+        #endregion
+
+
+        #region Команды
+
+        // Команда перехода на предыдущую страницу
+        public ICommand GoBack
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    dialog.ShowMessage("kek");
+
+                    // Переходим на страницу расписания
+                    navigation.Navigate("View/Teacher/Journal/JournalPage.xaml");
+                });
+            }
+        }
+
+        #endregion
+
+
+        #region Конструктор
 
         public JournalViewModel()
         {
@@ -77,8 +102,12 @@ namespace MyClient.ViewModel.Teacher.Journal
         private void GetActivity(GenericMessage<MyModelLibrary.GroupDisciplines> GetActivityes)
         {
             SelectedGroup = GetActivityes.Content;
-            lessons = new ProgramLogic.ServiceLogic.TeacherLogic().GetAttendancesFromJournal(MyAcc, SelectedGroup);
-            dialog.ShowMessage(SelectedGroup.DiscipName);
+            
+            // Получаем список занятий
+            lessons = new ProgramLogic.ServiceLogic.TeacherLogic().GetAttendancesFromJournal(MyAcc, SelectedGroup).OrderBy(i => i.DateLesson).OrderBy(i => i.LessonNumber).ToList();
+
+            // Получает список студентов
+            Students = new ProgramLogic.ServiceLogic.CommonLogic().GetStudentsInGroup(MyAcc, SelectedGroup.IdGroup).OrderBy(i => i.StudentsGroup.NumberInJournal).ToList();
         }
 
         // Вспомогательный метод для мессенджера, который проинициализирует аккаунт из прошлого vm при создании текущей vm
@@ -86,5 +115,7 @@ namespace MyClient.ViewModel.Teacher.Journal
         {
             MyAcc = GetAcc.Content;
         }
+
+        #endregion
     }
 }

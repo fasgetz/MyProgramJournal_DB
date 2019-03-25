@@ -35,7 +35,7 @@ namespace MyModelLibrary
             this.TeacherFio = TeacherFIO;
         }
 
-        public GroupDisciplines(int idTeacherActivities, int NumberSemester, string DiscipName, string GroupName)
+        public GroupDisciplines(int idTeacherActivities, int IdGroup, int NumberSemester, string DiscipName, string GroupName)
         {
             this.idTeacherActivities = idTeacherActivities;
             this.NumberSemester = NumberSemester;
@@ -43,6 +43,15 @@ namespace MyModelLibrary
             this.GroupName = GroupName;
         }
 
+
+        public GroupDisciplines(string DiscipName, string GroupName, int IdTeacherActivities, int IdGroup, int NumberSemester)
+        {
+            this.DiscipName = DiscipName;
+            this.GroupName = GroupName;
+            this.idTeacherActivities = IdTeacherActivities;
+            this.IdGroup = IdGroup;
+            this.NumberSemester = NumberSemester;
+        }
         #region Свойства
 
         public int idTeacherActivities { get; set; }
