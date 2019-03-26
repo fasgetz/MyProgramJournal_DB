@@ -30,7 +30,12 @@ namespace MyClient.ViewModel.Teacher.Journal
             set
             {
                 _select = value;
-                dialog.ShowMessage("Ура блять наконецто");
+
+                // Если выбрали оценку, то открой окно с выбором оценки
+                if (value != null)
+                    if (new View.Teacher.Journal.AttendanceWindow(value, MyAcc).ShowDialog() == true)
+                        lessons = new ProgramLogic.ServiceLogic.TeacherLogic().GetAttendancesFromJournal(MyAcc, SelectedGroup).OrderBy(i => i.DateLesson).ThenBy(i => i.LessonNumber).ToList();
+
                 RaisePropertyChanged("select");
             }
         }
@@ -68,20 +73,7 @@ namespace MyClient.ViewModel.Teacher.Journal
 
         #region Команды
 
-        // Команда перехода на предыдущую страницу
-        public ICommand GoBack
-        {
-            get
-            {
-                return new RelayCommand(() =>
-                {
-                    dialog.ShowMessage("kek");
 
-                    // Переходим на страницу расписания
-                    navigation.Navigate("View/Teacher/Journal/JournalPage.xaml");
-                });
-            }
-        }
 
         #endregion
 
@@ -104,7 +96,7 @@ namespace MyClient.ViewModel.Teacher.Journal
             SelectedGroup = GetActivityes.Content;
             
             // Получаем список занятий
-            lessons = new ProgramLogic.ServiceLogic.TeacherLogic().GetAttendancesFromJournal(MyAcc, SelectedGroup).OrderBy(i => i.DateLesson).OrderBy(i => i.LessonNumber).ToList();
+            lessons = new ProgramLogic.ServiceLogic.TeacherLogic().GetAttendancesFromJournal(MyAcc, SelectedGroup).OrderBy(i => i.DateLesson).ThenBy(i => i.LessonNumber).ToList();
 
             // Получает список студентов
             Students = new ProgramLogic.ServiceLogic.CommonLogic().GetStudentsInGroup(MyAcc, SelectedGroup.IdGroup).OrderBy(i => i.StudentsGroup.NumberInJournal).ToList();

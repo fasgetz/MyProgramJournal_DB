@@ -25,7 +25,7 @@ namespace MyClient.ViewModel.Teacher.Journal
         }
 
         private List<MyModelLibrary.GroupDisciplines> _groups;
-        public List<MyModelLibrary.GroupDisciplines> groups
+        public new List<MyModelLibrary.GroupDisciplines> groups
         {
             get => _groups;
             set

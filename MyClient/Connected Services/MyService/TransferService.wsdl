@@ -16,6 +16,12 @@
       <xsd:import schemaLocation="http://localhost:9001/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ITransferService_SetAttendance_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetAttendance" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_SetAttendance_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetAttendanceResponse" />
+  </wsdl:message>
   <wsdl:message name="ITransferService_GetTeacherDiscipline_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTeacherDiscipline" />
   </wsdl:message>
@@ -197,6 +203,10 @@
     <wsdl:part name="parameters" element="tns:GetAccountResponse" />
   </wsdl:message>
   <wsdl:portType name="ITransferService">
+    <wsdl:operation name="SetAttendance">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/SetAttendance" message="tns:ITransferService_SetAttendance_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/SetAttendanceResponse" message="tns:ITransferService_SetAttendance_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetTeacherDiscipline">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetTeacherDiscipline" message="tns:ITransferService_GetTeacherDiscipline_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetTeacherDisciplineResponse" message="tns:ITransferService_GetTeacherDiscipline_OutputMessage" />
@@ -321,6 +331,15 @@
   <wsdl:binding name="NetTcpBinding_ITransferService" type="tns:ITransferService">
     <wsp:PolicyReference URI="#NetTcpBinding_ITransferService_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="SetAttendance">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/SetAttendance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetTeacherDiscipline">
       <soap12:operation soapAction="http://tempuri.org/ITransferService/GetTeacherDiscipline" style="document" />
       <wsdl:input>

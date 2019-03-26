@@ -24,6 +24,12 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы контракта служб администратора и преподавателя
 
+        // Метод, который задает оценку (С проверкой статуса)
+        public bool SetAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance)
+        {
+            return MyServiceLogic.SetAttendance(MyAcc, Attendance);
+        }
+
         // Метод, который выдает преподавателю список его групп, занятия у которых он ведет (С проверкой на учителя/администратора)       
         public List<MyModelLibrary.GroupDisciplines> GetTeacherDiscipline(MyModelLibrary.accounts MyAcc)
         {

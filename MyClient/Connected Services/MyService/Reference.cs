@@ -15,6 +15,12 @@ namespace MyClient.MyService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MyService.ITransferService")]
     public interface ITransferService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/SetAttendance", ReplyAction="http://tempuri.org/ITransferService/SetAttendanceResponse")]
+        bool SetAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/SetAttendance", ReplyAction="http://tempuri.org/ITransferService/SetAttendanceResponse")]
+        System.Threading.Tasks.Task<bool> SetAttendanceAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetTeacherDiscipline", ReplyAction="http://tempuri.org/ITransferService/GetTeacherDisciplineResponse")]
         System.Collections.Generic.List<MyModelLibrary.GroupDisciplines> GetTeacherDiscipline(MyModelLibrary.accounts MyAcc);
         
@@ -221,6 +227,14 @@ namespace MyClient.MyService {
         
         public TransferServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public bool SetAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance) {
+            return base.Channel.SetAttendance(MyAcc, Attendance);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetAttendanceAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance) {
+            return base.Channel.SetAttendanceAsync(MyAcc, Attendance);
         }
         
         public System.Collections.Generic.List<MyModelLibrary.GroupDisciplines> GetTeacherDiscipline(MyModelLibrary.accounts MyAcc) {

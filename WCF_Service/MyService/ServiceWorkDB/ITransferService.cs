@@ -13,6 +13,9 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Общие методы администратора и преподавателя
 
+        // Метод, который задает оценку (С проверкой статуса)
+        [OperationContract]
+        bool SetAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance);
 
         // Метод, который выдает преподавателю список его групп, занятия у которых он ведет (С проверкой на учителя/администратора)
         [OperationContract]

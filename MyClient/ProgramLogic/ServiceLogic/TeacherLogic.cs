@@ -15,6 +15,26 @@ namespace MyClient.ProgramLogic.ServiceLogic
     class TeacherLogic : CommonLogic
     {
 
+        // Метод, который задает оценку (С проверкой статуса)
+        public bool SetAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance)
+        {
+            try
+            {
+                using (client = new MyService.TransferServiceClient())
+                    return client.SetAttendance(MyAcc, Attendance);
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return false; // Возвращаем false, если неудачно
+        }
+
         // Метод, который выдает преподавателю список его групп, занятия у которых он ведет (С проверкой на учителя/администратора)       
         public List<MyModelLibrary.GroupDisciplines> GetTeacherDiscipline(MyModelLibrary.accounts MyAcc)
         {

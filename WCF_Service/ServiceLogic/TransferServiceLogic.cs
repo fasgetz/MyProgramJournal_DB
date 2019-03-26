@@ -19,6 +19,35 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы Администратора и преподавателя
 
+        // Метод, который задает оценку (С проверкой статуса)
+        public bool SetAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance)
+        {
+            // Делаем проверку статуса аккаунта
+            int idAccountStatus = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
+
+            // Если аккаунт администратор или преподаватель, то выдай ему то, что он требует по запросу
+            if (idAccountStatus == 2 || idAccountStatus == 3)
+            {
+                try
+                {
+                    // Создаем репозиторий для работы с БД
+                    EFGenericRepository<Attendance> repository = new EFGenericRepository<Attendance>(new MyDB());
+
+                    var Mark = repository.FindQueryEntity(i => i.idAttendance == Attendance.idAttendance);
+                    Mark.Mark = Attendance.Mark;
+                    repository.Edit(Mark);
+
+                    return true; // Возвращаем true, т.к. редактирование прошло успешно
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return false;
+        }
+
         // Метод, который выдает преподавателю список его групп, занятия у которых он ведет (С проверкой на учителя/администратора)       
         public List<MyModelLibrary.GroupDisciplines> GetTeacherDiscipline(MyModelLibrary.accounts MyAcc)
         {
