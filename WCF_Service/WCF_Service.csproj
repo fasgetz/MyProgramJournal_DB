@@ -141,7 +141,6 @@
     </Compile>
     <Compile Include="Exceptions\AccountConnectedException.cs" />
     <Compile Include="Exceptions\ExceptionSender.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MyService\AccountsService\Service\IMyServiceAccount.cs" />
     <Compile Include="MyService\AccountsService\Service\MyServiceAccount.cs" />
     <Compile Include="MyService\News\INewsService.cs" />

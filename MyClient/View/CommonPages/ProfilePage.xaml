@@ -9,14 +9,6 @@
       d:DesignHeight="700" d:DesignWidth="1024"
       DataContext="{Binding MyProfileVM,Source={StaticResource Locator}}"
       Title="ProfilePage">
-
-
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding Initializataion}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-    
     <Grid>
         <Label Content="{Binding profile_name}" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="983" Height="86"/>
         <Button Content="Изменить пароль" Command="{Binding Initializataion}" FontSize="35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="26,607,16,0" VerticalAlignment="Top" Width="983" Height="57"/>

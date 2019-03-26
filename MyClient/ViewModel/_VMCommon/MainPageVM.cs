@@ -18,16 +18,7 @@ namespace MyClient.ViewModel._VMCommon
     public class MainPageVM : AccountVM
     {
 
-        #region Свойства
-
-        //NewsLogic NewsLogicService; // Сервис для работы с логикой новостей
-
-
-        #endregion
-
         #region Команды
-
-
 
         // Команда на получение списка новостей
         public ICommand GetNewsCommand

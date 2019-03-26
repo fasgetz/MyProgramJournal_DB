@@ -18,6 +18,24 @@ namespace MyClient.ProgramLogic.ServiceLogic
 
         #region Общие методы
 
+
+        internal List<MyModelLibrary.Discipline> GetDisciplines(MyModelLibrary.accounts MyAcc)
+        {
+            try
+            {
+                using (client = new MyService.TransferServiceClient())
+                {
+                    return client.GetDisciplinesList(MyAcc);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return null; // Возвращаем null, если нету занятий у группы за указанную дату
+        }
+
         // Метод на получение списка занятий группы по дате
         public List<MyModelLibrary.LessonsDate> GetLessons(MyModelLibrary.Groups Group, DateTime date)
         {

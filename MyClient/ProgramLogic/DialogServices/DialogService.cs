@@ -58,32 +58,10 @@ namespace MyClient.ProgramLogic.DialogServices
 
         // Метод вызывает MessageBox с сообщением string
         public void ShowMessage(string message)
-        {            
-            BespokeFusion.MaterialMessageBox.Show(message, string.Empty);
-
-
-            //// Диалоговое окно с выбором
-            //var msg = new BespokeFusion.CustomMaterialMessageBox
-            //{
-            //    TxtTitle = { Text = "Выберите вариант ответа" },
-            //    TxtMessage = { Text = "Do you like white wine?" },
-            //    BtnOk = { Content = "Да" },
-            //    BtnCancel = { Content = "Нет" },                
-            //};
-
-            //msg.Show();
-
-            //MessageBox.Show(msg.Result.ToString());
-            //ShowMessage(msg.Result.ToString());
-            //var a = BespokeFusion.MaterialMessageBox.ShowWithCancel(message);
-            //var result = a.r
-        }
-
-        // Метод вызывает ErrorMessageBox с сообщением string
-        public void ShowErrorMessage(string message)
         {
-            BespokeFusion.MaterialMessageBox.ShowError(message);
+            MessageBox.Show(message);
         }
+
         #endregion
 
         #region Для работы сервисом новостей

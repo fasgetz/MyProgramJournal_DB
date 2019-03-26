@@ -12,7 +12,7 @@
     <Grid>
         <StackPanel>
             <Label Content="Ваши дисциплины" HorizontalContentAlignment="Center" Margin="10,10,10,0"  VerticalAlignment="Top" Height="50" FontSize="25"/>
-            <ListView DisplayMemberPath="NameDiscipline" ItemsSource="{Binding disciplines}" Margin="20,0,20,0" Height="400">
+            <ListView DisplayMemberPath="NameDiscipline" FontSize="16" HorizontalContentAlignment="Center" ItemsSource="{Binding disciplines}" Margin="20,0,20,0" Height="400">
                 
             </ListView>
         </StackPanel>

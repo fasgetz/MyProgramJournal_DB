@@ -30,14 +30,16 @@ namespace MyClient.ViewModel.Teacher.TeacherDisciplines
         public DisciplinesTeacherViewModel()
         {
             // Получаем аккаунт из предыдущей VM
-            Messenger.Default.Register<GenericMessage<MyModelLibrary.accounts>>(this, GetAccount);
-
-            disciplines = new List<MyModelLibrary.Discipline>()
-            {
-                new MyModelLibrary.Discipline("kek")
-            };
+            Messenger.Default.Register<GenericMessage<MyModelLibrary.accounts>>(this, GetAccount);            
         }
 
+        // Вспомогательный метод для мессенджера, который проинициализирует аккаунт из прошлого vm при создании текущей vm
+        private new void GetAccount(GenericMessage<MyModelLibrary.accounts> GetAcc)
+        {
+            MyAcc = GetAcc.Content;
+
+            disciplines = new ProgramLogic.ServiceLogic.TeacherLogic().GetDisciplines(MyAcc);
+        }
         #endregion
     }
 }

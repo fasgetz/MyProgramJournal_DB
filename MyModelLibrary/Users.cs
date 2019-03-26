@@ -101,7 +101,7 @@ namespace MyModelLibrary
             // Определяем гендер
             if (Gender == "Мужчина")
                 this.Gender = "М";
-            else
+            else if (Gender == "Женщина")
                 this.Gender = "Ж";
 
             this.idUserStatus = UserStatus;

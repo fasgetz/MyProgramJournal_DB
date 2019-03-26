@@ -111,7 +111,7 @@ namespace WCF_Service.ServiceLogic
             if (idAccountStatus == 2 || idAccountStatus == 3)
             {
                 EFGenericRepository<Discipline> repository = new EFGenericRepository<Discipline>(new MyDB()); // Репозиторий для работы с бд
-                List<Discipline> list; // Список дисциплин
+                List<Discipline> list = new List<Discipline>(); // Список дисциплин
 
                 // Если администратор, то выдай ему весь список дисциплин
                 if (idAccountStatus == 3)
@@ -121,8 +121,9 @@ namespace WCF_Service.ServiceLogic
                 // Если преподаватель, то выдай ему список дисциплин, которые он ведет
                 else if (idAccountStatus == 2)
                 {
-                    // Сделать реализацию
-                    list = null;
+                    // Найти все дисциплины, которые ведет учитель
+                    foreach (var item in new EFGenericRepository<TeacherDisciplines>(new MyDB()).GetQueryList(i => i.IdTeacher == MyAcc.idAccount))
+                        list.Add(new Discipline(item.Discipline.NameDiscipline));
                 }
                 else
                 {
@@ -1351,13 +1352,13 @@ namespace WCF_Service.ServiceLogic
             if (status == true)
             {
                 if
-                                   (AddAcc.login != null
-                                   && AddAcc.password != null
-                                   && AddAcc.idStatus == 1 || AddAcc.idStatus == 2
-                                   && AddAcc.Users.Name != null
-                                   && AddAcc.Users.Family != null
-                                   && AddAcc.Users.Gender != null
-                                   && AddAcc.Users.idUserStatus == 1 || AddAcc.Users.idUserStatus == 2) // Если пользователь студент или администратор
+                                   (AddAcc.login != null && AddAcc.login != string.Empty
+                                   && AddAcc.password != null && AddAcc.password != string.Empty
+                                   && (AddAcc.idStatus == 1 || AddAcc.idStatus == 2)
+                                   && AddAcc.Users.Name != null && AddAcc.Users.Name != string.Empty
+                                   && AddAcc.Users.Family != null && AddAcc.Users.Family != string.Empty
+                                   && AddAcc.Users.Gender != null && AddAcc.Users.Gender != string.Empty
+                                   && (AddAcc.Users.idUserStatus == 1 || AddAcc.Users.idUserStatus == 2)) // Если пользователь студент или администратор
                 {
                     try
                     {

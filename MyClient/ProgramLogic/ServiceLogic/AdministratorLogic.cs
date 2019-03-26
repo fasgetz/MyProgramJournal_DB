@@ -425,38 +425,6 @@ namespace MyClient.ProgramLogic.ServiceLogic
             return false; // Возвращаем false, если добавление прошло неудачно
         }
 
-        // Метод для получения списка дисциплин
-        public List<MyModelLibrary.Discipline> GetDisciplines(MyModelLibrary.accounts MyAcc)
-        {
-            // Делаем проверку на то, не пустые ли входные данные аккаунта
-            if (MyAcc != null)
-            {
-                try
-                {
-                    // Создаем канал связи с сервером
-                    using (client = new MyService.TransferServiceClient())
-                    {
-                        // Передаем текущий аккаунт и получает список дисциплин, если он администратор
-                        var list = client.GetDisciplinesList(MyAcc);
-
-                        // Если список не пустой, то возвращаем его
-                        if (list != null)
-                            return list;
-                    }
-                }
-                catch (FaultException<AccountService.AccountConnectedException> ex)
-                {
-                    MyDialog.ShowMessage(ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    MyDialog.ShowMessage(ex.Message);
-                }
-            }
-
-            return null; // Возвращаем null, если неудалось получить список
-        }
-
         // Метод удаления студенты из группы
         public bool DeleteStudentFromGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.StudentsGroup Student)
         {

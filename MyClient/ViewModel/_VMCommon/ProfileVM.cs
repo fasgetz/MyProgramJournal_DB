@@ -144,7 +144,7 @@ namespace MyClient.ViewModel._VMCommon
 
         // Вспомогательный метод для мессенджера, который проинициализирует аккаунт из прошлого vm при создании новой vm
         public void GetAccount(GenericMessage<MyModelLibrary.accounts> GetAcc)
-        {
+        {            
             MyAcc = GetAcc.Content;
             login = MyAcc.login;
             password = MyAcc.password;

@@ -12,11 +12,6 @@ namespace MyClient.ViewModel.Administrator.Accounts
     public class CreateAccountVM : AccountsListPageViewModel
     {
 
-        #region Свойства
-
-
-        #endregion
-
         #region Команды
 
         // Команда создания аккаунта
