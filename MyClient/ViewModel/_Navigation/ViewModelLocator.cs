@@ -26,6 +26,7 @@ using MyClient.ViewModel.Administrator.Users;
 using MyClient.ViewModel.Student;
 using MyClient.ViewModel.Teacher;
 using MyClient.ViewModel.Teacher.Journal;
+using MyClient.ViewModel.Teacher.TeacherDisciplines;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -70,6 +71,13 @@ namespace MyClient.ViewModel._Navigation
         #endregion
 
         #region VM Преподавателя
+
+        private DisciplinesTeacherViewModel _DisciplinesTeacherVM;
+        public DisciplinesTeacherViewModel DisciplinesTeacherVM
+        {
+            get => ServiceLocator.Current.GetInstance<DisciplinesTeacherViewModel>();
+            set => _DisciplinesTeacherVM = value;
+        }
 
         private GroupsJournalViewModel _TeacherGroupsVM;
         public GroupsJournalViewModel TeacherGroupsVM
@@ -444,6 +452,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Register<TeacherViewModel>(); // ViewModel окна учителя
             SimpleIoc.Default.Register<JournalViewModel>(); // ViewModel страницы журнала выбранной группы
             SimpleIoc.Default.Register<GroupsJournalViewModel>(); // ViewModel страницы групп учителя
+            SimpleIoc.Default.Register<DisciplinesTeacherViewModel>(); // ViewModel страницы дисциплин учителя
 
             // ViewModel Студента
             SimpleIoc.Default.Register<StudentViewModel>(); // ViewModel окна студента
@@ -483,6 +492,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.GetInstance<TeacherViewModel>().Cleanup(); // ViewModel окна учителя
             SimpleIoc.Default.GetInstance<JournalViewModel>().Cleanup(); // ViewModel страницы журнала выбранной группы
             SimpleIoc.Default.GetInstance<GroupsJournalViewModel>().Cleanup(); // ViewModel страницы групп учителя
+            SimpleIoc.Default.GetInstance<DisciplinesTeacherViewModel>().Cleanup(); // ViewModel страницы дисциплин учителя
 
             // ViewModel Студента
             SimpleIoc.Default.GetInstance<StudentViewModel>().Cleanup(); // ViewModel окна студента
@@ -519,6 +529,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Unregister<TeacherViewModel>(); // ViewModel окна учителя
             SimpleIoc.Default.Unregister<JournalViewModel>(); // ViewModel страницы журнала выбранной группы
             SimpleIoc.Default.Unregister<GroupsJournalViewModel>(); // ViewModel страницы групп учителя
+            SimpleIoc.Default.Unregister<DisciplinesTeacherViewModel>(); // ViewModel страницы дисциплин учителя
 
             // ViewModel Студента
             SimpleIoc.Default.Unregister<StudentViewModel>(); // ViewModel окна студента

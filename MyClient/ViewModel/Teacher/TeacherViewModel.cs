@@ -30,6 +30,25 @@ namespace MyClient.ViewModel.Teacher
             }
         }
 
+        // Команда открытия дисциплин учителя
+        // Команда на октрытие журнала
+        public ICommand OpenTeacherDisciplines
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    if (locator.DisciplinesTeacherVM == null)
+                        locator.DisciplinesTeacherVM = new TeacherDisciplines.DisciplinesTeacherViewModel();
+
+                    // Передаем в следующий контекст аккаунт
+                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт     
+
+                    // Переходим на страницу расписания
+                    navigation.Navigate("View/Teacher/TeacherDisciplines/TeacherDisciplinesPage.xaml");
+                });
+            }
+        }
 
         // Команда на октрытие журнала
         public ICommand OpenJournal
@@ -68,7 +87,7 @@ namespace MyClient.ViewModel.Teacher
 
 
         // Вспомогательный метод для мессенджера, который проинициализирует аккаунт из прошлого vm при создании текущей vm
-        private void GetAccount(GenericMessage<MyModelLibrary.accounts> GetAcc)
+        protected void GetAccount(GenericMessage<MyModelLibrary.accounts> GetAcc)
         {
             MyAcc = GetAcc.Content;
         }

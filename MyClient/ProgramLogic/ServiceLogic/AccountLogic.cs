@@ -101,9 +101,14 @@ namespace MyClient.ProgramLogic.ServiceLogic
             // Если хост запущен, то выведи об этом ошибку
             try
             {
-                MyModelLibrary.accounts MyAcc = AccountProxy.ConnectUser(login, password); // Получаем аккаунт
-                OpenedWindow(MyAcc); // Открываем окно
-                return MyAcc;
+                if (login != string.Empty && password != string.Empty)
+                {
+                    MyModelLibrary.accounts MyAcc = AccountProxy.ConnectUser(login, password); // Получаем аккаунт
+                    OpenedWindow(MyAcc); // Открываем окно
+                    return MyAcc;
+                }
+                else
+                    MyDialog.ShowMessage($"Введите учетные данные!");
             }
             catch (EndpointNotFoundException)
             {
@@ -113,7 +118,6 @@ namespace MyClient.ProgramLogic.ServiceLogic
             {
                 MyDialog.ShowMessage(ex.Message);
             }
-
             catch (Exception ex)
             {
                 MyDialog.ShowMessage(ex.Message);
