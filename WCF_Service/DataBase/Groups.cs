@@ -38,7 +38,7 @@ namespace WCF_Service.DataBase
         public int idGroup { get; set; }
         public Nullable<int> idSpeciality { get; set; }
         public string GroupName { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupDisciplines> GroupDisciplines { get; set; }
         public virtual Speciality_codes Speciality_codes { get; set; }
@@ -46,4 +46,3 @@ namespace WCF_Service.DataBase
         public virtual ICollection<StudentsGroup> StudentsGroup { get; set; }
     }
 }
-    

@@ -18,7 +18,6 @@ namespace WCF_Service.DataBase
         public MyDB()
             : base("name=MyDB")
         {
-            var ensureDllIsCopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -34,6 +33,8 @@ namespace WCF_Service.DataBase
         public virtual DbSet<Groups> Groups { get; set; }
         public virtual DbSet<LessonsDate> LessonsDate { get; set; }
         public virtual DbSet<Marks> Marks { get; set; }
+        public virtual DbSet<OrderArchive> OrderArchive { get; set; }
+        public virtual DbSet<OrderTypes> OrderTypes { get; set; }
         public virtual DbSet<SessionsAccounts> SessionsAccounts { get; set; }
         public virtual DbSet<Speciality_codes> Speciality_codes { get; set; }
         public virtual DbSet<StatusAccounts> StatusAccounts { get; set; }

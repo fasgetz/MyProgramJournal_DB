@@ -11,15 +11,13 @@ namespace WCF_Service.DataBase
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Users
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Users()
         {
-            this.TeacherDisciplines = new HashSet<TeacherDisciplines>();
-        }
 
+        }
 
         // Конструктор для инициализации данных
         public Users(int idUser, int idUserStatus, string Name, string Family, string Surname, string Gender, string NumberPhone, DateTime? DateOfBirthdays)

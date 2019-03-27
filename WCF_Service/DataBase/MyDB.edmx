@@ -22,14 +22,14 @@
           <Property Name="idAttendance" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdLesson" Type="int" Nullable="false" />
           <Property Name="StudentId" Type="int" Nullable="false" />
-          <Property Name="Mark" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="Mark" Type="nvarchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="Discipline">
           <Key>
             <PropertyRef Name="idDiscipline" />
           </Key>
           <Property Name="idDiscipline" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NameDiscipline" Type="nvarchar" MaxLength="50" />
+          <Property Name="NameDiscipline" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="FinalAttendances">
           <Key>
@@ -38,6 +38,7 @@
           <Property Name="idFinalAttendance" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idTeacherActivities" Type="int" Nullable="false" />
           <Property Name="idStudent" Type="int" Nullable="false" />
+          <Property Name="Mark" Type="int" />
         </EntityType>
         <EntityType Name="GroupDisciplines">
           <Key>
@@ -70,6 +71,22 @@
             <PropertyRef Name="Mark" />
           </Key>
           <Property Name="Mark" Type="nvarchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderArchive">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdOrder" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Commentary" Type="text" />
+          <Property Name="IdOrderType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderTypes">
+          <Key>
+            <PropertyRef Name="IdOrderType" />
+          </Key>
+          <Property Name="IdOrderType" Type="int" Nullable="false" />
+          <Property Name="OrderName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SessionsAccounts">
           <Key>
@@ -160,7 +177,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Attendance_Marks">
-          <End Role="Marks" Type="Self.Marks" Multiplicity="1">
+          <End Role="Marks" Type="Self.Marks" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
@@ -267,6 +284,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrderArchive_OrderTypes">
+          <End Role="OrderTypes" Type="Self.OrderTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderArchive" Type="Self.OrderArchive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTypes">
+              <PropertyRef Name="IdOrderType" />
+            </Principal>
+            <Dependent Role="OrderArchive">
+              <PropertyRef Name="IdOrderType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SessionsAccounts_accounts">
           <End Role="accounts" Type="Self.accounts" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -360,6 +391,8 @@
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LessonsDate" EntityType="Self.LessonsDate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderArchive" EntityType="Self.OrderArchive" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderTypes" EntityType="Self.OrderTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SessionsAccounts" EntityType="Self.SessionsAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Speciality_codes" EntityType="Self.Speciality_codes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusAccounts" EntityType="Self.StatusAccounts" Schema="dbo" store:Type="Tables" />
@@ -406,6 +439,10 @@
           <AssociationSet Name="FK_LessonsDate_GroupDisciplines" Association="Self.FK_LessonsDate_GroupDisciplines">
             <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
             <End Role="LessonsDate" EntitySet="LessonsDate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderArchive_OrderTypes" Association="Self.FK_OrderArchive_OrderTypes">
+            <End Role="OrderTypes" EntitySet="OrderTypes" />
+            <End Role="OrderArchive" EntitySet="OrderArchive" />
           </AssociationSet>
           <AssociationSet Name="FK_SessionsAccounts_accounts" Association="Self.FK_SessionsAccounts_accounts">
             <End Role="accounts" EntitySet="accounts" />
@@ -457,7 +494,7 @@
           <Property Name="idAttendance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdLesson" Type="Int32" Nullable="false" />
           <Property Name="StudentId" Type="Int32" Nullable="false" />
-          <Property Name="Mark" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mark" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LessonsDate" Relationship="Self.FK_Attendance_LessonsDate" FromRole="Attendance" ToRole="LessonsDate" />
           <NavigationProperty Name="Marks" Relationship="Self.FK_Attendance_Marks" FromRole="Attendance" ToRole="Marks" />
           <NavigationProperty Name="StudentsGroup" Relationship="Self.FK_Attendance_StudentsGroup" FromRole="Attendance" ToRole="StudentsGroup" />
@@ -467,7 +504,7 @@
             <PropertyRef Name="idDiscipline" />
           </Key>
           <Property Name="idDiscipline" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameDiscipline" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NameDiscipline" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="TeacherDisciplines" Relationship="Self.FK_TeacherDisciplines_Discipline" FromRole="Discipline" ToRole="TeacherDisciplines" />
         </EntityType>
         <EntityType Name="FinalAttendances">
@@ -477,6 +514,7 @@
           <Property Name="idFinalAttendance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idTeacherActivities" Type="Int32" Nullable="false" />
           <Property Name="idStudent" Type="Int32" Nullable="false" />
+          <Property Name="Mark" Type="Int32" />
           <NavigationProperty Name="GroupDisciplines" Relationship="Self.FK_FinalAttendances_GroupDisciplines" FromRole="FinalAttendances" ToRole="GroupDisciplines" />
           <NavigationProperty Name="StudentsGroup" Relationship="Self.FK_FinalAttendances_StudentsGroup" FromRole="FinalAttendances" ToRole="StudentsGroup" />
         </EntityType>
@@ -521,6 +559,24 @@
           </Key>
           <Property Name="Mark" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_Marks" FromRole="Marks" ToRole="Attendance" />
+        </EntityType>
+        <EntityType Name="OrderArchive">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Commentary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdOrderType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OrderTypes" Relationship="Self.FK_OrderArchive_OrderTypes" FromRole="OrderArchive" ToRole="OrderTypes" />
+        </EntityType>
+        <EntityType Name="OrderTypes">
+          <Key>
+            <PropertyRef Name="IdOrderType" />
+          </Key>
+          <Property Name="IdOrderType" Type="Int32" Nullable="false" />
+          <Property Name="OrderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrderArchive" Relationship="Self.FK_OrderArchive_OrderTypes" FromRole="OrderTypes" ToRole="OrderArchive" />
         </EntityType>
         <EntityType Name="SessionsAccounts">
           <Key>
@@ -652,7 +708,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Attendance_Marks">
-          <End Role="Marks" Type="Self.Marks" Multiplicity="1">
+          <End Role="Marks" Type="Self.Marks" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
@@ -787,6 +843,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrderArchive_OrderTypes">
+          <End Role="OrderTypes" Type="Self.OrderTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderArchive" Type="Self.OrderArchive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTypes">
+              <PropertyRef Name="IdOrderType" />
+            </Principal>
+            <Dependent Role="OrderArchive">
+              <PropertyRef Name="IdOrderType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StudentsGroup_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -824,6 +894,8 @@
           <EntitySet Name="Groups" EntityType="Self.Groups" />
           <EntitySet Name="LessonsDate" EntityType="Self.LessonsDate" />
           <EntitySet Name="Marks" EntityType="Self.Marks" />
+          <EntitySet Name="OrderArchive" EntityType="Self.OrderArchive" />
+          <EntitySet Name="OrderTypes" EntityType="Self.OrderTypes" />
           <EntitySet Name="SessionsAccounts" EntityType="Self.SessionsAccounts" />
           <EntitySet Name="Speciality_codes" EntityType="Self.Speciality_codes" />
           <EntitySet Name="StatusAccounts" EntityType="Self.StatusAccounts" />
@@ -887,6 +959,10 @@
             <End Role="Groups" EntitySet="Groups" />
             <End Role="StudentsGroup" EntitySet="StudentsGroup" />
           </AssociationSet>
+          <AssociationSet Name="FK_OrderArchive_OrderTypes" Association="Self.FK_OrderArchive_OrderTypes">
+            <End Role="OrderTypes" EntitySet="OrderTypes" />
+            <End Role="OrderArchive" EntitySet="OrderArchive" />
+          </AssociationSet>
           <AssociationSet Name="FK_StudentsGroup_Users" Association="Self.FK_StudentsGroup_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="StudentsGroup" EntitySet="StudentsGroup" />
@@ -937,6 +1013,7 @@
                 <ScalarProperty Name="idFinalAttendance" ColumnName="idFinalAttendance" />
                 <ScalarProperty Name="idTeacherActivities" ColumnName="idTeacherActivities" />
                 <ScalarProperty Name="idStudent" ColumnName="idStudent" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -973,6 +1050,24 @@
             <EntityTypeMapping TypeName="db_journalModel.Marks">
               <MappingFragment StoreEntitySet="Marks">
                 <ScalarProperty Name="Mark" ColumnName="Mark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderArchive">
+            <EntityTypeMapping TypeName="db_journalModel.OrderArchive">
+              <MappingFragment StoreEntitySet="OrderArchive">
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Commentary" ColumnName="Commentary" />
+                <ScalarProperty Name="IdOrderType" ColumnName="IdOrderType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderTypes">
+            <EntityTypeMapping TypeName="db_journalModel.OrderTypes">
+              <MappingFragment StoreEntitySet="OrderTypes">
+                <ScalarProperty Name="IdOrderType" ColumnName="IdOrderType" />
+                <ScalarProperty Name="OrderName" ColumnName="OrderName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

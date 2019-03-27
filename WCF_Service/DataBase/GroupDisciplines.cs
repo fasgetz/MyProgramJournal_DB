@@ -20,7 +20,7 @@ namespace WCF_Service.DataBase
             this.FinalAttendances = new HashSet<FinalAttendances>();
             this.LessonsDate = new HashSet<LessonsDate>();
         }
-    
+
         public GroupDisciplines(int IdTeacherDiscipline, int IdGroup, int NumberSemester)
         {
             this.IdTeacherDiscipline = IdTeacherDiscipline;
@@ -32,12 +32,12 @@ namespace WCF_Service.DataBase
         public int IdTeacherDiscipline { get; set; }
         public int IdGroup { get; set; }
         public int NumberSemester { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FinalAttendances> FinalAttendances { get; set; }
         public virtual Groups Groups { get; set; }
         public virtual TeacherDisciplines TeacherDisciplines { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LessonsDate> LessonsDate { get; set; }
+        public virtual ICollection<LessonsDate> LessonsDate { get; set; } 
     }
 }

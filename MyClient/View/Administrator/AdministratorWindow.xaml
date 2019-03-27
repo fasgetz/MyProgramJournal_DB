@@ -38,10 +38,10 @@
         </Grid>
         <Grid Height="40" Margin="0,30" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
-                <StackPanel HorizontalAlignment="Left" Width="160" Orientation="Horizontal">
-                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="160">
+                <StackPanel HorizontalAlignment="Left" Width="120" Orientation="Horizontal">
+                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="120">
                         <md:PopupBox.ToggleContent>
-                            <Label Width="160" HorizontalContentAlignment="Center" FontSize="20" Content="Аккаунты"/>
+                            <Label Width="120" HorizontalContentAlignment="Center" FontSize="20" Content="Аккаунты"/>
                         </md:PopupBox.ToggleContent>
                         <StackPanel Width="160">
                             <Button Content="Показать" VerticalContentAlignment="Center" Height="30" Command="{Binding OpenAccountsList}"/>
@@ -50,7 +50,7 @@
                     </md:PopupBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="280">
+                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="220">
                         <md:PopupBox.ToggleContent>
                             <Label Width="220" HorizontalContentAlignment="Center" FontSize="20" Content="Персональные данные"/>
                         </md:PopupBox.ToggleContent>
@@ -91,14 +91,21 @@
                     </md:PopupBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="130">
+                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="100">
                         <md:PopupBox.ToggleContent>
-                            <Label Width="130" HorizontalContentAlignment="Center" FontSize="20" Content="Новости"/>
+                            <Label Width="100" HorizontalContentAlignment="Center" FontSize="20" Content="Новости"/>
                         </md:PopupBox.ToggleContent>
-                        <StackPanel Width="130">
+                        <StackPanel Width="100">
                             <Button Content="Показать" VerticalContentAlignment="Center" Height="30" Command="{Binding OpenNewsList}" />
                             <Button Content="Добавить" VerticalContentAlignment="Center" Height="30" Command="{Binding OpenCreateNewsPage}" />
                         </StackPanel>
+                    </md:PopupBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges" Height="40"  Width="130">
+                        <md:PopupBox.ToggleContent>
+                            <Button Background="{x:Null}" Foreground="Black" FontWeight="Normal" FontSize="19" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Content="Приказы" Height="38" Width="120"/>
+                        </md:PopupBox.ToggleContent>
                     </md:PopupBox>
                 </StackPanel>
             </StackPanel>

@@ -116,6 +116,12 @@
     <Compile Include="DataBase\News.cs">
       <DependentUpon>DbNews.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataBase\OrderArchive.cs">
+      <DependentUpon>MyDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\OrderTypes.cs">
+      <DependentUpon>MyDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataBase\Repositories\EFGenericRepository.cs" />
     <Compile Include="DataBase\Repositories\IRepository.cs" />
     <Compile Include="DataBase\SessionsAccounts.cs">

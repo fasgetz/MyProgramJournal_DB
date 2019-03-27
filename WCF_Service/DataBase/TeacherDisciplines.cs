@@ -19,7 +19,7 @@ namespace WCF_Service.DataBase
         {
             this.GroupDisciplines = new HashSet<GroupDisciplines>();
         }
-    
+
         public TeacherDisciplines(int IdTeacher, int IdDiscipline)
         {
             this.IdTeacher = IdTeacher;
@@ -29,7 +29,7 @@ namespace WCF_Service.DataBase
         public int IdTeacherDiscipline { get; set; }
         public int IdTeacher { get; set; }
         public int IdDiscipline { get; set; }
-    
+
         public virtual Discipline Discipline { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupDisciplines> GroupDisciplines { get; set; }

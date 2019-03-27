@@ -21,7 +21,6 @@ namespace WCF_Service.DataBase
             this.SessionsAccounts = new HashSet<SessionsAccounts>();
         }
 
-
         public accounts(int IdAccont)
         {
             this.idAccount = IdAccont;

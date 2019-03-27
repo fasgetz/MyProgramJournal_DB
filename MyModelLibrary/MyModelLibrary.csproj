@@ -50,6 +50,8 @@
     <Compile Include="Groups.cs" />
     <Compile Include="LessonsDate.cs" />
     <Compile Include="Marks.cs" />
+    <Compile Include="OrderArchive.cs" />
+    <Compile Include="OrderTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionsAccounts.cs" />
     <Compile Include="Speciality_codes.cs" />
