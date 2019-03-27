@@ -21,7 +21,7 @@
     </Page.Resources>
 
     <Grid>
-        <Label FontSize="25" HorizontalContentAlignment="Center" Content="Сессий аккаунта fasgetz - 1500" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1004"/>
+        <Label FontSize="25" HorizontalContentAlignment="Center" Content="Сессий аккаунта account - 1500 (Доделать если не будет лень)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1004"/>
         <Button Command="{Binding OpenAccountsList}" Content="Вернуться назад" FontSize="25" HorizontalAlignment="Left" Margin="10,620,0,0" VerticalAlignment="Top" Width="1004" Height="48"/>
         <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,58,0,0" HorizontalAlignment="Left" Height="514" VerticalAlignment="Top" Width="1004" ItemsSource="{Binding }" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
 

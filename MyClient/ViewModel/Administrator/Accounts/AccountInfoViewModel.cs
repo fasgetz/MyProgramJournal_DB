@@ -31,5 +31,6 @@ namespace MyClient.ViewModel.Administrator.Accounts
 
             Initialization(); // Инициализируем свойства
         }
+
     }
 }

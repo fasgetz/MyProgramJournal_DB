@@ -136,7 +136,12 @@ namespace WCF_Service.ServiceLogic
                 foreach (var item in lessons)
                 {
                     MyModelLibrary.LessonsDate lesson = new MyModelLibrary.LessonsDate(item.IdTeacherActivities, item.IdLesson, item.DateLesson, item.LessonNumber);
-                    lesson.MyAttendance = new MyModelLibrary.Attendance(item.MyAttendance.idAttendance, item.MyAttendance.IdLesson, item.MyAttendance.StudentId, item.MyAttendance.Mark);
+
+                    // Если оценка за этот день есть, то добавь ее
+                    if (item.MyAttendance != null)
+                        lesson.MyAttendance = new MyModelLibrary.Attendance(item.MyAttendance.idAttendance, item.MyAttendance.IdLesson, item.MyAttendance.StudentId, item.MyAttendance.Mark);
+
+
                     list.Add(lesson);
                 }
 
