@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1c85864260c84e99b21830ad311a84bf" Name="Diagram1">
+      <Diagram DiagramId="f841ba13713c4c95adfcf597d3f1b759" Name="Diagram1">
         <EntityTypeShape EntityType="db_journalModel.accounts" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="db_journalModel.Attendance" Width="1.5" PointX="12.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="db_journalModel.Discipline" Width="1.5" PointX="6" PointY="12.375" IsExpanded="true" />
@@ -13,8 +13,8 @@
         <EntityTypeShape EntityType="db_journalModel.Groups" Width="1.5" PointX="8.25" PointY="8.125" IsExpanded="true" />
         <EntityTypeShape EntityType="db_journalModel.LessonsDate" Width="1.5" PointX="10.5" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="db_journalModel.Marks" Width="1.5" PointX="10.5" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_journalModel.OrderArchive" Width="1.5" PointX="15" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_journalModel.OrderTypes" Width="1.5" PointX="12.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.OrderArchive" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_journalModel.OrderTypes" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="db_journalModel.SessionsAccounts" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="db_journalModel.Speciality_codes" Width="1.5" PointX="6" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="db_journalModel.StatusAccounts" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
@@ -36,7 +36,6 @@
         <AssociationConnector Association="db_journalModel.FK_LessonsDate_GroupDisciplines" ManuallyRouted="false" />
         <AssociationConnector Association="db_journalModel.FK_Groups_Speciality_codes" ManuallyRouted="false" />
         <AssociationConnector Association="db_journalModel.FK_StudentsGroup_Groups" ManuallyRouted="false" />
-        <AssociationConnector Association="db_journalModel.FK_OrderArchive_OrderTypes" ManuallyRouted="false" />
         <AssociationConnector Association="db_journalModel.FK_StudentsGroup_Users" ManuallyRouted="false" />
         <AssociationConnector Association="db_journalModel.FK_Users_Statuses" ManuallyRouted="false" />
       </Diagram>

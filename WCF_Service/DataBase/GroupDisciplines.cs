@@ -38,6 +38,6 @@ namespace WCF_Service.DataBase
         public virtual Groups Groups { get; set; }
         public virtual TeacherDisciplines TeacherDisciplines { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LessonsDate> LessonsDate { get; set; } 
+        public virtual ICollection<LessonsDate> LessonsDate { get; set; }
     }
 }

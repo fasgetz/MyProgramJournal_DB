@@ -19,10 +19,10 @@ namespace WCF_Service.DataBase
         {
             this.accounts = new HashSet<accounts>();
         }
-
+    
         public int idStatus { get; set; }
         public string StatusAccount { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<accounts> accounts { get; set; }
     }

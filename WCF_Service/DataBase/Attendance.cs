@@ -19,6 +19,17 @@ namespace WCF_Service.DataBase
         public int StudentId { get; set; }
         public string Mark { get; set; }
     
+        public Attendance()
+        {
+
+        }
+
+        public Attendance(int IdLesson, int StudentId)
+        {
+            this.IdLesson = IdLesson;
+            this.StudentId = StudentId;
+        }
+
         public virtual LessonsDate LessonsDate { get; set; }
         public virtual Marks Marks { get; set; }
         public virtual StudentsGroup StudentsGroup { get; set; }

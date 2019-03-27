@@ -19,11 +19,11 @@ namespace WCF_Service.DataBase
         {
             this.Groups = new HashSet<Groups>();
         }
-
+    
         public int idSpeciality { get; set; }
         public string code_speciality { get; set; }
         public string name_speciality { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Groups> Groups { get; set; }
     }

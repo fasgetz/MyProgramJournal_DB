@@ -52,13 +52,17 @@ namespace WCF_Service.ServiceLogic
             if (idAccountStatus == 2 || idAccountStatus == 3)
             {
                 try
-                {
+                {                   
                     // Создаем репозиторий для работы с БД
-                    EFGenericRepository<Attendance> repository = new EFGenericRepository<Attendance>(new MyDB());
+                    EFGenericRepository <Attendance> repository = new EFGenericRepository<Attendance>(new MyDB());
 
+                    // Находим оценку по айди, которую необходимо редактировать
                     var Mark = repository.FindQueryEntity(i => i.idAttendance == Attendance.idAttendance);
-                    Mark.Mark = Attendance.Mark;
-                    repository.Edit(Mark);
+                    Mark.Mark = Attendance.Mark; // Присваиваем оценке новое значение
+                    repository.Edit(Mark); // Редактируем
+
+                    // Добавляем в архив
+                    ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nУчитель: {MyAcc.Users.GetFIO}\nВыставил оценку {Attendance.Mark} студенту {Attendance.StudentId}", 12);
 
                     return true; // Возвращаем true, т.к. редактирование прошло успешно
                 }
@@ -107,7 +111,7 @@ namespace WCF_Service.ServiceLogic
             if (idAccountStatus == 3 || idAccountStatus == 2 && SelectedTeacherAtivitie != null)
             {
                 try
-                {                    
+                {                   
                     return new MyGeneratorDTO().GetTeacherLessons
                         (
                         new EFGenericRepository<LessonsDate>(new MyDB()).GetQueryList(i => i.IdTeacherActivities == SelectedTeacherAtivitie.idTeacherActivities)
@@ -419,6 +423,9 @@ namespace WCF_Service.ServiceLogic
                         // Удаляем из базы
                         repository.Remove(repository.FindQueryEntity(i => i.IdLesson == lessons.IdLesson)); // Удаляем из базы данных занятие
 
+                        // Добавляем запись в архив
+                        ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nудалил занятие (айди){lessons.IdLesson}", 16);
+
                         return true; // Возвращаем true, если удаление успешно
                     }
                     catch (Exception ex)
@@ -454,9 +461,6 @@ namespace WCF_Service.ServiceLogic
                         LessonsDate lesson = new LessonsDate(discipline.idTeacherActivities, date, Convert.ToInt16(numberlesson));
                         lesson.Attendance = new List<Attendance>(); // Добавляем список оценок
 
-                        //// Добавляем занятие
-                        //repository.Add(new LessonsDate(discipline.idTeacherActivities, date, Convert.ToInt16(numberlesson)));
-
                         // Теперь необходимо добавить оценки занятию, сколько студентов у группы
                         //Ищем студентов группы                            
                         List<int> studentsID = new List<int>();
@@ -468,15 +472,13 @@ namespace WCF_Service.ServiceLogic
                         var list = students.GetQueryList(i => i.idGroup == discipline.IdGroup); // Список студентов
 
                         foreach (var item in list)
-                        {
-                            Attendance attendance = new Attendance();
-                            attendance.IdLesson = lesson.IdLesson;
-                            attendance.StudentId = item.IdStudent;
-
-                            lesson.Attendance.Add(attendance);
-                        }
+                            lesson.Attendance.Add(new Attendance(lesson.IdLesson, item.IdStudent));
 
                         repository.Add(lesson);
+
+                        // Добавляем в архив
+                        ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nСоздал занятие (айди){lesson.IdLesson}", 5);
+
                         return true; // Возвращаем true, т.к. занятие добавлено успешно
                     }
                     catch(Exception ex)
@@ -599,6 +601,9 @@ namespace WCF_Service.ServiceLogic
                             discip.NameDiscipline = Discipline.NameDiscipline; // Изменяем название дисциплины
                             repository.Edit(discip); // Отправляем измененную дисциплину в бд
 
+                            // Добавляем запись в архив
+                            ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nредактировал название дисциплины id {discip.idDiscipline}", 11);
+
                             return true; // Возвращаем true, т.к. дисциплина отредактирована
                         }
                     }
@@ -652,6 +657,9 @@ namespace WCF_Service.ServiceLogic
                                 // Добавляем дисциплину группе
                                 repository.Add(new GroupDisciplines(new MyDB().TeacherDisciplines.FirstOrDefault(i => i.IdTeacher == Teacher.idUser && i.IdDiscipline == discipline.idDiscipline).IdTeacherDiscipline,
                                     group.idGroup, Convert.ToInt16(NumbSem)));
+
+                                // Добавляем запись в архив
+                                ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nдобавил дисциплину айди {discipline.idDiscipline} {discipline.NameDiscipline} группе id {group.idGroup} {group.GroupName}", 17);
 
                                 return true;
                             }
@@ -840,7 +848,7 @@ namespace WCF_Service.ServiceLogic
             // Если аккаунт прошел проверку статуса (Он администратор, то выполни дальнейшее)
             if (status == true)
             {
-                // Если название данные группы заполнены, то отредактируй
+                // Если данные группы заполнены, то отредактируй
                 if (EditGroup != null && EditGroup.GroupName != string.Empty && EditGroup.idSpeciality != null)
                 {
                     try
@@ -849,7 +857,10 @@ namespace WCF_Service.ServiceLogic
                         EFGenericRepository<Groups> repository = new EFGenericRepository<Groups>(new MyDB());
                         repository.Edit(new Groups(EditGroup.idGroup, EditGroup.GroupName, Convert.ToInt16(EditGroup.idSpeciality))); // Обновляем группу в бд 
 
-                        Console.WriteLine($"Группа {EditGroup.idGroup} успешно редактирована администратором {MyAcc.login}");
+                        // Добавляем запись в архив
+                        ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nредактировал название группы id {EditGroup.idGroup} на {EditGroup.GroupName}", 7);
+
+
                         return true; // Возвращаем true, т.к. успешно отредактировано
                     }
                     catch(Exception ex)
@@ -883,6 +894,9 @@ namespace WCF_Service.ServiceLogic
                         // Ищем группу по айди, которую надо удалить
                         EFGenericRepository<Groups> repository = new EFGenericRepository<Groups>(new MyDB());
                         repository.Remove(repository.FindQueryEntity(i => i.idGroup == Group.idGroup)); // Удаляем группу
+
+                        // Добавляем запись в архив
+                        ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nудалил группу id {Group.idGroup} {Group.GroupName}", 13);
 
                         return true; //Возвращаем true, т.к. группа удалена успешно
                     }
@@ -1066,6 +1080,8 @@ namespace WCF_Service.ServiceLogic
                             // Добавляем дисциплину в репозиторий
                             repository.Add(new TeacherDisciplines(Teacher.idUser, Discipline.idDiscipline));
 
+                            // Добавляем запись в архив
+                            ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nдобавил дисциплину id {Discipline.idDiscipline}) {Discipline.NameDiscipline} учителю {Teacher.GetFIO}", 14);
                             return true; // Возвращаем истину, т.к. дисциплину добавили успешно
                         }
                         catch (Exception ex)
@@ -1103,6 +1119,9 @@ namespace WCF_Service.ServiceLogic
                         // Создаем репозиторий для работы с бд
                         EFGenericRepository<Discipline> repository = new EFGenericRepository<Discipline>(new MyDB());
                         repository.Add(new Discipline(NewDiscipline.NameDiscipline)); // Добавляем дисциплину в репозиторий
+
+                        // Добавляем запись в архив
+                        ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nсоздал дисциплину {NewDiscipline.NameDiscipline}", 10);
 
                         return true; // Возвращаем true, т.к. дисциплина была успешно добавлена в бд
                     }
@@ -1160,6 +1179,9 @@ namespace WCF_Service.ServiceLogic
                             db.StudentsGroup.Remove(DeletedStudent); // Удаляем студента
                             db.SaveChanges(); // Сохраняем бд
 
+                            // Добавляем запись в архив
+                            ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nудалил студента {Student.IdStudent} из группы", 4);
+
                             return true; // Возвращаем true, т.к. удаление успешно
                         }
                         // Иначе, если студента не нашли, то выдай экзепшен
@@ -1209,6 +1231,10 @@ namespace WCF_Service.ServiceLogic
                                 students_repository.GetQueryList(i => i.idGroup == Student.idGroup).Count() + 1 // Номер по журналу = Количество всех студентов в группе + 1
                                 ));
 
+
+                            // Добавляем запись в архив
+                            ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nдобавил студента {Student.IdStudent} в группу", 3);
+
                             return true; // Возвращаем true, т.к. студент успешно добавлен в группу
                         }
                         catch (Exception ex)
@@ -1244,6 +1270,9 @@ namespace WCF_Service.ServiceLogic
                     {
                         // Добавляем новую группу в репозиторий
                         repository.Add(new Groups(NewGroup.GroupName, Convert.ToInt16(NewGroup.idSpeciality)));
+
+                        // Добавляем запись в архив
+                        ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nсоздал группу {NewGroup.idGroup}", 6);
 
                         return true;
                     }
@@ -1376,7 +1405,8 @@ namespace WCF_Service.ServiceLogic
                         EditAcc.Users.DateOfBirthDay
                         ));
 
-                    Console.WriteLine($"{DateTime.Now}) Аккаунт {EditAcc.idAccount} успешно отредактирован! администратором <<{MyAcc.login}>>");
+                    // Добавляем запись в архив
+                    ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nредактировал аккаунт {EditAcc.idAccount}", 2);
 
                     return true;
                 }
@@ -1439,7 +1469,11 @@ namespace WCF_Service.ServiceLogic
                             // Создаем репозиторый для работы с контекстом базы данных
                             EFGenericRepository<accounts> MyRepository = new EFGenericRepository<accounts>(new MyDB());
                             MyRepository.Add(NewAccount);
-                            Console.WriteLine($"{DateTime.Now}) Аккаунт <<{AddAcc.login}>> успешно создан!");
+
+
+                            // Добавляем запись в архив
+                            ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nсоздал аккаунт {AddAcc.idAccount}", 1);
+
                             return true;
                         }
                         // Иначе, если учетные данные меньше 5 символов, то выдай ошибку

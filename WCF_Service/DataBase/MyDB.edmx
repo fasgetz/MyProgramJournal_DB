@@ -76,10 +76,10 @@
           <Key>
             <PropertyRef Name="IdOrder" />
           </Key>
-          <Property Name="IdOrder" Type="int" Nullable="false" />
+          <Property Name="IdOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="datetime" />
           <Property Name="Commentary" Type="text" />
-          <Property Name="IdOrderType" Type="int" Nullable="false" />
+          <Property Name="IdOrderType" Type="int" />
         </EntityType>
         <EntityType Name="OrderTypes">
           <Key>
@@ -284,20 +284,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderArchive_OrderTypes">
-          <End Role="OrderTypes" Type="Self.OrderTypes" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="OrderArchive" Type="Self.OrderArchive" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderTypes">
-              <PropertyRef Name="IdOrderType" />
-            </Principal>
-            <Dependent Role="OrderArchive">
-              <PropertyRef Name="IdOrderType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SessionsAccounts_accounts">
           <End Role="accounts" Type="Self.accounts" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -440,10 +426,6 @@
             <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
             <End Role="LessonsDate" EntitySet="LessonsDate" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderArchive_OrderTypes" Association="Self.FK_OrderArchive_OrderTypes">
-            <End Role="OrderTypes" EntitySet="OrderTypes" />
-            <End Role="OrderArchive" EntitySet="OrderArchive" />
-          </AssociationSet>
           <AssociationSet Name="FK_SessionsAccounts_accounts" Association="Self.FK_SessionsAccounts_accounts">
             <End Role="accounts" EntitySet="accounts" />
             <End Role="SessionsAccounts" EntitySet="SessionsAccounts" />
@@ -564,11 +546,10 @@
           <Key>
             <PropertyRef Name="IdOrder" />
           </Key>
-          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="IdOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Commentary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="IdOrderType" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="OrderTypes" Relationship="Self.FK_OrderArchive_OrderTypes" FromRole="OrderArchive" ToRole="OrderTypes" />
+          <Property Name="IdOrderType" Type="Int32" />
         </EntityType>
         <EntityType Name="OrderTypes">
           <Key>
@@ -576,7 +557,6 @@
           </Key>
           <Property Name="IdOrderType" Type="Int32" Nullable="false" />
           <Property Name="OrderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OrderArchive" Relationship="Self.FK_OrderArchive_OrderTypes" FromRole="OrderTypes" ToRole="OrderArchive" />
         </EntityType>
         <EntityType Name="SessionsAccounts">
           <Key>
@@ -843,20 +823,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderArchive_OrderTypes">
-          <End Role="OrderTypes" Type="Self.OrderTypes" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="OrderArchive" Type="Self.OrderArchive" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderTypes">
-              <PropertyRef Name="IdOrderType" />
-            </Principal>
-            <Dependent Role="OrderArchive">
-              <PropertyRef Name="IdOrderType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_StudentsGroup_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -958,10 +924,6 @@
           <AssociationSet Name="FK_StudentsGroup_Groups" Association="Self.FK_StudentsGroup_Groups">
             <End Role="Groups" EntitySet="Groups" />
             <End Role="StudentsGroup" EntitySet="StudentsGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderArchive_OrderTypes" Association="Self.FK_OrderArchive_OrderTypes">
-            <End Role="OrderTypes" EntitySet="OrderTypes" />
-            <End Role="OrderArchive" EntitySet="OrderArchive" />
           </AssociationSet>
           <AssociationSet Name="FK_StudentsGroup_Users" Association="Self.FK_StudentsGroup_Users">
             <End Role="Users" EntitySet="Users" />

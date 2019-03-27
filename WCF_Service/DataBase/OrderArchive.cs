@@ -14,11 +14,22 @@ namespace WCF_Service.DataBase
     
     public partial class OrderArchive
     {
+
+        public OrderArchive()
+        {
+
+        }
+
+        public OrderArchive(string Commentary, int IdOrderType)
+        {
+            this.Commentary = Commentary;
+            this.IdOrderType = IdOrderType;
+            this.Date = DateTime.Now;
+        }
+
         public int IdOrder { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Commentary { get; set; }
-        public int IdOrderType { get; set; }
-    
-        public virtual OrderTypes OrderTypes { get; set; }
+        public Nullable<int> IdOrderType { get; set; }
     }
 }
