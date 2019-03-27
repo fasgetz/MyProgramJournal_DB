@@ -22,6 +22,16 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #endregion
 
+        #region Методы студента
+
+        // Метод, который прогружает список дисциплин студента в семестре
+        public List<MyModelLibrary.GroupDisciplines> GetStudentsDiscipline(MyModelLibrary.accounts MyAcc, int? semestr)
+        {
+            return MyServiceLogic.GetStudentsDiscipline(MyAcc, semestr);
+        }
+
+        #endregion
+
         #region Методы контракта служб администратора и преподавателя
 
         // Метод, который задает оценку (С проверкой статуса)

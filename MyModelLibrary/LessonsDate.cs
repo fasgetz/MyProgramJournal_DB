@@ -53,6 +53,7 @@ namespace MyModelLibrary
         public int IdTeacherActivities { get; set; }
         public System.DateTime DateLesson { get; set; }
         public int LessonNumber { get; set; }
+        public MyModelLibrary.Attendance MyAttendance { get; set; }
 
         public List<Attendance> Attendance { get; set; } // Список оценок занятия
         //public virtual TeacherDisciplines TeacherDisciplines { get; set; }

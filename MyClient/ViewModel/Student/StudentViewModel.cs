@@ -10,6 +10,30 @@ namespace MyClient.ViewModel.Student
     public class StudentViewModel : AccountVM
     {
 
+
+        #region Команды
+
+        // Команда на открытие страницы дневника студента
+        public ICommand OpenDiary
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    if (locator.DiaryVM == null)
+                        locator.DiaryVM = new Diary.DiaryViewModel();
+
+                    // Передаем в следующий контекст аккаунт
+                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт     
+
+                    // Переходим на страницу расписания
+                    navigation.Navigate("View/Student/Diary/DiaryPage.xaml");
+                });
+            }
+        }
+
+        #endregion
+
         #region Конструктор
 
         // Конструктор класса

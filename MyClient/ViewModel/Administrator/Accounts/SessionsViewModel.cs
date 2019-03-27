@@ -14,9 +14,6 @@ namespace MyClient.ViewModel.Administrator.Accounts
     public class SessionsViewModel : AccountsListPageViewModel
     {
 
-
-
-
         public SessionsViewModel()
         {
             // Получаем аккаунты из предыдущей VM
@@ -30,8 +27,6 @@ namespace MyClient.ViewModel.Administrator.Accounts
         {
             MyAcc = GetAcc.Content.ElementAt(0); // Мой аккаунт для манипулирования данными
             SelectedAccount = GetAcc.Content.ElementAt(1); // Выбранный аккаунт
-
-            dialog.ShowMessage(SelectedAccount.login);
         }
 
 

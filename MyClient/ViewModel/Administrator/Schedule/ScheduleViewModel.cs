@@ -20,21 +20,6 @@ namespace MyClient.ViewModel.Administrator.Schedule
 
         #region Свойства
 
-        // Список занятий
-        private List<MyModelLibrary.LessonsDate> _lessons;
-        public List<MyModelLibrary.LessonsDate> lessons
-        {
-            get
-            {
-                return _lessons;
-            }
-            set
-            {
-                _lessons = value;
-                RaisePropertyChanged("lessons");
-            }
-        }
-
         // Выбранное занятие
         private MyModelLibrary.LessonsDate _SelectedLesson;
         public MyModelLibrary.LessonsDate SelectedLesson

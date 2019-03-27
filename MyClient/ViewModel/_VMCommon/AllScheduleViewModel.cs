@@ -19,21 +19,6 @@ namespace MyClient.ViewModel._VMCommon
     public class AllScheduleViewModel : AccountVM
     {
 
-        // Список занятий
-        private List<MyModelLibrary.LessonsDate> _lessons;
-        public List<MyModelLibrary.LessonsDate> lessons
-        {
-            get
-            {
-                return _lessons;
-            }
-            set
-            {
-                _lessons = value;
-                RaisePropertyChanged("lessons");
-            }
-        }
-
         // Выбранная дата
         private DateTime _SelectDate;
         public DateTime SelectDate

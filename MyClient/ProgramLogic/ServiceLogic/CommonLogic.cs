@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,27 @@ namespace MyClient.ProgramLogic.ServiceLogic
 
         #region Общие методы
 
+        // Метод, который прогружает список занятий и (оценки по занятиям)
+        public List<MyModelLibrary.LessonsDate> GetAttendancesFromJournal(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines SelectedTeacherAtivitie)
+        {
+            try
+            {
+                using (client = new MyService.TransferServiceClient())
+                {
+                    return client.GetAttendancesFromJournal(MyAcc, SelectedTeacherAtivitie);
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return null; // Возвращаем null в случае ошибки
+        }
 
         internal List<MyModelLibrary.Discipline> GetDisciplines(MyModelLibrary.accounts MyAcc)
         {

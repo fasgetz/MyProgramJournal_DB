@@ -10,6 +10,13 @@ namespace WCF_Service.MyService.ServiceWorkDB
     public interface ITransferService
     {
 
+        #region Методы студента
+
+        // Метод, который прогружает список дисциплин студента в семестре
+        [OperationContract]
+        List<MyModelLibrary.GroupDisciplines> GetStudentsDiscipline(MyModelLibrary.accounts MyAcc, int? semestr);
+
+        #endregion
 
         #region Общие методы администратора и преподавателя
 

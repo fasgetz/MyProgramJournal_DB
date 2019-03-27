@@ -15,6 +15,12 @@ namespace MyClient.MyService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MyService.ITransferService")]
     public interface ITransferService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetStudentsDiscipline", ReplyAction="http://tempuri.org/ITransferService/GetStudentsDisciplineResponse")]
+        System.Collections.Generic.List<MyModelLibrary.GroupDisciplines> GetStudentsDiscipline(MyModelLibrary.accounts MyAcc, System.Nullable<int> semestr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetStudentsDiscipline", ReplyAction="http://tempuri.org/ITransferService/GetStudentsDisciplineResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.GroupDisciplines>> GetStudentsDisciplineAsync(MyModelLibrary.accounts MyAcc, System.Nullable<int> semestr);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/SetAttendance", ReplyAction="http://tempuri.org/ITransferService/SetAttendanceResponse")]
         bool SetAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance);
         
@@ -227,6 +233,14 @@ namespace MyClient.MyService {
         
         public TransferServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.GroupDisciplines> GetStudentsDiscipline(MyModelLibrary.accounts MyAcc, System.Nullable<int> semestr) {
+            return base.Channel.GetStudentsDiscipline(MyAcc, semestr);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.GroupDisciplines>> GetStudentsDisciplineAsync(MyModelLibrary.accounts MyAcc, System.Nullable<int> semestr) {
+            return base.Channel.GetStudentsDisciplineAsync(MyAcc, semestr);
         }
         
         public bool SetAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance) {

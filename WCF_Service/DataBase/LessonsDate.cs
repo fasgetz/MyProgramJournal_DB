@@ -31,6 +31,7 @@ namespace WCF_Service.DataBase
         public int IdTeacherActivities { get; set; }
         public System.DateTime DateLesson { get; set; }
         public int LessonNumber { get; set; }
+        public Attendance MyAttendance { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendance> Attendance { get; set; }

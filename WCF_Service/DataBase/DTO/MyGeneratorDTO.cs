@@ -21,7 +21,7 @@ namespace WCF_Service.DataBase.DTO
             foreach (var item in NotDTOList)
             {
                 list.Add(new MyModelLibrary.GroupDisciplines(item.TeacherDisciplines.Discipline.NameDiscipline, item.Groups.GroupName,
-                    item.idTeacherActivities, item.IdGroup, item.NumberSemester
+                    item.idTeacherActivities, item.IdGroup, item.NumberSemester, new MyDB().Users.FirstOrDefault(i => i.idUser == item.TeacherDisciplines.IdTeacher).GetFIO
                     ));
             }
             return list;
@@ -35,9 +35,11 @@ namespace WCF_Service.DataBase.DTO
                 List<MyModelLibrary.Attendance> attendances = new List<MyModelLibrary.Attendance>();
                 foreach (var kek in item.Attendance)
                 {
-                    attendances.Add(new MyModelLibrary.Attendance(kek.idAttendance, kek.IdLesson, kek.StudentId, kek.Mark));
+                    attendances.Add(new MyModelLibrary.Attendance(kek.idAttendance, kek.IdLesson, kek.StudentId, kek.Mark,
+                        Convert.ToInt16(new MyDB().StudentsGroup.FirstOrDefault(i => i.IdStudent == kek.StudentId).NumberInJournal)));
                 }
 
+                attendances = attendances.OrderBy(i => i.numberjournal).ToList(); // Сортируем по номеру журналу оценки
 
                 list.Add(new MyModelLibrary.LessonsDate(item.IdTeacherActivities, item.IdLesson, item.DateLesson, item.LessonNumber,
                     attendances));

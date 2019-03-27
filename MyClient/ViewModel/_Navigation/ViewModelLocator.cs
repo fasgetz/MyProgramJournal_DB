@@ -24,6 +24,7 @@ using MyClient.ViewModel.Administrator.News;
 using MyClient.ViewModel.Administrator.Schedule;
 using MyClient.ViewModel.Administrator.Users;
 using MyClient.ViewModel.Student;
+using MyClient.ViewModel.Student.Diary;
 using MyClient.ViewModel.Teacher;
 using MyClient.ViewModel.Teacher.Journal;
 using MyClient.ViewModel.Teacher.TeacherDisciplines;
@@ -54,6 +55,13 @@ namespace MyClient.ViewModel._Navigation
 
 
         #region VM Студента
+
+        private DiaryViewModel _DiaryVM;
+        public DiaryViewModel DiaryVM
+        {
+            get => ServiceLocator.Current.GetInstance<DiaryViewModel>();
+            set => _DiaryVM = value;
+        }
 
         private StudentViewModel _StudentVM;
         public StudentViewModel StudentVM
@@ -456,6 +464,7 @@ namespace MyClient.ViewModel._Navigation
 
             // ViewModel Студента
             SimpleIoc.Default.Register<StudentViewModel>(); // ViewModel окна студента
+            SimpleIoc.Default.Register<DiaryViewModel>(); // ViewModel дневника студента
         }
 
         // Метод для отмены регистрации VM
@@ -496,6 +505,7 @@ namespace MyClient.ViewModel._Navigation
 
             // ViewModel Студента
             SimpleIoc.Default.GetInstance<StudentViewModel>().Cleanup(); // ViewModel окна студента
+            SimpleIoc.Default.GetInstance<DiaryViewModel>().Cleanup(); // ViewModel дневника студента
 
 
             // Общие ViewModel
@@ -533,6 +543,7 @@ namespace MyClient.ViewModel._Navigation
 
             // ViewModel Студента
             SimpleIoc.Default.Unregister<StudentViewModel>(); // ViewModel окна студента
+            SimpleIoc.Default.Unregister<DiaryViewModel>(); // ViewModel дневника студента
         }
 
         #endregion

@@ -54,20 +54,6 @@ namespace MyClient.ViewModel.Teacher.Journal
             }
         }
 
-        private List<MyModelLibrary.LessonsDate> _lessons;
-        public List<MyModelLibrary.LessonsDate> lessons
-        {
-            get
-            {
-                return _lessons;
-            }
-            set
-            {
-                _lessons = value;
-                RaisePropertyChanged("lessons");
-            }
-        }
-
         #endregion
 
 

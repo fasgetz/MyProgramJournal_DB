@@ -17,6 +17,29 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы, которые вызываются в службах
 
+        #region Методы студента
+
+        // Метод, который прогружает список дисциплин студента в семестре
+        public List<MyModelLibrary.GroupDisciplines> GetStudentsDiscipline(MyModelLibrary.accounts MyAcc, int? semestr)
+        {
+            // Делаем проверку статуса аккаунта
+            int idAccountStatus = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
+
+            // Если аккаунт студент и семестр подходит по логике, то найди все дисциплины в семестре и выдай ему
+            if (idAccountStatus == 1 && semestr != null && semestr >= 1 && semestr <= 8 && MyAcc.Users.StudentsGroup != null)
+            {
+                // Возвращаем DTO список дисциплин студента по выбранному семестру
+                return new MyGeneratorDTO().GetTeacherDiscipline
+                    (
+                        new EFGenericRepository<GroupDisciplines>(new MyDB()).GetQueryList(i => i.IdGroup == MyAcc.Users.StudentsGroup.idGroup && i.NumberSemester == semestr)
+                    );
+            }
+
+            return null; // Если не удалось получить список
+        }
+
+        #endregion
+
         #region Методы Администратора и преподавателя
 
         // Метод, который задает оценку (С проверкой статуса)
@@ -84,7 +107,7 @@ namespace WCF_Service.ServiceLogic
             if (idAccountStatus == 3 || idAccountStatus == 2 && SelectedTeacherAtivitie != null)
             {
                 try
-                {
+                {                    
                     return new MyGeneratorDTO().GetTeacherLessons
                         (
                         new EFGenericRepository<LessonsDate>(new MyDB()).GetQueryList(i => i.IdTeacherActivities == SelectedTeacherAtivitie.idTeacherActivities)
@@ -94,6 +117,32 @@ namespace WCF_Service.ServiceLogic
                 {
                     Console.WriteLine(ex.Message);
                 }
+            }
+            // Если аккаунт студент, то выдай ему список оценок
+            else if (idAccountStatus == 1)
+            {
+                EFGenericRepository<LessonsDate> repository = new EFGenericRepository<LessonsDate>(new MyDB());
+
+                // Список оценок
+                var lessons = repository.GetQueryList(i => i.IdTeacherActivities == SelectedTeacherAtivitie.idTeacherActivities);
+
+                foreach (var item in lessons)
+                {
+                    item.MyAttendance = item.Attendance.FirstOrDefault(i => i.StudentId == MyAcc.idAccount);
+                }
+
+                List<MyModelLibrary.LessonsDate> list = new List<MyModelLibrary.LessonsDate>();
+
+                foreach (var item in lessons)
+                {
+                    MyModelLibrary.LessonsDate lesson = new MyModelLibrary.LessonsDate(item.IdTeacherActivities, item.IdLesson, item.DateLesson, item.LessonNumber);
+                    lesson.MyAttendance = new MyModelLibrary.Attendance(item.MyAttendance.idAttendance, item.MyAttendance.IdLesson, item.MyAttendance.StudentId, item.MyAttendance.Mark);
+                    list.Add(lesson);
+                }
+
+
+                // Возвращаем DTO список оценок
+                return list;
             }
 
             return null;

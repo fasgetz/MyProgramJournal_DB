@@ -56,28 +56,5 @@ namespace MyClient.ProgramLogic.ServiceLogic
 
             return null; // Возвращаем null в случае ошибки
         }
-
-        // Метод, который прогружает список занятий и (оценки по занятиям)
-        public List<MyModelLibrary.LessonsDate> GetAttendancesFromJournal(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines SelectedTeacherAtivitie)
-        {
-            try
-            {
-                using (client = new MyService.TransferServiceClient())
-                {
-                    return client.GetAttendancesFromJournal(MyAcc, SelectedTeacherAtivitie);
-                }
-            }
-            catch (FaultException<AccountService.AccountConnectedException> ex)
-            {
-                MyDialog.ShowMessage(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                MyDialog.ShowMessage(ex.Message);
-            }
-
-            return null; // Возвращаем null в случае ошибки
-
-        }
     }
 }

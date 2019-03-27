@@ -23,6 +23,21 @@ namespace MyClient.ViewModel._VMCommon
     {
         #region Свойства
 
+        // Список занятий
+        private List<MyModelLibrary.LessonsDate> _lessons;
+        public List<MyModelLibrary.LessonsDate> lessons
+        {
+            get
+            {
+                return _lessons;
+            }
+            set
+            {
+                _lessons = value;
+                RaisePropertyChanged("lessons");
+            }
+        }
+
         // Список существующих групп
         private List<MyModelLibrary.Groups> _groups;
         public List<MyModelLibrary.Groups> groups

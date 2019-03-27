@@ -99,7 +99,7 @@
                                 </Button>
                             </ListViewItem>
                             <ListViewItem>
-                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2a2a2" Width="180">
+                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding OpenDiary}" Foreground="#FFA2a2a2" Width="180">
                                     <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Center" Width="170" >
                                         <md:PackIcon Kind="BookOpenOutline" Width="30" Height="30" />
                                         <Label VerticalAlignment="Center" Margin="20 10" Content="Дневник" Height="30"/>

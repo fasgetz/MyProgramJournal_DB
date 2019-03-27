@@ -138,6 +138,7 @@
     <Compile Include="ViewModel\Administrator\Schedule\ScheduleViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Users\PersonalDataViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Users\UsersListPageViewModel.cs" />
+    <Compile Include="ViewModel\Student\Diary\DiaryViewModel.cs" />
     <Compile Include="ViewModel\Student\StudentViewModel.cs" />
     <Compile Include="ViewModel\Teacher\Journal\GroupsJournalViewModel.cs" />
     <Compile Include="ViewModel\Teacher\Journal\JournalViewModel.cs" />
@@ -219,6 +220,9 @@
     </Compile>
     <Compile Include="View\MainLoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Student\Diary\DiaryPage.xaml.cs">
+      <DependentUpon>DiaryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Student\StudentWindow.xaml.cs">
       <DependentUpon>StudentWindow.xaml</DependentUpon>
@@ -333,6 +337,10 @@
     <Page Include="View\MainLoginWindow\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Student\Diary\DiaryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Student\StudentWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
