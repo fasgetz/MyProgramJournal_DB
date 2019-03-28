@@ -126,6 +126,13 @@ namespace MyClient.ViewModel._Navigation
 
         #region VM јдминистратора
 
+        private OrdersWatchViewModel _OrdersWatchVM;
+        public OrdersWatchViewModel OrdersWatchVM
+        {
+            get => ServiceLocator.Current.GetInstance<OrdersWatchViewModel>();
+            set => _OrdersWatchVM = value;
+        }
+
         private OrdersViewModel _OrdersVM;
         public OrdersViewModel OrdersVM
         {
@@ -464,6 +471,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Register<ScheduleViewModel>(); // VM страницы зан€тий группы
             SimpleIoc.Default.Register<SessionsViewModel>(); // VM страницы сессий аккаунта
             SimpleIoc.Default.Register<OrdersViewModel>(); // VM страницы приказов
+            SimpleIoc.Default.Register<OrdersWatchViewModel>(); // VM страницы просмотра описани€ приказа
 
             // ViewModel ѕреподавател€
             SimpleIoc.Default.Register<TeacherViewModel>(); // ViewModel окна учител€
@@ -506,6 +514,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.GetInstance<ScheduleViewModel>().Cleanup(); // VM страницы зан€тий групп
             SimpleIoc.Default.GetInstance<SessionsViewModel>().Cleanup(); // VM страницы сессий аккаунта   
             SimpleIoc.Default.GetInstance<OrdersViewModel>().Cleanup(); // VM страницы приказов
+            SimpleIoc.Default.GetInstance<OrdersWatchViewModel>().Cleanup(); // VM страницы просмотра описани€ приказа
 
             // ViewModel ѕреподавател€
             SimpleIoc.Default.GetInstance<TeacherViewModel>().Cleanup(); // ViewModel окна учител€
@@ -545,6 +554,7 @@ namespace MyClient.ViewModel._Navigation
             SimpleIoc.Default.Unregister<ScheduleViewModel>(); // VM страницы зан€тий групп
             SimpleIoc.Default.Unregister<SessionsViewModel>(); // VM страницы сессий аккаунта
             SimpleIoc.Default.Unregister<OrdersViewModel>(); // VM страницы приказов
+            SimpleIoc.Default.Unregister<OrdersWatchViewModel>(); // VM страницы просмотра описани€ приказа
 
             // ViewModel ѕреподавател€
             SimpleIoc.Default.Unregister<TeacherViewModel>(); // ViewModel окна учител€

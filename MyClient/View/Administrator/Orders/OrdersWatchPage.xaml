@@ -1,0 +1,24 @@
+﻿<Page x:Class="MyClient.View.Administrator.Orders.OrdersWatchPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MyClient.View.Administrator.Orders"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1024"      
+      DataContext="{Binding OrdersWatchVM, Source={StaticResource Locator}}" 
+      Title="OrdersWatchPage">
+    <Grid>
+        <StackPanel VerticalAlignment="Top" Height="700">
+            <StackPanel Orientation="Horizontal">
+                <Label Margin="430,0,0,0" Content="Приказ" HorizontalContentAlignment="Center" FontSize="30"/>
+                <Label Content="{Binding SelectedOrder.IdOrder}" HorizontalContentAlignment="Center" FontSize="30"/>
+            </StackPanel>
+            <Label FontSize="20" HorizontalContentAlignment="Center" Content="{Binding SelectedOrder.Commentary}" Height="230"/>
+            <StackPanel Margin="10,370,10,0">
+                <Button Content="Создать docx" Height="40" FontSize="20" Command="{Binding CreateWord}"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Page>

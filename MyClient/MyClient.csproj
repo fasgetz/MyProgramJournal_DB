@@ -113,6 +113,7 @@
     <Compile Include="Password\IHavePassword.cs" />
     <Compile Include="Password\PasswordDecoder.cs" />
     <Compile Include="ProgramLogic\DialogServices\IDialogService.cs" />
+    <Compile Include="ProgramLogic\Documentation\MyWord.cs" />
     <Compile Include="ProgramLogic\ServiceLogic\AccountLogic.cs" />
     <Compile Include="ProgramLogic\ServiceLogic\AdministratorLogic.cs" />
     <Compile Include="ProgramLogic\ServiceLogic\CommonLogic.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="ViewModel\Administrator\News\EditNewsViewModel.cs" />
     <Compile Include="ViewModel\Administrator\News\NewsListViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Orders\OrdersViewModel.cs" />
+    <Compile Include="ViewModel\Administrator\Orders\OrdersWatchViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Schedule\ScheduleViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Users\PersonalDataViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Users\UsersListPageViewModel.cs" />
@@ -203,6 +205,9 @@
     </Compile>
     <Compile Include="View\Administrator\Orders\OrdersPage.xaml.cs">
       <DependentUpon>OrdersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\Orders\OrdersWatchPage.xaml.cs">
+      <DependentUpon>OrdersWatchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Administrator\Schedule\SchedulePage.xaml.cs">
       <DependentUpon>SchedulePage.xaml</DependentUpon>
@@ -315,6 +320,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Administrator\Orders\OrdersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Administrator\Orders\OrdersWatchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -505,9 +514,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ProgramLogic\Documentation\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Connected Services\MyService\item.disco" />
   </ItemGroup>
@@ -522,6 +529,35 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

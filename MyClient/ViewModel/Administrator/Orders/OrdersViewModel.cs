@@ -14,7 +14,7 @@ namespace MyClient.ViewModel.Administrator.Orders
     public class OrdersViewModel : AdministratorViewModel
     {
 
-        #region Свойства
+        #region Свойства        
 
         // Выбранная дата
         private DateTime _SelectedDate;
@@ -54,15 +54,41 @@ namespace MyClient.ViewModel.Administrator.Orders
 
         #endregion
 
-
-        // Команда на кнопку в контекстном меню показать приказ
-        private ICommand OpenWatchOrder
+        // Команда на создание ворд файла
+        public ICommand CreateWord
         {
             get
             {
                 return new RelayCommand(() =>
                 {
+                    ProgramLogic.Documentation.MyWord.CreateWordDoc(SelectedOrder); // Создаем вордовый документ
+                });
+            }
+        }
 
+        // Команда на кнопку в контекстном меню показать приказ
+        public ICommand OpenWatchOrder
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если выбрали приказ, то перейди на страницу и передай его контекст
+                    if (SelectedOrder != null)
+                    {
+                        // Если наша vm = null, то проинициализируй ее
+                        if (locator.OrdersWatchVM == null)
+                            locator.OrdersWatchVM = new OrdersWatchViewModel();
+
+                        SelectedOrder = new MyModelLibrary.OrderArchive(SelectedOrder.IdOrder, SelectedOrder.Date, SelectedOrder.Commentary, SelectedOrder.IdOrderType, 
+                            SelectedOrder.OrderTypes = new MyModelLibrary.OrderTypes(SelectedOrder.OrderTypes.IdOrderType, SelectedOrder.OrderTypes.OrderName));
+
+                        // Мессенджер: передай в ScheduleViewModel наш MyAcc
+                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.OrderArchive>(SelectedOrder)); // Отправляем в следующий DataContext аккаунт
+
+                        // Перейди в Page страницы занятий группы
+                        navigation.Navigate("View/Administrator/Orders/OrdersWatchPage.xaml");
+                    }
                 });
             }
         }
@@ -73,7 +99,10 @@ namespace MyClient.ViewModel.Administrator.Orders
         {
             // Если выбрали дату, то асинхронно загрузи (Чтобы не блочить UI)
             if (SelectedDate != null)
+            {
                 Orders = await MyAdminLogic.GetOrderse(MyAcc, SelectedDate);
+                text = $"Приказов: {Orders.Count}";
+            }                
         }
 
         // Команда на кнопку загрузить приказы
@@ -84,13 +113,6 @@ namespace MyClient.ViewModel.Administrator.Orders
                 return new RelayCommand(() =>
                 {
                     LoadOrdersList(); // Загружаем список приказов в асинхронном режиме
-
-                    //DirectoryInfo dirInfo = new DirectoryInfo("OrdersDocuments");
-
-                    //// Создаем папку, если она не создана
-                    //if (!dirInfo.Exists)
-                    //    dirInfo.Create();
-
                 });
             }
         }
@@ -110,6 +132,12 @@ namespace MyClient.ViewModel.Administrator.Orders
         protected new void GetAccount(GenericMessage<MyModelLibrary.accounts> GetAcc)
         {
             MyAcc = GetAcc.Content;
+
+            // Обнуляем некоторые данные контекста, если != null и выставляем первоначальные значения
+            text = "Приказы";
+
+            if (Orders != null)
+                Orders = null;
         }
 
         #endregion

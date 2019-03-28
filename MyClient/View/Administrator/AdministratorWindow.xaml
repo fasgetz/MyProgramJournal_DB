@@ -102,10 +102,13 @@
                     </md:PopupBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges" Height="40"  Width="130">
+                    <md:PopupBox HorizontalContentAlignment="Right" HorizontalAlignment="Right" StaysOpen="False" PlacementMode="BottomAndAlignRightEdges"  Height="40"  Width="130">
                         <md:PopupBox.ToggleContent>
-                            <Button Background="{x:Null}" Foreground="#3f3f3f" FontFamily="Arial"  FontSize="18.2" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Content="Приказы" Height="40" Command="{Binding OrdersPage}" Width="120"/>
+                            <Label Width="130" HorizontalContentAlignment="Center" FontSize="20" Content="Приказы"/>
                         </md:PopupBox.ToggleContent>
+                        <StackPanel Width="130">
+                            <Button Content="Показать" VerticalContentAlignment="Center" Height="30" Command="{Binding OrdersPage}"/>
+                        </StackPanel>
                     </md:PopupBox>
                 </StackPanel>
             </StackPanel>

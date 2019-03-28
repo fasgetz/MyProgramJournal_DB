@@ -407,11 +407,8 @@ namespace WCF_Service.ServiceLogic
         public List<MyModelLibrary.OrderArchive> GetOrders(MyModelLibrary.accounts MyAcc, DateTime date)
         {
 
-            // Проверяем юзера на соответствие статуса
-            int status = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
-
             // Если аккаунт администратор, то проверь правильность входных данных, иначе выдай экзепшен
-            if (status == 3 && date != null)
+            if (HelpersForTransferService.CheckStatus(MyAcc,3) == true && date != null)
                 // Конвертируем в DTO и возвращаем юзеру список
                 return new MyGeneratorDTO().GetOrdersDTO
                     (
