@@ -9,6 +9,15 @@ namespace MyModelLibrary
     [Serializable]
     public class OrderArchive
     {
+        public OrderArchive(int IdOrder, Nullable<System.DateTime> Date, string Commentary, int IdOrderType, OrderTypes OrderTypes)
+        {
+            this.IdOrder = IdOrder;
+            this.Date = Date;
+            this.Commentary = Commentary;
+            this.IdOrderType = IdOrderType;
+            this.OrderTypes = OrderTypes;
+        }
+
         public int IdOrder { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Commentary { get; set; }

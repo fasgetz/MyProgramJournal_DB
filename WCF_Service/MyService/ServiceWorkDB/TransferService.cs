@@ -214,6 +214,12 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Общие методы контракта служб
 
+        // Метод, который прогружает список приказов (С проверкой на администратора) по выбранной дате        
+        public List<MyModelLibrary.OrderArchive> GetOrders(MyModelLibrary.accounts MyAcc, DateTime date)
+        {
+            return MyServiceLogic.GetOrders(MyAcc, date);
+        }
+
         // Метод на получение списка занятий группы по дате
         public List<MyModelLibrary.LessonsDate> GetLessons(MyModelLibrary.Groups Group, DateTime date)
         {

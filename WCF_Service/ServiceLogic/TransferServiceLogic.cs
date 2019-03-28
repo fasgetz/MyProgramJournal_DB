@@ -403,6 +403,24 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы администратора
 
+        // Метод, который прогружает список приказов (С проверкой на администратора) по выбранной дате        
+        public List<MyModelLibrary.OrderArchive> GetOrders(MyModelLibrary.accounts MyAcc, DateTime date)
+        {
+
+            // Проверяем юзера на соответствие статуса
+            int status = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
+
+            // Если аккаунт администратор, то проверь правильность входных данных, иначе выдай экзепшен
+            if (status == 3 && date != null)
+                // Конвертируем в DTO и возвращаем юзеру список
+                return new MyGeneratorDTO().GetOrdersDTO
+                    (
+                        new EFGenericRepository<OrderArchive>(new MyDB()).GetQueryList(i => i.Date == date) // Ищем список по дате
+                    );
+
+            return null; // Возвращаем null, если входные параметры не верны
+        }
+
         // Метод, который удаляет занятие у группы (С проверкой на администратора)
         public bool DeleteLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons)
         {

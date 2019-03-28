@@ -38,6 +38,7 @@
         <AssociationConnector Association="db_journalModel.FK_StudentsGroup_Groups" ManuallyRouted="false" />
         <AssociationConnector Association="db_journalModel.FK_StudentsGroup_Users" ManuallyRouted="false" />
         <AssociationConnector Association="db_journalModel.FK_Users_Statuses" ManuallyRouted="false" />
+        <AssociationConnector Association="db_journalModel.FK_OrderArchive_OrderTypes" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

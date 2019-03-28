@@ -14,7 +14,16 @@ namespace WCF_Service.DataBase
     
     public partial class OrderTypes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public OrderTypes()
+        {
+            this.OrderArchive = new HashSet<OrderArchive>();
+        }
+    
         public int IdOrderType { get; set; }
         public string OrderName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderArchive> OrderArchive { get; set; }
     }
 }

@@ -23,7 +23,6 @@ namespace WCF_Service.ServiceLogic
 
         #endregion
 
-
         #region Методы для контракта служб
 
         // Метод удаления новости
@@ -41,7 +40,8 @@ namespace WCF_Service.ServiceLogic
                         db.News.Remove(db.News.FirstOrDefault(i => i.IdNews == IdNews));
                         db.SaveChanges(); // Сохраняем бд
 
-                        Console.WriteLine($"Пользователь {MyAcc.login} удалил новость id: {IdNews}");
+                        // Добавляем запись в архив
+                        ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nудалил новость {IdNews}", 15);
 
                         return true; // Возвращаем истину (Новость удалена)
                     }
@@ -91,6 +91,11 @@ namespace WCF_Service.ServiceLogic
                                 db.News.Add(News);
                                 db.SaveChanges();
                                 Console.WriteLine("Новость добавлена успешно!");
+
+                                // Добавляем запись в архив
+                                ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nсоздал новость {MyNews.Title}", 8);
+
+
                                 return true;
                             }
                         }
@@ -140,8 +145,6 @@ namespace WCF_Service.ServiceLogic
                                 // Добавляем изображение в список
                                 News.Images.Add(new MyModelLibrary.Images(News.IdNews, img.Image, img.format_img));
                             }
-
-                            Console.WriteLine($"Изображений у новости {News.IdNews}: {News.Images.Count}");
                         }
 
                         NewsList.Add(News); // Добавляем новость в dto - список
@@ -205,6 +208,9 @@ namespace WCF_Service.ServiceLogic
                                 }
 
                                 db.SaveChanges(); // Сохраняем базу данных
+
+                                // Добавляем запись в архив
+                                ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nредактировал новость {EditNews.IdNews}", 9);
 
                                 return true; // Возвращаем истину. Это значит, что мы успешно отредактировали новость
                             }

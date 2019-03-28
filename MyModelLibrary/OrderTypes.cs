@@ -9,14 +9,16 @@ namespace MyModelLibrary
     [Serializable]
     public class OrderTypes
     {
-        public OrderTypes()
+        public OrderTypes(int IdOrderType, string OrderName)
         {
-            this.OrderArchive = new List<OrderArchive>();
+            this.IdOrderType = IdOrderType;
+            this.OrderName = OrderName;
         }
+            
 
         public int IdOrderType { get; set; }
         public string OrderName { get; set; }
 
-        public List<OrderArchive> OrderArchive { get; set; }
+        //public List<OrderArchive> OrderArchive { get; set; }
     }
 }

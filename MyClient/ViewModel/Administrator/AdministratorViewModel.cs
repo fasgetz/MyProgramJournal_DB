@@ -592,6 +592,26 @@ namespace MyClient.ViewModel.Administrator
 
         #region Команды перехода по страницам (Только страницы администратора)
 
+        // Команда перехода на страницу приказов
+        public ICommand OrdersPage
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Если наша vm = null, то проинициализируй ее
+                    if (locator.OrdersVM == null)
+                        locator.OrdersVM = new Orders.OrdersViewModel();
+
+                    // Мессенджер: передай в ScheduleViewModel наш MyAcc
+                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+
+                    // Перейди в Page страницы занятий группы
+                    navigation.Navigate("View/Administrator/Orders/OrdersPage.xaml");
+                });
+            }
+        }
+
         // Команда перехода на страницу SchedulePage
         public new ICommand OpenSchedulePage
         {

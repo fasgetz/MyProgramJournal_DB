@@ -14,6 +14,10 @@ namespace WCF_Service.DataBase
     
     public partial class OrderArchive
     {
+        public int IdOrder { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public string Commentary { get; set; }
+        public int IdOrderType { get; set; }
 
         public OrderArchive()
         {
@@ -27,9 +31,7 @@ namespace WCF_Service.DataBase
             this.Date = DateTime.Now;
         }
 
-        public int IdOrder { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string Commentary { get; set; }
-        public Nullable<int> IdOrderType { get; set; }
+
+        public virtual OrderTypes OrderTypes { get; set; }
     }
 }

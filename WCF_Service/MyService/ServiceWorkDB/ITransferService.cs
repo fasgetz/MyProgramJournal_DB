@@ -63,6 +63,10 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы администратора
 
+        // Метод, который прогружает список приказов (С проверкой на администратора) по выбранной дате
+        [OperationContract]
+        List<MyModelLibrary.OrderArchive> GetOrders(MyModelLibrary.accounts MyAcc, DateTime date);
+
         // Метод, который удаляет занятие у группы (С проверкой на администратора)
         [OperationContract]
         bool DeleteLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons);

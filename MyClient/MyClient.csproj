@@ -135,6 +135,7 @@
     <Compile Include="ViewModel\Administrator\Accounts\EditAccountVM.cs" />
     <Compile Include="ViewModel\Administrator\News\EditNewsViewModel.cs" />
     <Compile Include="ViewModel\Administrator\News\NewsListViewModel.cs" />
+    <Compile Include="ViewModel\Administrator\Orders\OrdersViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Schedule\ScheduleViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Users\PersonalDataViewModel.cs" />
     <Compile Include="ViewModel\Administrator\Users\UsersListPageViewModel.cs" />
@@ -199,6 +200,9 @@
     </Compile>
     <Compile Include="View\Administrator\News\NewsListPage.xaml.cs">
       <DependentUpon>NewsListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Administrator\Orders\OrdersPage.xaml.cs">
+      <DependentUpon>OrdersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Administrator\Schedule\SchedulePage.xaml.cs">
       <DependentUpon>SchedulePage.xaml</DependentUpon>
@@ -309,6 +313,10 @@
     <Page Include="View\Administrator\News\NewsListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Administrator\Orders\OrdersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Administrator\Schedule\SchedulePage.xaml">
       <SubType>Designer</SubType>
@@ -428,6 +436,7 @@
     <None Include="Properties\DataSources\MyModelLibrary.Groups.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.LessonsDate.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.News.datasource" />
+    <None Include="Properties\DataSources\MyModelLibrary.OrderArchive.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.Speciality_codes.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.Users.datasource" />
     <None Include="Properties\Settings.settings">
@@ -497,6 +506,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ProgramLogic\Documentation\" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Connected Services\MyService\item.disco" />
   </ItemGroup>
   <ItemGroup>
@@ -510,10 +522,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ProgramLogic\Documentation\" />
-    <Folder Include="View\Administrator\Orders\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

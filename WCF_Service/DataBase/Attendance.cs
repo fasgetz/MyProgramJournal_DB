@@ -18,7 +18,7 @@ namespace WCF_Service.DataBase
         public int IdLesson { get; set; }
         public int StudentId { get; set; }
         public string Mark { get; set; }
-    
+
         public Attendance()
         {
 

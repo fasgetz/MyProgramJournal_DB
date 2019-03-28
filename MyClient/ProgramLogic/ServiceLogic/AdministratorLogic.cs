@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 
 namespace MyClient.ProgramLogic.ServiceLogic
 {
@@ -15,6 +16,22 @@ namespace MyClient.ProgramLogic.ServiceLogic
     internal class AdministratorLogic : CommonLogic
     {
         #region Методы для работы с сервером
+
+        // Метод, который прогружает список дисциплин студента в семестре
+        public async Task<List<MyModelLibrary.OrderArchive>> GetOrderse(MyModelLibrary.accounts MyAcc, DateTime date)
+        {
+            // Создаем канал связи с сервером
+            using (client = new MyService.TransferServiceClient())                
+            {
+                // Загружаем список новостей в асинхронном режиме
+                var result = await Task<List<MyModelLibrary.OrderArchive>>.Factory.StartNew(() =>
+                {
+                    return client.GetOrders(MyAcc, date);
+                });
+
+                return result;
+            }
+        }
 
         // Метод, который удаляет занятие у группы (С проверкой на администратора)
         public bool DeleteLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons)

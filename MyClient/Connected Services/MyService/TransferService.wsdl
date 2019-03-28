@@ -70,6 +70,12 @@
   <wsdl:message name="ITransferService_GetGroups_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetGroupsResponse" />
   </wsdl:message>
+  <wsdl:message name="ITransferService_GetOrders_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrders" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_GetOrders_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrdersResponse" />
+  </wsdl:message>
   <wsdl:message name="ITransferService_DeleteLessonGroup_InputMessage">
     <wsdl:part name="parameters" element="tns:DeleteLessonGroup" />
   </wsdl:message>
@@ -245,6 +251,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetGroups" message="tns:ITransferService_GetGroups_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetGroupsResponse" message="tns:ITransferService_GetGroups_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetOrders">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetOrders" message="tns:ITransferService_GetOrders_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetOrdersResponse" message="tns:ITransferService_GetOrders_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="DeleteLessonGroup">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/DeleteLessonGroup" message="tns:ITransferService_DeleteLessonGroup_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/DeleteLessonGroupResponse" message="tns:ITransferService_DeleteLessonGroup_OutputMessage" />
@@ -415,6 +425,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGroups">
       <soap12:operation soapAction="http://tempuri.org/ITransferService/GetGroups" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrders">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/GetOrders" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -69,6 +69,12 @@ namespace MyClient.MyService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetGroups", ReplyAction="http://tempuri.org/ITransferService/GetGroupsResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetOrders", ReplyAction="http://tempuri.org/ITransferService/GetOrdersResponse")]
+        System.Collections.Generic.List<MyModelLibrary.OrderArchive> GetOrders(MyModelLibrary.accounts MyAcc, System.DateTime date);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetOrders", ReplyAction="http://tempuri.org/ITransferService/GetOrdersResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.OrderArchive>> GetOrdersAsync(MyModelLibrary.accounts MyAcc, System.DateTime date);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/DeleteLessonGroup", ReplyAction="http://tempuri.org/ITransferService/DeleteLessonGroupResponse")]
         bool DeleteLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons);
         
@@ -305,6 +311,14 @@ namespace MyClient.MyService {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.Groups>> GetGroupsAsync() {
             return base.Channel.GetGroupsAsync();
+        }
+        
+        public System.Collections.Generic.List<MyModelLibrary.OrderArchive> GetOrders(MyModelLibrary.accounts MyAcc, System.DateTime date) {
+            return base.Channel.GetOrders(MyAcc, date);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.OrderArchive>> GetOrdersAsync(MyModelLibrary.accounts MyAcc, System.DateTime date) {
+            return base.Channel.GetOrdersAsync(MyAcc, date);
         }
         
         public bool DeleteLessonGroup(MyModelLibrary.accounts MyAcc, MyModelLibrary.LessonsDate lessons) {

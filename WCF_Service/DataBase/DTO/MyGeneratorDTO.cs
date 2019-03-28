@@ -11,6 +11,29 @@ namespace WCF_Service.DataBase.DTO
     {
         #region Методы для получения DTO объектов
 
+        // Метод преобразования DTO списка приказов
+        public List<MyModelLibrary.OrderArchive> GetOrdersDTO(List<OrderArchive> NotDTOList)
+        {
+            // Создаем DTO List, если NotDTOList не пустой
+            if (NotDTOList != null)
+            {
+                // Создаем DTO список
+                List<MyModelLibrary.OrderArchive> list = new List<MyModelLibrary.OrderArchive>();
+
+                // Добавляем в DTO список DTO объекты
+                foreach (var item in NotDTOList)
+                {
+                    list.Add(new MyModelLibrary.OrderArchive(item.IdOrder, item.Date, item.Commentary, Convert.ToInt16(item.IdOrderType), new MyModelLibrary.OrderTypes(item.OrderTypes.IdOrderType, item.OrderTypes.OrderName)));
+                }
+                    
+
+                return list; // Возвращаем DTO список
+            }                
+
+            return null; // Возвращаем null, если передали пустой список
+        }
+
+
         #region Методы, которые используют преподаватели и администраторы
 
         // Метод который преобразует NotDTO список в DTO список

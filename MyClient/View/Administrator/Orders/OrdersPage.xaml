@@ -1,0 +1,47 @@
+﻿<Page x:Class="MyClient.View.Administrator.Orders.OrdersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MyClient.View.Administrator.Orders"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1024"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      DataContext="{Binding OrdersVM, Source={StaticResource Locator}}"      
+      Title="OrdersPage">
+    <Page.Resources>
+        <Style x:Key="DGC_NumericColumnStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="CenterGridHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <StackPanel>
+            <Label Margin="10" Content="Приказы" FontSize="20" HorizontalContentAlignment="Center" Height="35"/>
+            <DataGrid x:Name="MyDataGrid" SelectedValue="{Binding SelectedOrder}" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" HorizontalAlignment="Left" Height="590" VerticalAlignment="Top" Width="1019" ItemsSource="{Binding Orders}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Показать" Command="{Binding OpenWatchOrder}"/>
+                        <MenuItem Header="Скачать (doc)"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Айди" Width="150" Binding="{Binding IdOrder}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                    <DataGridTextColumn Header="Дата" Width="300" Binding="{Binding Date}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                    <DataGridTextColumn Header="Тип" Width="565" Binding="{Binding OrderTypes.OrderName}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+            <StackPanel Height="40"  Orientation="Horizontal">
+                <DatePicker SelectedDate="{Binding SelectedDate}" md:HintAssist.Hint="Выберите дату" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="250" FontSize="20" />
+                <ComboBox Margin="10,0,0,0" md:HintAssist.Hint="Сортировать (on development stage)" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontSize="20" Width="490" Height="40"/>
+                <Button Command="{Binding LoadOrders}" Margin="10,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Content="Загрузить список" FontSize="20" Width="260" Height="Auto"/>
+            </StackPanel>
+        </StackPanel>
+
+
+    </Grid>
+</Page>

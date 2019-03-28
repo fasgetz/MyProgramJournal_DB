@@ -72,8 +72,10 @@
     <xs:sequence>
       <xs:element name="_x003C_IdLesson_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_Mark_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_MyAttendance_x003E_k__BackingField" nillable="true" type="tns:Attendance" />
       <xs:element name="_x003C_StudentId_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_idAttendance_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_numberjournal_x003E_k__BackingField" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Attendance" nillable="true" type="tns:Attendance" />
@@ -185,6 +187,7 @@
       <xs:element name="_x003C_IdLesson_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_IdTeacherActivities_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_LessonNumber_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_MyAttendance_x003E_k__BackingField" nillable="true" type="tns:Attendance" />
       <xs:element name="_x003C_TeacherFIO_x003E_k__BackingField" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -214,6 +217,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfSpeciality_codes" nillable="true" type="tns:ArrayOfSpeciality_codes" />
+  <xs:complexType name="ArrayOfOrderArchive">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OrderArchive" nillable="true" type="tns:OrderArchive" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrderArchive" nillable="true" type="tns:ArrayOfOrderArchive" />
+  <xs:complexType name="OrderArchive">
+    <xs:sequence>
+      <xs:element name="_x003C_Commentary_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Date_x003E_k__BackingField" nillable="true" type="xs:dateTime" />
+      <xs:element name="_x003C_IdOrderType_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IdOrder_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OrderArchive" nillable="true" type="tns:OrderArchive" />
   <xs:complexType name="ArrayOfaccounts">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="accounts" nillable="true" type="tns:accounts" />
