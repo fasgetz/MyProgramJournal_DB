@@ -20,6 +20,19 @@ namespace MyClient.ViewModel.Teacher.Journal
 
         #region Свойства
 
+        // Итоговые отметки
+        private List<MyModelLibrary.FinalAttendances> _FinalAttendances;
+        public List<MyModelLibrary.FinalAttendances> FinalAttendances
+        {
+            get => _FinalAttendances;
+            set
+            {
+                _FinalAttendances = value;
+                RaisePropertyChanged("FinalAttendances");
+            }
+        }
+
+        // Выбранная оценка
         private MyModelLibrary.Attendance _select;
         public MyModelLibrary.Attendance select
         {
@@ -34,12 +47,13 @@ namespace MyClient.ViewModel.Teacher.Journal
                 // Если выбрали оценку, то открой окно с выбором оценки
                 if (value != null)
                     if (new View.Teacher.Journal.AttendanceWindow(value, MyAcc).ShowDialog() == true)
-                        lessons = new ProgramLogic.ServiceLogic.TeacherLogic().GetAttendancesFromJournal(MyAcc, SelectedGroup).OrderBy(i => i.DateLesson).ThenBy(i => i.LessonNumber).ToList();
+                        lessons = new ProgramLogic.ServiceLogic.TeacherLogic().GetAttendancesFromJournal(MyAcc, SelectedGroup);
 
                 RaisePropertyChanged("select");
             }
         }
 
+        // Студенты
         private List<MyModelLibrary.Users> _Students;
         public List<MyModelLibrary.Users> Students
         {
@@ -80,12 +94,14 @@ namespace MyClient.ViewModel.Teacher.Journal
         private void GetActivity(GenericMessage<MyModelLibrary.GroupDisciplines> GetActivityes)
         {
             SelectedGroup = GetActivityes.Content;
-            
-            // Получаем список занятий
-            lessons = new ProgramLogic.ServiceLogic.TeacherLogic().GetAttendancesFromJournal(MyAcc, SelectedGroup).OrderBy(i => i.DateLesson).ThenBy(i => i.LessonNumber).ToList();
+
+            lessons = new ProgramLogic.ServiceLogic.TeacherLogic().GetAttendancesFromJournal(MyAcc, SelectedGroup);
 
             // Получает список студентов
             Students = new ProgramLogic.ServiceLogic.CommonLogic().GetStudentsInGroup(MyAcc, SelectedGroup.IdGroup).OrderBy(i => i.StudentsGroup.NumberInJournal).ToList();
+
+            FinalAttendances = new ProgramLogic.ServiceLogic.TeacherLogic().GetFinalAttendances(MyAcc, SelectedGroup); // Прогружаем список итоговых оценок
+
         }
 
         // Вспомогательный метод для мессенджера, который проинициализирует аккаунт из прошлого vm при создании текущей vm

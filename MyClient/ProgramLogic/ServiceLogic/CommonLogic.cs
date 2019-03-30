@@ -19,13 +19,39 @@ namespace MyClient.ProgramLogic.ServiceLogic
 
         #region Общие методы
 
+        // Метод, который получает итоговые оценки по дисциплине (С проверкой статуса)
+        public List<MyModelLibrary.FinalAttendances> GetFinalAttendances(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines GroupDiscipline)
+        {
+            try
+            {
+                // Создаем подключение к серверу
+                using (client = new MyService.TransferServiceClient())
+                {
+                    // Возвращаем список
+                    return client.GetFinalAttendances(MyAcc, GroupDiscipline);
+                }
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return null; // Возвращаем пустой список в случае неудачи
+        }
+
         // Метод, который прогружает список занятий и (оценки по занятиям)
         public List<MyModelLibrary.LessonsDate> GetAttendancesFromJournal(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines SelectedTeacherAtivitie)
         {
             try
             {
+                // Создаем подключение к серверу
                 using (client = new MyService.TransferServiceClient())
                 {
+                    // Возвращаем список
                     return client.GetAttendancesFromJournal(MyAcc, SelectedTeacherAtivitie);
                 }
             }

@@ -27,7 +27,7 @@
         <StackPanel>
             <Label Height="50" Content="{Binding SelectedGroup.GroupName}" HorizontalContentAlignment="Center" FontSize="30"/>
             <Label Height="50" Content="{Binding SelectedGroup.DiscipName}" HorizontalContentAlignment="Center" FontSize="30"/>
-            <StackPanel Height="620" Orientation="Horizontal">
+            <StackPanel Height="600" Orientation="Horizontal">
                 <StackPanel Background="#fafafa" Width="954" Orientation="Horizontal">
                     <ScrollViewer x:Name="s2" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <StackPanel Width="50" Orientation="Vertical">
@@ -36,37 +36,37 @@
                             <ListView Width="50" ItemsSource="{Binding Students}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Label FontSize="14" Width="32" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Path=StudentsGroup.NumberInJournal}"/>
+                                        <Label FontSize="12" Width="32" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Path=StudentsGroup.NumberInJournal}"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
                     </ScrollViewer>
                     <ScrollViewer x:Name="s3" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                        <StackPanel Width="250" Orientation="Vertical">
+                        <StackPanel Width="220" Orientation="Vertical">
                             <Label Height="65" FontSize="16" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Content="ФИО"/>
                             <Separator Margin="10,0,10,2"/>
-                            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="250" ItemsSource="{Binding Students}">
+                            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="220" ItemsSource="{Binding Students}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Label FontSize="14" Width="250" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding fio}"/>
+                                        <Label FontSize="12" Width="220" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding fio}"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackPanel>
                     </ScrollViewer>
-                    <ScrollViewer x:Name="s1" ScrollChanged="s1_ScrollChanged" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                        <ListView Width="630" ItemsSource="{Binding lessons}">
+                    <ScrollViewer x:Name="s1" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <ListView x:Name="lv1" Width="580" ItemsSource="{Binding lessons}">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel />
+                                    <WrapPanel/>
                                 </ItemsPanelTemplate>
                             </ListView.ItemsPanel>
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel ScrollViewer.HorizontalScrollBarVisibility="Visible" Orientation="Vertical">
-                                        <Label FontSize="16" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Height="30" Width="80" Content="{Binding DateLesson}"/>
-                                        <Label FontSize="12" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Height="25" Width="80" Content="{Binding GetNumberLesson}"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <Label FontSize="16" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Height="30" Width="60" Content="{Binding DateLesson}"/>
+                                        <Label FontSize="12" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Height="25" Width="60" Content="{Binding GetNumberLesson}"/>
                                         <Separator/>
                                         <ListView SelectedValue="{Binding Path=DataContext.select, Mode=TwoWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" ItemsSource="{Binding Attendance}">
                                             <ListBox.ItemContainerStyle>
@@ -76,7 +76,7 @@
                                             </ListBox.ItemContainerStyle>
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Label FontSize="16" Width="80" Height="42" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Mark}"/>
+                                                    <Label FontSize="12" Width="60" Height="42" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Mark}"/>
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>
@@ -84,6 +84,19 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
+                    </ScrollViewer>
+                    <ScrollViewer x:Name="s4" ScrollChanged="s4_ScrollChanged" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <StackPanel Width="80" Orientation="Vertical">
+                            <Label Height="65" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Content="Итог"/>
+                            <Separator Margin="10,0,10,2"/>
+                            <ListView Width="50" ItemsSource="{Binding FinalAttendances}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label FontSize="12" Width="32" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Mark}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </ScrollViewer>
                 </StackPanel>
             </StackPanel>

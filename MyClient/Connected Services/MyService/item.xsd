@@ -87,11 +87,13 @@
   <xs:element name="ArrayOfFinalAttendances" nillable="true" type="tns:ArrayOfFinalAttendances" />
   <xs:complexType name="FinalAttendances">
     <xs:sequence>
+      <xs:element name="_x003C_Mark_x003E_k__BackingField" nillable="true" type="xs:int" />
       <xs:element name="_x003C_StudentsGroup_x003E_k__BackingField" nillable="true" type="tns:StudentsGroup" />
       <xs:element name="_x003C_TeacherDisciplines_x003E_k__BackingField" nillable="true" type="tns:TeacherDisciplines" />
       <xs:element name="_x003C_idFinalAttendance_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_idStudent_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_idTeacherActivities_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_numberjournal_x003E_k__BackingField" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FinalAttendances" nillable="true" type="tns:FinalAttendances" />
@@ -229,9 +231,17 @@
       <xs:element name="_x003C_Date_x003E_k__BackingField" nillable="true" type="xs:dateTime" />
       <xs:element name="_x003C_IdOrderType_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_IdOrder_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_OrderTypes_x003E_k__BackingField" nillable="true" type="tns:OrderTypes" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="OrderArchive" nillable="true" type="tns:OrderArchive" />
+  <xs:complexType name="OrderTypes">
+    <xs:sequence>
+      <xs:element name="_x003C_IdOrderType_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_OrderName_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OrderTypes" nillable="true" type="tns:OrderTypes" />
   <xs:complexType name="ArrayOfaccounts">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="accounts" nillable="true" type="tns:accounts" />

@@ -20,6 +20,10 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Общие методы администратора и преподавателя
 
+        // Метод, который получает итоговые оценки по дисциплине (С проверкой статуса)
+        [OperationContract]
+        List<MyModelLibrary.FinalAttendances> GetFinalAttendances(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines GroupDiscipline);
+
         // Метод, который задает оценку (С проверкой статуса)
         [OperationContract]
         bool SetAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance);

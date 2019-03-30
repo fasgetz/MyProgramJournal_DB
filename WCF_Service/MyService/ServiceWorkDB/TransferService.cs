@@ -34,6 +34,12 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы контракта служб администратора и преподавателя
 
+        // Метод, который получает итоговые оценки по дисциплине (С проверкой статуса)
+        public List<MyModelLibrary.FinalAttendances> GetFinalAttendances(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines GroupDiscipline)
+        {
+            return MyServiceLogic.GetFinalAttendances(MyAcc, GroupDiscipline);
+        }
+
         // Метод, который задает оценку (С проверкой статуса)
         public bool SetAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance)
         {

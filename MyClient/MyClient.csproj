@@ -441,6 +441,7 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\MyModelLibrary.accounts.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.Discipline.datasource" />
+    <None Include="Properties\DataSources\MyModelLibrary.FinalAttendances.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.GroupDisciplines.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.Groups.datasource" />
     <None Include="Properties\DataSources\MyModelLibrary.LessonsDate.datasource" />
@@ -514,21 +515,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Connected Services\MyService\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\MyService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\MyService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\MyService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
@@ -558,6 +546,18 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

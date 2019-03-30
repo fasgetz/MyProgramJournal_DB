@@ -23,10 +23,16 @@ namespace MyClient.View.Teacher.Journal
         }
 
         // Событие на скроллинг
-        private void s1_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        private void s4_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
+            s1.ScrollToVerticalOffset(e.VerticalOffset);
             s2.ScrollToVerticalOffset(e.VerticalOffset);
             s3.ScrollToVerticalOffset(e.VerticalOffset);
+
+
+            //lv1.scr
+
+            //lv1.ScrollIntoView()
         }
     }
 }

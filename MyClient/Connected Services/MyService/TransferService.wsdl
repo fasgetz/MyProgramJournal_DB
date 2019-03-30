@@ -22,6 +22,12 @@
   <wsdl:message name="ITransferService_GetStudentsDiscipline_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStudentsDisciplineResponse" />
   </wsdl:message>
+  <wsdl:message name="ITransferService_GetFinalAttendances_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFinalAttendances" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_GetFinalAttendances_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFinalAttendancesResponse" />
+  </wsdl:message>
   <wsdl:message name="ITransferService_SetAttendance_InputMessage">
     <wsdl:part name="parameters" element="tns:SetAttendance" />
   </wsdl:message>
@@ -219,6 +225,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetStudentsDiscipline" message="tns:ITransferService_GetStudentsDiscipline_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetStudentsDisciplineResponse" message="tns:ITransferService_GetStudentsDiscipline_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetFinalAttendances">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetFinalAttendances" message="tns:ITransferService_GetFinalAttendances_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetFinalAttendancesResponse" message="tns:ITransferService_GetFinalAttendances_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SetAttendance">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/SetAttendance" message="tns:ITransferService_SetAttendance_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/SetAttendanceResponse" message="tns:ITransferService_SetAttendance_OutputMessage" />
@@ -353,6 +363,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="GetStudentsDiscipline">
       <soap12:operation soapAction="http://tempuri.org/ITransferService/GetStudentsDiscipline" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFinalAttendances">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/GetFinalAttendances" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

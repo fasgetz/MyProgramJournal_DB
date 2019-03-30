@@ -152,6 +152,7 @@
     <Compile Include="MyService\News\INewsService.cs" />
     <Compile Include="MyService\News\NewsService.cs" />
     <Compile Include="ServiceLogic\ArchivesLogic.cs" />
+    <Compile Include="ServiceLogic\AttendanceLogic.cs" />
     <Compile Include="ServiceLogic\HelpersForTransferService.cs" />
     <Compile Include="ServiceLogic\ServiceNewsLogic.cs" />
     <Compile Include="ServiceLogic\TransferServiceLogic.cs" />

@@ -24,7 +24,7 @@
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Показать" Command="{Binding OpenWatchOrder}"/>
-                        <MenuItem Header="Скачать (doc)" Command="{Binding CreateWord}"/>
+                        <MenuItem Header="Создать (docx)" Command="{Binding CreateWord}"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>

@@ -17,8 +17,20 @@ namespace WCF_Service.DataBase
         public int idFinalAttendance { get; set; }
         public int idTeacherActivities { get; set; }
         public int idStudent { get; set; }
-        public Nullable<int> Mark { get; set; }
-    
+        public int? Mark { get; set; }
+
+
+        public FinalAttendances()
+        {
+
+        }
+
+        public FinalAttendances(int idTeacherActivities, int idStudent)
+        {
+            this.idTeacherActivities = idTeacherActivities;
+            this.idStudent = idStudent;
+        }
+
         public virtual GroupDisciplines GroupDisciplines { get; set; }
         public virtual StudentsGroup StudentsGroup { get; set; }
     }

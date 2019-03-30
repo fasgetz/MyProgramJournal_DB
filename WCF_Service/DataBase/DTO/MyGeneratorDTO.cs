@@ -33,8 +33,38 @@ namespace WCF_Service.DataBase.DTO
             return null; // Возвращаем null, если передали пустой список
         }
 
-
         #region Методы, которые используют преподаватели и администраторы
+
+        // Метод который преобразует NotDTO список в DTO список
+        public List<MyModelLibrary.FinalAttendances> GetFinalAttendances(List<FinalAttendances> notdtolist)
+        {
+            // Если итемов в списке > 0, то выполни преобразование и верни пользователю DTO список
+            if (notdtolist.Count != 0)
+            {
+                int group = Convert.ToInt16(notdtolist.FirstOrDefault().StudentsGroup.idGroup);
+
+                Console.WriteLine($"Группа: {group}");
+
+                // Находим всех студентов одним запросов (Чтобы узнать его номер по журналу)
+                var students = new MyDB().StudentsGroup.Where(i => i.idGroup == group);
+
+                // Создаем список
+                List<MyModelLibrary.FinalAttendances> list = new List<MyModelLibrary.FinalAttendances>();
+
+                // Перебираем список и создаем dto объект, который вносим в dto список
+                foreach (var item in notdtolist)
+                {
+                    list.Add(new MyModelLibrary.FinalAttendances(item.idFinalAttendance, item.idTeacherActivities, item.idStudent, item.Mark,
+                                            Convert.ToInt16(students.FirstOrDefault(i => i.IdStudent == item.idStudent).NumberInJournal)));
+
+                }
+
+                // Возвращаем dto список, отсортированный по номеру в журнале
+                return list.OrderBy(i => i.numberjournal).ToList();
+            }
+
+            return null; // Возвращаем null, если список пустой (Или в случае неудачи)
+        }
 
         // Метод который преобразует NotDTO список в DTO список
         public List<MyModelLibrary.GroupDisciplines> GetTeacherDiscipline(List<GroupDisciplines> NotDTOList)
@@ -52,24 +82,51 @@ namespace WCF_Service.DataBase.DTO
         
         public List<MyModelLibrary.LessonsDate> GetTeacherLessons(List<LessonsDate> NotDTOList)
         {
-            List<MyModelLibrary.LessonsDate> list = new List<MyModelLibrary.LessonsDate>();
-            foreach (var item in NotDTOList)
+            // Если передали не пустой список, то выполни алгоритм преобразования в DTO список
+            if (NotDTOList.Count != 0)
             {
-                List<MyModelLibrary.Attendance> attendances = new List<MyModelLibrary.Attendance>();
-                foreach (var kek in item.Attendance)
+                // Номер группы
+                int group = NotDTOList.FirstOrDefault().GroupDisciplines.IdGroup;
+
+                // Находим список студентов одним запросом, чтобы потом не обращаться. Необходимо, чтобы определить номер журнала студента
+                using (MyDB db = new MyDB())
                 {
-                    attendances.Add(new MyModelLibrary.Attendance(kek.idAttendance, kek.IdLesson, kek.StudentId, kek.Mark,
-                        Convert.ToInt16(new MyDB().StudentsGroup.FirstOrDefault(i => i.IdStudent == kek.StudentId).NumberInJournal)));
+                    // Находим всех студентов одним запросов (Чтобы узнать его номер по журналу)
+                    var students = new MyDB().StudentsGroup.Where(i => i.idGroup == group);
+
+                    // Создаем DTO список
+                    List<MyModelLibrary.LessonsDate> list = new List<MyModelLibrary.LessonsDate>();
+
+                    // Перебираем не DTO список и преобразуем итемы в DTO
+                    foreach (var item in NotDTOList)
+                    {
+                        // Создаем список оценок
+                        List<MyModelLibrary.Attendance> attendances = new List<MyModelLibrary.Attendance>();
+
+                        // Перебираем все оценки занятия и добавляем в новый DTO список
+                        foreach (var kek in item.Attendance)
+                        {
+                            // Добавляем итем в DTO список
+                            attendances.Add(new MyModelLibrary.Attendance(kek.idAttendance, kek.IdLesson, kek.StudentId, kek.Mark,
+                                Convert.ToInt16(students.FirstOrDefault(i => i.IdStudent == kek.StudentId).NumberInJournal)));
+                        }
+
+                        // Сортируем оценку по номеру журнала
+                        attendances = attendances.OrderBy(i => i.numberjournal).ToList(); // Сортируем по номеру журналу оценки
+
+                        // Добавляем итем в DTO список
+                        list.Add(new MyModelLibrary.LessonsDate(item.IdTeacherActivities, item.IdLesson, item.DateLesson, item.LessonNumber,
+                            attendances));
+
+                    }
+
+                    // Возвращаем DTO список (Отсортированный)
+                    return list.OrderBy(i => i.DateLesson).ThenBy(i => i.LessonNumber).ToList();
                 }
-
-                attendances = attendances.OrderBy(i => i.numberjournal).ToList(); // Сортируем по номеру журналу оценки
-
-                list.Add(new MyModelLibrary.LessonsDate(item.IdTeacherActivities, item.IdLesson, item.DateLesson, item.LessonNumber,
-                    attendances));
-
             }
-            
-            return list;
+            // Иначе, если список пустой, то верни null
+            else
+                return null;
         }
 
         #endregion
@@ -118,27 +175,6 @@ namespace WCF_Service.DataBase.DTO
             }
 
             return newlist.ToList();
-        }
-
-        // Метод для получения списка итоговых оценок (Применяется у студента и у деятельности учителя)
-        private List<MyModelLibrary.FinalAttendances> GetFinalAttendances (List<FinalAttendances> NotDtoList)
-        {
-            // Делаем проверку - не пустой ли мы передали список
-            if (NotDtoList != null)
-            {
-                // Создаем список
-                List<MyModelLibrary.FinalAttendances> MyList = new List<MyModelLibrary.FinalAttendances>();
-
-                // Перебираем все элементы в списке
-                foreach (var item in NotDtoList)
-                {
-                    MyList.Add(new MyModelLibrary.FinalAttendances(item.idFinalAttendance, item.idTeacherActivities, item.idStudent)); // Добавляем элементы в список
-                }
-
-                return MyList; // Возвращаем DTO список
-            }
-
-            return null; // Возвращаем пустой список
         }
 
         // Метод для получения DTO - Специальности (Применяется в методе GetGroups)

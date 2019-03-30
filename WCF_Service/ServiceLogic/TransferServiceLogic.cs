@@ -15,6 +15,7 @@ namespace WCF_Service.ServiceLogic
     public class TransferServiceLogic
     {
 
+
         #region Методы, которые вызываются в службах
 
         #region Методы студента
@@ -41,6 +42,26 @@ namespace WCF_Service.ServiceLogic
         #endregion
 
         #region Методы Администратора и преподавателя
+
+        // Метод, который получает итоговые оценки по дисциплине (С проверкой статуса)
+        public List<MyModelLibrary.FinalAttendances> GetFinalAttendances(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines GroupDiscipline)
+        {
+            // Делаем проверку статуса аккаунта
+            int idAccountStatus = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
+
+            // Если аккаунт администратор или преподаватель, то выдай ему то, что он требует по запросу
+            if (idAccountStatus == 2 || idAccountStatus == 3)
+            {
+                // Преобразуем найденный список в DTO список и возвращаем юзеру
+                return new MyGeneratorDTO().GetFinalAttendances
+                    (
+                        new EFGenericRepository<FinalAttendances>(new MyDB()).GetQueryList(i => i.idTeacherActivities == GroupDiscipline.idTeacherActivities)
+                    );
+            }
+
+            return null; // Возвращаем пустой список в случае неудачи
+        }
+
 
         // Метод, который задает оценку (С проверкой статуса)
         public bool SetAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance)
@@ -432,7 +453,7 @@ namespace WCF_Service.ServiceLogic
                 {
                     // Создаем репозиторий для работы с БД
                     EFGenericRepository<LessonsDate> repository = new EFGenericRepository<LessonsDate>(new MyDB());
-                    
+
                     try
                     {
                         // Удаляем из базы
@@ -669,12 +690,18 @@ namespace WCF_Service.ServiceLogic
                                 // Создаем репозиторий для работы с БД
                                 EFGenericRepository<GroupDisciplines> repository = new EFGenericRepository<GroupDisciplines>(new MyDB());
 
+                                // Создаем новую дисциплину группе
+                                GroupDisciplines GroupDiscipline = new GroupDisciplines(new MyDB().TeacherDisciplines.FirstOrDefault(i => i.IdTeacher == Teacher.idUser && i.IdDiscipline == discipline.idDiscipline).IdTeacherDiscipline,
+                                    group.idGroup, Convert.ToInt16(NumbSem));
+
                                 // Добавляем дисциплину группе
-                                repository.Add(new GroupDisciplines(new MyDB().TeacherDisciplines.FirstOrDefault(i => i.IdTeacher == Teacher.idUser && i.IdDiscipline == discipline.idDiscipline).IdTeacherDiscipline,
-                                    group.idGroup, Convert.ToInt16(NumbSem)));
+                                repository.Add(GroupDiscipline);
 
                                 // Добавляем запись в архив
                                 ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nдобавил дисциплину айди {discipline.idDiscipline} {discipline.NameDiscipline} группе id {group.idGroup} {group.GroupName}", 17);
+
+                                // Добавляем итоговые отметки группе (Выделяем память, чтобы с учитель мог потом выставлять в дальнейшем)
+                                AttendanceLogic.SetDisciplineFinalAttendances(GroupDiscipline);
 
                                 return true;
                             }
@@ -1238,17 +1265,22 @@ namespace WCF_Service.ServiceLogic
                     {
                         try
                         {
-                            // Добавляем в репозиторий студентов нового студента
-                            students_repository.Add(new StudentsGroup
+                            StudentsGroup student = new StudentsGroup
                                 (
-                                Student.IdStudent, // Номер студента
-                                Convert.ToInt16(Student.idGroup), // Айди группы
-                                students_repository.GetQueryList(i => i.idGroup == Student.idGroup).Count() + 1 // Номер по журналу = Количество всех студентов в группе + 1
-                                ));
+                                    Student.IdStudent, // Номер студента
+                                    Convert.ToInt16(Student.idGroup), // Айди группы
+                                    students_repository.GetQueryList(i => i.idGroup == Student.idGroup).Count() + 1 // Номер по журналу = Количество всех студентов в группе + 1
+                                );
+
+                            // Добавляем в репозиторий студентов нового студента
+                            students_repository.Add(student);
 
 
                             // Добавляем запись в архив
                             ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nАдминистратор (айди): {MyAcc.idAccount}\nдобавил студента {Student.IdStudent} в группу", 3);
+
+                            // Добавить оценки студенту после добавления его в группу (Учитель должен будет их потом проставить)
+                            AttendanceLogic.AddStudentsAttendances(student);
 
                             return true; // Возвращаем true, т.к. студент успешно добавлен в группу
                         }
