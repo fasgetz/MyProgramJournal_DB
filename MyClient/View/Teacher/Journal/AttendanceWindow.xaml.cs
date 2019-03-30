@@ -52,7 +52,6 @@ namespace MyClient.View.Teacher.Journal
             // Если редактирование успешно, то надо обновить в контексте журнала оценку
             if (editable == true)
                 this.DialogResult = true;
-
         }
     }
 }

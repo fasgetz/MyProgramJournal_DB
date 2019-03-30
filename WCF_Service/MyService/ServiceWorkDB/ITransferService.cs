@@ -12,6 +12,10 @@ namespace WCF_Service.MyService.ServiceWorkDB
 
         #region Методы студента
 
+        // Метод получения итоговой оценки за семестр
+        [OperationContract]
+        MyModelLibrary.FinalAttendances GetFinalAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline);
+
         // Метод, который прогружает список дисциплин студента в семестре
         [OperationContract]
         List<MyModelLibrary.GroupDisciplines> GetStudentsDiscipline(MyModelLibrary.accounts MyAcc, int? semestr);
@@ -19,6 +23,10 @@ namespace WCF_Service.MyService.ServiceWorkDB
         #endregion
 
         #region Общие методы администратора и преподавателя
+
+        // Метод выставления итоговой отметки (С проверкой статуса администратора)
+        [OperationContract]
+        bool SetFinalAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.FinalAttendances FinalAttendance);
 
         // Метод, который получает итоговые оценки по дисциплине (С проверкой статуса)
         [OperationContract]

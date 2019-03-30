@@ -43,8 +43,6 @@ namespace WCF_Service.DataBase.DTO
             {
                 int group = Convert.ToInt16(notdtolist.FirstOrDefault().StudentsGroup.idGroup);
 
-                Console.WriteLine($"Группа: {group}");
-
                 // Находим всех студентов одним запросов (Чтобы узнать его номер по журналу)
                 var students = new MyDB().StudentsGroup.Where(i => i.idGroup == group);
 

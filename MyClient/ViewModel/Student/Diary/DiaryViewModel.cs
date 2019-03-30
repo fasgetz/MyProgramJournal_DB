@@ -19,6 +19,21 @@ namespace MyClient.ViewModel.Student.Diary
 
         #region Свойства
 
+        // Логика работы сервиса студента с сервером
+        StudentLogic studentlogic = new StudentLogic();
+
+        // Итоговая оценка
+        private MyModelLibrary.FinalAttendances _FinalAttendance;
+        public MyModelLibrary.FinalAttendances FinalAttendance
+        {
+            get => _FinalAttendance;
+            set
+            {
+                _FinalAttendance = value;
+                RaisePropertyChanged("FinalAttendance");
+            }
+        }
+
         // Дисциплины группы
         List<MyModelLibrary.GroupDisciplines> _GroupDisciplines;
         public List<MyModelLibrary.GroupDisciplines> GroupDisciplines
@@ -42,9 +57,16 @@ namespace MyClient.ViewModel.Student.Diary
 
                 // Если выбрали семестр и дисциплину, то прогрузи занятия и оценки
                 if (value != null && SelectedSemestr != null)
-                    lessons = new StudentLogic().GetAttendancesFromJournal(MyAcc, value).OrderBy(i => i.DateLesson).ThenBy(i => i.LessonNumber).ToList();
+                {
+                    lessons = studentlogic.GetAttendancesFromJournal(MyAcc, value).OrderBy(i => i.DateLesson).ThenBy(i => i.LessonNumber).ToList();
+                    FinalAttendance = studentlogic.GetFinalAttendance(MyAcc, value);
+                }                    
                 else if (value == null)
+                {
                     lessons = null;
+                    FinalAttendance = null;
+                }
+                    
 
                 RaisePropertyChanged("SelectedDiscipline");
             }

@@ -15,11 +15,23 @@ namespace MyClient.MyService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MyService.ITransferService")]
     public interface ITransferService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetFinalAttendance", ReplyAction="http://tempuri.org/ITransferService/GetFinalAttendanceResponse")]
+        MyModelLibrary.FinalAttendances GetFinalAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetFinalAttendance", ReplyAction="http://tempuri.org/ITransferService/GetFinalAttendanceResponse")]
+        System.Threading.Tasks.Task<MyModelLibrary.FinalAttendances> GetFinalAttendanceAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetStudentsDiscipline", ReplyAction="http://tempuri.org/ITransferService/GetStudentsDisciplineResponse")]
         System.Collections.Generic.List<MyModelLibrary.GroupDisciplines> GetStudentsDiscipline(MyModelLibrary.accounts MyAcc, System.Nullable<int> semestr);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetStudentsDiscipline", ReplyAction="http://tempuri.org/ITransferService/GetStudentsDisciplineResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.GroupDisciplines>> GetStudentsDisciplineAsync(MyModelLibrary.accounts MyAcc, System.Nullable<int> semestr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/SetFinalAttendance", ReplyAction="http://tempuri.org/ITransferService/SetFinalAttendanceResponse")]
+        bool SetFinalAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.FinalAttendances FinalAttendance);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/SetFinalAttendance", ReplyAction="http://tempuri.org/ITransferService/SetFinalAttendanceResponse")]
+        System.Threading.Tasks.Task<bool> SetFinalAttendanceAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.FinalAttendances FinalAttendance);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITransferService/GetFinalAttendances", ReplyAction="http://tempuri.org/ITransferService/GetFinalAttendancesResponse")]
         System.Collections.Generic.List<MyModelLibrary.FinalAttendances> GetFinalAttendances(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines GroupDiscipline);
@@ -247,12 +259,28 @@ namespace MyClient.MyService {
                 base(binding, remoteAddress) {
         }
         
+        public MyModelLibrary.FinalAttendances GetFinalAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline) {
+            return base.Channel.GetFinalAttendance(MyAcc, discipline);
+        }
+        
+        public System.Threading.Tasks.Task<MyModelLibrary.FinalAttendances> GetFinalAttendanceAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline) {
+            return base.Channel.GetFinalAttendanceAsync(MyAcc, discipline);
+        }
+        
         public System.Collections.Generic.List<MyModelLibrary.GroupDisciplines> GetStudentsDiscipline(MyModelLibrary.accounts MyAcc, System.Nullable<int> semestr) {
             return base.Channel.GetStudentsDiscipline(MyAcc, semestr);
         }
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<MyModelLibrary.GroupDisciplines>> GetStudentsDisciplineAsync(MyModelLibrary.accounts MyAcc, System.Nullable<int> semestr) {
             return base.Channel.GetStudentsDisciplineAsync(MyAcc, semestr);
+        }
+        
+        public bool SetFinalAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.FinalAttendances FinalAttendance) {
+            return base.Channel.SetFinalAttendance(MyAcc, FinalAttendance);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetFinalAttendanceAsync(MyModelLibrary.accounts MyAcc, MyModelLibrary.FinalAttendances FinalAttendance) {
+            return base.Channel.SetFinalAttendanceAsync(MyAcc, FinalAttendance);
         }
         
         public System.Collections.Generic.List<MyModelLibrary.FinalAttendances> GetFinalAttendances(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines GroupDiscipline) {

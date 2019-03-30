@@ -21,9 +21,9 @@
                 <Label Width="160" Content="Преподаватель: " FontSize="20"/>
                 <Label Margin="5,0" Content="{Binding SelectedDiscipline.TeacherFio}"  FontSize="20"/>
             </StackPanel>
-            <StackPanel Background="#fafafa" Height="610">
+            <StackPanel Background="#fafafa" Height="610" Orientation="Horizontal">
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <ListView HorizontalAlignment="Left" Width="930" ItemsSource="{Binding lessons}" Height="610">
+                    <ListView HorizontalAlignment="Left" Width="850" ItemsSource="{Binding lessons}" Height="610">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel />
@@ -41,6 +41,11 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </ScrollViewer>
+                <StackPanel ScrollViewer.HorizontalScrollBarVisibility="Visible" Orientation="Vertical">
+                    <Label FontSize="16" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Height="65" Width="80" Content="Итог"/>
+                    <Separator/>
+                    <Label FontSize="16" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Height="40" Width="80" Content="{Binding FinalAttendance.Mark}"/>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </Grid>

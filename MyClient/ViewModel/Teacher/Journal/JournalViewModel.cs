@@ -32,6 +32,54 @@ namespace MyClient.ViewModel.Teacher.Journal
             }
         }
 
+        // Итоговая оценка
+        private MyModelLibrary.FinalAttendances _SelectFinalAttendance;
+        public MyModelLibrary.FinalAttendances SelectFinalAttendance
+        {
+            get => _SelectFinalAttendance;
+            set
+            {
+                _SelectFinalAttendance = value;
+
+                // Если выбрали значение, то открой окно выстановления итоговой оценки
+                if (value != null)
+                {
+                    // Сформировать список всех выставленных оценок и передать средне арифметическое значение
+                    int sum = 0; // Сумма всех оценок (По которым будет вычислять среднее арифметическое)
+                    int marks = 0; // Количество нормальных оценок, по которым будет вычитываться среднее арифметическое число
+                    int n_marks = 0; // Количество Н-ок
+                    double avg; // Среднее арифметическое число
+
+                    // Перебираем весь список занятий
+                    foreach (var item in lessons)
+                    {
+                        // Получаем оценку
+                        var mark = item.Attendance.FirstOrDefault(i => i.StudentId == value.idStudent);
+                        int number;
+
+                        // Если преобразование успешно, то добавь итем в список оценок
+                        if (int.TryParse(mark.Mark, out number))
+                        {
+                            marks++; // Инкрементируем количество оценок
+                            sum += number; // Сумма оценок
+                        }
+                        // Иначе, в список 
+                        else
+                            n_marks++; // Инкрементируем количество Н-ок
+                    }
+
+                    avg = (double)sum / marks; // Получаем среднее арифметическое число
+
+                    // После того, как все свойства сформированы, открой окно с выставлением финальных оценок
+                    if (value != null)
+                        if (new View.Teacher.Journal.FinalAttendanceWindow(MyAcc, value, avg, marks, n_marks).ShowDialog() == true)
+                            FinalAttendances = new ProgramLogic.ServiceLogic.TeacherLogic().GetFinalAttendances(MyAcc, SelectedGroup); // Получаем список итоговых оценок
+                }
+
+                RaisePropertyChanged("SelectFinalAttendance");
+            }
+        }
+
         // Выбранная оценка
         private MyModelLibrary.Attendance _select;
         public MyModelLibrary.Attendance select

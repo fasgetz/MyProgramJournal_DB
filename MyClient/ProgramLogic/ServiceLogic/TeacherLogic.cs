@@ -15,6 +15,27 @@ namespace MyClient.ProgramLogic.ServiceLogic
     class TeacherLogic : CommonLogic
     {
 
+        // Метод выставления итоговой оценки
+        // Метод выставления итоговой отметки (С проверкой статуса администратора)
+        public bool SetFinalAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.FinalAttendances FinalAttendance)
+        {
+            try
+            {
+                using (client = new MyService.TransferServiceClient())
+                    return client.SetFinalAttendance(MyAcc, FinalAttendance);
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+
+            return false; // Возвращаем false, если неудачно
+        }
+
         // Метод, который задает оценку (С проверкой статуса)
         public bool SetAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.Attendance Attendance)
         {

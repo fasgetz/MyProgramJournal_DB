@@ -20,6 +20,30 @@ namespace WCF_Service.ServiceLogic
 
         #region Методы студента
 
+        // Метод получения итоговой оценки за семестр        
+        public MyModelLibrary.FinalAttendances GetFinalAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines discipline)
+        {
+            // Проверяем статус аккаунта. Если он студент, то найди и выдай ему итоговую оценку
+            if (HelpersForTransferService.CheckStatus(MyAcc, 1) == true)
+            {
+                using (MyDB db = new MyDB())
+                {
+                    var mark = db.FinalAttendances.FirstOrDefault(i => i.idTeacherActivities == discipline.idTeacherActivities
+                        && i.idStudent == MyAcc.idAccount);
+
+                    // Если оценка найдена, то преобразуй в DTO и верни пользователю, который послал запрос
+                    if (mark != null)
+                    {
+                        // Возвращаем DTO объект
+                        return new MyModelLibrary.FinalAttendances(mark.idFinalAttendance, mark.idTeacherActivities, mark.idStudent, mark.Mark);
+                    }
+                }
+            }
+
+            // Возвращаем null, если ничего не найдено
+            return null;
+        }
+
         // Метод, который прогружает список дисциплин студента в семестре
         public List<MyModelLibrary.GroupDisciplines> GetStudentsDiscipline(MyModelLibrary.accounts MyAcc, int? semestr)
         {
@@ -42,6 +66,39 @@ namespace WCF_Service.ServiceLogic
         #endregion
 
         #region Методы Администратора и преподавателя
+
+        // Метод выставления итоговой отметки (С проверкой статуса администратора)
+        public bool SetFinalAttendance(MyModelLibrary.accounts MyAcc, MyModelLibrary.FinalAttendances FinalAttendance)
+        {
+            // Делаем проверку статуса аккаунта
+            int idAccountStatus = HelpersForTransferService.CheckUserStatus(MyAcc.idAccount);
+
+            // Если аккаунт администратор или преподаватель, то выдай ему то, что он требует по запросу
+            if (idAccountStatus == 2 || idAccountStatus == 3)
+            {
+                try
+                {
+                    // Создаем репозиторий для работы с БД
+                    EFGenericRepository<FinalAttendances> repository = new EFGenericRepository<FinalAttendances>(new MyDB());
+
+                    // Находим оценку по айди, которую необходимо редактировать
+                    var Mark = repository.FindQueryEntity(i => i.idFinalAttendance == FinalAttendance.idFinalAttendance);
+                    Mark.Mark = FinalAttendance.Mark; // Присваиваем оценке новое значение
+                    repository.Edit(Mark); // Редактируем
+
+                    // Добавляем в архив
+                    ArchivesLogic.AddArchive($"Время: {System.DateTime.Now}\nУчитель: {MyAcc.Users.GetFIO}\nВыставил итоговую оценку {FinalAttendance.Mark} студенту {FinalAttendance.idStudent}", 18);
+
+                    return true; // Возвращаем true, т.к. редактирование прошло успешно
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return false; // В случае неудачи
+        }
 
         // Метод, который получает итоговые оценки по дисциплине (С проверкой статуса)
         public List<MyModelLibrary.FinalAttendances> GetFinalAttendances(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines GroupDiscipline)

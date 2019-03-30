@@ -17,7 +17,7 @@ namespace MyClient.ProgramLogic.ServiceLogic
         protected MyService.TransferServiceClient client; // Ссылка на клиент
         protected DialogService MyDialog; // Для работы с диалогами
 
-        #region Общие методы
+        #region Общие методы       
 
         // Метод, который получает итоговые оценки по дисциплине (С проверкой статуса)
         public List<MyModelLibrary.FinalAttendances> GetFinalAttendances(MyModelLibrary.accounts MyAcc, MyModelLibrary.GroupDisciplines GroupDiscipline)

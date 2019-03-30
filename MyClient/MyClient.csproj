@@ -239,6 +239,9 @@
     <Compile Include="View\Teacher\Journal\AttendanceWindow.xaml.cs">
       <DependentUpon>AttendanceWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Teacher\Journal\FinalAttendanceWindow.xaml.cs">
+      <DependentUpon>FinalAttendanceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Teacher\Journal\GroupsPage.xaml.cs">
       <DependentUpon>GroupsPage.xaml</DependentUpon>
     </Compile>
@@ -364,6 +367,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Teacher\Journal\AttendanceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Teacher\Journal\FinalAttendanceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -516,9 +523,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\MyService\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
@@ -546,6 +550,9 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyService\item.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\MyService\configuration91.svcinfo" />

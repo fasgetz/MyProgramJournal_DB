@@ -16,11 +16,23 @@
       <xsd:import schemaLocation="http://localhost:9001/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ITransferService_GetFinalAttendance_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFinalAttendance" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_GetFinalAttendance_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFinalAttendanceResponse" />
+  </wsdl:message>
   <wsdl:message name="ITransferService_GetStudentsDiscipline_InputMessage">
     <wsdl:part name="parameters" element="tns:GetStudentsDiscipline" />
   </wsdl:message>
   <wsdl:message name="ITransferService_GetStudentsDiscipline_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStudentsDisciplineResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_SetFinalAttendance_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetFinalAttendance" />
+  </wsdl:message>
+  <wsdl:message name="ITransferService_SetFinalAttendance_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetFinalAttendanceResponse" />
   </wsdl:message>
   <wsdl:message name="ITransferService_GetFinalAttendances_InputMessage">
     <wsdl:part name="parameters" element="tns:GetFinalAttendances" />
@@ -221,9 +233,17 @@
     <wsdl:part name="parameters" element="tns:GetAccountResponse" />
   </wsdl:message>
   <wsdl:portType name="ITransferService">
+    <wsdl:operation name="GetFinalAttendance">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetFinalAttendance" message="tns:ITransferService_GetFinalAttendance_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetFinalAttendanceResponse" message="tns:ITransferService_GetFinalAttendance_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetStudentsDiscipline">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetStudentsDiscipline" message="tns:ITransferService_GetStudentsDiscipline_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/GetStudentsDisciplineResponse" message="tns:ITransferService_GetStudentsDiscipline_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetFinalAttendance">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/SetFinalAttendance" message="tns:ITransferService_SetFinalAttendance_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransferService/SetFinalAttendanceResponse" message="tns:ITransferService_SetFinalAttendance_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetFinalAttendances">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransferService/GetFinalAttendances" message="tns:ITransferService_GetFinalAttendances_InputMessage" />
@@ -361,8 +381,26 @@
   <wsdl:binding name="NetTcpBinding_ITransferService" type="tns:ITransferService">
     <wsp:PolicyReference URI="#NetTcpBinding_ITransferService_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetFinalAttendance">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/GetFinalAttendance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetStudentsDiscipline">
       <soap12:operation soapAction="http://tempuri.org/ITransferService/GetStudentsDiscipline" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetFinalAttendance">
+      <soap12:operation soapAction="http://tempuri.org/ITransferService/SetFinalAttendance" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

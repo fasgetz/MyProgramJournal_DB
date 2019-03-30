@@ -89,10 +89,15 @@
                         <StackPanel Width="80" Orientation="Vertical">
                             <Label Height="65" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center" Content="Итог"/>
                             <Separator Margin="10,0,10,2"/>
-                            <ListView Width="50" ItemsSource="{Binding FinalAttendances}">
+                            <ListView SelectedValue="{Binding SelectFinalAttendance}" Width="65" ItemsSource="{Binding FinalAttendances}">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListBoxItem}">
+                                        <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Label FontSize="12" Width="32" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Mark}"/>
+                                        <Label FontSize="12" Width="50" Height="42" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Mark}"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
