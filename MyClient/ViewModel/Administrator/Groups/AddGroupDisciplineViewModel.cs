@@ -22,6 +22,27 @@ namespace MyClient.ViewModel.Administrator.Groups
 
         #region Команды
 
+        // Открытие страницы посещаемости группы
+        public ICommand OpenSuccessfulGroup
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    // Инициализируем VM, если она не инициализирована
+                    if (locator.SuccessfulVM == null)
+                        locator.SuccessfulVM = new SuccessfulViewModel();
+
+                    // Передаем в следующий контекст аккаунт
+                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+
+                    // Перейди в Page просмотря профиля
+                    navigation.Navigate("View/Administrator/Groups/SuccessfulPage.xaml");
+                });
+            }
+        }
+
+        // Команда добавление дисциплины группе
         public ICommand AddGroupDiscipline
         {
             get

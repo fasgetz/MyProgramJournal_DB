@@ -29,10 +29,9 @@
         <Label Content="Выберите дисциплину" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="196"/>
         <Label Content="Выберите преподавателя" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Width="196"/>
         <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,191,0,0" HorizontalAlignment="Left" Height="444" VerticalAlignment="Top" Width="994" ItemsSource="{Binding GroupDisciplines}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
-
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Показать успеваемость (On development stage)" />
+                    <MenuItem Header="Показать успеваемость" Command="{Binding OpenSuccessfulGroup}" />
                     <MenuItem Header="Удалить дисциплину у группы (off)" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
@@ -40,7 +39,6 @@
                 <DataGridTextColumn Header="Преподаватель" Width="400" Binding="{Binding TeacherFio}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
                 <DataGridTextColumn Header="Дисциплина" Width="585" Binding="{Binding DiscipName}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
             </DataGrid.Columns>
-
         </DataGrid>
         <Button Content="Добавить дисциплину группе" Command="{Binding AddGroupDiscipline}" FontSize="20" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="994" Height="34"/>
         <ComboBox md:HintAssist.Hint="Выберите дисциплину из списка" SelectedValue="{Binding SelectedDiscipline}" FontSize="16" HorizontalContentAlignment="Center" MaxDropDownHeight="300" DisplayMemberPath="NameDiscipline" ItemsSource="{Binding NotAddedDisciplines}" HorizontalAlignment="Left" Margin="224,85,0,0" VerticalAlignment="Top" Width="780" Height="31"/>
@@ -48,6 +46,5 @@
         <Label Content="Выберите семестр" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Width="196"/>
         <ComboBox md:HintAssist.Hint="Выберите семестр из списка" SelectedValue="{Binding SelectedSemestr}" ItemsSource="{Binding Semester}" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="224,54,0,0" VerticalAlignment="Top" Width="780" Height="31"/>
         <Button Content="Вернуться назад" Command="{Binding OpenGroups}" FontSize="20" HorizontalAlignment="Left" Margin="10,640,0,0" VerticalAlignment="Top" Width="994" Height="33"/>
-
     </Grid>
 </Page>

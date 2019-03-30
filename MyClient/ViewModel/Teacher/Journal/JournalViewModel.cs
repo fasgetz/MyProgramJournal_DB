@@ -42,7 +42,7 @@ namespace MyClient.ViewModel.Teacher.Journal
                 _SelectFinalAttendance = value;
 
                 // Если выбрали значение, то открой окно выстановления итоговой оценки
-                if (value != null)
+                if (value != null && lessons != null)
                 {
                     // Сформировать список всех выставленных оценок и передать средне арифметическое значение
                     int sum = 0; // Сумма всех оценок (По которым будет вычислять среднее арифметическое)
