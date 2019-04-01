@@ -28,7 +28,7 @@
         <Label Content="{Binding MyGroupName}" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1014" Height="43"/>
         <Label Content="Выберите дисциплину" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="196"/>
         <Label Content="Выберите преподавателя" FontSize="16" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Width="196"/>
-        <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,191,0,0" HorizontalAlignment="Left" Height="444" VerticalAlignment="Top" Width="994" ItemsSource="{Binding GroupDisciplines}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid x:Name="MyDataGrid" SelectedValue="{Binding SelectedGroupDiscip}" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="10,191,0,0" HorizontalAlignment="Left" Height="444" VerticalAlignment="Top" Width="994" ItemsSource="{Binding GroupDisciplines}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Показать успеваемость" Command="{Binding OpenSuccessfulGroup}" />

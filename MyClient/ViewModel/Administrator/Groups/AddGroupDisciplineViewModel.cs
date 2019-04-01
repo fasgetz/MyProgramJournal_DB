@@ -20,6 +20,21 @@ namespace MyClient.ViewModel.Administrator.Groups
     public class AddGroupDisciplineViewModel : CreateGroupViewModel
     {
 
+        #region Свойства
+
+        private MyModelLibrary.GroupDisciplines _SelectedGroupDiscip;
+        public MyModelLibrary.GroupDisciplines SelectedGroupDiscip
+        {
+            get => _SelectedGroupDiscip;
+            set
+            {
+                _SelectedGroupDiscip = value;
+                RaisePropertyChanged("SelectedGroupDiscip");
+            }
+        }
+
+        #endregion
+
         #region Команды
 
         // Открытие страницы посещаемости группы
@@ -29,15 +44,22 @@ namespace MyClient.ViewModel.Administrator.Groups
             {
                 return new RelayCommand(() =>
                 {
-                    // Инициализируем VM, если она не инициализирована
-                    if (locator.SuccessfulVM == null)
-                        locator.SuccessfulVM = new SuccessfulViewModel();
+                    // Если выбрали деятельность учителя, то перейди на страницу статистики по этой деятельности
+                    if (SelectedGroupDiscip != null)
+                    {
+                        // Инициализируем VM, если она не инициализирована
+                        if (locator.SuccessfulVM == null)
+                            locator.SuccessfulVM = new SuccessfulViewModel();
 
-                    // Передаем в следующий контекст аккаунт
-                    Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+                        SelectedGroupDiscip.GroupName = SelectedGroup.GroupName;
 
-                    // Перейди в Page просмотря профиля
-                    navigation.Navigate("View/Administrator/Groups/SuccessfulPage.xaml");
+                        // Передаем в следующий контекст аккаунт и 
+                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт
+                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.GroupDisciplines>(SelectedGroupDiscip)); // Отправляем в следующий DataContext деятельность учителя
+
+                        // Перейди в Page просмотря профиля
+                        navigation.Navigate("View/Administrator/Groups/SuccessfulPage.xaml");
+                    }
                 });
             }
         }

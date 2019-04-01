@@ -29,16 +29,18 @@ namespace MyModelLibrary
             this.Mark = Mark;
         }
 
-        public FinalAttendances(int idFinalAttendance, int idTeacherArivities, int idStudent, int? Mark, int NumberJournal)
+        public FinalAttendances(int idFinalAttendance, int idTeacherArivities, int idStudent, int? Mark, int NumberJournal, string fio)
             :this(idFinalAttendance, idTeacherArivities, idStudent, Mark)
         {
             this.numberjournal = NumberJournal;
+            this.fio = fio;
         }
 
 
         #region
 
         public int numberjournal { get; set; } // Для сортировки по номеру журнала
+        public string fio { get; set; } // Для ФИО студента
 
         public int idFinalAttendance { get; set; }
         public int idTeacherActivities { get; set; }

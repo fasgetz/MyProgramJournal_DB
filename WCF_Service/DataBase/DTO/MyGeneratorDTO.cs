@@ -53,7 +53,8 @@ namespace WCF_Service.DataBase.DTO
                 foreach (var item in notdtolist)
                 {
                     list.Add(new MyModelLibrary.FinalAttendances(item.idFinalAttendance, item.idTeacherActivities, item.idStudent, item.Mark,
-                                            Convert.ToInt16(students.FirstOrDefault(i => i.IdStudent == item.idStudent).NumberInJournal)));
+                                            Convert.ToInt16(students.FirstOrDefault(i => i.IdStudent == item.idStudent).NumberInJournal),
+                                            students.FirstOrDefault(i => i.IdStudent == item.idStudent).Users.GetFIO));
 
                 }
 

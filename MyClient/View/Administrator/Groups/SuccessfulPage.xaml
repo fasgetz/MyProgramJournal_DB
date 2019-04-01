@@ -22,30 +22,35 @@
 
     <Grid>
         <StackPanel>
-            <Label Content="Успеваемость группы ПКС-304" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,5,10,0" VerticalAlignment="Top" Width="1014" Height="43"/>
-            <Label Content="Дисциплина: программирование в компьютерных системах" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,10,0" VerticalAlignment="Top" Width="1014" Height="43"/>
-            <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" HorizontalAlignment="Left" Height="380"  ItemsSource="{Binding GroupDisciplines}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Показать успеваемость (On development stage)" />
-                        <MenuItem Header="Удалить дисциплину у группы (off)" />
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
+            <Label Content="{Binding SelectedGroupDiscip.GroupName}" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,5,10,0" VerticalAlignment="Top" Width="1014" Height="35"/>
+            <Label Content="{Binding title}" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,10,0" VerticalAlignment="Top" Width="1014" Height="35"/>
+            <DataGrid x:Name="MyDataGrid" HorizontalScrollBarVisibility="Auto" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" HorizontalAlignment="Left" Height="380"  ItemsSource="{Binding FinalAttendances}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="№" Width="100" Binding="{Binding TeacherFio}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                    <DataGridTextColumn Header="Ф.И.О" Width="700" Binding="{Binding DiscipName}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                    <DataGridTextColumn Header="Оценка" Width="200" Binding="{Binding DiscipName}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                    <DataGridTextColumn Header="№" Width="100" Binding="{Binding numberjournal}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                    <DataGridTextColumn Header="Ф.И.О" Width="700" Binding="{Binding fio}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
+                    <DataGridTextColumn Header="Оценка" Width="223" Binding="{Binding Mark}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Label Content="Статистика" FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="1014" Height="43"/>
-            <DataGrid x:Name="MyDataGrid_Copy" HorizontalScrollBarVisibility="Auto" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" HorizontalAlignment="Left" Height="165"  ItemsSource="{Binding GroupDisciplines}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Успевают на" Width="300" Binding="{Binding TeacherFio}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                    <DataGridTextColumn Header="Количество" Width="400" Binding="{Binding DiscipName}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                    <DataGridTextColumn Header="% от числа" Width="300" Binding="{Binding DiscipName}" HeaderStyle="{StaticResource CenterGridHeaderStyle}" ElementStyle="{StaticResource DGC_NumericColumnStyle}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-
+            <Label Content="{Binding text}" FontSize="20" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="1014" Height="43"/>
+            <StackPanel Margin="10,0,10,0" Height="140">
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="150" HorizontalContentAlignment="Center" FontSize="16" Content="Успевают на 5: "/>
+                    <Label FontSize="16" Content="{Binding Mark5}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="150" HorizontalContentAlignment="Center" FontSize="16" Content="Успевают на 4: "/>
+                    <Label FontSize="16" Content="{Binding Mark4}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="150" HorizontalContentAlignment="Center" FontSize="16" Content="Успевают на 3: "/>
+                    <Label FontSize="16" Content="{Binding Mark3}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="150" HorizontalContentAlignment="Center" FontSize="16" Content="Успевают на 2: "/>
+                    <Label FontSize="16" Content="{Binding Mark2}"/>
+                </StackPanel>
+            </StackPanel>
+            <Button Margin="10,0,10,0" FontSize="20" Height="33" Content="Вернуться назад" Command="{Binding GoBack}"/>
         </StackPanel>
         
         
