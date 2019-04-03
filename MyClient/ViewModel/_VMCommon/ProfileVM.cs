@@ -154,7 +154,7 @@ namespace MyClient.ViewModel._VMCommon
             Gender = MyAcc.Users.GetGender;
             NumberPhone = MyAcc.Users.NumberPhone;
             GetDateOfBirthday = MyAcc.Users.GetDataTimeFormat;
-            profile_name = $"id {MyAcc.idAccount}) Профиль: {MyAcc.Users.Name} {MyAcc.Users.Family} - {MyAcc.Users.UserStatus.StatusUser}";
+            profile_name = $"Профиль: {MyAcc.Users.Name} {MyAcc.Users.Family} - {MyAcc.Users.UserStatus.StatusUser}";
 
             // Если у студента есть группа, то добавь ее к профилю
             if (MyAcc.Users.idUserStatus == 1 && MyAcc.Users.StudentsGroup != null) // Если пользователь == студент и состоит в группе, то добавь название группы к profile_name

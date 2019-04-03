@@ -125,7 +125,9 @@ namespace MyClient.ProgramLogic.ServiceLogic
                         return client.GetNewsList();
                     });
 
-                    return new ObservableCollection<MyModelLibrary.News>(result);
+                    // Если список новостей не пустой
+                    if (result != null)
+                        return new ObservableCollection<MyModelLibrary.News>(result);
                 }
             }
             catch (System.ServiceModel.CommunicationObjectFaultedException)

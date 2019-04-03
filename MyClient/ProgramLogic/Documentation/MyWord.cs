@@ -5,6 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Word = Microsoft.Office.Interop.Word;
+using System.Reflection;
+
 
 namespace MyClient.ProgramLogic.Documentation
 {
@@ -22,8 +25,12 @@ namespace MyClient.ProgramLogic.Documentation
             {
                 await Task.Run(() =>
                 {
+                    Microsoft.Office.Interop.Word.Application winword;
+                    Microsoft.Office.Interop.Word.Document document;
+
                     try
                     {
+
                         // Устанавливаем директорию
                         DirectoryInfo dirInfo = new DirectoryInfo("OrdersDocuments");
 
@@ -32,8 +39,7 @@ namespace MyClient.ProgramLogic.Documentation
                             dirInfo.Create();
 
 
-                        Microsoft.Office.Interop.Word.Application winword =
-                               new Microsoft.Office.Interop.Word.Application();
+                        winword = new Microsoft.Office.Interop.Word.Application();
 
                         winword.Visible = false;
 
@@ -43,8 +49,7 @@ namespace MyClient.ProgramLogic.Documentation
                         object missing = System.Reflection.Missing.Value;
 
                         //Создание нового документа
-                        Microsoft.Office.Interop.Word.Document document =
-                            winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
+                        document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
 
                         // Создаем абзац заголовка.
                         Microsoft.Office.Interop.Word.Paragraph para = document.Paragraphs.Add(ref missing);
@@ -69,7 +74,12 @@ namespace MyClient.ProgramLogic.Documentation
                     catch(Exception ex)
                     {
                         new DialogService().ShowMessage(ex.Message);
-                    }                    
+                    }
+                    finally
+                    {
+                        winword = null;
+                        document = null;
+                    }
                 });
             }
         }
