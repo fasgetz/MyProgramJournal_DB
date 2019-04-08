@@ -1542,6 +1542,7 @@ namespace WCF_Service.ServiceLogic
                 if
                                    (AddAcc.login != null && AddAcc.login != string.Empty
                                    && AddAcc.password != null && AddAcc.password != string.Empty
+                                   && AddAcc.Users != null
                                    && (AddAcc.idStatus == 1 || AddAcc.idStatus == 2)
                                    && AddAcc.Users.Name != null && AddAcc.Users.Name != string.Empty
                                    && AddAcc.Users.Family != null && AddAcc.Users.Family != string.Empty
