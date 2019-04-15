@@ -168,6 +168,13 @@ namespace MyClient.ViewModel._VMCommon
             ViewModelLocator.Cleanup();
         }
 
+
+        private async void AuthorizationAcc(string login, string password)
+        {
+            // Получаем аккаунт
+            MyAcc = await MyAccountLogic.AuthorizationUser(login, password);
+        }
+
         // Команда авторизации пользователя
         public ICommand Authorization
         {
@@ -183,8 +190,8 @@ namespace MyClient.ViewModel._VMCommon
                     // Создаем канал связи между клиентом и сервером
                     MyAccountLogic = new AccountLogic(new System.ServiceModel.InstanceContext(this));
 
-                    // Получаем аккаунт
-                    MyAcc = MyAccountLogic.AuthorizationUser(login, password);
+                    // Авторизация юзера
+                    AuthorizationAcc(login, password);
 
                     // Если учетные данные есть у юзера, то создай сервис для работы с юзерами и проинициаилируй
                     if (MyAcc != null && MyAcc.Users != null)

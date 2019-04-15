@@ -47,7 +47,7 @@
                         <Border BorderBrush="AliceBlue" BorderThickness="10">
                             <StackPanel Height="auto" Width="700" VerticalAlignment="Center">
                                 <TextBlock FontSize="20" HorizontalAlignment="Center" Text="{Binding Path=Title}" />
-                                <TextBlock Margin="5,10,5,5" FontSize="14" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=Content}" />
+                                <TextBlock Width="675" Margin="5,10,5,5" FontSize="14" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=Content}" />
 
                                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

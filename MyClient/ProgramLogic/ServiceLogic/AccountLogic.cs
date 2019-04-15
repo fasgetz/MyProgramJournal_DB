@@ -95,34 +95,33 @@ namespace MyClient.ProgramLogic.ServiceLogic
             }
         }
 
-        public MyModelLibrary.accounts AuthorizationUser(string login, string password) // Метод для авторизации юзера
+        // Метод авторизации пользователя
+        public async Task<MyModelLibrary.accounts> AuthorizationUser(string login, string password) // Метод для авторизации юзера
         {
-
-            // Если хост запущен, то выведи об этом ошибку
-            try
+            var result = await Task<MyModelLibrary.accounts>.Factory.StartNew(() =>
             {
-                if (login != string.Empty && password != string.Empty)
+                try
                 {
-                    MyModelLibrary.accounts MyAcc = AccountProxy.ConnectUser(login, password); // Получаем аккаунт
-                    OpenedWindow(MyAcc); // Открываем окно
-                    return MyAcc;
+                    // Получаем аккаунт
+                    var acc = AccountProxy.ConnectUser(login, password);
+                    OpenedWindow(acc); // Открываем окно
+                    return acc;
                 }
-                else
-                    MyDialog.ShowMessage($"Введите учетные данные!");
-            }
-            catch (EndpointNotFoundException)
-            {
-                MyDialog.ShowMessage("Сервер не запущен!");
-            }
-            catch (FaultException<AccountService.AccountConnectedException> ex)
-            {
-                MyDialog.ShowMessage(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                MyDialog.ShowMessage(ex.Message);
-            }
+                catch (EndpointNotFoundException)
+                {
+                    MyDialog.ShowMessage("Сервер не запущен!");
+                }
+                catch (FaultException<AccountService.AccountConnectedException> ex)
+                {
+                    MyDialog.ShowMessage(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MyDialog.ShowMessage(ex.Message);
+                }
 
+                return null;
+            });                     
 
             return null;
         }
