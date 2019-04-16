@@ -65,8 +65,8 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">
-                                        <Label FontSize="16" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Height="30" Width="70" Content="{Binding DateLesson}"/>
-                                        <Label FontSize="12" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Height="25" Width="70" Content="{Binding GetNumberLesson}"/>
+                                        <Label FontSize="16" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Height="30" Width="80" Content="{Binding DateLesson}"/>
+                                        <Label FontSize="12" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Height="25" Width="80" Content="{Binding GetNumberLesson}"/>
                                         <Separator/>
                                         <ListView SelectedValue="{Binding Path=DataContext.select, Mode=TwoWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" ItemsSource="{Binding Attendance}">
                                             <ListBox.ItemContainerStyle>
@@ -76,7 +76,7 @@
                                             </ListBox.ItemContainerStyle>
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Label FontSize="12" Width="70" Height="42" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Mark}"/>
+                                                    <Label FontSize="12" Width="80" Height="42" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Mark}"/>
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>

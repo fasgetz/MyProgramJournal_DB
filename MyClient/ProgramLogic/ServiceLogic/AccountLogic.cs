@@ -1,4 +1,5 @@
-﻿using MyClient.AccountService;
+﻿using GalaSoft.MvvmLight.Messaging;
+using MyClient.AccountService;
 using MyClient.ProgramLogic.DialogServices;
 using MyClient.ViewModel._Navigation;
 using System;
@@ -96,32 +97,27 @@ namespace MyClient.ProgramLogic.ServiceLogic
         }
 
         // Метод авторизации пользователя
-        public async Task<MyModelLibrary.accounts> AuthorizationUser(string login, string password) // Метод для авторизации юзера
+        public MyModelLibrary.accounts AuthorizationUser(string login, string password) // Метод для авторизации юзера
         {
-            var result = await Task<MyModelLibrary.accounts>.Factory.StartNew(() =>
+            try
             {
-                try
-                {
-                    // Получаем аккаунт
-                    var acc = AccountProxy.ConnectUser(login, password);
-                    OpenedWindow(acc); // Открываем окно
-                    return acc;
-                }
-                catch (EndpointNotFoundException)
-                {
-                    MyDialog.ShowMessage("Сервер не запущен!");
-                }
-                catch (FaultException<AccountService.AccountConnectedException> ex)
-                {
-                    MyDialog.ShowMessage(ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    MyDialog.ShowMessage(ex.Message);
-                }
-
-                return null;
-            });                     
+                // Получаем аккаунт
+                var acc = AccountProxy.ConnectUser(login, password);
+                OpenedWindow(acc); // Открываем окно
+                return acc;
+            }
+            catch (EndpointNotFoundException)
+            {
+                MyDialog.ShowMessage("Сервер не запущен!");
+            }
+            catch (FaultException<AccountService.AccountConnectedException> ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MyDialog.ShowMessage(ex.Message);
+            }
 
             return null;
         }

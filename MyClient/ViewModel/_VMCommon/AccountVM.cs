@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -168,13 +167,6 @@ namespace MyClient.ViewModel._VMCommon
             ViewModelLocator.Cleanup();
         }
 
-
-        private async void AuthorizationAcc(string login, string password)
-        {
-            // Получаем аккаунт
-            MyAcc = await MyAccountLogic.AuthorizationUser(login, password);
-        }
-
         // Команда авторизации пользователя
         public ICommand Authorization
         {
@@ -190,14 +182,19 @@ namespace MyClient.ViewModel._VMCommon
                     // Создаем канал связи между клиентом и сервером
                     MyAccountLogic = new AccountLogic(new System.ServiceModel.InstanceContext(this));
 
-                    // Авторизация юзера
-                    AuthorizationAcc(login, password);
 
-                    // Если учетные данные есть у юзера, то создай сервис для работы с юзерами и проинициаилируй
-                    if (MyAcc != null && MyAcc.Users != null)
+
+                    Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Normal, (System.Threading.ThreadStart)delegate ()
                     {
-                        Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт                            
-                    }
+                        // Получаем аккаунт
+                        MyAcc = MyAccountLogic.AuthorizationUser(login, password);
+
+                        // Если учетные данные есть у юзера, то создай сервис для работы с юзерами и проинициаилируй
+                        if (MyAcc != null && MyAcc.Users != null)
+                        {
+                            Messenger.Default.Send(new GenericMessage<MyModelLibrary.accounts>(MyAcc)); // Отправляем в следующий DataContext аккаунт                            
+                        }
+                    });
                 });
             }
         }

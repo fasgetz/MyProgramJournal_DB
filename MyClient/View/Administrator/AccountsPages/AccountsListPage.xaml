@@ -25,7 +25,6 @@
     <Grid>
         <Grid VerticalAlignment="Top" Height="690">
             <DataGrid x:Name="MyDataGrid" SelectedValue="{Binding SelectedAccount}" HorizontalScrollBarVisibility="Auto"  SelectionMode="Single"  AutoGenerateColumns="False" IsReadOnly="True" CanUserDeleteRows="True" CanUserSortColumns="False" Margin="0, 0, 0 ,0" HorizontalAlignment="Left" Height="645" VerticalAlignment="Top" Width="1024" ItemsSource="{Binding AccountsList}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
-
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Удалить (off)"></MenuItem>
